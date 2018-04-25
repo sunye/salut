@@ -1,7 +1,7 @@
 image: maven:latest
 
 variables:
-  MVN_OPTIONS: "-Dhttp.proxyHost=proxy.ensinfo.sciences.univ-nantes.prive -Dhttp.proxyPort=3128"
+  MAVEN_CLI_OPTS: "-Dhttp.proxyHost=proxy.ensinfo.sciences.univ-nantes.prive -Dhttp.proxyPort=3128"
 
 cache:
   paths:
@@ -11,16 +11,16 @@ cache:
 build:
   stage: build
   script:
-    - mvn $MVN_OPTIONS compile
+    - 'mvn $MAVEN_CLI_OPTS compile'
 
 test:
   stage: test
   script:
-    - mvn $MVN_OPTIONS test
+    - 'mvn $MAVEN_CLI_OPTS test'
 
 deploy:
   stage: deploy
   script:
-    - mvn $MVN_OPTIONS deploy
+    - 'mvn $MAVEN_CLI_OPTS deploy'
   only:
     - master
