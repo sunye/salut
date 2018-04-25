@@ -4,6 +4,6 @@ import org.atlanmod.salut.io.ByteArrayBuffer;
 
 import java.text.ParseException;
 
-public interface RecordParser<T extends Record> {
+public interface RecordParser<T extends AbstractRecord> {
     T parse(NameArray name, ByteArrayBuffer buffer) throws ParseException;
 }

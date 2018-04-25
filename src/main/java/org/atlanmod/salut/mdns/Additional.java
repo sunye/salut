@@ -5,14 +5,14 @@ import org.atlanmod.salut.io.ByteArrayBuffer;
 import java.text.ParseException;
 
 public class Additional {
-    private final Record record;
+    private final AbstractRecord record;
 
-    public Additional(Record record) {
+    public Additional(AbstractRecord record) {
         this.record = record;
     }
 
     public static Additional fromByteBuffer(ByteArrayBuffer buffer) throws ParseException {
-        Record record = Record.fromByteBuffer(buffer);
+        AbstractRecord record = AbstractRecord.fromByteBuffer(buffer);
 
         return new Additional(record);
     }

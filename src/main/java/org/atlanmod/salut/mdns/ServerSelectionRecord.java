@@ -39,7 +39,7 @@ public class ServerSelectionRecord extends NormalRecord {
     @Override
     public String toString() {
         return "SRVRecord{" +
-                "names=" + names +
+                "data=" + names +
                 ", class=" + qclass +
                 ", ttl=" + ttl +
                 ", priority=" + priority +

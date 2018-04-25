@@ -25,12 +25,12 @@ public class ByteArrayBuffer {
     }
 
     /**
-     * The compression scheme allows a domain names in a message to be represented as either:
+     * The compression scheme allows a domain data in a message to be represented as either:
      * - a sequence of labels ending in a zero octet
      * - a pointer
      * - a sequence of labels ending with a pointer
      *
-     * @return
+     * @return a list potentially containing the strings representing a qualified name.
      */
     public List<String> readLabels() throws ParseException {
         //Log.info("Reading label at position: {0}", buffer.position());
@@ -90,7 +90,7 @@ public class ByteArrayBuffer {
     /**
      * Reads a label of a given number of characters, encoded in UTF8.
      *
-     * @param length
+     * @param length the number of characters to be read.
      * @return A String representing the label.
      */
     private String getLabel(int length) {
@@ -107,7 +107,7 @@ public class ByteArrayBuffer {
      * value read from the buffer is promoted up to the next bigger primitive
      * data type.
      *
-     * @return
+     * @return a unsigned short instance.
      */
     public UnsignedShort getUnsignedShort() {
         return UnsignedShort.fromShort(buffer.getShort());

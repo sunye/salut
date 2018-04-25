@@ -23,7 +23,7 @@ public class Question {
     @Override
     public String toString() {
         return "Question{" +
-                "names=" + name +
+                "data=" + name +
                 ", type=" + type +
                 ", qclass=" + qclass +
                 '}';

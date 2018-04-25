@@ -1,4 +1,4 @@
-package org.atlanmod.salut.names;
+package org.atlanmod.salut.data;
 
 import org.atlanmod.salut.mdns.NameArray;
 
@@ -7,18 +7,18 @@ import org.atlanmod.salut.mdns.NameArray;
  * has an IPv4 or IPv6 address record.
  *
  */
-public class InternetHostName extends HostName {
+public class InternetDomainName implements DomainName {
 
     private final NameArray names;
 
-    public InternetHostName(NameArray names) {
+    public InternetDomainName(NameArray names) {
         this.names = names;
     }
 
     @Override
     public String toString() {
-        return "InternetHostName{" +
-                "names=" + names +
+        return "InternetDomainName{" +
+                "data=" + names +
                 '}';
     }
 }

@@ -1,14 +1,12 @@
 package org.atlanmod.salut.cache;
 
 import org.atlanmod.salut.mdns.NameArray;
-import org.atlanmod.salut.names.*;
+import org.atlanmod.salut.data.*;
 import org.junit.jupiter.api.Test;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,18 +19,18 @@ class HostNameTest {
     @Test
     void testCreateLocalHostName() throws ParseException {
         NameArray names = NameArray.fromList("MacBook", "local");
-        HostName localHost = HostName.fromNameArray(names);
-        HostName internetHost = HostName.fromNameArray(NameArray.fromList("www", "macbook", "org"));
+        DomainName localHost = DomainNameBuilder.fromNameArray(names);
+        DomainName internetHost = DomainNameBuilder.fromNameArray(NameArray.fromList("www", "macbook", "org"));
 
-        assertTrue(localHost instanceof LocalHostName);
-        assertTrue(internetHost instanceof InternetHostName);
+        assertTrue(localHost instanceof LocalDomainName);
+        assertTrue(internetHost instanceof InternetDomainName);
         assertNotEquals(localHost, internetHost);
     }
 
     @Test
     void testReverseInet4Address() throws UnknownHostException, ParseException {
         NameArray names = NameArray.fromList("4", "4", "8", "8", "in-addr", "arpa");
-        ReverseInet4Address reverseIp4 = (ReverseInet4Address) HostName.fromNameArray(names);
+        ReverseInet4Address reverseIp4 = (ReverseInet4Address) DomainNameBuilder.fromNameArray(names);
         byte[] ipAddr = new byte[]{8, 8, 4, 4};
         InetAddress expected = InetAddress.getByAddress(ipAddr);
 
@@ -42,7 +40,7 @@ class HostNameTest {
     @Test
     void testReverseInet6Address() throws ParseException, UnknownHostException {
 
-        ReverseInet6Address reverseIp6 = (ReverseInet6Address) HostName.fromNameArray(reverseInet6Name);
+        ReverseInet6Address reverseIp6 = (ReverseInet6Address) DomainNameBuilder.fromNameArray(reverseInet6Name);
         InetAddress expected = InetAddress.getByName("2001:db8::567:89ab");
 
         assertEquals(expected, reverseIp6.address());

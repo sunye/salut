@@ -1,21 +1,21 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.names.HostName;
+import org.atlanmod.salut.data.DomainName;
 
 import java.util.Objects;
 
-public class HostEntry extends CacheEntry {
+public class HostEntry extends AbstractCacheEntry {
 
     private final ReferenceToAddress addresses = new ReferenceToAddress(this);
     private final ReferenceToService service = new ReferenceToService(this);
-    private final HostName name;
+    private final DomainName name;
 
-    protected HostEntry(long timeToLive, HostName name) {
+    protected HostEntry(TimeToLive timeToLive, DomainName name) {
         super(timeToLive);
         this.name = name;
     }
 
-    public HostName name() {
+    public DomainName name() {
         return this.name;
     }
 

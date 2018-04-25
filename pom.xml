@@ -20,6 +20,8 @@
         <javax-annotations.version>3.0.1</javax-annotations.version>
         <assertj.version>3.6.2</assertj.version>
         <mockito.version>2.7.14</mockito.version>
+        <additionalparam>-Xdoclint:none</additionalparam>
+        <findbugs.version>3.0.5</findbugs.version>
     </properties>
 
     <name>Salut</name>
@@ -74,13 +76,89 @@
                     <attach>true</attach>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <doclet>ch.raffael.mddoclet.MarkdownDoclet</doclet>
+                    <docletArtifact>
+                        <groupId>ch.raffael.markdown-doclet</groupId>
+                        <artifactId>markdown-doclet</artifactId>
+                        <version>1.4</version>
+                    </docletArtifact>
+                    <useStandardDocletOptions>true</useStandardDocletOptions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.version}</version>
+            </plugin>
         </plugins>
     </build>
+
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.5</version>
+                <reportSets>
+                    <reportSet>
+                        <id>aggregate</id>
+                        <inherited>false</inherited>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <doclet>ch.raffael.mddoclet.MarkdownDoclet</doclet>
+                    <docletArtifact>
+                        <groupId>ch.raffael.markdown-doclet</groupId>
+                        <artifactId>markdown-doclet</artifactId>
+                        <version>1.4</version>
+                    </docletArtifact>
+                    <useStandardDocletOptions>true</useStandardDocletOptions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.9.0</version>
+                <configuration>
+                    <sourceEncoding>utf-8</sourceEncoding>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>${maven.compiler.target}</targetJdk>
+                    <rulesets>
+                        <ruleset>/rulesets/java/sunsecure.xml</ruleset>
+                        <ruleset>/rulesets/java/naming.xml</ruleset>
+                        <ruleset>/rulesets/java/braces.xml</ruleset>
+                        <ruleset>/rulesets/java/unusedcode.xml</ruleset>
+                    </rulesets>
+                        <analysisCache>true</analysisCache>
+                        <analysisCacheLocation>${project.build.directory}/pmd/pmd.cache</analysisCacheLocation>
+                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.16</version>
+            <version>1.7.25</version>
         </dependency>
 
         <dependency>
@@ -94,12 +172,7 @@
             <artifactId>commons-core</artifactId>
             <version>1.0.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.9.1</version>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
@@ -144,6 +217,13 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.plantuml</groupId>
+            <artifactId>plantuml</artifactId>
+            <version>8059</version>
+        </dependency>
+
     </dependencies>
     
 </project>

@@ -2,11 +2,11 @@ package org.atlanmod.salut.cache;
 
 import java.net.InetAddress;
 
-public abstract class AddressEntry extends CacheEntry {
+public abstract class AddressEntry extends AbstractCacheEntry {
 
     private ReferenceToName names = new ReferenceToName(this);
 
-    public AddressEntry(long timeToLive) {
+    public AddressEntry(TimeToLive timeToLive) {
         super(timeToLive);
     }
 

@@ -2,7 +2,7 @@ package org.atlanmod.salut.cache;
 
 import org.atlanmod.salut.io.UnsignedShort;
 
-class ServiceEntry extends CacheEntry {
+class ServiceEntry extends AbstractCacheEntry {
 
     private UnsignedShort weight;
     private UnsignedShort priority;
@@ -16,11 +16,11 @@ class ServiceEntry extends CacheEntry {
 
  Service type = {transport protocol, application protocol}
 
- Human readable service instance names = "Ed’s Party Mix"
+ Human readable service instance data = "Ed’s Party Mix"
 
  */
 
-    public ServiceEntry(long timeToLive, UnsignedShort weight, UnsignedShort priority, UnsignedShort port) {
+    public ServiceEntry(TimeToLive timeToLive, UnsignedShort weight, UnsignedShort priority, UnsignedShort port) {
         super(timeToLive);
         this.weight = weight;
         this.priority = priority;

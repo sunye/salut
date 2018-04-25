@@ -81,7 +81,7 @@ public class QRFlag {
      * 6-15	Unassigned
      *
      * @see <a href="https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-5">Domain Name System (DNS) Parameters</a>
-     * @return
+     * @return an int value representing the operation code.
      */
     public int opCode() {
         int code = (value & OPERATION_CODE_MASK) >>> 11 ;

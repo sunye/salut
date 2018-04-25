@@ -1,9 +1,9 @@
 package org.atlanmod.salut.builders;
 
 
-import org.atlanmod.salut.names.ApplicationProtocol;
-import org.atlanmod.salut.names.ServiceType;
-import org.atlanmod.salut.names.TransportProtocol;
+import org.atlanmod.salut.data.ApplicationProtocol;
+import org.atlanmod.salut.data.AbstractServiceType;
+import org.atlanmod.salut.data.TransportProtocol;
 import org.atlanmod.salut.sd.Service;
 import org.atlanmod.salut.sd.ServicePublisher;
 
@@ -36,7 +36,7 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
     /**
      *
      */
-    private ServiceType serviceType;
+    private AbstractServiceType serviceType;
 
     /**
      * Unqualified service instance name.
@@ -106,18 +106,18 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
     }
 
     public IPublish http() {
-        this.serviceType = ServiceType.fromApplicationProtocol(ApplicationProtocol.http);
+        this.serviceType = AbstractServiceType.fromApplicationProtocol(ApplicationProtocol.http);
         return this;
     }
 
     public IPublish airplay() {
-        this.serviceType = ServiceType.fromApplicationProtocol(ApplicationProtocol.airplay);
+        this.serviceType = AbstractServiceType.fromApplicationProtocol(ApplicationProtocol.airplay);
         return this;
     }
 
     @Override
     public IPublish application(String str) {
-        this.serviceType = ServiceType.fromString(str);
+        this.serviceType = AbstractServiceType.fromString(str);
         return this;
     }
 

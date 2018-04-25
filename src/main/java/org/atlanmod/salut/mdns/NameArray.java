@@ -28,7 +28,7 @@ public class NameArray {
     @Override
     public String toString() {
         return "NameArray{" +
-                "names=" + names +
+                "data=" + names +
                 '}';
     }
 
@@ -55,15 +55,15 @@ public class NameArray {
     }
 
     /**
-     * The compression scheme allows a domain names in a message to be
+     * The compression scheme allows a domain data in a message to be
      * represented as either:
      * <p>
-     * - a sequence of names ending in a zero octet
+     * - a sequence of data ending in a zero octet
      * - a pointer
-     * - a sequence of names ending with a pointer
+     * - a sequence of data ending with a pointer
      *
-     * @param buffer
-     * @return
+     * @param buffer a byte array buffer containing an encoded qualified name.
+     * @return a new name array instance
      */
     public static NameArray fromByteBuffer(ByteArrayBuffer buffer, int position) throws ParseException {
         buffer.position(position);
@@ -78,7 +78,8 @@ public class NameArray {
     /**
      * For unit testing
      *
-     * @param
+     * @param names one or more strings containing a qualified name.
+     *
      * @return a new name array
      */
     @VisibleForTesting

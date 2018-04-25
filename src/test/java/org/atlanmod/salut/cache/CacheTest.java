@@ -4,7 +4,7 @@ import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.mdns.ARecord;
 import org.atlanmod.salut.mdns.NameArray;
 import org.atlanmod.salut.mdns.QClass;
-import org.atlanmod.salut.names.HostName;
+import org.atlanmod.salut.data.DomainNameBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.net.Inet4Address;
@@ -25,7 +25,7 @@ class CacheTest {
         Cache cache = new Cache();
         cache.cache(record);
 
-        assertTrue(cache.getAddresses(HostName.fromNameArray(names)).contains(address));
+        assertTrue(cache.getAddresses(DomainNameBuilder.fromNameArray(names)).contains(address));
 
     }
 

@@ -20,7 +20,7 @@ public class ServiceBuilderTest {
         /*
         Service service = Service.builder()
                 .type("_html._tcp.local.")
-                .names("apache-someuniqueid")
+                .data("apache-someuniqueid")
                 .port(80)
                 .persistent()
                 .properties(properties)

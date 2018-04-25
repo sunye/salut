@@ -30,7 +30,7 @@ public class ARecord extends NormalRecord {
     @Override
     public String toString() {
         return "ARecord{" +
-                "names=" + names +
+                "data=" + names +
                 ", address=" + address +
                 '}';
     }
@@ -59,7 +59,7 @@ public class ARecord extends NormalRecord {
                 InetAddress address = Inet4Address.getByAddress(addressBytes);
                 return address;
             } catch (UnknownHostException e) {
-                throw new ParseException("UnknownHostException - Parsing error when reading a A Record.", buffer.position());
+                throw new ParseException("UnknownHostException - Parsing error when reading a A AbstractRecord.", buffer.position());
             }
         }
     }

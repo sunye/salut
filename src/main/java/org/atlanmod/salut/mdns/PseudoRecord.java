@@ -23,7 +23,7 @@ import java.text.ParseException;
  +------------+--------------+------------------------------+
  | Field Name | Field Type   | Description                  |
  +------------+--------------+------------------------------+
- | NAME       | domain names  | MUST be 0 (root domain)      |
+ | NAME       | domain data  | MUST be 0 (root domain)      |
  | TYPE       | u_int16_t    | OPT (41)                     |
  | CLASS      | u_int16_t    | requestor's UDP payload size |
  | TTL        | u_int32_t    | extended RCODE and flags     |
@@ -57,7 +57,7 @@ import java.text.ParseException;
  Varies per OPTION-CODE.  MUST be treated as a bit field.
 
  */
-public class PseudoRecord extends Record {
+public class PseudoRecord extends AbstractRecord {
 
     private UnsignedShort   payload;
     private UnsignedByte    extendedRCode;

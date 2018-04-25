@@ -27,17 +27,17 @@ public class Header {
     private final UnsignedShort questionRecordCount;
 
     /**
-     * Answer Record Count: Specifies the number of resource records in the Answer section of the message.
+     * Answer AbstractRecord Count: Specifies the number of resource records in the Answer section of the message.
      */
     private final UnsignedShort answerRecordCount;
 
     /**
-     * Authority Record Count: Specifies the number of resource records in the Authority section of the message.
+     * Authority AbstractRecord Count: Specifies the number of resource records in the Authority section of the message.
      */
     private final UnsignedShort authorityRecordCount;
 
     /**
-     * Additional Record Count: Specifies the number of resource records in the Additional section of the message.
+     * Additional AbstractRecord Count: Specifies the number of resource records in the Additional section of the message.
      */
     private final UnsignedShort additionalRecordCount;
 
@@ -79,10 +79,14 @@ public class Header {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Header header = (Header) o;
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        Header header = (Header) other;
         return Objects.equals(id, header.id) &&
                 Objects.equals(flags, header.flags) &&
                 Objects.equals(questionRecordCount, header.questionRecordCount) &&
@@ -130,7 +134,7 @@ public class Header {
     /**
      * The number of additional records.
      *
-     * @return
+     * @return the count of additional records.
      */
     public int additionalRecordCount() {
         return additionalRecordCount.toInt();
@@ -143,7 +147,7 @@ public class Header {
     /**
      * Writes the contents of this header to a byte array buffer.
      *
-     * @param buffer
+     * @param buffer a byte array buffer where the header will be written.
      */
     public void writeOn(ByteArrayBuffer buffer) {
         buffer.putUnsignedShord(id);
@@ -158,7 +162,7 @@ public class Header {
      * Creates a new header from a byte array buffer.
      *
      * @param buffer
-     * @return
+     * @return a new Header instance
      */
     public static Header fromByteBuffer(ByteArrayBuffer buffer) {
         UnsignedShort id            = buffer.getUnsignedShort();

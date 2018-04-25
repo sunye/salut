@@ -6,17 +6,17 @@ import org.atlanmod.salut.io.UnsignedInt;
 import java.text.ParseException;
 
 /**
- * Domain names pointer record.
- * PTR records enable service discovery by mapping the type of the service to a list of names of specific
+ * Domain data pointer record.
+ * PTR records enable service discovery by mapping the type of the service to a list of data of specific
  * instances of that type of service.
  *
  */
 public class PointerRecord extends NormalRecord {
 
     /*
-    The record contains just one piece of information, the names of the service instance
-    (which is the same as the names of the SRV record).
-    PTR records are accordingly named just like SRV records but without the instance names:
+    The record contains just one piece of information, the data of the service instance
+    (which is the same as the data of the SRV record).
+    PTR records are accordingly named just like SRV records but without the instance data:
     <Service Type>.<Domain>
 
     Here is an example of a PTR record for a print spooler named PrintsAlot:
@@ -28,7 +28,7 @@ public class PointerRecord extends NormalRecord {
 
 
     /**
-     * The names of the service instance.
+     * The data of the service instance.
      */
     private NameArray pointerName;
 
@@ -40,7 +40,7 @@ public class PointerRecord extends NormalRecord {
     @Override
     public String toString() {
         return "PTRRecord{" +
-                "names=" + names +
+                "data=" + names +
                 ", class=" + qclass +
                 ", ttl="+ttl +
                 ", pointerName=" + pointerName +

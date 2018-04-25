@@ -1,4 +1,4 @@
-package org.atlanmod.salut.names;
+package org.atlanmod.salut.data;
 
 import java.util.Objects;
 
@@ -6,11 +6,11 @@ import java.util.Objects;
  * Host name of the form: "single-dns-label.local.".
  *
  */
-public class LocalHostName extends HostName {
+public class LocalDomainName implements DomainName {
     private final String name;
 
 
-    public LocalHostName(String name) {
+    public LocalDomainName(String name) {
         this.name = name;
     }
 
@@ -20,10 +20,14 @@ public class LocalHostName extends HostName {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LocalHostName that = (LocalHostName) o;
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        LocalDomainName that = (LocalDomainName) other;
         return Objects.equals(name, that.name);
     }
 

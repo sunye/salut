@@ -1,22 +1,23 @@
 package org.atlanmod.salut.mdns;
 
+import org.atlanmod.salut.cache.TimeToLive;
 import org.atlanmod.salut.io.ByteArrayBuffer;
 import org.atlanmod.salut.io.UnsignedInt;
 
 import java.text.ParseException;
 
-public class NormalRecord extends Record {
+public class NormalRecord extends AbstractRecord {
 
     protected final QClass qclass;
-    protected final UnsignedInt ttl;
+    protected final TimeToLive ttl;
 
     NormalRecord(NameArray name, QClass qclass, UnsignedInt ttl) {
         super(name);
         this.qclass = qclass;
-        this.ttl = ttl;
+        this.ttl = TimeToLive.fromSeconds(ttl);
     }
 
-    public UnsignedInt ttl() {
+    public TimeToLive ttl() {
         return this.ttl;
     }
 
@@ -27,7 +28,7 @@ public class NormalRecord extends Record {
     @Override
     public String toString() {
         return "{" +
-                "names=" + names +
+                "data=" + names +
                 ", qclass=" + qclass +
                 ", ttl=" + ttl +
                 '}';

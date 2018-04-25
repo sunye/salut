@@ -9,7 +9,7 @@ import java.text.ParseException;
  *
  *
  */
-public class NullRecord extends Record {
+public class NullRecord extends AbstractRecord {
 
 
     public NullRecord(NameArray name) {
@@ -19,7 +19,7 @@ public class NullRecord extends Record {
     @Override
     public String toString() {
         return "NullRecord{" +
-                "names=" + names +
+                "data=" + names +
                 '}';
     }
 

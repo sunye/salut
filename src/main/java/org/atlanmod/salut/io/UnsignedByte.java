@@ -23,8 +23,8 @@ public class UnsignedByte {
     }
 
     /**
-     * A names length is valid if it is greater than 0 and lower than 64,
-     * the maximum accepted length for a names.
+     * A data length is valid if it is greater than 0 and lower than 64,
+     * the maximum accepted length for a data.
      *
      * @return true if it is a valid length.
      */
@@ -34,7 +34,7 @@ public class UnsignedByte {
 
     /**
      * A pointer is an unsigned 16-bit value with the top two bits of 11 indicate the pointer format
-     * @return
+     * @return true if it is a pointer.
      */
     public boolean isPointer() {
         return (value & 0xC0) == 0xC0;

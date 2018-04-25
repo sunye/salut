@@ -1,4 +1,4 @@
-package org.atlanmod.salut.names;
+package org.atlanmod.salut.data;
 
 import java.util.Map;
 
@@ -74,7 +74,7 @@ public enum ApplicationProtocol {
 
 
     private String label;
-    private final static Map<String, ApplicationProtocol> map = stream(ApplicationProtocol.values())
+    private final static Map<String, ApplicationProtocol> MAP = stream(ApplicationProtocol.values())
             .collect(toMap(each -> each.label, each -> each));
 
     ApplicationProtocol(String label) {
@@ -83,6 +83,6 @@ public enum ApplicationProtocol {
 
 
     public static ApplicationProtocol fromString(String label) {
-        return map.getOrDefault(label, ApplicationProtocol.unknown);
+        return MAP.getOrDefault(label, ApplicationProtocol.unknown);
     }
 }

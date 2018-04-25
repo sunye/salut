@@ -57,11 +57,11 @@ public class QualifiedName {
             domain = removeSeparators(casePreservedType.substring(index));
             application = "";
         } else {
-            // First remove the names if it there.
+            // First remove the data if it there.
             if (!aType.startsWith("_") || aType.startsWith("_services")) {
                 index = aType.indexOf("._");
                 if (index > 0) {
-                    // We need to preserve the case for the user readable names.
+                    // We need to preserve the case for the user readable data.
                     name = casePreservedType.substring(0, index);
                     if (index + 1 < aType.length()) {
                         aType = aType.substring(index + 1);

@@ -19,7 +19,7 @@ public class UnsignedShort {
     /**
      * Translates unsigned short to short (may result in a negative value).
      *
-     * @return
+     * @return a short value.
      */
     public short toShort() {
         return (short) value;

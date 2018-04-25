@@ -1,15 +1,15 @@
-package org.atlanmod.salut.names;
+package org.atlanmod.salut.data;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
-public abstract class ServiceType {
+public abstract class AbstractServiceType {
 
-    public static ServiceType fromApplicationProtocol(ApplicationProtocol protocol) {
+    public static AbstractServiceType fromApplicationProtocol(ApplicationProtocol protocol) {
         return new KnownServiceType(protocol);
     }
 
-    public static ServiceType fromString(@Nonnull String str) {
+    public static AbstractServiceType fromString(@Nonnull String str) {
         ApplicationProtocol application = ApplicationProtocol.fromString(str);
         if (application == ApplicationProtocol.unknown) {
             return new UnknownServiceType(str);
@@ -19,7 +19,7 @@ public abstract class ServiceType {
     }
 }
 
-class UnknownServiceType extends ServiceType {
+class UnknownServiceType extends AbstractServiceType {
 
     /**
      * The name of the unknown application protocol.
@@ -31,10 +31,14 @@ class UnknownServiceType extends ServiceType {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UnknownServiceType that = (UnknownServiceType) o;
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        UnknownServiceType that = (UnknownServiceType) other;
         return Objects.equals(name, that.name);
     }
 
@@ -49,7 +53,7 @@ class UnknownServiceType extends ServiceType {
     }
 }
 
-class KnownServiceType extends ServiceType {
+class KnownServiceType extends AbstractServiceType {
     /**
      * Application protocol.
      * <p>
@@ -62,10 +66,14 @@ class KnownServiceType extends ServiceType {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        KnownServiceType that = (KnownServiceType) o;
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+        KnownServiceType that = (KnownServiceType) other;
         return application == that.application;
     }
 

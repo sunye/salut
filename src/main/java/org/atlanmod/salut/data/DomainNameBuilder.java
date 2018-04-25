@@ -1,4 +1,4 @@
-package org.atlanmod.salut.names;
+package org.atlanmod.salut.data;
 
 import fr.inria.atlanmod.commons.log.Log;
 import org.atlanmod.salut.mdns.NameArray;
@@ -9,29 +9,26 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 
-public abstract class HostName {
-
-    public final static String LOCAL_STR = "local";
-    public static final String ARPA = "arpa";
+public abstract class DomainNameBuilder {
 
     /**
-     * Creates a HostName instance after parsing a NameArray.
+     * Creates a DomainNameBuilder instance after parsing a NameArray.
      * <p>
-     * The HostName may either be a local host names, e.g. "appletv.local" or an internet
-     * host names, e.g. "names.domain.com".
+     * The DomainNameBuilder may either be a local host data, e.g. "appletv.local" or an internet
+     * host data, e.g. "data.domain.com".
      *
-     * @param names a NameArray containing the strings that form a domain names.
-     * @return
+     * @param names a NameArray containing the strings that form a domain data.
+     * @return a new sub-instance of DomainNameBuilder.
      */
-    public static HostName fromNameArray(NameArray names) throws ParseException {
-        if (names.size() == 2 && LOCAL_STR.equals(names.lastName())) {
-            return new LocalHostName(names.get(0));
-        } else if (names.size() == 6 && ARPA.equals(names.lastName()) && "in-addr".equals(names.get(names.size() - 2))) {
+    public static DomainName fromNameArray(NameArray names) throws ParseException {
+        if (names.size() == 2 && DomainName.LOCAL_STR.equals(names.lastName())) {
+            return new LocalDomainName(names.get(0));
+        } else if (names.size() == 6 && DomainName.ARPA.equals(names.lastName()) && "in-addr".equals(names.get(names.size() - 2))) {
             return parseInet4Address(names);
-        } else if (names.size() == 34 && ARPA.equals(names.lastName()) && "ip6".equals(names.get(names.size() - 2))) {
+        } else if (names.size() == 34 && DomainName.ARPA.equals(names.lastName()) && "ip6".equals(names.get(names.size() - 2))) {
             return parseInet6Address(names);
         } else {
-            return new InternetHostName(names);
+            return new InternetDomainName(names);
         }
     }
 

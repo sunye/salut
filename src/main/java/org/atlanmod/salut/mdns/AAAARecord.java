@@ -21,7 +21,7 @@ public class AAAARecord extends NormalRecord {
     public String toString() {
         return "AAAARecord{" +
                 "address=" + address +
-                ", names=" + names +
+                ", data=" + names +
                 '}';
     }
 
@@ -47,7 +47,7 @@ public class AAAARecord extends NormalRecord {
                 InetAddress address = Inet6Address.getByAddress(addressBytes);
                 return address;
             } catch (UnknownHostException e) {
-                throw new ParseException("UnknownHostException - Parsing error when reading a AAAA Record.", buffer.position());
+                throw new ParseException("UnknownHostException - Parsing error when reading a AAAA AbstractRecord.", buffer.position());
             }
         }
 

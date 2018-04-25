@@ -21,7 +21,7 @@ public enum RecordType {
     A(      1, "a"),
 
     /**
-     * Authoritative names server
+     * Authoritative data server
      */
     NS(     2, "ns"),
 
@@ -36,7 +36,7 @@ public enum RecordType {
     MF(     4, "mf"),
 
     /**
-     * Canonical names for an alias
+     * Canonical data for an alias
      */
     CNAME(  5, "cname"),
 
@@ -46,7 +46,7 @@ public enum RecordType {
     SOA(    6, "soa"),
 
     /**
-     * Mailbox domain names
+     * Mailbox domain data
      */
     MB(     7, "mb"),
 
@@ -71,7 +71,7 @@ public enum RecordType {
     WKS(    11, "wks"),
 
     /**
-     * Domain names pointer
+     * Domain data pointer
      */
     PTR(    12, "ptr"),
 
@@ -211,8 +211,8 @@ public enum RecordType {
     A6(     38, "a6"),
 
     /**
-     * 	Alias for a names and all its subnames, unlike CNAME, which is an alias for only the exact names.
-     * 	Like a CNAME record, the DNS lookup will continue by retrying the lookup with the new names.
+     * 	Alias for a data and all its subnames, unlike CNAME, which is an alias for only the exact data.
+     * 	Like a CNAME record, the DNS lookup will continue by retrying the lookup with the new data.
      */
     DNAME(  39, "dname"),
 
@@ -343,11 +343,11 @@ public enum RecordType {
                 '}';
     }
 
-    private final static Map<Integer, RecordType> map = stream(RecordType.values())
+    private final static Map<Integer, RecordType> MAP = stream(RecordType.values())
             .collect(toMap(each -> each.code, each -> each));
 
     public static Optional<RecordType> fromCode(int code) {
-        return Optional.ofNullable(map.get(code));
+        return Optional.ofNullable(MAP.get(code));
     }
 
     public static RecordType fromByteBuffer(ByteArrayBuffer buffer) throws ParseException {

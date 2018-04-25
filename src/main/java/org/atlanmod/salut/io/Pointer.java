@@ -9,7 +9,7 @@ public class Pointer extends UnsignedShort {
 
     /**
      * Removes pointer mask from this unsigned short
-     * @return
+     * @return an int value
      */
     public int offset() {
         return value & POINTER_MASK;

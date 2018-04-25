@@ -15,7 +15,7 @@ import java.util.List;
 class PacketParserTest {
 
     /*
-     In addition to compressing the *names* of resource records, names
+     In addition to compressing the *data* of resource records, data
    that appear within the *rdata* of the following rrtypes SHOULD also
    be compressed in all Multicast DNS messages:
 

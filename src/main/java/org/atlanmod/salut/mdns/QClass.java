@@ -74,11 +74,11 @@ public enum QClass {
                 '}';
     }
 
-    private final static Map<Integer, QClass> map = stream(QClass.values())
+    private final static Map<Integer, QClass> MAP = stream(QClass.values())
             .collect(toMap(each -> each.code, each -> each));
 
     public static Optional<QClass> fromCode(int code) {
-        return Optional.ofNullable(map.get(code));
+        return Optional.ofNullable(MAP.get(code));
     }
 
     public static QClass fromByteBuffer(ByteArrayBuffer buffer) throws ParseException {

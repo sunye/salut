@@ -1,8 +1,8 @@
-package org.atlanmod.salut.names;
+package org.atlanmod.salut.data;
 
 import java.net.Inet4Address;
 
-public class ReverseInet4Address extends HostName {
+public class ReverseInet4Address implements DomainName {
 
     private Inet4Address address;
 
