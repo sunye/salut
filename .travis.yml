@@ -1,0 +1,13 @@
+os: linux
+sudo: false
+
+language: java
+jdk: oraclejdk8
+
+install:
+  # Resolve all dependencies
+  - mvn -B -V -q -DskipTests install
+
+script:
+  # Build and test with code coverage (add `verify sonar:sonar` to enable the Sonar analysis)
+  - mvn test
