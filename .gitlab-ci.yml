@@ -1,17 +1,17 @@
 image: maven:latest
 
 variables:
-  MAVEN_OPTS: "-Dhttp.proxyHost=proxy.ensinfo.sciences.univ-nantes.prive -Dhttp.proxyPort=3128"
+  MAVEN_OPTS: "-Dhttp.proxyHost=proxy.ensinfo.sciences.univ-nantes.prive -Dhttp.proxyPort=3128 -Dmaven.repo.local=.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"                                                                                              "
 
 cache:
   paths:
     - .m2/repository/
-    - target/
 
 build:
   stage: build
   script:
-    - 'mvn -e compile'
+    - 'mvn $MAVEN_OPTS -e $MAVEN_CLI_OPTS compile'
 
 test:
   stage: test
