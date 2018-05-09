@@ -11,7 +11,7 @@ cache:
 build:
   stage: build
   script:
-    - 'mvn $MAVEN_OPTS -e $MAVEN_CLI_OPTS compile'
+    - 'mvn -Dhttp.proxyHost=proxy.ensinfo.sciences.univ-nantes.prive -Dhttp.proxyPort=3128 -e $MAVEN_CLI_OPTS compile'
 
 test:
   stage: test
