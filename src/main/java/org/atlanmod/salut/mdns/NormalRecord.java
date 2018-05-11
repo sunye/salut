@@ -6,6 +6,32 @@ import org.atlanmod.salut.io.UnsignedInt;
 
 import java.text.ParseException;
 
+/**
+ *
+ * All RRs have the same top level format shown below:
+ *
+ *                                     1  1  1  1  1  1
+ *       0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
+ *     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ *     |                                               |
+ *     /                                               /
+ *     /                      NAME                     /
+ *     |                                               |
+ *     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ *     |                      TYPE                     |
+ *     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ *     |                     CLASS                     |
+ *     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ *     |                      TTL                      |
+ *     |                                               |
+ *     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ *     |                   RDLENGTH                    |
+ *     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--|
+ *     /                     RDATA                     /
+ *     /                                               /
+ *     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+ *
+ */
 public class NormalRecord extends AbstractRecord {
 
     protected final QClass qclass;

@@ -1,5 +1,7 @@
 package org.atlanmod.salut.data;
 
+import java.util.Objects;
+
 /**
  *
  * From [RFC 6763](https://tools.ietf.org/html/rfc6763):
@@ -41,5 +43,22 @@ public class InstanceName {
 
     public InstanceName(String name) {
         this.name = name;
+    }
+
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        InstanceName that = (InstanceName) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

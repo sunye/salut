@@ -89,6 +89,10 @@ Again, the 28800 is the time-to-live (TTL) value, measured in seconds.
 
     }
 
+    /**
+     * Updates this cache with the values of a PTR record
+     * @param ptr
+     */
     public void cache(PointerRecord ptr) {
         ptr.name();
         ptr.qclass();

@@ -13,9 +13,9 @@ class TimeToLiveTest {
     }
 
     @Test
-    void testeHasExpired() throws InterruptedException {
+    void testHasExpired() throws InterruptedException {
         TimeToLive ttl = TimeToLive.fromSeconds(1);
-        Thread.currentThread().sleep(1000);
+        Thread.currentThread().sleep(1100);
         assertTrue(ttl.hasExpired());
     }
 
