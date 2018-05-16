@@ -36,6 +36,6 @@ public class TimeToLive {
     }
 
     public static TimeToLive fromSeconds(UnsignedInt seconds) {
-        return fromSeconds(seconds.toLong());
+        return fromSeconds(seconds.longValue());
     }
 }

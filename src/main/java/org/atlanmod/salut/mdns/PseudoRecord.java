@@ -98,7 +98,7 @@ public class PseudoRecord extends AbstractRecord {
             UnsignedShort doz = buffer.getUnsignedShort();
             UnsignedShort rdlen = buffer.getUnsignedShort();
 
-            for (int i = 0; i < rdlen.toInt(); i++) {
+            for (int i = 0; i < rdlen.intValue(); i++) {
                 buffer.getUnsignedByte();
             }
 

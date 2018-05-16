@@ -18,7 +18,29 @@ public class ByteArrayBuffer {
         this.buffer = buffer;
     }
 
+    public static ByteArrayBuffer allocate(int capacity) {
+        ByteBuffer wrapped = ByteBuffer.allocate(capacity);
+        return new ByteArrayBuffer(wrapped);
+    }
 
+    public static ByteArrayBuffer wrap(byte[] array) {
+        ByteBuffer wrapped = ByteBuffer.wrap(array, 0, array.length);
+        return new ByteArrayBuffer(wrapped);
+    }
+
+    public static ByteArrayBuffer fromString(String str) {
+        return wrap(toByteArray(str));
+    }
+
+    private static byte[] toByteArray(String s) {
+        int len = s.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+                    + Character.digit(s.charAt(i + 1), 16));
+        }
+        return data;
+    }
 
     public ByteArrayBuffer duplicate() {
         return new ByteArrayBuffer(buffer.duplicate());
@@ -36,12 +58,12 @@ public class ByteArrayBuffer {
         //Log.info("Reading label at position: {0}", buffer.position());
 
         List<String> labels = new ArrayList<>();
-        UnsignedByte lengthOrPointer = this.getUnsignedByte();
+        LabelLength lengthOrPointer = this.getLabelLength();
 
         while (lengthOrPointer.isValidNameLength()) {
-            String label = this.getLabel(lengthOrPointer.toInt());
+            String label = this.getLabel(lengthOrPointer.intValue());
             labels.add(label);
-            lengthOrPointer = this.getUnsignedByte();
+            lengthOrPointer = this.getLabelLength();
         }
         if (lengthOrPointer.isPointer()) {
             Pointer pointer = Pointer.fromBytes(lengthOrPointer, this.getUnsignedByte());
@@ -79,8 +101,8 @@ public class ByteArrayBuffer {
         int bytesRead = 0;
         do {
             UnsignedByte length = this.getUnsignedByte();
-            String label = this.getLabel(length.toInt());
-            bytesRead += length.toInt() + 1;
+            String label = this.getLabel(length.intValue());
+            bytesRead += length.intValue() + 1;
             strings.add(label);
         } while (bytesRead < recordLength);
 
@@ -114,11 +136,15 @@ public class ByteArrayBuffer {
     }
 
     public void putUnsignedShord(UnsignedShort us) {
-        buffer.putShort(us.toShort());
+        buffer.putShort(us.shortValue());
     }
 
     public UnsignedByte getUnsignedByte() {
         return UnsignedByte.fromByte(buffer.get());
+    }
+
+    public LabelLength getLabelLength() {
+        return new LabelLength(this.getUnsignedByte());
     }
 
     public UnsignedByte getUnsignedByte(int position) {
@@ -159,30 +185,5 @@ public class ByteArrayBuffer {
             throw new ParseException("pointer overflow", buffer.position());
         }
         return pointer;
-    }
-
-
-    public static ByteArrayBuffer allocate(int capacity) {
-        ByteBuffer wrapped = ByteBuffer.allocate(capacity);
-        return new ByteArrayBuffer(wrapped);
-    }
-
-    public static ByteArrayBuffer wrap(byte[] array) {
-        ByteBuffer wrapped = ByteBuffer.wrap(array, 0, array.length);
-        return new ByteArrayBuffer(wrapped);
-    }
-
-    public static ByteArrayBuffer fromString(String str) {
-        return wrap(toByteArray(str));
-    }
-
-    private static byte[] toByteArray(String s) {
-        int len = s.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-                    + Character.digit(s.charAt(i+1), 16));
-        }
-        return data;
     }
 }

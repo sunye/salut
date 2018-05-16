@@ -1,21 +1,72 @@
 package org.atlanmod.salut.io;
 
-public class UnsignedByte {
-    private final static int UNSIGNED_BYTE_MASK = 0xFF;
-    private final static int MAX_DOMAIN_NAME_LENGTH = 64;
+import fr.inria.atlanmod.commons.Preconditions;
 
-    private final int value;
+import java.util.Objects;
 
-    private UnsignedByte(int value) {
+/**
+ * The `UnsignedByte` class allows the representation of unsigned 8-bit values.
+ * It wraps a value of the primitive type `short` in an object.
+ * An object of type `UnsignedByte` contains a single field whose type is `short`.
+ */
+public class UnsignedByte extends Number implements Comparable<UnsignedByte> {
+
+    public final static int MIN_VALUE = 0;
+    public final static int MAX_VALUE = 255;
+    public final static int UNSIGNED_BYTE_MASK = 0xFF;
+    protected final short value;
+
+    protected UnsignedByte(short value) {
+        assert value >= 0 && value < 256 : "Invalid unsigned byte value";
+
         this.value = value;
     }
 
-    public int toInt() {
+    public static UnsignedByte fromByte(byte value) {
+        short unsigned = (short) (value & UNSIGNED_BYTE_MASK);
+        return new UnsignedByte(unsigned);
+    }
+
+    public static UnsignedByte fromShort(short value) {
+        Preconditions.checkArgument(value >= MIN_VALUE && value <= MAX_VALUE);
+        short unsigned = (short) (value & UNSIGNED_BYTE_MASK);
+
+        return new UnsignedByte(unsigned);
+    }
+
+    public static UnsignedByte fromInt(int value) {
+        Preconditions.checkArgument(value >= MIN_VALUE && value <= MAX_VALUE);
+        short unsigned = (short) (value & UNSIGNED_BYTE_MASK);
+        return new UnsignedByte(unsigned);
+    }
+
+    @Override
+    public int intValue() {
         return value;
     }
 
-    public boolean isLessThan(int other) {
-        return value < other;
+    @Override
+    public long longValue() {
+        return (long) value;
+    }
+
+    @Override
+    public float floatValue() {
+        return (float) value;
+    }
+
+    @Override
+    public double doubleValue() {
+        return (double) value;
+    }
+
+    /**
+     * Compares two unsigned bytes numerically.
+     * @param other
+     * @return
+     */
+    public boolean isLessThan(UnsignedByte other) {
+        return value < other.value;
     }
 
     public boolean isZero() {
@@ -23,41 +74,63 @@ public class UnsignedByte {
     }
 
     /**
-     * A data length is valid if it is greater than 0 and lower than 64,
-     * the maximum accepted length for a data.
+     * Joins two unsigned short values and creates an unsigned short.
+     * This value is the higher part and the parameter is the lower part.
      *
-     * @return true if it is a valid length.
+     * @param lowByte the value to be joined to this one;
+     * @return an unsigned short representing the two joined values.
      */
-    public boolean isValidNameLength() {
-        return value != 0 && value <= MAX_DOMAIN_NAME_LENGTH;
+    public UnsignedShort withLowByte(UnsignedByte lowByte) {
+        return new UnsignedShort((this.value << 8) + (lowByte.value & 0xff));
+    }
+
+
+    /**
+     * Returns a `String` object representing this
+     * `UnsignedByte`'s value. The value is converted to signed
+     * decimal representation and returned as a string.
+     *
+     * @return  a string representation of the value of this object in
+     *          base&nbsp;10.
+     */
+    @Override
+    public String toString() {
+        return String.valueOf(value);
     }
 
     /**
-     * A pointer is an unsigned 16-bit value with the top two bits of 11 indicate the pointer format
-     * @return true if it is a pointer.
+     * Compares this object to the specified object.
+     * The result is `true` if and only if the argument is not null and is an `UnsignedByte` object that contains
+     * the same `short` value as this object.
+     *
+     * @param obj the object to compare with.
+     *
+     * @return `true` if the objects are the same; `false` otherwise.
      */
-    public boolean isPointer() {
-        return (value & 0xC0) == 0xC0;
-    }
-
-    public boolean isExtended() {
-        return (value & 0x40) == 0x40;
-    }
-
-    public boolean isUnknown() {
-        return (value & 0x80) == 0x80;
-    }
-
-    public UnsignedShort withByte(byte value) {
-        return new UnsignedShort((this.value << 8) + value);
-    }
-
     @Override
-    public String toString() {
-        return "ub" + value;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        UnsignedByte that = (UnsignedByte) obj;
+        return value == that.value;
     }
 
-    public static UnsignedByte fromByte(byte value) {
-        return new UnsignedByte(value & UNSIGNED_BYTE_MASK);
+    /**
+     * Returns a hash code for this `UnsignedByte`.
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
+
+    /**
+     * Compares two `UnsignedByte` objects numerically.
+     * @param other
+     * @return the value 0 if this `UnsignedByte` is equal to the argument `UnsignedByte`; a value less than 0 if this `UnsignedByte` is numerically less than the argument `UnsignedByte`; and a value greater than 0 if this `UnsignedByte` is numerically greater than the argument `UnsignedByte`.
+     */
+    @Override
+    public int compareTo(UnsignedByte other) {
+        return (this.value < other.value ? -1 : (this.value == other.value ? 0 : 1));
     }
 }

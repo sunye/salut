@@ -2,9 +2,13 @@ package org.atlanmod.salut.io;
 
 import java.util.Objects;
 
-public class UnsignedShort {
+/**
+ * The `UnsignedShort` class allows the representation of unsigned 16-bit values.
+ * It wraps a value of the primitive type `int` in an object.
+ * An object of type `UnsignedShort` contains a single field whose type is `int`.
+ */
+public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
     private final static int UNSIGNED_SHORT_MASK = 0xFFFF;
-
 
     protected final int value;
 
@@ -12,16 +16,31 @@ public class UnsignedShort {
         this.value = value;
     }
 
-    public int toInt() {
+    public int intValue() {
         return value;
     }
 
+    @Override
+    public long longValue() {
+        return value;
+    }
+
+    @Override
+    public float floatValue() {
+        return (float) value;
+    }
+
+    @Override
+    public double doubleValue() {
+        return (double) value;
+    }
+
     /**
-     * Translates unsigned short to short (may result in a negative value).
-     *
-     * @return a short value.
+     *  Returns the value of this `UnsignedShort` as a `short`.
+     *  May result in a negative value.
      */
-    public short toShort() {
+    @Override
+    public short shortValue() {
         return (short) value;
     }
 
@@ -46,5 +65,10 @@ public class UnsignedShort {
 
     public static UnsignedShort fromShort(short value) {
         return new UnsignedShort(value & UNSIGNED_SHORT_MASK);
+    }
+
+    @Override
+    public int compareTo(UnsignedShort other) {
+        return (this.value < other.value ? -1 : (this.value == other.value ? 0 : 1));
     }
 }

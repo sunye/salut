@@ -25,7 +25,7 @@ public class Pointer extends UnsignedShort {
      */
     public static Pointer fromBytes(UnsignedByte high, UnsignedByte low) {
 
-        int pointer = (high.toInt() << 8) + low.toInt();
+        int pointer = (high.intValue() << 8) + low.intValue();
         return new Pointer(pointer);
     }
 }

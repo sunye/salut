@@ -101,7 +101,7 @@ public class Header {
     }
 
     public int id() {
-        return id.toInt();
+        return id.intValue();
     }
 
     /**
@@ -110,7 +110,7 @@ public class Header {
      * @return int
      */
     public int questionRecordCount() {
-        return questionRecordCount.toInt();
+        return questionRecordCount.intValue();
     }
 
     /**
@@ -119,7 +119,7 @@ public class Header {
      * @return int
      */
     public int answerRecordCount() {
-        return answerRecordCount.toInt();
+        return answerRecordCount.intValue();
     }
 
     /**
@@ -128,7 +128,7 @@ public class Header {
      * @return int
      */
     public int authorityRecordCount() {
-        return authorityRecordCount.toInt();
+        return authorityRecordCount.intValue();
     }
 
     /**
@@ -137,7 +137,7 @@ public class Header {
      * @return the count of additional records.
      */
     public int additionalRecordCount() {
-        return additionalRecordCount.toInt();
+        return additionalRecordCount.intValue();
     }
 
     public QRFlag flags() {

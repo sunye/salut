@@ -351,7 +351,7 @@ public enum RecordType {
     }
 
     public static RecordType fromByteBuffer(ByteArrayBuffer buffer) throws ParseException {
-        int code = buffer.getUnsignedShort().toInt();
+        int code = buffer.getUnsignedShort().intValue();
         Optional<RecordType> type = fromCode(code);
         if (! type.isPresent()) {
             throw new ParseException("Parsing error when reading Question Type. Unknown code: " + code, buffer.position());

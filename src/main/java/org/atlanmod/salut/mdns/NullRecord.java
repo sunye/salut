@@ -33,7 +33,7 @@ public class NullRecord extends AbstractRecord {
         public NullRecord parse(NameArray name, ByteArrayBuffer buffer) throws ParseException {
             QClass qclass = QClass.fromByteBuffer(buffer);
             UnsignedInt ttl = buffer.getUnsignedInt();
-            int dataLength = buffer.getUnsignedShort().toInt();
+            int dataLength = buffer.getUnsignedShort().intValue();
             for (int i = 0; i < dataLength; i++) {
                 buffer.getUnsignedByte(); // RDATA
             }

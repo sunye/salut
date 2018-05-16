@@ -82,7 +82,7 @@ public enum QClass {
     }
 
     public static QClass fromByteBuffer(ByteArrayBuffer buffer) throws ParseException {
-        int code = buffer.getUnsignedShort().toInt();
+        int code = buffer.getUnsignedShort().intValue();
         code = code & CLASS_MASK;
 
         Optional<QClass> type = fromCode(code);

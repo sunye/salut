@@ -78,7 +78,7 @@ public class NormalRecord extends AbstractRecord {
         protected void parseFixedPart(ByteArrayBuffer buffer) throws ParseException {
             qclass = QClass.fromByteBuffer(buffer);
             ttl = buffer.getUnsignedInt();
-            dataLength = buffer.getUnsignedShort().toInt();
+            dataLength = buffer.getUnsignedShort().intValue();
         }
 
         protected void parseVariablePart(ByteArrayBuffer buffer) throws ParseException {
