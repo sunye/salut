@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="534b2f24-08ef-4c10-9351-4a7fd87e3f20" name="Default" comment="" />
+    <list default="true" id="534b2f24-08ef-4c10-9351-4a7fd87e3f20" name="Default" comment="Another try.">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/TimeToLive.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/TimeToLive.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/ByteArrayBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/ByteArrayBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/Pointer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/Pointer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedByte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedByte.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedInt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedInt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedShort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedShort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/Header.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/Header.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/NormalRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/NormalRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/NullRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/NullRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/PseudoRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/PseudoRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/QClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/QClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/QRFlag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/QRFlag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/RecordType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/RecordType.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,17 +34,72 @@
       </map>
     </option>
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/salut$UnsignedByteTest.ic" NAME="UnsignedByteTest Coverage Results" MODIFIED="1526120474774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.atlanmod.salut.io.*</FILTER>
+    </SUITE>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Cache.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/Cache.java">
+      <file leaf-file-name="UnsignedShort.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedShort.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="497">
-              <caret line="121" column="54" selection-start-line="121" selection-start-column="54" selection-end-line="121" selection-end-column="54" />
+            <state relative-caret-position="697">
+              <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+              <folding>
+                <element signature="e#502#503#0" expanded="true" />
+                <element signature="e#536#537#0" expanded="true" />
+                <element signature="e#565#566#0" expanded="true" />
+                <element signature="e#593#594#0" expanded="true" />
+                <element signature="e#638#639#0" expanded="true" />
+                <element signature="e#662#663#0" expanded="true" />
+                <element signature="e#713#714#0" expanded="true" />
+                <element signature="e#749#750#0" expanded="true" />
+                <element signature="e#798#799#0" expanded="true" />
+                <element signature="e#835#836#0" expanded="true" />
+                <element signature="e#755#756#0" expanded="true" />
+                <element signature="e#791#792#0" expanded="true" />
+                <element signature="e#837#838#0" expanded="true" />
+                <element signature="e#872#873#0" expanded="true" />
+                <element signature="e#1262#1263#0" expanded="true" />
+                <element signature="e#1331#1332#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UnsignedInt.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedInt.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="275">
+              <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+              <folding>
+                <element signature="e#471#472#0" expanded="true" />
+                <element signature="e#505#506#0" expanded="true" />
+                <element signature="e#616#617#0" expanded="true" />
+                <element signature="e#681#682#0" expanded="true" />
+                <element signature="e#724#725#0" expanded="true" />
+                <element signature="e#758#759#0" expanded="true" />
+                <element signature="e#803#804#0" expanded="true" />
+                <element signature="e#831#832#0" expanded="true" />
+                <element signature="e#878#879#0" expanded="true" />
+                <element signature="e#914#915#0" expanded="true" />
+                <element signature="e#963#964#0" expanded="true" />
+                <element signature="e#1000#1001#0" expanded="true" />
+                <element signature="e#1046#1047#0" expanded="true" />
+                <element signature="e#1090#1091#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UnsignedByte.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedByte.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="714">
+              <caret line="133" column="85" lean-forward="true" selection-start-line="133" selection-start-column="8" selection-end-line="133" selection-end-column="85" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3777#3778#0" expanded="true" />
-                <element signature="e#3804#3805#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -36,51 +107,95 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>appa.zeroconf</find>
       <find>a</find>
+      <find>ReverseInet4Address</find>
+      <find>data</find>
     </findStrings>
     <replaceStrings>
       <replace>salut</replace>
+      <replace>name</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GradleLocalSettings">
     <option name="projectSyncType">
       <map>
-        <entry key="$PROJECT_DIR$/../Horda" value="PREVIEW" />
         <entry key="$PROJECT_DIR$/../../courseware/software-construction/Exercices" value="PREVIEW" />
         <entry key="$PROJECT_DIR$/../../github/hola" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../Horda" value="PREVIEW" />
       </map>
     </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/SocketReceiver.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/IncomingPacketWorker.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/SocketSender.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/Myclass.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/zeroconf/Message.java" />
-        <option value="$PROJECT_DIR$/src/main/java/salut/Message.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/Answer.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/Record.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/RecordParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/NameArray.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/RecordType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/PointerRecord.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/NormalRecord.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/QClass.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/builders/ServiceBuilder.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/ApplicationProtocol.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/TransportProtocol.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/ServiceType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/AbstractServiceType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/HostName.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/Header.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/NameArray.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/AbstractRecord.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/Pointer.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/ServiceName.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/LocalHostName.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/InternetHostName.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/AbstractHostName.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/DomainNameBuilder.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/ReverseInet6Address.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/ReverseInet4Address.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/DomainName.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/LocalDomainName.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/InternetDomainName.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/TimeToLive.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/CacheEntry.java" />
+        <option value="$PROJECT_DIR$/src/test/java/org/atlanmod/salut/cache/HostNameTest.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/InstanceName.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/ServiceInstanceName.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/ServiceInstanceName.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/ServiceEntry.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/HostEntry.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/test/java/org/atlanmod/salut/cache/CacheTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/Inet4AddressEntry.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/AddressEntry.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/TimeToLive.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/AbstractCacheEntry.java" />
+        <option value="$PROJECT_DIR$/src/test/java/org/atlanmod/salut/cache/HostEntryTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/Cache.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/NormalRecord.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/PointerRecord.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/QRFlag.java" />
+        <option value="$PROJECT_DIR$/.gitlab-ci.yml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/org/atlanmod/salut/cache/TimeToLiveTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/InstanceName.java" />
+        <option value="$PROJECT_DIR$/src/test/java/org/atlanmod/salut/data/ServiceInstanceNameTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/org/atlanmod/salut/io/UnsignedByteTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/org/atlanmod/salut/io/LabelLengthTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/ByteArrayBuffer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/LabelLength.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedByte.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedShort.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedInt.java" />
       </list>
     </option>
   </component>
@@ -108,15 +223,20 @@
           <item name="Salut" type="9519ce18:MavenProjectsStructure$ProjectNode" />
           <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
         </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="Salut" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
+        </path>
       </expand>
       <select />
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="34" />
-    <option name="y" value="31" />
-    <option name="width" value="1280" />
-    <option name="height" value="814" />
+    <option name="x" value="67" />
+    <option name="y" value="39" />
+    <option name="width" value="1517" />
+    <option name="height" value="1014" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -165,11 +285,15 @@
       </profile-state>
     </entry>
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -210,30 +334,84 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="salut" type="462c0819:PsiDirectoryNode" />
-              <item name="cache" type="462c0819:PsiDirectoryNode" />
+              <item name="io" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="salut" type="b2602c69:ProjectViewProjectNode" />
+              <item name="salut" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="salut" type="b2602c69:ProjectViewProjectNode" />
+              <item name="salut" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="salut" type="b2602c69:ProjectViewProjectNode" />
+              <item name="salut" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="salut" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="salut" type="b2602c69:ProjectViewProjectNode" />
+              <item name="salut" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="salut" type="462c0819:PsiDirectoryNode" />
+              <item name="io" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="salut" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+            </path>
+            <path>
+              <item name="salut" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="JShell Console" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.20344828" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/java/org/atlanmod" />
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="org.atlanmod.salut.io" />
+      <recent name="org.atlanmod.salut.cache" />
+    </key>
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="org.atlanmod.salut.names.DomainName" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.atlanmod.salut.cache" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/org/atlanmod" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -248,7 +426,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.LabelLengthTest">
     <configuration name="ServiceTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
       <module name="salut" />
       <extension name="coverage">
@@ -277,6 +455,98 @@
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="LabelLengthTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="salut" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.atlanmod.salut.io.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="org.atlanmod.salut.io" />
+      <option name="MAIN_CLASS_NAME" value="org.atlanmod.salut.io.LabelLengthTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="TimeToLiveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="salut" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.atlanmod.salut.cache.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="org.atlanmod.salut.cache" />
+      <option name="MAIN_CLASS_NAME" value="org.atlanmod.salut.cache.TimeToLiveTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="UnsignedByteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="salut" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.atlanmod.salut.io.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="org.atlanmod.salut.io" />
+      <option name="MAIN_CLASS_NAME" value="org.atlanmod.salut.io.UnsignedByteTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="UnsignedByteTest.testWithByte" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="salut" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.atlanmod.salut.io.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="org.atlanmod.salut.io" />
+      <option name="MAIN_CLASS_NAME" value="org.atlanmod.salut.io.UnsignedByteTest" />
+      <option name="METHOD_NAME" value="testWithByte" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -329,8 +599,19 @@
       <option name="PROGRAM_PARAMETERS" />
       <predefined_log_file id="idea.log" enabled="true" />
     </configuration>
+    <list>
+      <item itemvalue="Android JUnit.ServiceTest" />
+      <item itemvalue="JUnit.TimeToLiveTest" />
+      <item itemvalue="JUnit.UnsignedByteTest.testWithByte" />
+      <item itemvalue="JUnit.UnsignedByteTest" />
+      <item itemvalue="JUnit.LabelLengthTest" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.LabelLengthTest" />
+        <item itemvalue="JUnit.UnsignedByteTest" />
+        <item itemvalue="JUnit.UnsignedByteTest.testWithByte" />
+        <item itemvalue="JUnit.TimeToLiveTest" />
         <item itemvalue="Android JUnit.ServiceTest" />
       </list>
     </recent_temporary>
@@ -346,401 +627,633 @@
       <option name="presentableId" value="Default" />
       <updated>1524030555948</updated>
     </task>
+    <task id="LOCAL-00001" summary="Simple maven build">
+      <created>1524650958477</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1524650958477</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Removed Maven Option.">
+      <created>1524651126168</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1524651126168</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added university's proxy server to options.">
+      <created>1524651612351</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1524651612351</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Quickfix">
+      <created>1524652120238</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1524652120238</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Quickfix">
+      <created>1524652210965</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1524652210965</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Another try.">
+      <created>1524656216369</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1524656216369</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Another try.">
+      <created>1524656415899</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1524656415899</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Another try.">
+      <created>1525868132797</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1525868132797</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Another try.">
+      <created>1525868186146</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1525868186146</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Another try.">
+      <created>1525868808317</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1525868808317</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ServiceTest - 2018.04.18 at 08h 24m 55s.xml">
-      <configuration name="ServiceTest" configurationId="AndroidJUnit" />
+    <history-entry file="UnsignedByteTest - 2018.05.12 at 12h 07m 38s.xml">
+      <configuration name="UnsignedByteTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ServiceTest - 2018.04.18 at 08h 26m 10s.xml">
-      <configuration name="ServiceTest" configurationId="AndroidJUnit" />
+    <history-entry file="UnsignedByteTest - 2018.05.12 at 12h 09m 00s.xml">
+      <configuration name="UnsignedByteTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UnsignedByteTest - 2018.05.12 at 12h 15m 17s.xml">
+      <configuration name="UnsignedByteTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UnsignedByteTest - 2018.05.12 at 12h 21m 16s.xml">
+      <configuration name="UnsignedByteTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UnsignedByteTest - 2018.05.12 at 13h 30m 42s.xml">
+      <configuration name="UnsignedByteTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LabelLengthTest - 2018.05.12 at 13h 31m 02s.xml">
+      <configuration name="LabelLengthTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LabelLengthTest - 2018.05.12 at 13h 33m 05s.xml">
+      <configuration name="LabelLengthTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UnsignedByteTest - 2018.05.12 at 13h 43m 00s.xml">
+      <configuration name="UnsignedByteTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UnsignedByteTest - 2018.05.12 at 13h 45m 02s.xml">
+      <configuration name="UnsignedByteTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LabelLengthTest - 2018.05.12 at 13h 45m 10s.xml">
+      <configuration name="LabelLengthTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="34" y="31" width="1280" height="814" extended-state="0" />
+    <frame x="67" y="39" width="1517" height="1014" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="bottom" id="FindBugs-IDEA" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="0" weight="0.32956383" />
+      <window_info anchor="right" id="PlantUML" order="0" weight="0.3289977" />
+      <window_info anchor="right" id="Palette" order="5" />
+      <window_info anchor="bottom" id="FindBugs-IDEA" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="1" sideWeight="0.4978166" weight="0.1498305" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="0" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="6" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="11" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="14" />
-      <window_info anchor="bottom" id="Messages" order="6" weight="0.32914925" />
-      <window_info anchor="right" id="Palette&#9;" order="2" />
+      <window_info anchor="bottom" id="Debug" order="12" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="15" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32748538" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="1" />
-      <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="bottom" id="GitLabIntegration" order="0" />
-      <window_info anchor="bottom" id="Run" order="10" weight="0.32914925" />
-      <window_info anchor="bottom" id="Version Control" order="5" show_stripe_button="false" />
-      <window_info anchor="bottom" id="CheckStyle" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.2536349" />
-      <window_info anchor="bottom" id="JProfiler" order="4" />
-      <window_info anchor="bottom" id="Find" order="9" weight="0.32914925" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="2" />
+      <window_info anchor="bottom" id="GitLabIntegration" order="1" />
+      <window_info anchor="bottom" id="Run" order="11" weight="0.24645583" />
+      <window_info anchor="bottom" id="Version Control" order="6" weight="0.32861635" />
+      <window_info anchor="right" id="Coverage" sideWeight="0.5021834" side_tool="true" weight="0.38368335" />
+      <window_info anchor="bottom" id="CheckStyle" order="4" />
+      <window_info anchor="bottom" id="Terminal" order="3" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.2677966" />
+      <window_info anchor="bottom" id="Analysis" order="0" weight="0.32914925" />
+      <window_info anchor="bottom" id="JProfiler" order="5" />
+      <window_info anchor="bottom" id="Find" order="10" weight="0.37865496" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
       <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="13" weight="0.4" />
-      <window_info anchor="right" id="Commander" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="12" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="8" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="7" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="14" weight="0.4" />
+      <window_info anchor="right" id="Commander" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="13" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="9" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="bottom" id="FindBugs-IDEA" order="8" />
+      <window_info id="Designer" order="0" />
+      <window_info anchor="bottom" id="Analysis" order="0" weight="0.32914925" />
+      <window_info anchor="right" id="Palette" order="6" />
+      <window_info anchor="bottom" id="Run" order="11" visible="true" weight="0.24645583" />
+      <window_info id="Image Layers" order="1" />
+      <window_info anchor="right" id="Commander" order="7" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="13" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="8" weight="0.25" />
+      <window_info id="UI Designer" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="3" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="bottom" id="CheckStyle" order="4" />
+      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="9" weight="0.25" />
+      <window_info anchor="bottom" id="JProfiler" order="5" />
+      <window_info anchor="bottom" id="Version Control" order="6" weight="0.32861635" />
+      <window_info active="true" anchor="right" id="Maven Projects" order="2" sideWeight="0.4978166" visible="true" weight="0.1498305" />
+      <window_info anchor="right" id="PlantUML" order="1" weight="0.3289977" />
+      <window_info anchor="bottom" id="Message" order="9" />
+      <window_info anchor="bottom" id="Find" order="10" weight="0.37865496" />
+      <window_info content_ui="combo" id="Project" order="4" weight="0.26817447" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32748538" />
+      <window_info anchor="bottom" id="GitLabIntegration" order="1" />
+      <window_info anchor="bottom" id="TODO" order="15" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="14" weight="0.4" />
+      <window_info anchor="right" id="Coverage" order="0" sideWeight="0.5021834" side_tool="true" weight="0.38368335" />
+      <window_info anchor="bottom" id="Debug" order="12" weight="0.4" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Simple maven build" />
+    <MESSAGE value="Removed Maven Option." />
+    <MESSAGE value="Added university's proxy server to options." />
+    <MESSAGE value="Quickfix" />
+    <MESSAGE value="Another try." />
+    <option name="LAST_COMMIT_MESSAGE" value="Another try." />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/ApplicationProtocol.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="49" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
+        <state relative-caret-position="403">
+          <caret line="76" column="61" selection-start-line="76" selection-start-column="61" selection-end-line="76" selection-end-column="61" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/appa/zeroconf/mdns/HeaderTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/TransportProtocol.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="221">
+          <caret line="18" column="59" selection-start-line="18" selection-start-column="59" selection-end-line="18" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/appa/zeroconf/mdns/NameArrayTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/AbstractServiceType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        <state relative-caret-position="952">
+          <caret line="73" column="12" selection-start-line="73" selection-start-column="12" selection-end-line="73" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/DNSCache.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/SocketReceiver.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/Header.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="20" selection-start-column="20" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/IncomingPacketWorker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="20" selection-start-column="20" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/SocketSender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="26" selection-start-column="26" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/Answer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="14" column="45" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/AddressEntry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/builders/IServiceName.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/builders/IQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/builders/IPublish.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/builders/IPort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/RecordParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+        <state relative-caret-position="2176">
+          <caret line="143" column="21" selection-start-line="143" selection-start-column="21" selection-end-line="143" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/NameArray.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+        <state relative-caret-position="867">
+          <caret line="65" column="21" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/RecordType.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/SocketReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/Record.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="50" column="52" selection-start-line="50" selection-start-column="38" selection-end-line="50" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/Message.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/QClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/NormalRecord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="51" column="37" selection-start-line="51" selection-start-column="37" selection-end-line="51" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/PointerRecord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="53" column="67" selection-start-line="53" selection-start-column="49" selection-end-line="53" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/builders/ServiceBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/DNSEntry.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/Myclass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/PacketParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/QualifiedName.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/Salut.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
+        <state relative-caret-position="26">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/HostEntry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/ServiceName.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-181">
-          <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/names/ServiceType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/appa/zeroconf/ServiceBuilderTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/Pointer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/appa/zeroconf/mdns/HeaderTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/ReverseInet6Address.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/appa/zeroconf/mdns/NameArrayTest.java" />
-    <entry file="file://$PROJECT_DIR$/salut.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="90" selection-start-line="90" selection-end-line="90" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/ServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="20" column="24" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/ServiceBuilderTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/ReverseInet4Address.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/PacketParserTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/LocalDomainName.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+        <state relative-caret-position="136">
+          <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/mdns/NameArrayTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/InternetDomainName.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/cache/HostEntryTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-266">
-          <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+        <state relative-caret-position="153">
+          <caret line="9" column="31" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/cache/HostNameTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/io/ByteArrayBufferTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/mdns/QRFlagTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/mdns/HeaderTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-283">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/names/ServiceNameTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+        <state relative-caret-position="238">
+          <caret line="22" column="72" selection-start-line="22" selection-start-column="72" selection-end-line="22" selection-end-column="72" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/cache/CacheTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+        <state relative-caret-position="255">
+          <caret line="27" column="37" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/Inet4AddressEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/AddressEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="103" selection-start-line="2" selection-start-column="103" selection-end-line="2" selection-end-column="103" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="34">
+            <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="54" />
+          </first_editor>
+          <second_editor>
+            <js_state />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/cache/HostEntryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/AbstractCacheEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/ServiceEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/HostEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/DomainNameBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="50" column="62" lean-forward="true" selection-start-line="50" selection-start-column="62" selection-end-line="50" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/ServiceName.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/PointerRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="33" column="78" selection-start-line="33" selection-start-column="78" selection-end-line="33" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/Cache.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="68" selection-start-line="68" selection-end-line="71" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/DomainName.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/RecordParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/NormalRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="32" column="2" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/Question.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/PacketParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="67" column="45" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/Answer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="14" column="46" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitlab-ci.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/OptionCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/QClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="76" column="49" selection-start-line="76" selection-start-column="49" selection-end-line="76" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/QRFlag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/RecordType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="345" column="53" selection-start-line="345" selection-start-column="53" selection-end-line="345" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/mdns/AbstractRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/TimeToLive.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-197">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/ServiceInstanceName.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="23" column="43" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/data/InstanceName.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="60" column="27" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
+          <folding>
+            <element signature="e#1922#1923#0" expanded="true" />
+            <element signature="e#1948#1949#0" expanded="true" />
+            <element signature="e#2312#2313#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/data/ServiceInstanceNameTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="78" selection-start-line="17" selection-start-column="78" selection-end-line="17" selection-end-column="78" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/cache/Cache.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/fr/inria/atlanmod/commons/commons-core/1.0.1/commons-core-1.0.1-sources.jar!/fr/inria/atlanmod/commons/Preconditions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="121" column="54" selection-start-line="121" selection-start-column="54" selection-end-line="121" selection-end-column="54" />
+        <state relative-caret-position="143">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/cache/TimeToLiveTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="61" column="21" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/PacketParserTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-82">
+          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/ByteArrayBuffer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="66" column="9" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
+          <folding>
+            <element signature="e#4140#4141#0" expanded="true" />
+            <element signature="e#4198#4199#0" expanded="true" />
+            <element signature="e#5066#5067#0" expanded="true" />
+            <element signature="e#5105#5106#0" expanded="true" />
+            <element signature="e#4255#4256#0" expanded="true" />
+            <element signature="e#4321#4322#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/LabelLength.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+          <folding>
+            <element signature="e#226#227#0" expanded="true" />
+            <element signature="e#246#247#0" expanded="true" />
+            <element signature="e#114#115#0" expanded="true" />
+            <element signature="e#137#138#0" expanded="true" />
+            <element signature="e#441#442#0" expanded="true" />
+            <element signature="e#509#510#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#837#838#0" expanded="true" />
+            <element signature="e#1018#1019#0" expanded="true" />
+            <element signature="e#1063#1064#0" expanded="true" />
+            <element signature="e#1244#1245#0" expanded="true" />
+            <element signature="e#1289#1290#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/io/LabelLengthTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3777#3778#0" expanded="true" />
-            <element signature="e#3804#3805#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/atlanmod/salut/io/UnsignedByteTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedShort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+          <folding>
+            <element signature="e#502#503#0" expanded="true" />
+            <element signature="e#536#537#0" expanded="true" />
+            <element signature="e#565#566#0" expanded="true" />
+            <element signature="e#593#594#0" expanded="true" />
+            <element signature="e#638#639#0" expanded="true" />
+            <element signature="e#662#663#0" expanded="true" />
+            <element signature="e#713#714#0" expanded="true" />
+            <element signature="e#749#750#0" expanded="true" />
+            <element signature="e#798#799#0" expanded="true" />
+            <element signature="e#835#836#0" expanded="true" />
+            <element signature="e#755#756#0" expanded="true" />
+            <element signature="e#791#792#0" expanded="true" />
+            <element signature="e#837#838#0" expanded="true" />
+            <element signature="e#872#873#0" expanded="true" />
+            <element signature="e#1262#1263#0" expanded="true" />
+            <element signature="e#1331#1332#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedByte.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="133" column="85" lean-forward="true" selection-start-line="133" selection-start-column="8" selection-end-line="133" selection-end-column="85" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/atlanmod/salut/io/UnsignedInt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+          <folding>
+            <element signature="e#471#472#0" expanded="true" />
+            <element signature="e#505#506#0" expanded="true" />
+            <element signature="e#616#617#0" expanded="true" />
+            <element signature="e#681#682#0" expanded="true" />
+            <element signature="e#724#725#0" expanded="true" />
+            <element signature="e#758#759#0" expanded="true" />
+            <element signature="e#803#804#0" expanded="true" />
+            <element signature="e#831#832#0" expanded="true" />
+            <element signature="e#878#879#0" expanded="true" />
+            <element signature="e#914#915#0" expanded="true" />
+            <element signature="e#963#964#0" expanded="true" />
+            <element signature="e#1000#1001#0" expanded="true" />
+            <element signature="e#1046#1047#0" expanded="true" />
+            <element signature="e#1090#1091#0" expanded="true" />
           </folding>
         </state>
       </provider>
