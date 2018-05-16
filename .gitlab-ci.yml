@@ -18,9 +18,9 @@ test:
   script:
     - 'mvn $MAVEN_OPTS test'
 
-deploy:
-  stage: deploy
-  script:
-    - 'mvn $MAVEN_OPTS deploy'
-  only:
-    - master
+#deploy:
+#  stage: deploy
+#  script:
+#    - 'mvn $MAVEN_OPTS deploy'
+#  only:
+#    - master
