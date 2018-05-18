@@ -78,7 +78,7 @@ public class ServerSelectionRecord extends NormalRecord {
     }
 
     /**
-     * Returns a `String` object representing this `ServerSelectionRecord``.
+     * Returns a `String` object representing this `ServerSelectionRecord`.
      *
      * @return  a string representation of this object.
      */
@@ -107,7 +107,7 @@ public class ServerSelectionRecord extends NormalRecord {
 
         /**
          * Parses the variable part of a SRV Record.
-         * @param buffer
+         * @param buffer a `ByteArrayBuffer` containing the record to parse.
          * @throws ParseException
          */
         @Override
