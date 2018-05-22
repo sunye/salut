@@ -16,15 +16,18 @@ import java.util.stream.Collectors;
 
 /**
  * Caches locally Multicast DNS entries.
+ * The following kinds of entry are accepted:
  *
- * ```java
- * public class Cache {
- *     private int id;
- * }
- * ```
+ *   - {@see ServerSelectionRecord} (SRV)
+ *   - {@see PointerRecord} (PTR)
+ *   - {@see AAAARecord} (AAAARecord)
+ *   - {@see ARecord} (ARecord)
  *
- * --|--
- * Id | TTL | Name
+ *
+ * Each entry has its own Time To Live (TTL) value, which determines the validity of a entry.
+ * When a validity is reached, the entry is no longer valid.
+ * If the entry already exists, its TTL is updated.
+ *
  *
  *
  *  ![UML Diagram describing cache contents](cache.png)
@@ -53,55 +56,30 @@ public class Cache {
     private Map<ApplicationProtocol, ServiceEntry> services = new HashMap<>();
     private Map<InetAddress, AddressEntry> addresses = new HashMap<>();
 
-/*
-
-# SRV AbstractRecord
-Here is an example of the SRV record (in the standard DNS record format) for a print spooler named
-PrintsAlot running on TCP port 515:
-
-PrintsAlot._printer._tcp.local. 120 IN SRV 0 0 515 blackhawk.local.
-
-This record would be created on the Multicast DNS responder of a printer called blackhawk.local. on the local link.
-The initial 120 represents the time-to-live (TTL) value which is used for caching.
-The two zeros are weight and priority values, used in traditional DNS when choosing between multiple records
-that match a given data; for multicast DNS purposes, these values are ignored
-
-# PTR AbstractRecord
-Here is an example of a PTR record for a print spooler named PrintsAlot:
-
-_printer._tcp.local. 28800 PTR PrintsAlot._printer._tcp.local.
-
-Again, the 28800 is the time-to-live (TTL) value, measured in seconds.
-
-    Domain Name x {adress, address, address}
-
-    domain data x ServiceEntry x Port x TTL x
-
+    /**
+     * Updates this `Cache` with a {@see ServerSelectionRecord}.
+     *
+     * @param srv
+     * @throws ParseException
      */
-
     public void cache(ServerSelectionRecord srv) throws ParseException {
         //_printer._tcp.local. 28800 PTR PrintsAlot._printer._tcp.local.
         ServiceInstanceName serviceInstanceName = ServiceInstanceName.fromNameArray(srv.name());
 
         new ServiceEntry(srv.ttl(), srv.weight(), srv.priority(), srv.port());
-
-
-
     }
 
     /**
      * Updates this cache with the values of a PTR record
-     * @param ptr
+     * @param ptr the pointer record
      */
     public void cache(PointerRecord ptr) {
         ptr.name();
         ptr.qclass();
-
-
     }
 
     /**
-     * Updates this cache with the values of a ARecord.
+     * Updates this cache with a {@see ARecord}.
      *
      * @param ip4address
      * @throws ParseException

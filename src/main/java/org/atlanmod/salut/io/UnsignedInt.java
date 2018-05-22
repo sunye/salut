@@ -15,7 +15,7 @@ public class UnsignedInt extends Number implements Comparable<UnsignedInt> {
 
     /**
      * Wraps an `int` value into a `UnsignedInt`.
-     * 
+     *
      *
      * @param value
      * @return

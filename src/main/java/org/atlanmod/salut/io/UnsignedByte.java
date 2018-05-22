@@ -14,6 +14,7 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte> {
     public final static int MIN_VALUE = 0;
     public final static int MAX_VALUE = 255;
     public final static int UNSIGNED_BYTE_MASK = 0xFF;
+
     protected final short value;
 
     protected UnsignedByte(short value) {

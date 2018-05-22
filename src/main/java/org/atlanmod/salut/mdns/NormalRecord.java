@@ -32,7 +32,7 @@ import java.text.ParseException;
  *     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
  *
  */
-public class NormalRecord extends AbstractRecord {
+public abstract class NormalRecord extends AbstractRecord {
 
     protected final QClass qclass;
     protected final TimeToLive ttl;

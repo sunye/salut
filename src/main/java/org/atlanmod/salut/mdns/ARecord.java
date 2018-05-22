@@ -9,6 +9,16 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 
+/**
+ * The `ARecord` class represents DNS IP4 address records (ARecord).
+ *
+ * The DNS ARecord has the following format:
+ *
+ * # ARecord
+ * Server Name| Time to live| QCLASS | IP 4 Address
+ * --|--
+ * &lowbar;printer._tcp.local.  | 28800 | A | 127.16.8.1
+ */
 public class ARecord extends NormalRecord {
 
     private final Inet4Address address;
@@ -27,6 +37,10 @@ public class ARecord extends NormalRecord {
         return this.address;
     }
 
+    /**
+     * Returns a `String` object representing this `ARecord`.
+     * @return  a string representation of this object.
+     */
     @Override
     public String toString() {
         return "ARecord{" +
@@ -42,6 +56,13 @@ public class ARecord extends NormalRecord {
     private static class ARecordParser extends NormalRecordParser<ARecord> {
         private Inet4Address address;
 
+        /**
+         * Parses the variable part of a ARecord.
+         *
+         * @param buffer a byte array buffer containing the record.
+         *
+         * @throws ParseException if the record is not well-formed.
+         */
         @Override
         protected void parseVariablePart(ByteArrayBuffer buffer) throws ParseException {
             address = (Inet4Address) parseInet4Address(buffer);
