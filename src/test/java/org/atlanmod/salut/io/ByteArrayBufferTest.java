@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ByteArrayBufferTest {
 
@@ -24,6 +25,12 @@ class ByteArrayBufferTest {
         assertTrue(labels.contains("mydomain"));
         assertTrue(labels.contains("com"));
     }
+
+    @Test
+    void testReadLabelsException() throws ParseException {
+        //
+    }
+
 
     @Test
     void getUnsignedShort() {
@@ -74,4 +81,12 @@ class ByteArrayBufferTest {
             assertEquals(bytes[i], bb.get());
         }
     }
+
+    @Test
+    void testToString(){
+        byte[] bytes = {5, 6, 7, 8, 9};
+        ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
+        assertEquals("java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]", bb.toString());
+    }
+
 }
