@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ByteArrayBufferTest {
 
@@ -27,8 +26,51 @@ class ByteArrayBufferTest {
     }
 
     @Test
-    void testReadLabelsException() throws ParseException {
-        //
+    void testReadLabelsException()  {
+
+        assertAll(
+            ()->assertThrows(ParseException.class,
+                ()->{
+                    byte[] bytes = {3, 12, 34, 56,
+                            65, 109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110, 64};
+
+                    ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
+                    List<String> labels = bb.readLabels();
+            }),
+            ()->assertThrows(ParseException.class,
+                ()->{
+                    byte[] bytes = {3, 12, 34, 56,
+                            (byte) 128, 109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110,
+                            109, 121, 100, 111, 109, 97, 105, 110, 64};
+
+                    ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
+                    List<String> labels = bb.readLabels();
+                })
+        );
+
+
+
     }
 
 
