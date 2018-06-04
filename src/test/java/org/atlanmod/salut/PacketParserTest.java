@@ -2,6 +2,7 @@ package org.atlanmod.salut;
 
 import fr.inria.atlanmod.commons.log.Log;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -92,6 +93,7 @@ class PacketParserTest {
     }
 
     @Test
+    @Tag("slow")
     void testParseAll() throws IOException {
 
         List<File> files = new LinkedList<>();
@@ -111,7 +113,6 @@ class PacketParserTest {
                 Log.error(e);
                 Log.error("##### - {0}", each.toPath());
             }
-
         }
     }
 
