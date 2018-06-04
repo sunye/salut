@@ -2,6 +2,7 @@ package org.atlanmod.salut.io;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -68,6 +69,20 @@ class UnsignedByteTest {
     }
 
     @ParameterizedTest
+    @ValueSource(ints = {0, 255, 1, 254})
+    void testFromInteger(int value) {
+        UnsignedByte ub = UnsignedByte.fromInt(value);
+        assertThat(ub).isEqualTo(UnsignedByte.fromInt(value));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 255, 1, 254})
+    void testFromShort(int value) {
+        UnsignedByte ub = UnsignedByte.fromShort((short) value);
+        assertThat(ub).isEqualTo(UnsignedByte.fromShort((short) value));
+    }
+
+    @ParameterizedTest
     @ValueSource(ints = {-1, 256, Short.MAX_VALUE, Short.MIN_VALUE})
     void testInvalidFromShort(int value) {
         assertThrows(IllegalArgumentException.class, () -> UnsignedByte.fromShort((short) value));
@@ -77,6 +92,27 @@ class UnsignedByteTest {
     @ValueSource(ints = {-1, 256, Integer.MAX_VALUE, Integer.MIN_VALUE})
     void testInvalidFromInt(int value) {
         assertThrows(IllegalArgumentException.class, () -> UnsignedByte.fromInt(value));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 255, 1, 254})
+    void testLongValue(int value) {
+        UnsignedByte bb = UnsignedByte.fromInt(value);
+        assertEquals((long) Long.valueOf(value) , bb.longValue());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 255, 1, 254})
+    void testDoubleValue(int value) {
+        UnsignedByte bb = UnsignedByte.fromInt(value);
+        assertEquals((double) Double.valueOf(value) , bb.doubleValue());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 255, 1, 254})
+    void testFloatValue(int value) {
+        UnsignedByte bb = UnsignedByte.fromInt(value);
+        assertEquals((float) Float.valueOf(value) , bb.floatValue());
     }
 
 }
