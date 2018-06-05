@@ -115,4 +115,47 @@ class UnsignedByteTest {
         assertEquals((float) Float.valueOf(value) , bb.floatValue());
     }
 
+    @ParameterizedTest
+    @ValueSource( ints = {0, 255, 1, 254})
+    void testToString(int value) {
+        UnsignedByte bb = UnsignedByte.fromInt(value);
+        assertEquals(String.valueOf(value) , bb.toString());
+    }
+
+    @ParameterizedTest
+    @ValueSource( ints = {0, 255, 1, 254})
+    void testEqual(int value) {
+        UnsignedByte bb = UnsignedByte.fromInt(value);
+        UnsignedByte cc = UnsignedByte.fromInt(value);
+        UnsignedByte dd = null;
+        assertAll(
+                ()->assertTrue(bb.equals(cc)),
+                ()->assertTrue(bb.equals(bb)),
+                ()->assertFalse(bb.equals(dd)),
+                ()->assertFalse(bb.equals(value)),
+                ()->assertFalse(bb.equals(UnsignedByte.fromInt(3)))
+        );
+    }
+
+    @Test
+    void testHash() {
+        UnsignedByte bb = UnsignedByte.fromInt(5);
+        UnsignedByte cc = UnsignedByte.fromInt(35);
+
+        assertAll(
+                ()->assertEquals(36, bb.hashCode()),
+                ()->assertEquals(66, cc.hashCode())
+        );
+    }
+
+    @Test
+    void testCompare() {
+        UnsignedByte bb = UnsignedByte.fromInt(5);
+        assertAll(
+            ()->assertEquals(0, bb.compareTo(UnsignedByte.fromInt(5))),
+            ()->assertEquals(-1, bb.compareTo(UnsignedByte.fromInt(10))),
+            ()->assertEquals(1, bb.compareTo(UnsignedByte.fromInt(1)))
+        );
+    }
+
 }
