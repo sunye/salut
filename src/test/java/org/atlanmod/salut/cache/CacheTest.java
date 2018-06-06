@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class CacheTest {
 
     @Test
-    void updateFrom() throws UnknownHostException, ParseException {
+    void testCacheFromInet() throws UnknownHostException, ParseException {
         NameArray names = NameArray.fromList("MacBook", "local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
         ARecord record = ARecord.createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address);
@@ -30,6 +30,21 @@ class CacheTest {
     }
 
     @Test
-    void getAddresses() {
+    void testCacheFromPTR(){
+        //TODO : attente de la completion du code
+    }
+
+    @Test
+    void testCacheFromSSR(){
+        //TODO : attente de la completion du code
+    }
+
+    @Test
+    void testGetAddresses() {
+        //TODO
+    }
+
+    @Test void testGetNames(){
+        //TODO : attente de la completion du code
     }
 }
