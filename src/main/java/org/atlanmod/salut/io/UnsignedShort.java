@@ -46,7 +46,7 @@ public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
 
     @Override
     public String toString() {
-        return "us" + value;
+        return String.valueOf(value);
     }
 
     @Override
