@@ -39,12 +39,13 @@ import java.util.Objects;
  *
  */
 public class InstanceName {
-    private String name;
+    private final String name;
 
     public InstanceName(String name) {
         this.name = name;
     }
 
+    @Override
     public String toString() {
         return name;
     }

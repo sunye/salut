@@ -3,30 +3,30 @@ package org.atlanmod.salut.data;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
-public abstract class AbstractServiceType {
+public class ApplicationProtocolBuilder {
 
-    public static AbstractServiceType fromApplicationProtocol(ApplicationProtocol protocol) {
-        return new KnownServiceType(protocol);
+    public static ApplicationProtocol fromApplicationProtocol(IANAApplicationProtocol protocol) {
+        return new KnownApplicationProtocol(protocol);
     }
 
-    public static AbstractServiceType fromString(@Nonnull String str) {
-        ApplicationProtocol application = ApplicationProtocol.fromString(str);
-        if (application == ApplicationProtocol.unknown) {
-            return new UnknownServiceType(str);
+    public static ApplicationProtocol fromString(@Nonnull String str) {
+        IANAApplicationProtocol application = IANAApplicationProtocol.fromString(str);
+        if (application == IANAApplicationProtocol.unknown) {
+            return new UnknownApplicationProtocol(str);
         } else {
-            return new KnownServiceType(application);
+            return new KnownApplicationProtocol(application);
         }
     }
 }
 
-class UnknownServiceType extends AbstractServiceType {
+class UnknownApplicationProtocol implements ApplicationProtocol {
 
     /**
      * The name of the unknown application protocol.
      */
     private String name;
 
-    public UnknownServiceType(@Nonnull String name) {
+    public UnknownApplicationProtocol(@Nonnull String name) {
         this.name = name;
     }
 
@@ -38,7 +38,7 @@ class UnknownServiceType extends AbstractServiceType {
         if (other == null || getClass() != other.getClass()) {
             return false;
         }
-        UnknownServiceType that = (UnknownServiceType) other;
+        UnknownApplicationProtocol that = (UnknownApplicationProtocol) other;
         return Objects.equals(name, that.name);
     }
 
@@ -53,15 +53,15 @@ class UnknownServiceType extends AbstractServiceType {
     }
 }
 
-class KnownServiceType extends AbstractServiceType {
+class KnownApplicationProtocol implements ApplicationProtocol {
     /**
      * Application protocol.
      * <p>
      * If the protocol is unknown, creates a new one with the name.
      */
-    private ApplicationProtocol application;
+    private IANAApplicationProtocol application;
 
-    public KnownServiceType(ApplicationProtocol application) {
+    public KnownApplicationProtocol(IANAApplicationProtocol application) {
         this.application = application;
     }
 
@@ -73,7 +73,7 @@ class KnownServiceType extends AbstractServiceType {
         if (other == null || getClass() != other.getClass()) {
             return false;
         }
-        KnownServiceType that = (KnownServiceType) other;
+        KnownApplicationProtocol that = (KnownApplicationProtocol) other;
         return application == that.application;
     }
 

@@ -4,8 +4,8 @@ import java.util.Objects;
 
 /**
  * The `UnsignedInt` class allows the representation of unsigned 32-bit values.
- * It wraps a value of the primitive type `long` in an object.
- * An object of type `UnsignedInt` contains a single field whose type is `long`.
+ * It wraps a value of the primitive getType `long` in an object.
+ * An object of getType `UnsignedInt` contains a single field whose getType is `long`.
  */
 public class UnsignedInt extends Number implements Comparable<UnsignedInt> {
     private final static long UNSIGNED_INT_MASK = 0xFFFFFFFFL;

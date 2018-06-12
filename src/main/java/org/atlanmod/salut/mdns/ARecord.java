@@ -1,6 +1,8 @@
 package org.atlanmod.salut.mdns;
 
 import fr.inria.atlanmod.commons.annotation.VisibleForTesting;
+import org.atlanmod.salut.data.DomainName;
+import org.atlanmod.salut.data.DomainNameBuilder;
 import org.atlanmod.salut.io.ByteArrayBuffer;
 import org.atlanmod.salut.io.UnsignedInt;
 
@@ -10,7 +12,7 @@ import java.net.UnknownHostException;
 import java.text.ParseException;
 
 /**
- * The `ARecord` class represents DNS IP4 address records (ARecord).
+ * The `ARecord` class represents DNS IP4 getAddress records (ARecord).
  *
  * The DNS ARecord has the following format:
  *
@@ -22,18 +24,27 @@ import java.text.ParseException;
 public class ARecord extends NormalRecord {
 
     private final Inet4Address address;
+    private final DomainName serverName;
 
-    private ARecord(NameArray name, QClass qclass, UnsignedInt ttl, Inet4Address address) {
+    private ARecord(NameArray name, QClass qclass, UnsignedInt ttl, Inet4Address address, DomainName serverName) {
         super(name, qclass, ttl);
         this.address = address;
+        this.serverName = serverName;
     }
 
     /**
-     * Accessor for field address
+     * @return the server name.
+     */
+    public DomainName getServerName() {
+        return this.serverName;
+    }
+
+    /**
+     * Accessor for field getAddress
      *
      * @return a Inet4Address instance
      */
-    public Inet4Address address() {
+    public Inet4Address getAddress() {
         return this.address;
     }
 
@@ -45,7 +56,7 @@ public class ARecord extends NormalRecord {
     public String toString() {
         return "ARecord{" +
                 "data=" + names +
-                ", address=" + address +
+                ", getAddress=" + address +
                 '}';
     }
 
@@ -55,6 +66,7 @@ public class ARecord extends NormalRecord {
 
     private static class ARecordParser extends NormalRecordParser<ARecord> {
         private Inet4Address address;
+        private DomainName serverName;
 
         /**
          * Parses the variable part of a ARecord.
@@ -66,11 +78,12 @@ public class ARecord extends NormalRecord {
         @Override
         protected void parseVariablePart(ByteArrayBuffer buffer) throws ParseException {
             address = (Inet4Address) parseInet4Address(buffer);
+            serverName = DomainNameBuilder.fromNameArray(name);
         }
 
         @Override
         protected ARecord build() {
-            return new ARecord(name, qclass, ttl, address);
+            return new ARecord(name, qclass, ttl, address, serverName);
         }
 
         private InetAddress parseInet4Address(ByteArrayBuffer buffer) throws ParseException {
@@ -86,7 +99,7 @@ public class ARecord extends NormalRecord {
     }
 
     @VisibleForTesting
-    public static ARecord createRecord(NameArray name, QClass qclass, UnsignedInt ttl, Inet4Address address) {
-        return new ARecord(name, qclass, ttl, address);
+    public static ARecord createRecord(NameArray name, QClass qclass, UnsignedInt ttl, Inet4Address address, DomainName serverName) {
+        return new ARecord(name, qclass, ttl, address, serverName);
     }
 }

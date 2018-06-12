@@ -1,5 +1,7 @@
 package org.atlanmod.salut.mdns;
 
+import fr.inria.atlanmod.commons.log.Log;
+import org.atlanmod.salut.data.*;
 import org.atlanmod.salut.io.ByteArrayBuffer;
 import org.atlanmod.salut.io.UnsignedInt;
 
@@ -19,17 +21,10 @@ import java.text.ParseException;
  * &lowbar;printer._tcp.local.  | 28800 | IN | PTR | PrintsAlot._printer._tcp.local.
  *
  */
-public class PointerRecord extends NormalRecord {
-    /**
-     * A <domain-name> which points to some location in the domain name space.
-     *
-     * The name of the service instance.
-     */
-    private NameArray pointerName;
+public abstract class PointerRecord extends NormalRecord {
 
-    PointerRecord(NameArray name, QClass qclass, UnsignedInt ttl, NameArray pointerName) {
+    PointerRecord(NameArray name, QClass qclass, UnsignedInt ttl) {
         super(name, qclass, ttl);
-        this.pointerName = pointerName;
     }
 
     /**
@@ -41,25 +36,29 @@ public class PointerRecord extends NormalRecord {
         return new PTRRecordParser();
     }
 
-    /**
-     * Returns a `String` object representing this `PointerRecord`.
-     * @return  a string representation of this object.
-     */
-    @Override
-    public String toString() {
-        return "PTRRecord{" +
-                "name=" + names +
-                ", class=" + qclass +
-                ", ttl="+ttl +
-                ", pointerName=" + pointerName +
-                '}';
-    }
+    public abstract ServiceInstanceName getServiceInstanceName();
+    public abstract ServiceName getServiceName();
+    public abstract ServiceType getServiceType();
 
     /**
      * The class `PTRRecordParser` is used to parse the variable part of a DNS PTR record.
      */
     private static class PTRRecordParser extends NormalRecordParser<PointerRecord> {
-        protected NameArray ptrName;
+        private boolean isReverseLookup = false;
+        private boolean isMetaQuery = false;
+        protected  ServiceInstanceName pointerName;
+        protected  ServiceName serverName;
+
+
+        /**
+         *
+         * @return The type of the service that is being declared.
+         */
+        public ServiceName getServerName() {
+            return this.serverName;
+        }
+
+
 
         /**
          * Parses the variable part of a PTR record.
@@ -69,7 +68,22 @@ public class PointerRecord extends NormalRecord {
          */
         @Override
         protected void parseVariablePart(ByteArrayBuffer buffer) throws ParseException {
-            ptrName = NameArray.fromByteBuffer(buffer);
+            NameArray ptrName = NameArray.fromByteBuffer(buffer);
+            Log.info("PTR(pointerName={0}, getServerName={1})", ptrName, name);
+
+            if (DomainName.ARPA.equals(name.lastName())) {
+                // There should be a better way to determine whether the pointer record is a
+                // reverse lookup.
+                Log.warn("Reverse Pointer: {0} ", name);
+                isReverseLookup = true;
+            } else if ("_services".equals(name.firstName())) {
+                Log.warn("Meta Query Pointer: {0} ", name);
+                isMetaQuery = true;
+            }
+            else {
+                pointerName = ServiceInstanceName.fromNameArray(ptrName);
+                serverName   = ServiceName.fromNameArray(name);
+            }
         }
 
         /**
@@ -77,7 +91,14 @@ public class PointerRecord extends NormalRecord {
          */
         @Override
         protected PointerRecord build() {
-            return new PointerRecord(name, qclass, ttl, ptrName);
+            if (isReverseLookup) {
+                return new ReverseLookupPointerRecord(name, qclass, ttl);
+            } else if (isMetaQuery) {
+                return new MetaQueryPointerRecord(name, qclass, ttl);
+            }
+            else {
+                return new NormalPointerRecord(name, qclass, ttl, pointerName, serverName);
+            }
         }
     }
 }

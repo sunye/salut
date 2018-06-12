@@ -19,9 +19,9 @@ public class ServiceBuilderTest {
 
         /*
         Service service = Service.builder()
-                .type("_html._tcp.local.")
+                .getType("_html._tcp.local.")
                 .data("apache-someuniqueid")
-                .port(80)
+                .getPort(80)
                 .persistent()
                 .properties(properties)
                 .build();

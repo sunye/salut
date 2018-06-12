@@ -43,10 +43,17 @@ public abstract class NormalRecord extends AbstractRecord {
         this.ttl = TimeToLive.fromSeconds(ttl);
     }
 
-    public TimeToLive ttl() {
+    /**
+     * @return this object's time to live
+     */
+    public TimeToLive getTtl() {
         return this.ttl;
     }
 
+    /**
+     *
+     * @return The `QClass` of resource records being requested e.g. Internet, CHAOS etc.
+     */
     public QClass qclass() {
         return qclass;
     }
@@ -56,7 +63,7 @@ public abstract class NormalRecord extends AbstractRecord {
         return "{" +
                 "data=" + names +
                 ", qclass=" + qclass +
-                ", ttl=" + ttl +
+                ", getTtl=" + ttl +
                 '}';
     }
 

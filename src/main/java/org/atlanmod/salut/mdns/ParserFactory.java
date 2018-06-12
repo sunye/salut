@@ -25,7 +25,7 @@ public class ParserFactory {
 
     /**
      * Populates the map containing all available parsers.
-     * Each parser is associated to a record type.
+     * Each parser is associated to a record getType.
      * Record types that are not in this map will be ignored.
      */
     private ParserFactory() {

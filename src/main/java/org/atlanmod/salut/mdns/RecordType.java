@@ -106,12 +106,12 @@ public enum RecordType {
     AFSDB(  18,"afsdb"),
 
     /**
-     * X.25 PSDN address
+     * X.25 PSDN getAddress
      */
     X25(    19, "x25"),
 
     /**
-     * ISDN address
+     * ISDN getAddress
      */
     ISDN(   20, "isdn"),
 
@@ -121,14 +121,14 @@ public enum RecordType {
     RT(     21, "rt"),
 
     /**
-     * NSAP address
+     * NSAP getAddress
      *
      * @see <a href="https://tools.ietf.org/html/rfc1706">DNS NSAP Resource Records</a>
      */
     NSAP(   22, "nsap"),
 
     /**
-     * NSAP address pointer
+     * NSAP getAddress pointer
      */
     NSAP_PTR(23, "nsap-ptr"),
 

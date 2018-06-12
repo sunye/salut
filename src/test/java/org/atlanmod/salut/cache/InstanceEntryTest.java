@@ -13,14 +13,15 @@ import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HostEntryTest {
+class InstanceEntryTest {
     private NameArray names = NameArray.fromList("MacBook", "local");
-    private HostEntry entry;
+    private ServiceEntry entry;
 
+    /*
     @BeforeEach
     void setup() throws ParseException {
         DomainName name = DomainNameBuilder.fromNameArray(names);
-        this.entry = new HostEntry(TimeToLive.fromSeconds(0), name);
+        this.entry = new ServiceEntry(TimeToLive.fromSeconds(0), name);
     }
 
 
@@ -48,4 +49,5 @@ class HostEntryTest {
     @Test
     void getService() {
     }
+    */
 }

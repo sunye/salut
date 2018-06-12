@@ -1,45 +1,34 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.io.UnsignedShort;
+import org.atlanmod.salut.data.ServiceName;
 
-class ServiceEntry extends AbstractCacheEntry {
+import java.util.ArrayList;
+import java.util.List;
 
-    private UnsignedShort weight;
-    private UnsignedShort priority;
-    private UnsignedShort port;
-
-    private ReferenceToHost host = new ReferenceToHost(this);
-/*
- Ed’s Party Mix._music._tcp.local. service.
-
- domain = "local"
-
- Service type = {transport protocol, application protocol}
-
- Human readable service instance data = "Ed’s Party Mix"
-
+/**
+ * The `ServiceEntry` class represents Service Types.
+ *
+ * A service type may be provided by different service instances.
  */
+public class ServiceEntry {
+    public final List<Links.ServiceToInstanceLink> instances = new ArrayList<>();
 
-    public ServiceEntry(TimeToLive timeToLive, UnsignedShort weight, UnsignedShort priority, UnsignedShort port) {
-        super(timeToLive);
-        this.weight = weight;
-        this.priority = priority;
-        this.port = port;
+    private final ServiceName name;
+
+    protected ServiceEntry(ServiceName name) {
+        this.name = name;
     }
 
-    public ReferenceToHost getHost() {
-        return host;
+    public ServiceName name() {
+        return this.name;
     }
 
-    static class ReferenceToHost extends ManyToOneReference<ServiceEntry, HostEntry> {
-
-        public ReferenceToHost(ServiceEntry container) {
-            super(container);
-        }
-
-        @Override
-        public OneToManyReference<HostEntry, ServiceEntry> opposite(HostEntry opposite) {
-            return opposite.getService();
-        }
+    @Override
+    public String toString() {
+        return "ServiceEntry{" +
+                ", name=" + name +
+                "instances=" + instances +
+                '}';
     }
+
 }

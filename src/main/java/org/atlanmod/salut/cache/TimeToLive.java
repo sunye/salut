@@ -4,7 +4,6 @@ import org.atlanmod.salut.io.UnsignedInt;
 
 /**
  * The TimeToLive class represents an expiration time.
- *
  */
 public class TimeToLive {
 
@@ -15,16 +14,8 @@ public class TimeToLive {
     }
 
     /**
-     * Checks if this time to live has expired.
-     *
-     * @return True, if this time to live has expired.
-     */
-    public boolean hasExpired() {
-        return System.currentTimeMillis() > this.expireTimeMillis;
-    }
-
-    /**
      * Creates an instance of TimeToLive from a long integer representing seconds.
+     *
      * @param seconds the time to live in seconds
      * @return a TimeToLive instance.
      */
@@ -37,5 +28,19 @@ public class TimeToLive {
 
     public static TimeToLive fromSeconds(UnsignedInt seconds) {
         return fromSeconds(seconds.longValue());
+    }
+
+    @Override
+    public String toString() {
+        return "TTL {expire=" + expireTimeMillis + "}";
+    }
+
+    /**
+     * Checks if this time to live has expired.
+     *
+     * @return True, if this time to live has expired.
+     */
+    public boolean hasExpired() {
+        return System.currentTimeMillis() > this.expireTimeMillis;
     }
 }

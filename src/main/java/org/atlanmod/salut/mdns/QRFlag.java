@@ -39,7 +39,8 @@ public class QRFlag {
                 ", isResponse=" + isResponse() +
                 ", isValid=" + isValid() +
                 ", isTruncated=" + isTruncated() +
-                "value=" + value +
+                ", opCode=" + opCode() +
+                ", value=" + value +
                 '}';
     }
 
