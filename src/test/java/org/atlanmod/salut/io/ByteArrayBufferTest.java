@@ -1,12 +1,18 @@
 package org.atlanmod.salut.io;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.atlanmod.salut.mdns.NameArray;
+import org.atlanmod.salut.mdns.NormalRecord;
 import org.junit.jupiter.api.Test;
 
+import java.nio.BufferUnderflowException;
 import java.text.ParseException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ByteArrayBufferTest {
 
@@ -28,12 +34,17 @@ class ByteArrayBufferTest {
 
     @Test
     void testReadLabelsKO() throws ParseException {
-        //TODO ne fonctionne pas au niveau de l'exception
-        /*assertThrows(ParseException.class, ()-> {
-            byte[] bytes = {120, 125};
-            ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
-            List<String> labels = bb.readLabels();
-        });*/
+        byte[] bytes = {
+                8, 109, 121, 100, 111, 109, 97, 105, 110, 3,
+                8, 109, 121, 100, 111, 109, 97, 105, 110, 3,
+                8, 109, 121, 100, 111, 109, 97, 105, 110, 3,
+                8, 109, 121, 100, 111, 109, 97, 105, 110, 3,
+                8, 109, 121, 100, 111, 109, 97, 105, 110, 3,
+                8, 109, 121, 100, 111, 109, 97, 105, 110, 3,
+                8, 109, 121, 100, 111, 109, 97, 105, 110, 3,
+                8, 109, 121, 100, 111, 109, 97, 105, 110, 3};
+        ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
+        assertThrows(ParseException.class, ()->{bb.readLabels();});
     }
 
     @Test
@@ -102,8 +113,32 @@ class ByteArrayBufferTest {
     }
 
     @Test
-    void testGet() {
-        //todo
+    void getParamExecpetion() {
+        byte[] bytes = {5};
+        byte[] bytes2 = {2, 3};
+        ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
+        assertThrows(BufferUnderflowException.class, ()->{bb.get(bytes2);});
+    }
+
+    @Test
+    void testCheckOffset(){
+        byte[] buffer = { 8, 3, 100, 101, 102, -64, 64, 0 };
+        ByteArrayBuffer bb = ByteArrayBuffer.wrap(buffer);
+        assertThrows(ParseException.class, ()->{NameArray.fromByteBuffer(bb, 1);});
+    }
+
+    @Test
+    void testToSring(){
+        byte[] bytes = {8, 109, 121, 100};
+        ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
+        assertEquals("java.nio.HeapByteBuffer[pos=0 lim=4 cap=4]", bb.toString());
+    }
+
+    @Test
+    void testToSringVide(){
+        byte[] bytes = {};
+        ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
+        assertEquals("java.nio.HeapByteBuffer[pos=0 lim=0 cap=0]", bb.toString());
     }
 
     @Test
@@ -114,4 +149,39 @@ class ByteArrayBufferTest {
             assertEquals(bytes[i], bb.get());
         }
     }
+
+    @Test
+    void testAllocateVide(){
+        byte[] bytes = {};
+        ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
+        assertEquals(bb.toString(), ByteArrayBuffer.allocate(0).toString());
+    }
+
+    @Test
+    void testAllocate(){
+        byte[] bytes = {8,8,8,8,8};
+        ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
+        assertEquals(bb.toString(), ByteArrayBuffer.allocate(5).toString());
+    }
+
+    @Test
+    void testPutUnsignedShort(){
+        byte[] bytes = {5, 6, 7, 8, 9};
+        ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
+        UnsignedShort unsignedShort = new UnsignedShort(2);
+        bb.putUnsignedShord(unsignedShort);
+        assertEquals(7,bb.get());
+
+    }
+
+    @Test
+    void testFromString() throws ParseException {
+        byte[] bytes = {-17, -49, -6, -17};
+        ByteArrayBuffer bbString = ByteArrayBuffer.fromString("mydomain");
+        byte[] bytes2 = bbString.array();
+        for (int i = 0; i<4; i++) {
+            assertEquals(bytes[i], bytes2[i]);
+        }
+    }
+
 }
