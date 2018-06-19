@@ -14,3 +14,11 @@ Changements :
 			- UnsignedShortTest.java
 	Classe Cache : 
 		 - Tests unitaires et tests des TTL
+		
+		
+		NOTE : Lorsque l'implémentation de la suppression du link après expiration du TTL sera en place, les tests en commentaires à la fin des méthodes 
+					- testGetServersForInstanceTTLExpire
+					- testGetServersForAddressTTLExpire
+					- tesGetAddressesForServerTTLExpire
+					- testGetInstancesForServiceTTLExpire
+		Pourront être décommentés pour tester le fonctionnement de cette implémentation.
