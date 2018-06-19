@@ -36,6 +36,17 @@ class CacheTest {
     }
 
     @Test
+    void cacheServerSelectionRecordIsNull() {
+
+        ServerSelectionRecord serverSelectionRecord = mock(ServerSelectionRecord.class);
+        when(serverSelectionRecord.getServiceInstanceName()).thenReturn(null);
+
+        cache.cache(serverSelectionRecord);
+
+        assertTrue(cache.getInstancesForService(null).isEmpty() );
+    }
+
+    @Test
     void testGetInstancesForService() throws ParseException {
         ServiceType type = ServiceType.fromStrings("raop", "tcp");
         ServiceInstanceName instance = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
@@ -107,7 +118,7 @@ class CacheTest {
         List<DomainName> servers = cache.getServersForInstance(instance);
         assertThat(servers).contains(domain);
     }
-	
+
 	@Test
     void testCacheFromInet() throws UnknownHostException, ParseException {
         NameArray names = NameArray.fromList("MacBook", "local");
@@ -207,6 +218,60 @@ class CacheTest {
         List<DomainName> servers = cache.getServersForInstance(instance);
         assertTrue(srv.getTtl().hasExpired());
  //       assertTrue(servers.isEmpty());
+    }
+
+    @Test
+    void cacheGetServersForInstanceIsNull() throws ParseException {
+
+        ServiceInstanceName instance = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
+        DomainName domain = DomainNameBuilder.parseString("Donatelo.local");
+
+
+        ServerSelectionRecord srv = mock(ServerSelectionRecord.class);
+        when(srv.getServerName()).thenReturn(domain);
+        when(srv.getServiceInstanceName()).thenReturn(instance);
+
+
+        cache.cache(srv);
+
+        List<DomainName> servers = cache.getServersForInstance(null);
+        assertTrue(servers.isEmpty());
+        //       assertTrue(servers.isEmpty());
+    }
+
+    @Test
+    void testGetServersForAddressIsNull() throws ParseException, UnknownHostException {
+        DomainName domainName = DomainNameBuilder.parseString("Donatelo.local");
+        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
+
+
+        ARecord ip4address = mock(ARecord.class);
+        when(ip4address.getServerName()).thenReturn(domainName);
+        when(ip4address.getAddress()).thenReturn(address);
+
+
+        cache.cache(ip4address);
+
+        List<DomainName> servers = cache.getServersForAddress(null);
+        assertTrue(servers.isEmpty());
+    }
+
+    @Test
+    void tesGetAddressesForServerIsNull() throws ParseException, UnknownHostException, InterruptedException {
+        DomainName domainName = DomainNameBuilder.parseString("Donatelo.local");
+        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
+
+
+        ARecord ip4address = mock(ARecord.class);
+        when(ip4address.getServerName()).thenReturn(domainName);
+        when(ip4address.getAddress()).thenReturn(address);
+
+
+        cache.cache(ip4address);
+
+        List<InetAddress> addresses = cache.getAddressesForServer(null);
+        assertTrue(addresses.isEmpty());
+
     }
 
 
