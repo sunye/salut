@@ -1,9 +1,12 @@
 package org.atlanmod.salut.cache;
 
+import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.data.DomainName;
 import org.atlanmod.salut.data.DomainNameBuilder;
 import org.atlanmod.salut.data.ServiceInstanceName;
 import org.atlanmod.salut.data.ServiceType;
+import org.atlanmod.salut.mdns.NameArray;
+import org.atlanmod.salut.mdns.QClass;
 import org.atlanmod.salut.mdns.ARecord;
 import org.atlanmod.salut.mdns.PointerRecord;
 import org.atlanmod.salut.mdns.ServerSelectionRecord;
@@ -17,6 +20,8 @@ import java.text.ParseException;
 import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -87,6 +92,38 @@ class CacheTest {
 
         List<DomainName> servers = cache.getServersForInstance(instance);
         assertThat(servers).contains(domain);
+    }
+	
+	@Test
+    void testCacheFromInet() throws UnknownHostException, ParseException {
+        NameArray names = NameArray.fromList("MacBook", "local");
+        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
+        ARecord record = ARecord.createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address);
+
+        Cache cache = new Cache();
+        cache.cache(record);
+
+        assertTrue(cache.getAddresses(DomainNameBuilder.fromNameArray(names)).contains(address));
+
+    }
+
+    @Test
+    void testCacheFromPTR(){
+        //TODO : attente de la completion du code
+    }
+
+    @Test
+    void testCacheFromSSR(){
+        //TODO : attente de la completion du code
+    }
+
+    @Test
+    void testGetAddresses() {
+        //TODO
+    }
+
+    @Test void testGetNames(){
+        //TODO : attente de la completion du code
     }
 
 }
