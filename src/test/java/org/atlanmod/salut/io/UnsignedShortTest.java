@@ -53,7 +53,7 @@ public class UnsignedShortTest {
     @ValueSource( ints = {0, 255, 1, 254})
     void testToString(int value) {
         UnsignedShort us = new UnsignedShort(value);
-        assertEquals("us" + String.valueOf(value) , us.toString());
+        assertEquals(String.valueOf(value) , us.toString());
     }
 
     @ParameterizedTest
