@@ -7,3 +7,17 @@ DNS-Based Service Discovery ([RFC 6763](https://tools.ietf.org/html/rfc6763)).
 ## Current status
 
 Work-in-progress.
+
+## Usage
+
+### Query
+
+### Service Publication
+
+## Similar projects
+
+## References
+
+- [RFC 6762 - Multicast DNS](https://tools.ietf.org/html/rfc6762): Describes the main principles of Multicast DNS.
+- [RFC 6763 - DNS-Based Service Discovery](https://tools.ietf.org/html/rfc6763)
+

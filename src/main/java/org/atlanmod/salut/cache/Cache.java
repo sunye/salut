@@ -1,12 +1,9 @@
 package org.atlanmod.salut.cache;
 
+import org.atlanmod.salut.data.*;
 import org.atlanmod.salut.mdns.ARecord;
 import org.atlanmod.salut.mdns.PointerRecord;
 import org.atlanmod.salut.mdns.ServerSelectionRecord;
-import org.atlanmod.salut.data.DomainName;
-import org.atlanmod.salut.data.DomainNameBuilder;
-import org.atlanmod.salut.data.ApplicationProtocol;
-import org.atlanmod.salut.data.ServiceInstanceName;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -15,8 +12,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Caches locally Multicast DNS entries.
- * The following kinds of entry are accepted:
+ * Caches locally Multicast DNS records.
+ * The following kinds of records are accepted:
  *
  *   - {@see ServerSelectionRecord} (SRV)
  *   - {@see PointerRecord} (PTR)
@@ -24,10 +21,9 @@ import java.util.stream.Collectors;
  *   - {@see ARecord} (ARecord)
  *
  *
- * Each entry has its own Time To Live (TTL) value, which determines the validity of a entry.
- * When a validity is reached, the entry is no longer valid.
+ * Each record has its own Time To Live (TTL) value, which determines the validity of a entry.
+ * When a validity is reached, the record is no longer valid.
  * If the entry already exists, its TTL is updated.
- *
  *
  *
  *  ![UML Diagram describing cache contents](cache.png)
@@ -37,24 +33,50 @@ import java.util.stream.Collectors;
  *      address : InetAddress
  *  }
  *
- *  class HostEntry {
- *      name : HostName
+ *  class ServiceEntry {
+ *      name : ServiceName
  *  }
  *
- *  class ServiceEntry {
- *      weight : UnsignedShort
- *      priority :  UnsignedShort
- *      port : UnsignedShort
+ * class ServerEntry {
+ *      name : DomainName
+ * }
+ *
+ *  class InstanceEntry {
+ *      name : ServiceInstanceName
  *  }
- *  AddressEntry "*" -- "*" HostEntry
- *  ServiceEntry "*" -- "1" HostEntry
+ *
+ *  ServiceEntry "*" -- "*" InstanceEntry
+ * (ServerEntry, InstanceEntry) .. ServiceToInstanceLink
+ *
+ *  InstanceEntry "*" -- "1" ServerEntry
+ *  (InstanceEntry, ServerEntry) .. InstanceToServerLink
+ *
+ *  AddressEntry "*" -- "*" ServiceEntry
+ *  (AddressEntry, ServiceEntry) .. AddressToServerLink
+ *
+ *  class ServiceToInstanceLink {
+ *      ttl : Integer
+ *  }
+ *
+ *  class InstanceToServerLink {
+ *      ttl : Integer
+ *      weight : Integer
+ *      priority : Integer
+ *      port : Integer
+ *  }
+ *
+ *  class AddressToServerLink {
+ *      ttl : Integer
+ *  }
  *  @enduml
+ *
  *
  */
 public class Cache {
-    private Map<DomainName, HostEntry> hosts = new HashMap<>();
-    private Map<ApplicationProtocol, ServiceEntry> services = new HashMap<>();
-    private Map<InetAddress, AddressEntry> addresses = new HashMap<>();
+    private Map<ServiceInstanceName, InstanceEntry>  instances = new HashMap<>();
+    private Map<ServiceType, ServiceEntry>           services = new HashMap<>();
+    private Map<DomainName, ServerEntry>             servers = new HashMap<>();
+    private Map<InetAddress, AddressEntry>           addresses = new HashMap<>();
 
     /**
      * Updates this `Cache` with a {@see ServerSelectionRecord}.
@@ -62,52 +84,64 @@ public class Cache {
      * @param srv
      * @throws ParseException
      */
-    public void cache(ServerSelectionRecord srv) throws ParseException {
-        //_printer._tcp.local. 28800 PTR PrintsAlot._printer._tcp.local.
-        ServiceInstanceName serviceInstanceName = ServiceInstanceName.fromNameArray(srv.name());
-
-        new ServiceEntry(srv.ttl(), srv.weight(), srv.priority(), srv.port());
+    public synchronized void cache(ServerSelectionRecord srv) {
+        ServiceInstanceName name = srv.getServiceInstanceName();
+        InstanceEntry instanceEntry = instances.get(name);
+        if (Objects.isNull(instanceEntry)) {
+            instanceEntry = new InstanceEntry(srv.getServiceInstanceName());
+            instances.put(name, instanceEntry);
+        }
+        ServerEntry serverEntry = servers.get(srv.getServerName());
+        if (Objects.isNull(serverEntry)) {
+            serverEntry = new ServerEntry(srv.getServerName());
+            servers.put(srv.getServerName(), serverEntry);
+        }
+        Links.link(srv.getTtl(), instanceEntry, serverEntry, srv.getWeight(), srv.getPriority(),
+                srv.getPort());
     }
 
     /**
      * Updates this cache with the values of a PTR record
      * @param ptr the pointer record
      */
-    public void cache(PointerRecord ptr) {
-        ptr.name();
-        ptr.qclass();
+    public synchronized void cache(PointerRecord ptr) {
+        ServiceType type = ptr.getServiceType();
+        ServiceEntry service = services.get(type);
+        if (Objects.isNull(service)) {
+            service = new ServiceEntry(ptr.getServiceName());
+            services.put(type, service);
+        }
+        ServiceInstanceName name = ptr.getServiceInstanceName();
+        InstanceEntry instance = instances.get(name);
+        if (Objects.isNull(instance)) {
+            instance = new InstanceEntry(ptr.getServiceInstanceName());
+            instances.put(name, instance);
+        }
+        Links.link(ptr.getTtl(), service, instance);
     }
 
     /**
      * Updates this cache with a {@see ARecord}.
      *
-     * @param ip4address
+     * @param aRecord
      * @throws ParseException
      */
-    public void cache(ARecord ip4address) throws ParseException {
-        DomainName name = DomainNameBuilder.fromNameArray(ip4address.name());
-        Inet4Address address = ip4address.address();
-        TimeToLive ttl = ip4address.ttl();
+    public synchronized void cache(ARecord aRecord) throws ParseException {
+        Inet4Address address = aRecord.getAddress();
+        DomainName name = aRecord.getServerName();
 
-        HostEntry host = this.hosts.get(name);
-
-        if (Objects.isNull(host)) {
-            host = new HostEntry(ttl, name);
-            this.hosts.put(name, host);
-        } else {
-            host.updateExpireTime(ttl);
+        AddressEntry entry = addresses.get(address);
+        if (Objects.isNull(entry)) {
+            entry = new Inet4AddressEntry(address);
+            addresses.put(address, entry);
+        }
+        ServerEntry server = servers.get(name);
+        if (Objects.isNull(server)) {
+            server = new ServerEntry(aRecord.getServerName());
+            servers.put(name, server);
         }
 
-        AddressEntry ae = this.addresses.get(address);
-
-        if(Objects.isNull(ae)) {
-            ae = new Inet4AddressEntry(ttl, address);
-            this.addresses.put(address, ae);
-        } else {
-            ae.updateExpireTime(ttl);
-        }
-
-        host.getAddresses().add(ae);
+        Links.link(aRecord.getTtl(),entry, server);
     }
 
     /**
@@ -116,24 +150,69 @@ public class Cache {
      * @param name
      * @return a List containing all associated addresses. An empty list, if none.
      */
-    public List<InetAddress> getAddresses(DomainName name) {
-        HostEntry entry = this.hosts.get(name);
+    public synchronized List<InetAddress> getAddressesForServer(DomainName name) {
+        ServerEntry entry = this.servers.get(name);
         if (Objects.isNull(entry)) {
             return Collections.emptyList();
         } else {
-            return entry.getAddresses().references()
-                    .stream()
+            return entry.addresses.stream()
+                    .map(each -> each.getAddress())
                     .map(each -> each.address())
                     .collect(Collectors.toList());
         }
     }
 
     /**
-     * Finds all Host Names associated to a Inet address.
+     * Finds all Host Names associated to a Inet getAddress.
      *
      * @return a List containing all associated data. An empty list, if none.
      */
-    public List<DomainNameBuilder> getNames(InetAddress address) {
-        return Collections.emptyList();
+    public synchronized List<DomainName> getServersForAddress(InetAddress address) {
+        AddressEntry entry = this.addresses.get(address);
+        if (Objects.isNull(entry)) {
+            return Collections.emptyList();
+        } else {
+            return entry.servers.stream()
+                    .map(each -> each.getServer())
+                    .map(each -> each.getName())
+                    .collect(Collectors.toList());
+        }
+    }
+
+    /**
+     * Finds all Service Instances providing a given `ServiceType`.
+     *
+     * @param serviceType
+     * @return
+     */
+    public synchronized List<ServiceInstanceName> getInstancesForService(ServiceType serviceType) {
+        ServiceEntry service = this.services.get(serviceType);
+
+        if (Objects.isNull(service)) {
+            return Collections.emptyList();
+        } else {
+            return service.instances.stream()
+                    .map(each -> each.getInstanceEntry())
+                    .map(each -> each.getName())
+                    .collect(Collectors.toList());
+        }
+    }
+
+    /**
+     * Finds all Servers for a given Service Instance
+     * @param instance
+     * @return
+     */
+    public synchronized List<DomainName> getServersForInstance(ServiceInstanceName instance) {
+        InstanceEntry entry = this.instances.get(instance);
+
+        if (Objects.isNull(entry)) {
+            return Collections.emptyList();
+        } else {
+            return entry.servers.stream()
+                    .map(each -> each.getServer())
+                    .map(each -> each.getName())
+                    .collect(Collectors.toList());
+        }
     }
 }

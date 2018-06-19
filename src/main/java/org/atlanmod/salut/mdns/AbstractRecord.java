@@ -34,7 +34,9 @@ public abstract class AbstractRecord {
         RecordType qtype = RecordType.fromByteBuffer(buffer);
         RecordParser<AbstractRecord> parser = factory.getParser(qtype);
 
+        Log.info("Start parsing {0} record", qtype);
         AbstractRecord newRecord = parser.parse(qname, buffer);
+        Log.info("Record parsed: {0}", newRecord);
         return newRecord;
     }
 }

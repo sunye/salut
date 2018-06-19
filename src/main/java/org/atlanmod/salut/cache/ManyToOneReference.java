@@ -10,7 +10,6 @@ public abstract class ManyToOneReference<C, T> {
         this.container = container;
     }
 
-
     public void set(T reference) {
         if (Objects.nonNull(this.reference)) {
             opposite(reference).basicRemove(container);
@@ -28,6 +27,10 @@ public abstract class ManyToOneReference<C, T> {
             opposite(reference).basicRemove(container);
         }
         reference = null;
+    }
+
+    public T reference() {
+        return reference;
     }
 
     public abstract OneToManyReference<T, C> opposite(T opposite);

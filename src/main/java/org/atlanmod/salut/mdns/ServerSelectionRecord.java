@@ -1,6 +1,9 @@
 package org.atlanmod.salut.mdns;
 
 import fr.inria.atlanmod.commons.annotation.VisibleForTesting;
+import org.atlanmod.salut.data.DomainName;
+import org.atlanmod.salut.data.DomainNameBuilder;
+import org.atlanmod.salut.data.ServiceInstanceName;
 import org.atlanmod.salut.io.ByteArrayBuffer;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
@@ -18,22 +21,51 @@ import java.util.List;
  * | --- | ---|---|---|---|---|---|---|---|
  * | PrintsAlot._printer._tcp.local. | 120 | IN | SRV | 0 | 0 | 515 | blackhawk.local. |
  *
+ * A SRV record has the form:
  *
+ *   ```
+ *   _service._proto.name. TTL class SRV priority weight port target.
+ *   ```
+ *
+ *   - service: the symbolic name of the desired service.
+ *   - proto: the transport protocol of the desired service; this is usually either TCP or UDP.
+ *   - name: the domain name for which this record is valid, ending in a dot.
+ *   - TTL: standard DNS time to live field.
+ *   - class: standard DNS class field (this is always IN).
+ *   - priority: the priority of the target host, lower value means more preferred.
+ *   - weight: A relative weight for records with the same priority, higher value means more preferred.
+ *   - port: the TCP or UDP port on which the service is to be found.
+ *   - target: the canonical hostname of the machine providing the service, ending in a dot.
+ *
+ * An example SRV record in textual form that might be found in a zone file might be the following:
+ *
+ *  ```
+ * _sip._tcp.example.com. 86400 IN SRV 0 5 5060 sipserver.example.com.
+ * ```
+ *
+ * This points to a server named sipserver.example.com listening on TCP port 5060 for Session Initiation Protocol (SIP) protocol services. The priority given here is 0, and the weight is 5.
+ *
+ * As in MX records, the target in SRV records must point to hostname with an address record (A or AAAA record). Pointing to a hostname with a CNAME record is not a valid configuration.
  */
 public class ServerSelectionRecord extends NormalRecord {
 
     private UnsignedShort priority;
     private UnsignedShort weight;
     private UnsignedShort port;
-    private List<String> target;
+    private NameArray target;
+    private DomainName serverName;
+    private ServiceInstanceName serviceInstanceName;
 
     private ServerSelectionRecord(NameArray name, QClass qclass, UnsignedInt ttl, UnsignedShort priority,
-                                  UnsignedShort weight, UnsignedShort port, List<String> target) {
+                                  UnsignedShort weight, UnsignedShort port, NameArray target,
+                                  DomainName serverName, ServiceInstanceName serviceInstanceName) {
         super(name, qclass, ttl);
         this.priority = priority;
         this.weight = weight;
         this.port = port;
         this.target = target;
+        this.serverName = serverName;
+        this.serviceInstanceName = serviceInstanceName;
     }
 
     /**
@@ -51,30 +83,41 @@ public class ServerSelectionRecord extends NormalRecord {
      */
     @VisibleForTesting
     public static ServerSelectionRecord createRecord(NameArray name, QClass qclass, UnsignedInt ttl, UnsignedShort priority,
-                                                     UnsignedShort weight, UnsignedShort port, List<String> target) {
+                                                     UnsignedShort weight, UnsignedShort port, NameArray target,
+                                                     DomainName serverName, ServiceInstanceName serviceInstanceName) {
 
-        return new ServerSelectionRecord(name, qclass, ttl, priority, weight, port, target);
+        return new ServerSelectionRecord(name, qclass, ttl, priority, weight, port, target,
+                serverName, serviceInstanceName);
     }
 
     /**
-     * Returns the port number where the service is running.
+     * Returns the getPort number where the service is running.
      */
-    public UnsignedShort port() {
+    public UnsignedShort getPort() {
         return this.port;
     }
 
     /**
-     * Returns the service priority.
+     * Returns the service getPriority.
      */
-    public UnsignedShort priority() {
+    public UnsignedShort getPriority() {
         return this.priority;
     }
 
     /**
-     * Returns the service weight.
+     * Returns the service getWeight.
      */
-    public UnsignedShort weight() {
+    public UnsignedShort getWeight() {
         return weight;
+    }
+
+
+    public ServiceInstanceName getServiceInstanceName() {
+        return this.serviceInstanceName;
+    }
+
+    public DomainName getServerName() {
+        return this.serverName;
     }
 
     /**
@@ -87,10 +130,10 @@ public class ServerSelectionRecord extends NormalRecord {
         return "SRVRecord{" +
                 "data=" + names +
                 ", class=" + qclass +
-                ", ttl=" + ttl +
-                ", priority=" + priority +
-                ", weight=" + weight +
-                ", port=" + port +
+                ", getTtl=" + ttl +
+                ", getPriority=" + priority +
+                ", getWeight=" + weight +
+                ", getPort=" + port +
                 ", target=" + target +
                 '}';
     }
@@ -103,7 +146,9 @@ public class ServerSelectionRecord extends NormalRecord {
         private UnsignedShort priority;
         private UnsignedShort weight;
         private UnsignedShort port;
-        private List<String> target;
+        private NameArray target;
+        private DomainName serverName;
+        private ServiceInstanceName serviceInstanceName;
 
         /**
          * Parses the variable part of a SRV Record.
@@ -115,7 +160,9 @@ public class ServerSelectionRecord extends NormalRecord {
             priority = buffer.getUnsignedShort();
             weight = buffer.getUnsignedShort();
             port = buffer.getUnsignedShort();
-            target = buffer.readLabels();
+            target = NameArray.fromByteBuffer(buffer);
+            serverName = DomainNameBuilder.fromNameArray(this.target);
+            serviceInstanceName = ServiceInstanceName.fromNameArray(this.name);
         }
 
         /**
@@ -123,7 +170,8 @@ public class ServerSelectionRecord extends NormalRecord {
          */
         @Override
         protected ServerSelectionRecord build() {
-            return new ServerSelectionRecord(name, qclass, ttl, priority, weight, port, target);
+            return new ServerSelectionRecord(name, qclass, ttl, priority, weight, port, target,
+                    serverName, serviceInstanceName);
         }
     }
 }

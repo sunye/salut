@@ -127,7 +127,7 @@ public class ByteArrayBuffer {
     /**
      * Since java does not provide unsigned primitive types, each unsigned
      * value read from the buffer is promoted up to the next bigger primitive
-     * data type.
+     * data getType.
      *
      * @return a unsigned short instance.
      */

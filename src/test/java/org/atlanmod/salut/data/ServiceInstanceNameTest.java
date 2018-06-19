@@ -16,12 +16,19 @@ class ServiceInstanceNameTest {
         ServiceInstanceName name = ServiceInstanceName.fromNameArray(NameArray.fromList("PrintsAlot", "airplay", "tcp", "MacBook", "local"));
 
         assertThat(new InstanceName("PrintsAlot")).isEqualTo(name.instance());
-        assertEquals(AbstractServiceType.fromApplicationProtocol(ApplicationProtocol.airplay), name.type());
+        assertEquals(ApplicationProtocolBuilder.fromApplicationProtocol(IANAApplicationProtocol.airplay), name.application());
         assertEquals(TransportProtocol.tcp, name.transport());
 
     }
 
     @Test
-    void createServiceName() {
+    void testParseString() throws ParseException {
+        ServiceInstanceName name = ServiceInstanceName.parseString("PrintsAlot.airplay.tcp.MacBook.local");
+
+        assertThat(name.application()).isEqualTo(ApplicationProtocolBuilder.fromString("airplay"));
+        assertThat(name.transport()).isEqualTo(TransportProtocol.tcp);
+        assertThat(name.instance()).isEqualTo(new InstanceName("PrintsAlot"));
+
+        assertThat(name.domain()).isEqualTo(new LocalDomainName("MacBook"));
     }
 }

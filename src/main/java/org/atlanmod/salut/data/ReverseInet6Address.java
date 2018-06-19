@@ -15,8 +15,6 @@ public class ReverseInet6Address implements DomainName {
 
     @Override
     public String toString() {
-        return "ReverseInet6Address{" +
-                address +
-                '}';
+        return "ReverseInet6Address{" + address + '}';
     }
 }

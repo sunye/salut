@@ -1,31 +1,17 @@
 package org.atlanmod.salut.cache;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class AddressEntry extends AbstractCacheEntry {
+/**
+ * Abstract class for representing IP4 or IP6 addresses.
+ *
+ */
+public abstract class AddressEntry {
 
-    private ReferenceToName names = new ReferenceToName(this);
-
-    public AddressEntry(TimeToLive timeToLive) {
-        super(timeToLive);
-    }
+    public List<AddressToServerLink> servers = new ArrayList<>();
 
     public abstract InetAddress address();
 
-    public ReferenceToName getNames() {
-        return names;
-    }
-
-
-    static class ReferenceToName extends ManyToManyReference<AddressEntry, HostEntry> {
-
-        public ReferenceToName(AddressEntry container) {
-            super(container);
-        }
-
-        @Override
-        public ManyToManyReference<HostEntry,AddressEntry> opposite(HostEntry opposite) {
-            return opposite.getAddresses();
-        }
-    }
 }

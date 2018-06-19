@@ -1,6 +1,7 @@
 package org.atlanmod.salut.sd;
 
-import org.atlanmod.salut.data.AbstractServiceType;
+import org.atlanmod.salut.data.ApplicationProtocol;
+import org.atlanmod.salut.data.ApplicationProtocolBuilder;
 import org.atlanmod.salut.data.TransportProtocol;
 
 import java.util.Optional;
@@ -8,17 +9,17 @@ import java.util.Optional;
 public class Service {
 
     /**
-     * Service port
+     * Service getPort
      */
     private int port;
 
     /**
-     * Service weight
+     * Service getWeight
      */
     private int weight;
 
     /**
-     * Service priority
+     * Service getPriority
      */
     private int priority;
 
@@ -32,7 +33,7 @@ public class Service {
      *
      * @see <a href="http://www.dns-sd.org/servicetypes.html">DNS SRV (RFC 2782) Service Types</a>
      */
-    private AbstractServiceType serviceType;
+    private ApplicationProtocol serviceType;
 
     /**
      * Unqualified service instance data ("mac-book", "printer", etc.)
@@ -55,7 +56,7 @@ public class Service {
      * @param weight
      * @param priority
      */
-    public Service(String instanceName, int port, TransportProtocol transportProtocol, AbstractServiceType serviceType,
+    public Service(String instanceName, int port, TransportProtocol transportProtocol, ApplicationProtocol serviceType,
                    Optional<String> subtype, int weight, int priority) {
 
         this.instanceName = instanceName;

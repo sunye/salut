@@ -75,6 +75,11 @@ public class NameArray {
         return NameArray.fromByteBuffer(buffer, buffer.position());
     }
 
+    public static NameArray fromArray(String[] strings) {
+        return new NameArray(Arrays.asList(strings));
+    }
+
+
     /**
      * For unit testing
      *

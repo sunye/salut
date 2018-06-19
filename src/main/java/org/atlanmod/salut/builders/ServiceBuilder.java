@@ -2,7 +2,8 @@ package org.atlanmod.salut.builders;
 
 
 import org.atlanmod.salut.data.ApplicationProtocol;
-import org.atlanmod.salut.data.AbstractServiceType;
+import org.atlanmod.salut.data.IANAApplicationProtocol;
+import org.atlanmod.salut.data.ApplicationProtocolBuilder;
 import org.atlanmod.salut.data.TransportProtocol;
 import org.atlanmod.salut.sd.Service;
 import org.atlanmod.salut.sd.ServicePublisher;
@@ -14,17 +15,17 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
         SetTransportProtocol, IQuery {
 
     /**
-     * the local port on which the service runs
+     * the local getPort on which the service runs
      */
     private int port;
 
     /**
-     * weight of the service
+     * getWeight of the service
      */
     private int weight = 0;
 
     /**
-     * priority of the service
+     * getPriority of the service
      */
     private int priority = 0;
 
@@ -36,7 +37,7 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
     /**
      *
      */
-    private AbstractServiceType serviceType;
+    private ApplicationProtocol serviceType;
 
     /**
      * Unqualified service instance name.
@@ -106,18 +107,18 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
     }
 
     public IPublish http() {
-        this.serviceType = AbstractServiceType.fromApplicationProtocol(ApplicationProtocol.http);
+        this.serviceType = ApplicationProtocolBuilder.fromApplicationProtocol(IANAApplicationProtocol.http);
         return this;
     }
 
     public IPublish airplay() {
-        this.serviceType = AbstractServiceType.fromApplicationProtocol(ApplicationProtocol.airplay);
+        this.serviceType = ApplicationProtocolBuilder.fromApplicationProtocol(IANAApplicationProtocol.airplay);
         return this;
     }
 
     @Override
     public IPublish application(String str) {
-        this.serviceType = AbstractServiceType.fromString(str);
+        this.serviceType = ApplicationProtocolBuilder.fromString(str);
         return this;
     }
 

@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
 import java.text.ParseException;
 
 /**
- * The `AAAARecord` class represents DNS IP6 address records (AAAA).
+ * The `AAAARecord` class represents DNS IP6 getAddress records (AAAA).
  * The DNS ARecord has the following format:
  *
  * # AAAARecord
@@ -36,7 +36,7 @@ public class AAAARecord extends NormalRecord {
     }
 
     /**
-     * @return the address pointed by this entry.
+     * @return the getAddress pointed by this entry.
      */
     public Inet6Address getAddress() {
         return address;
@@ -52,7 +52,7 @@ public class AAAARecord extends NormalRecord {
     @Override
     public String toString() {
         return "AAAARecord{" +
-                "address=" + address +
+                "getAddress=" + address +
                 ", data=" + names +
                 '}';
     }
@@ -74,7 +74,7 @@ public class AAAARecord extends NormalRecord {
 
         protected void parseVariablePart(ByteArrayBuffer buffer) throws ParseException {
             address = (Inet6Address) parseInet6Address(buffer);
-             serverName = DomainNameBuilder.fromNameArray(name);
+            serverName = DomainNameBuilder.fromNameArray(name);
         }
 
         @Override

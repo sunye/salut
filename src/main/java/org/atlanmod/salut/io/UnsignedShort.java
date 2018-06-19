@@ -4,8 +4,8 @@ import java.util.Objects;
 
 /**
  * The `UnsignedShort` class allows the representation of unsigned 16-bit values.
- * It wraps a value of the primitive type `int` in an object.
- * An object of type `UnsignedShort` contains a single field whose type is `int`.
+ * It wraps a value of the primitive getType `int` in an object.
+ * An object of getType `UnsignedShort` contains a single field whose getType is `int`.
  */
 public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
     private final static int UNSIGNED_SHORT_MASK = 0xFFFF;
@@ -46,7 +46,7 @@ public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
 
     @Override
     public String toString() {
-        return "us" + value;
+        return String.valueOf(value);
     }
 
     @Override

@@ -6,8 +6,8 @@ import java.util.Objects;
 
 /**
  * The `UnsignedByte` class allows the representation of unsigned 8-bit values.
- * It wraps a value of the primitive type `short` in an object.
- * An object of type `UnsignedByte` contains a single field whose type is `short`.
+ * It wraps a value of the primitive getType `short` in an object.
+ * An object of getType `UnsignedByte` contains a single field whose getType is `short`.
  */
 public class UnsignedByte extends Number implements Comparable<UnsignedByte> {
 

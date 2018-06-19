@@ -24,7 +24,7 @@ public class Question {
     public String toString() {
         return "Question{" +
                 "data=" + name +
-                ", type=" + type +
+                ", getType=" + type +
                 ", qclass=" + qclass +
                 '}';
     }

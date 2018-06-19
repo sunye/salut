@@ -32,6 +32,11 @@ public abstract class DomainNameBuilder {
         }
     }
 
+    public static DomainName parseString(String str) throws ParseException {
+        String[] labels = str.split("\\.");
+        return fromNameArray(NameArray.fromArray(labels));
+    }
+
     private static ReverseInet4Address parseInet4Address(NameArray names) throws ParseException {
         byte[] array = new byte[4];
         for (int i = 0; i < 4; i++) {
