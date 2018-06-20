@@ -7,8 +7,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 /*
-Classe de test pour la classe UnsignedIntTest
-Cette classe a pour but de faire l'ensemble des tests unitaires de UnsignedIntTest
+Classe de test pour la classe UnsignedInt
+Cette classe a pour but de faire l'ensemble des tests unitaires de UnsignedInt
  */
 public class UnsignedIntTest {
 
