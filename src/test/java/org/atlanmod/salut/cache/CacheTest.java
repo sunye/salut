@@ -26,6 +26,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/*
+Classe de test pour la classe Cache
+Cette classe a pour but de faire l'ensemble des tests unitaires de Cache
+ */
 class CacheTest {
     private Cache cache;
 
