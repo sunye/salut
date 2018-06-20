@@ -12,10 +12,6 @@ Cette classe a pour but de faire l'ensemble des tests unitaires de ByteArrayBuff
  */
 class ByteArrayBufferTest {
 
-    @Test
-    void wrap() {
-    }
-
     /*
         Test de la méthode ReadLabels
      */
@@ -82,23 +78,6 @@ class ByteArrayBufferTest {
 
     }
 
-
-    @Test
-    void getUnsignedShort() {
-    }
-
-    @Test
-    void getUnsignedByte() {
-    }
-
-    @Test
-    void getUnsignedByte1() {
-    }
-
-    @Test
-    void getUnsignedInteger() {
-    }
-
     /*
     Test de la méthode wrap, on vérifie si le tableau retourné est bien égal au tableau retourné par la méthode .array()
      */
@@ -117,10 +96,6 @@ class ByteArrayBufferTest {
         byte[] name = {8, 109, 121, 100, 111, 109, 97, 105, 110, 3, 99, 111, 109, 0};
         ByteArrayBuffer bb = ByteArrayBuffer.wrap(name);
         assertEquals(bb.position(), 0);
-    }
-
-    @Test
-    void position1() {
     }
 
     /*
