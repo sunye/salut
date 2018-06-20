@@ -80,7 +80,7 @@ class ByteArrayBufferTest {
     }
 
     /*
-    Test de la méthode wrap, on vérifie si le tableau retourné est bien égal au tableau retourné par la méthode .array()
+    Test de la méthode array, on vérifie si le tableau retourné est bien égal au tableau retourné par la méthode .array()
      */
     @Test
     void array() {

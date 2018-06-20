@@ -151,7 +151,7 @@ class UnsignedByteTest {
     }
 
     /*
-    Test de la méthode toSTring, on vérifie bien que les entrées conveties en string soient bien égales à ce qui es retourné par la méthode
+    Test de la méthode toString, on vérifie bien que les entrées conveties en string soient bien égales à ce qui es retourné par la méthode
      */
     @ParameterizedTest
     @ValueSource( ints = {0, 255, 1, 254})
