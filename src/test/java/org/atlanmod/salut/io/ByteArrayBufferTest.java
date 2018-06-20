@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 /*
 Classe de test pour la classe ByteArrayBuffer
 Cette classe a pour but de faire l'ensemble des tests unitaires de ByteArrayBuffer
