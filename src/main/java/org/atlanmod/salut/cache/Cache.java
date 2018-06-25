@@ -45,14 +45,14 @@ import java.util.stream.Collectors;
  *      name : ServiceInstanceName
  *  }
  *
- *  ServiceEntry "*" -- "*" InstanceEntry
- * (ServerEntry, InstanceEntry) .. ServiceToInstanceLink
+ *  ServiceEntry "1" -- "*" InstanceEntry
+ * (ServiceEntry, InstanceEntry) .. ServiceToInstanceLink
  *
  *  InstanceEntry "*" -- "1" ServerEntry
  *  (InstanceEntry, ServerEntry) .. InstanceToServerLink
  *
- *  AddressEntry "*" -- "*" ServiceEntry
- *  (AddressEntry, ServiceEntry) .. AddressToServerLink
+ *  AddressEntry "*" -- "*" ServerEntry
+ *  (AddressEntry, ServerEntry) .. AddressToServerLink
  *
  *  class ServiceToInstanceLink {
  *      ttl : Integer

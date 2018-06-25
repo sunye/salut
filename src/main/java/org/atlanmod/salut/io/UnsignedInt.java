@@ -1,5 +1,7 @@
 package org.atlanmod.salut.io;
 
+import fr.inria.atlanmod.commons.Preconditions;
+
 import java.util.Objects;
 
 /**
@@ -9,6 +11,9 @@ import java.util.Objects;
  */
 public class UnsignedInt extends Number implements Comparable<UnsignedInt> {
     private final static long UNSIGNED_INT_MASK = 0xFFFFFFFFL;
+    private final static long MIN_VALUE = 0;
+    private final static long MAX_VALUE = 0xffffffffL;;
+
     private final long value;
 
     private UnsignedInt(long value) {
@@ -23,6 +28,14 @@ public class UnsignedInt extends Number implements Comparable<UnsignedInt> {
      */
     public static UnsignedInt fromInt(int value) {
         return new UnsignedInt(value & UNSIGNED_INT_MASK);
+    }
+
+
+    public static UnsignedInt fromLong(long value) {
+        Preconditions.checkArgument(value >= MIN_VALUE && value <= MAX_VALUE);
+
+        long unsigned = value & UNSIGNED_INT_MASK;
+        return new UnsignedInt(unsigned);
     }
 
     /**
