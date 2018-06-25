@@ -1,6 +1,6 @@
 package org.atlanmod.salut.mdns;
 
-import org.apache.commons.lang3.ArrayUtils;
+import fr.inria.atlanmod.commons.collect.MoreArrays;
 import org.atlanmod.salut.io.ByteArrayBuffer;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +35,7 @@ class NameArrayTest {
                 3, 111, 114, 103,
                 0};
 
-        byte[] bytes = ArrayUtils.addAll(first, second);
+        byte[] bytes = MoreArrays.addAll(first, second);
         ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
         NameArray qnameFirst = NameArray.fromByteBuffer(bb);
         NameArray qnameSecond = NameArray.fromByteBuffer(bb);
@@ -65,7 +65,7 @@ class NameArrayTest {
         byte[] secondPart = { 3, 119, 119, 119,
                 (byte)(pointer >> 8), (byte)(pointer), 0 };
 
-        byte[] buffer = ArrayUtils.addAll(firstPart, secondPart);
+        byte[] buffer = MoreArrays.addAll(firstPart, secondPart);
 
         ByteArrayBuffer bb = ByteArrayBuffer.wrap(buffer);
         NameArray qname = NameArray.fromByteBuffer(bb, firstPart.length);
