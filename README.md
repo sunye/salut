@@ -6,7 +6,7 @@ DNS-Based Service Discovery ([RFC 6763](https://tools.ietf.org/html/rfc6763)).
 
 ## Current status
 
-Work-in-progress.
+Salut is a work-in-progress. Currently, no feature is available.
 
 ## Usage
 

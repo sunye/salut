@@ -32,7 +32,7 @@ public class Main {
         salut.builder()
                 .query()
                 .tcp()
-                .http()
+                .airplay()
                 .run();
 
     }

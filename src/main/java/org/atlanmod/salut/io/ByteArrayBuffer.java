@@ -8,6 +8,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The class `ByteArrayBuffer` is a wrapper class for the {@code ByteBuffer} class.
+ * It adds specific operations for reading unsigned values, labels, compressed labels, etc.
+ */
 public class ByteArrayBuffer {
 
 
@@ -66,7 +70,7 @@ public class ByteArrayBuffer {
             lengthOrPointer = this.getLabelLength();
         }
         if (lengthOrPointer.isPointer()) {
-            Pointer pointer = Pointer.fromBytes(lengthOrPointer, this.getUnsignedByte());
+            LabelPointer pointer = LabelPointer.fromBytes(lengthOrPointer, this.getUnsignedByte());
             ByteArrayBuffer other = this.duplicate(); // To keep current position in this Buffer.
             other.position(checkOffset(pointer.offset()));
             labels.addAll(other.readLabels());
@@ -167,9 +171,11 @@ public class ByteArrayBuffer {
         buffer.position(newPosition);
     }
 
-    public void get(byte[] dst) {
+    public ByteArrayBuffer get(byte[] dst) {
         buffer.get(dst);
+        return this;
     }
+
 
     public byte get() {
         return buffer.get();
