@@ -9,6 +9,7 @@ package org.atlanmod.salut.io;
  *
  * While inb theory the position may be between 0 and 2^14 (16,384), it is limited between the position the label
  * pointer was read and the mdns messages maximum size.
+ * 
  */
 public class Pointer extends UnsignedShort {
     private static final short POINTER_MASK = 0x3FFF;
