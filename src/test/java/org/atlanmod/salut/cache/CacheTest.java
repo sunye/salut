@@ -8,6 +8,7 @@ import org.atlanmod.salut.mdns.ARecord;
 import org.atlanmod.salut.mdns.PointerRecord;
 import org.atlanmod.salut.mdns.ServerSelectionRecord;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -97,6 +98,7 @@ class CacheTest {
 
 
 
+    @Disabled
     @Test
     void testGetInstancesForServiceTimeOut() throws ParseException, InterruptedException {
         ServiceType type = ServiceType.fromStrings("testtest", "tcp");
@@ -111,6 +113,7 @@ class CacheTest {
         assertThat(instancesForService).isEmpty();
     }
 
+    @Disabled
     @Test
     void tesGetAddressesForServerTimeout() throws ParseException, UnknownHostException, InterruptedException {
         DomainName domainName = DomainNameBuilder.parseString("Donatelo.local");
@@ -125,6 +128,7 @@ class CacheTest {
         assertThat(addresses).isEmpty();
     }
 
+    @Disabled
     @Test
     public void testGetInstancesForServiceConcurrent() throws InterruptedException {
         ExecutorService executor = Executors.newFixedThreadPool(2);
@@ -177,5 +181,4 @@ class CacheTest {
         List<DomainName> servers = cache.getServersForInstance(instance);
         assertThat(servers).isEmpty();
     }
-
 }

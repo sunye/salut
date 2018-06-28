@@ -70,7 +70,7 @@ public class ByteArrayBuffer {
             lengthOrPointer = this.getLabelLength();
         }
         if (lengthOrPointer.isPointer()) {
-            Pointer pointer = Pointer.fromBytes(lengthOrPointer, this.getUnsignedByte());
+            LabelPointer pointer = LabelPointer.fromBytes(lengthOrPointer, this.getUnsignedByte());
             ByteArrayBuffer other = this.duplicate(); // To keep current position in this Buffer.
             other.position(checkOffset(pointer.offset()));
             labels.addAll(other.readLabels());

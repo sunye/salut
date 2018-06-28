@@ -8,15 +8,15 @@ class PointerTest {
 
     @Test
     void offset() {
-        Pointer p = new Pointer(42);
+        LabelPointer p = new LabelPointer(42);
         assertThat(p.offset()).isEqualTo(42&0x3FFF);
     }
 
     @Test
     void fromBytes() {
         UnsignedByte h=null;
-        Pointer p = Pointer.fromBytes(h.fromInt(10),h.fromInt(1));
-        Pointer p1 = new Pointer(2561);
+        LabelPointer p = LabelPointer.fromBytes(h.fromInt(10),h.fromInt(1));
+        LabelPointer p1 = new LabelPointer(2561);
         assertThat(p.intValue()).isEqualTo(p1.intValue());
     }
 }
