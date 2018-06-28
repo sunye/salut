@@ -4,7 +4,7 @@ import fr.inria.atlanmod.commons.Preconditions;
 
 /**
  * A label length is an unsigned 8-bit value, representing the size of a label (in bytes), between 1 and 64 (the
- * maximum length). The two first bits are actually flags, "11" indicates a pointer {@see Pointer}, "01" an extended
+ * maximum length). The two first bits are actually flags, "11" indicates a pointer {@see LabelPointer}, "01" an extended
  * label, and "10" an unknown label.
  *
  * If the value represents a pointer, then it should be combined with another byte to form a 14-bit value corresponding

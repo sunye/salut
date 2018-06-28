@@ -1,18 +1,14 @@
 package org.atlanmod.salut.io;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.atlanmod.salut.mdns.NameArray;
-import org.atlanmod.salut.mdns.NormalRecord;
 import org.junit.jupiter.api.Test;
 
 import java.nio.BufferUnderflowException;
 import java.text.ParseException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ByteArrayBufferTest {
 

@@ -11,10 +11,10 @@ package org.atlanmod.salut.io;
  * pointer was read and the mdns messages maximum size.
  * 
  */
-public class Pointer extends UnsignedShort {
+public class LabelPointer extends UnsignedShort {
     private static final short POINTER_MASK = 0x3FFF;
 
-    public Pointer(int value) {
+    public LabelPointer(int value) {
         super(value);
     }
 
@@ -28,15 +28,15 @@ public class Pointer extends UnsignedShort {
 
     /**
      *
-     * Creates a new Pointer from two unsigned bytes.
+     * Creates a new LabelPointer from two unsigned bytes.
      *
-     * @param high The higher byte of the created Pointer
-     * @param low The lower byte of the created Pointer
-     * @return a Pointer instance
+     * @param high The higher byte of the created LabelPointer
+     * @param low The lower byte of the created LabelPointer
+     * @return a LabelPointer instance
      */
-    public static Pointer fromBytes(UnsignedByte high, UnsignedByte low) {
+    public static LabelPointer fromBytes(UnsignedByte high, UnsignedByte low) {
 
         int pointer = (high.intValue() << 8) + low.intValue();
-        return new Pointer(pointer);
+        return new LabelPointer(pointer);
     }
 }
