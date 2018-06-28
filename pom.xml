@@ -121,6 +121,25 @@
                     <check/>
                 </configuration>
             </plugin>
+                <plugin>
+                    <groupId>org.pitest</groupId>
+                    <artifactId>pitest-maven</artifactId>
+                    <version>1.4.0</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.pitest</groupId>
+                            <artifactId>pitest-junit5-plugin</artifactId>
+                            <version>0.5</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <targetClasses>
+                            <param>org.atlanmod.salut.io*</param>
+                            <param>org.atlanmod.salut.cache*</param>
+                        </targetClasses>
+                    </configuration>
+                </plugin>
+
         </plugins>
     </build>
 
