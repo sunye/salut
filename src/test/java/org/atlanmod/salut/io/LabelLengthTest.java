@@ -4,6 +4,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 /*
 Classe de test pour la classe LabelLength
@@ -29,6 +30,12 @@ class LabelLengthTest {
     void testIsNotValidNameLength(int value) {
         LabelLength ub = LabelLength.fromInt(value);
         assertThat(ub.isValidNameLength()).isFalse();
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-1, LabelLength.MAX_VALUE + 1})
+    void testInvalidFromInt(int value) {
+        assertThrows(IllegalArgumentException.class, () -> LabelLength.fromInt(value));
     }
 
     /*

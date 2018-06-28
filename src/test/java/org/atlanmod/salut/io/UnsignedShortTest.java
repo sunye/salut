@@ -133,9 +133,9 @@ public class UnsignedShortTest {
 
     /*
     Test de la méthode compare
-    1. On vérifie que bb construit à partir de 5 soit égal à un UnsignedByte construit à partir de 5 => 0
-    2. On vérifie que bb construit à partir de 5 soit inférieur à un UnsignedByte construit à partir de 10 => -1
-    3. On vérifie que bb construit à partir de 5 soit supérieur à un UnsignedByte construit à partir de 1 => 1
+    1. On vérifie que bb construit à partir de 5 soit égal à un UnsignedShort construit à partir de 5 => 0
+    2. On vérifie que bb construit à partir de 5 soit inférieur à un UnsignedShort construit à partir de 10 => -1
+    3. On vérifie que bb construit à partir de 5 soit supérieur à un UnsignedShort construit à partir de 1 => 1
      */
     @Test
     void testCompareTo() {
@@ -149,8 +149,8 @@ public class UnsignedShortTest {
 
     @Test
     void isLessThan() {
-        UnsignedByte ub0 = UnsignedByte.fromInt(0);
-        UnsignedByte ub1 = UnsignedByte.fromInt(1);
+        UnsignedShort ub0 = UnsignedShort.fromInt(0);
+        UnsignedShort ub1 = UnsignedShort.fromInt(1);
 
         assertThat(ub0.isLessThan(ub1)).isTrue();
         assertThat(ub1.isLessThan(ub0)).isFalse();
@@ -158,8 +158,8 @@ public class UnsignedShortTest {
     }
     @Test
     void isZero() {
-        UnsignedByte ub = UnsignedByte.fromInt(0);
-        UnsignedByte ub1 = UnsignedByte.fromInt(1);
+        UnsignedShort ub = UnsignedShort.fromInt(0);
+        UnsignedShort ub1 = UnsignedShort.fromInt(1);
 
         assertThat(ub.isZero()).isTrue();
         assertThat(ub1.isZero()).isFalse();
@@ -167,7 +167,7 @@ public class UnsignedShortTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 100, 254, 255})
     void testToStringBis(int value) {
-        UnsignedByte ub = UnsignedByte.fromInt(value);
+        UnsignedShort ub = UnsignedShort.fromInt(value);
         assertThat(ub.toString()).isEqualTo(Integer.toString(value));
     }
     @ParameterizedTest
@@ -175,8 +175,8 @@ public class UnsignedShortTest {
     void testEqualsBis(int value) {
         final int other = 100;
 
-        UnsignedByte oub = UnsignedByte.fromInt(other);
-        UnsignedByte ub = UnsignedByte.fromInt(value);
+        UnsignedShort oub = UnsignedShort.fromInt(other);
+        UnsignedShort ub = UnsignedShort.fromInt(value);
         assertThat(ub.equals(oub)).isEqualTo(Integer.valueOf(value).equals(Integer.valueOf(other)));
     }
     @ParameterizedTest
@@ -184,78 +184,71 @@ public class UnsignedShortTest {
     void testCompareTo(int value) {
         final int other = 100;
 
-        UnsignedByte ub = UnsignedByte.fromInt(value);
-        UnsignedByte oub = UnsignedByte.fromInt(other);
+        UnsignedShort ub = UnsignedShort.fromInt(value);
+        UnsignedShort oub = UnsignedShort.fromInt(other);
 
         assertThat(ub.compareTo(oub)).isEqualTo(Integer.compare(value, other));
     }
     @ParameterizedTest
-    @ValueSource(ints = {UnsignedByte.MIN_VALUE, UnsignedByte.MAX_VALUE, 1, 254})
+    @ValueSource(ints = {UnsignedShort.MIN_VALUE, UnsignedShort.MAX_VALUE, 1, 254})
     void testHashCode(int value) {
-        UnsignedByte ub = UnsignedByte.fromInt(value);
+        UnsignedShort ub = UnsignedShort.fromInt(value);
         assertThat(ub.hashCode()).isEqualTo(Objects.hash(value));
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {UnsignedByte.MIN_VALUE, UnsignedByte.MAX_VALUE, 1, 254})
-    void testToInt(int value) {
-        UnsignedByte ub = UnsignedByte.fromByte((byte) value);
+    @ValueSource(shorts = {0, Short.MAX_VALUE})
+    void testToInt(short value) {
+        UnsignedShort ub = UnsignedShort.fromShort(value);
         assertThat(ub.intValue()).isEqualTo(value);
     }
     
     @ParameterizedTest
-    @ValueSource(floats = {UnsignedByte.MIN_VALUE, UnsignedByte.MAX_VALUE, 1, 254})
+    @ValueSource(floats = {UnsignedShort.MIN_VALUE, UnsignedShort.MAX_VALUE, 1, 254})
     void testToFloat(float value) {
-        UnsignedByte ub = UnsignedByte.fromByte((byte) value);
+        UnsignedShort ub = UnsignedShort.fromShort((short) value);
         assertThat(ub.floatValue()).isEqualTo(value);
     }
     
     @ParameterizedTest
-    @ValueSource(doubles = {UnsignedByte.MIN_VALUE, UnsignedByte.MAX_VALUE, 1, 254})
+    @ValueSource(doubles = {UnsignedShort.MIN_VALUE, UnsignedShort.MAX_VALUE, 1, 254})
     void testToDouble(double value) {
-        UnsignedByte ub = UnsignedByte.fromByte((byte) value);
+        UnsignedShort ub = UnsignedShort.fromShort((short) value);
         assertThat(ub.doubleValue()).isEqualTo(value);
     }
     @ParameterizedTest
-    @ValueSource(shorts = {UnsignedByte.MIN_VALUE, UnsignedByte.MAX_VALUE, 1, 254})
+    @ValueSource(shorts = {UnsignedShort.MIN_VALUE, (short) UnsignedShort.MAX_VALUE, 1, 254})
     void testToShorts(short value) {
-        UnsignedByte ub = UnsignedByte.fromByte((byte) value);
+        UnsignedShort ub = UnsignedShort.fromShort(value);
         assertThat(ub.shortValue()).isEqualTo(value);
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {UnsignedByte.MIN_VALUE, UnsignedByte.MAX_VALUE, 1, 254})
+    @ValueSource(ints = {UnsignedShort.MIN_VALUE, UnsignedShort.MAX_VALUE, 1, 254})
     void testFromByte(int value) {
-        UnsignedByte ub = UnsignedByte.fromByte((byte) value);
-        assertThat(ub).isEqualTo(UnsignedByte.fromByte((byte) value));
+        UnsignedShort ub = UnsignedShort.fromShort((byte) value);
+        assertThat(ub).isEqualTo(UnsignedShort.fromShort((byte) value));
     }
 
     @ParameterizedTest
-    @ValueSource(shorts = {UnsignedByte.MIN_VALUE, UnsignedByte.MAX_VALUE, 1, 254})
+    @ValueSource(shorts = {(short) UnsignedShort.MIN_VALUE, (short) UnsignedShort.MAX_VALUE, 1,
+            (short) UnsignedShort.MAX_VALUE -1})
     void testFromShort(short value) {
-        UnsignedByte ub = UnsignedByte.fromShort(value);
-        assertThat(ub).isEqualTo(UnsignedByte.fromShort(value));
+        UnsignedShort ub = UnsignedShort.fromShort(value);
+        assertThat(ub).isEqualTo(UnsignedShort.fromShort(value));
     }
 
+
     @ParameterizedTest
-    @ValueSource(ints = {UnsignedByte.MIN_VALUE, UnsignedByte.MAX_VALUE, 1, 254})
+    @ValueSource(ints = {UnsignedShort.MIN_VALUE, UnsignedShort.MAX_VALUE, 1, UnsignedShort.MAX_VALUE -1})
     void testFromInt(int value) {
-        UnsignedByte ub = UnsignedByte.fromInt(value);
-        assertThat(ub).isEqualTo(UnsignedByte.fromInt(value));
+        UnsignedShort ub = UnsignedShort.fromInt(value);
+        assertThat(ub.intValue()).isEqualTo(value);
     }
 
     @ParameterizedTest
-    @ValueSource(shorts = {-42, 345, Short.MAX_VALUE, Short.MIN_VALUE})
-    void testInvalidFromShort(short value) {
-        assertThrows(IllegalArgumentException.class, () -> UnsignedByte.fromShort( value));
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {-42, 345, Integer.MAX_VALUE, Integer.MIN_VALUE})
+    @ValueSource(ints = {Integer.MIN_VALUE, -1, UnsignedShort.MAX_VALUE +1, Integer.MAX_VALUE})
     void testInvalidFromInt(int value) {
-        assertThrows(IllegalArgumentException.class, () -> UnsignedByte.fromInt(value));
+        assertThrows(IllegalArgumentException.class, () -> UnsignedShort.fromInt(value));
     }
-
-
-
 }

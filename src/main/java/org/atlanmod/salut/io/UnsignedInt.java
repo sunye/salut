@@ -11,8 +11,8 @@ import java.util.Objects;
  */
 public class UnsignedInt extends Number implements Comparable<UnsignedInt> {
     private final static long UNSIGNED_INT_MASK = 0xFFFFFFFFL;
-    private final static long MIN_VALUE = 0;
-    private final static long MAX_VALUE = 0xffffffffL;;
+    public final static long MIN_VALUE = 0;
+    public final static long MAX_VALUE = 0xffffffffL;;
 
     private final long value;
 

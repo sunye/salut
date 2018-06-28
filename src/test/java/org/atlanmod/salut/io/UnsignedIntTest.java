@@ -199,4 +199,17 @@ public class UnsignedIntTest {
         assertThat(unsignedInt2.compareTo(unsignedInt1)).isEqualTo(0);
     }
 
+    @ParameterizedTest
+    @ValueSource(longs = {UnsignedInt.MIN_VALUE, UnsignedInt.MAX_VALUE, UnsignedInt.MIN_VALUE +1, UnsignedInt.MAX_VALUE -1})
+    void testFromLong(long value) {
+        UnsignedInt ui = UnsignedInt.fromLong(value);
+        assertThat(ui.longValue()).isEqualTo(value);
+    }
+
+    @ParameterizedTest
+    @ValueSource(longs = {-1, UnsignedInt.MAX_VALUE + 1, Long.MIN_VALUE, Long.MAX_VALUE})
+    void testFromLongInvalid(long value) {
+        assertThrows(IllegalArgumentException.class , () -> UnsignedInt.fromLong(value));
+    }
+
 }

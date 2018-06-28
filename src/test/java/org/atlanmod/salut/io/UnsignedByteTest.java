@@ -106,10 +106,10 @@ class UnsignedByteTest {
     Test de la méthode FromShort, on vérifie que les valeurs retournées soient égales aux entrées
      */
     @ParameterizedTest
-    @ValueSource(ints = {0, 255, 1, 254})
-    void testFromShort(int value) {
-        UnsignedByte ub = UnsignedByte.fromShort((short) value);
-        assertThat(ub).isEqualTo(UnsignedByte.fromShort((short) value));
+    @ValueSource(shorts = {0, 1, UnsignedByte.MAX_VALUE, UnsignedByte.MAX_VALUE -1})
+    void testFromShort(short value) {
+        UnsignedByte ub = UnsignedByte.fromShort(value);
+        assertThat(ub.shortValue()).isEqualTo(value);
     }
 
     /*
@@ -260,12 +260,6 @@ class UnsignedByteTest {
     }
 
 
-    @ParameterizedTest
-    @ValueSource(shorts = {0, 255})
-    void testFromShort(short value) {
-        UnsignedByte ub = UnsignedByte.fromShort(value);
-        assertThat(ub).isEqualTo(UnsignedByte.fromShort(value));
-    }
 
     @ParameterizedTest
     @ValueSource(ints = {0, 255, UnsignedByte.MIN_VALUE, UnsignedByte.MAX_VALUE})

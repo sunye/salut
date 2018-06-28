@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
     private final static int UNSIGNED_SHORT_MASK = 0xFFFF;
-    private final static int MIN_VALUE = 0;
+    public final static int MIN_VALUE = 0;
     public final static int MAX_VALUE = 0xFFFF;
 
     protected final int value;
@@ -80,5 +80,13 @@ public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
     @Override
     public int compareTo(UnsignedShort other) {
         return (this.value < other.value ? -1 : (this.value == other.value ? 0 : 1));
+    }
+
+    public boolean isLessThan(UnsignedShort other) {
+        return value < other.value;
+    }
+
+    public boolean isZero() {
+        return value == 0;
     }
 }
