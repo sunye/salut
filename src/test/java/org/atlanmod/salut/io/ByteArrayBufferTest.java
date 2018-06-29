@@ -361,8 +361,9 @@ class ByteArrayBufferTest {
     void getLabelLength() {
         byte[] bytes = {5};
         ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
-        short p = bb.getLabelLength().value;
-        assertTrue(p == 5);
+
+        LabelLength read = bb.getLabelLength();
+        assertThat(read).isEqualTo(LabelLength.fromInt(5));
     }
 
     @Disabled

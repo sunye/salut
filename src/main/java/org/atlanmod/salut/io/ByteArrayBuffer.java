@@ -70,7 +70,8 @@ public class ByteArrayBuffer {
             lengthOrPointer = this.getLabelLength();
         }
         if (lengthOrPointer.isPointer()) {
-            LabelPointer pointer = LabelPointer.fromBytes(lengthOrPointer, this.getUnsignedByte());
+            UnsignedByte high = UnsignedByte.fromByte(lengthOrPointer.byteValue());
+            LabelPointer pointer = LabelPointer.fromBytes(high, this.getUnsignedByte());
             ByteArrayBuffer other = this.duplicate(); // To keep current position in this Buffer.
             other.position(checkOffset(pointer.offset()));
             labels.addAll(other.readLabels());
@@ -148,7 +149,7 @@ public class ByteArrayBuffer {
     }
 
     public LabelLength getLabelLength() {
-        return new LabelLength(this.getUnsignedByte());
+        return  LabelLength.fromUnsignedByte(this.getUnsignedByte());
     }
 
     public UnsignedByte getUnsignedByte(int position) {

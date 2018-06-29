@@ -28,7 +28,7 @@ class LabelPointerTest {
         byte lowValue = (byte) (value & 0xFF);
 
         assertThrows(IllegalArgumentException.class, () -> LabelPointer.fromBytes(
-                UnsignedByte.fromByte(highValue), UnsignedByte.fromByte(lowValue)));
+                UnsignedByte.fromInt(highValue), UnsignedByte.fromByte(lowValue)));
     }
 
     @DisplayName("Tests method fromBytes() with valid pointer values")

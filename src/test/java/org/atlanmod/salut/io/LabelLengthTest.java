@@ -33,7 +33,7 @@ class LabelLengthTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {-1, LabelLength.MAX_VALUE + 1})
+    @ValueSource(ints = {-1, UnsignedByte.MAX_VALUE + 1})
     void testInvalidFromInt(int value) {
         assertThrows(IllegalArgumentException.class, () -> LabelLength.fromInt(value));
     }
@@ -110,5 +110,65 @@ class LabelLengthTest {
         assertThat(ub.isUnknown()).isFalse();
     }
 
+    @ParameterizedTest
+    @ValueSource(longs = {0, 64})
+    void testLongValue(long value) {
+        LabelLength length = LabelLength.fromInt((int) value);
+        assertAll(
+                () -> assertThat(length.longValue()).isEqualTo(value),
+                () -> assertThat(length.longValue()).isNotEqualTo(255)
+        );
 
+
+    }
+
+    @ParameterizedTest
+    @ValueSource(floats = {0, 64})
+    void testFloatValue(float value) {
+        LabelLength length = LabelLength.fromInt((int) value);
+        assertAll(
+                () -> assertThat(length.floatValue()).isEqualTo(value),
+                () -> assertThat(length.floatValue()).isNotEqualTo(255)
+        );
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = {0, 64})
+    void testDoubleValue(double value) {
+        LabelLength length = LabelLength.fromInt((int) value);
+        assertAll(
+                () -> assertThat(length.doubleValue()).isEqualTo(value),
+                () -> assertThat(length.doubleValue()).isNotEqualTo(255)
+        );
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 64})
+    void testEquals(int value) {
+        LabelLength length = LabelLength.fromInt(value);
+        LabelLength same = LabelLength.fromInt(value);
+        LabelLength other = LabelLength.fromInt(255);
+
+
+        assertAll(
+                () -> assertThat(length).isEqualTo(length),
+                () -> assertThat(length).isEqualTo(same),
+                () -> assertThat(length).isNotEqualTo(null),
+                () -> assertThat(length).isNotEqualTo(other)
+        );
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 64})
+    void testHashCode(int value) {
+        LabelLength length = LabelLength.fromInt(value);
+        LabelLength same = LabelLength.fromInt(value);
+        LabelLength other = LabelLength.fromInt(255);
+        
+        assertAll(
+                () -> assertThat(length.hashCode()).isEqualTo(length.hashCode()),
+                () -> assertThat(length.hashCode()).isEqualTo(same.hashCode()),
+                () -> assertThat(length.hashCode()).isNotEqualTo(other.hashCode())
+        );
+    }
 }
