@@ -82,7 +82,7 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte> {
      * @return an unsigned short representing the two joined values.
      */
     public UnsignedShort withLowByte(UnsignedByte lowByte) {
-        return new UnsignedShort((this.value << 8) + (lowByte.value & 0xff));
+        return UnsignedShort.fromInt((this.value << 8) + (lowByte.value & 0xff));
     }
 
 

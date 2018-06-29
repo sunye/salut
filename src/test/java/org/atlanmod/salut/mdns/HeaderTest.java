@@ -37,7 +37,7 @@ public class HeaderTest {
         Header header = Header.fromByteBuffer(buffer);
 
         assertEquals(0, header.id());
-        assertEquals(new UnsignedShort(0), header.flags().toUnsignedShort());
+        assertEquals(UnsignedShort.fromInt(0), header.flags().toUnsignedShort());
         assertEquals(3, header.questionRecordCount());
         assertEquals(0, header.answerRecordCount());
         assertEquals(256, header.authorityRecordCount());

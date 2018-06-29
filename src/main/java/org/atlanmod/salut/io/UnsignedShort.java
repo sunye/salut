@@ -16,7 +16,7 @@ public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
 
     protected final int value;
 
-    public UnsignedShort(int value) {
+    protected UnsignedShort(int value) {
         this.value = value;
     }
 

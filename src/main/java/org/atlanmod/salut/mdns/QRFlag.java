@@ -61,7 +61,7 @@ public class QRFlag {
     }
 
     public UnsignedShort toUnsignedShort() {
-        return new UnsignedShort(this.value);
+        return UnsignedShort.fromInt(this.value);
     }
 
     public static QRFlag fromUnsignedShort(UnsignedShort uShort) {
