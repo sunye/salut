@@ -21,4 +21,9 @@ public class InternetDomainName implements DomainName {
                 "data=" + names +
                 '}';
     }
+
+    @Override
+    public NameArray toNameArray() {
+        return names;
+    }
 }

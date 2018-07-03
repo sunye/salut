@@ -1,5 +1,7 @@
 package org.atlanmod.salut.data;
 
+import org.atlanmod.salut.mdns.NameArray;
+
 import java.util.Objects;
 
 /**
@@ -36,4 +38,8 @@ public class LocalDomainName implements DomainName {
         return Objects.hash(name);
     }
 
+    @Override
+    public NameArray toNameArray() {
+        return NameArray.fromList(this.name, LOCAL_STR);
+    }
 }

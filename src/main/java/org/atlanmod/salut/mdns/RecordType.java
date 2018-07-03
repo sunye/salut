@@ -1,6 +1,7 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.io.UnsignedShort;
 
 import java.text.ParseException;
 import java.util.Map;
@@ -343,6 +344,10 @@ public enum RecordType {
                 '}';
     }
 
+    public UnsignedShort unsignedShortValue() {
+        return UnsignedShort.fromInt(this.code);
+    }
+
     private final static Map<Integer, RecordType> MAP = stream(RecordType.values())
             .collect(toMap(each -> each.code, each -> each));
 
@@ -350,13 +355,4 @@ public enum RecordType {
         return Optional.ofNullable(MAP.get(code));
     }
 
-    public static RecordType fromByteBuffer(ByteArrayBuffer buffer) throws ParseException {
-        int code = buffer.getUnsignedShort().intValue();
-        Optional<RecordType> type = fromCode(code);
-        if (! type.isPresent()) {
-            throw new ParseException("Parsing error when reading Question Type. Unknown code: " + code, buffer.position());
-        } else {
-            return type.get();
-        }
-    }
 }

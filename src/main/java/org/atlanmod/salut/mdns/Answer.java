@@ -1,6 +1,6 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
 
 import java.text.ParseException;
 
@@ -11,7 +11,7 @@ public class Answer  {
         this.record = record;
     }
 
-    public static Answer fromByteBuffer(ByteArrayBuffer buffer) throws ParseException {
+    public static Answer fromByteBuffer(ByteArrayReader buffer) throws ParseException {
         AbstractRecord record = AbstractRecord.fromByteBuffer(buffer);
 
         return new Answer(record);

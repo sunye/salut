@@ -164,7 +164,7 @@ class LabelLengthTest {
         LabelLength length = LabelLength.fromInt(value);
         LabelLength same = LabelLength.fromInt(value);
         LabelLength other = LabelLength.fromInt(255);
-        
+
         assertAll(
                 () -> assertThat(length.hashCode()).isEqualTo(length.hashCode()),
                 () -> assertThat(length.hashCode()).isEqualTo(same.hashCode()),

@@ -4,12 +4,12 @@ import fr.inria.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.data.DomainName;
 import org.atlanmod.salut.data.DomainNameBuilder;
 import org.atlanmod.salut.data.ServiceInstanceName;
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
 
 import java.text.ParseException;
-import java.util.List;
 
 /**
  * The class `ServerSelectionRecord` represents the DNS SRV abstract record.
@@ -138,6 +138,21 @@ public class ServerSelectionRecord extends NormalRecord {
                 '}';
     }
 
+    public void writeOne(ByteArrayWriter writer) {
+        // Fixed part
+        writer.putNameArray(names)
+                .putRecordType(RecordType.SRV)
+                .putQClass(QClass.IN)
+                .putUnsignedInt(ttl.unsignedIntValue())
+                .putUnsignedShort(UnsignedShort.fromInt(4));
+
+        // Variable part
+        writer.putUnsignedShort(priority)
+                .putUnsignedShort(weight)
+                .putUnsignedShort(port)
+                .putNameArray(target);
+    }
+
     /**
      * The class `SRVRecordParser` is used to parse the variable part of a DNS SRV record.
      */
@@ -152,11 +167,11 @@ public class ServerSelectionRecord extends NormalRecord {
 
         /**
          * Parses the variable part of a SRV Record.
-         * @param buffer a `ByteArrayBuffer` containing the record to parse.
+         * @param buffer a `ByteArrayReader` containing the record to parse.
          * @throws ParseException
          */
         @Override
-        protected void parseVariablePart(ByteArrayBuffer buffer) throws ParseException {
+        protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
             priority = buffer.getUnsignedShort();
             weight = buffer.getUnsignedShort();
             port = buffer.getUnsignedShort();

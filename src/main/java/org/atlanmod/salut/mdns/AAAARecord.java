@@ -2,7 +2,7 @@ package org.atlanmod.salut.mdns;
 
 import org.atlanmod.salut.data.DomainName;
 import org.atlanmod.salut.data.DomainNameBuilder;
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedInt;
 
 import java.net.Inet6Address;
@@ -61,7 +61,7 @@ public class AAAARecord extends NormalRecord {
         private Inet6Address address;
         private DomainName serverName;
 
-        private static InetAddress parseInet6Address(ByteArrayBuffer buffer) throws ParseException {
+        private static InetAddress parseInet6Address(ByteArrayReader buffer) throws ParseException {
             byte[] addressBytes = new byte[16];
             buffer.get(addressBytes);
             try {
@@ -72,7 +72,7 @@ public class AAAARecord extends NormalRecord {
             }
         }
 
-        protected void parseVariablePart(ByteArrayBuffer buffer) throws ParseException {
+        protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
             address = (Inet6Address) parseInet6Address(buffer);
             serverName = DomainNameBuilder.fromNameArray(name);
         }

@@ -1,10 +1,11 @@
 package org.atlanmod.salut.mdns;
 
 import org.atlanmod.salut.cache.TimeToLive;
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedInt;
 
 import java.text.ParseException;
+import java.util.Objects;
 
 /**
  *
@@ -67,6 +68,21 @@ public abstract class NormalRecord extends AbstractRecord {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NormalRecord)) return false;
+        NormalRecord that = (NormalRecord) o;
+        return qclass == that.qclass;
+
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(qclass, ttl);
+    }
+
     protected static abstract class NormalRecordParser<T extends NormalRecord> implements RecordParser<T> {
 
         protected NameArray name;
@@ -75,20 +91,36 @@ public abstract class NormalRecord extends AbstractRecord {
         protected int dataLength;
 
         @Override
-        public T parse(NameArray name, ByteArrayBuffer buffer) throws ParseException {
+        public T parse(NameArray name, ByteArrayReader buffer) throws ParseException {
             this.name = name;
             this.parseFixedPart(buffer);
             this.parseVariablePart(buffer);
             return build();
         }
 
-        protected void parseFixedPart(ByteArrayBuffer buffer) throws ParseException {
-            qclass = QClass.fromByteBuffer(buffer);
-            ttl = buffer.getUnsignedInt();
-            dataLength = buffer.getUnsignedShort().intValue();
+        /**
+         * Parses the fixed part of a record. The fixed part is composed of:
+         *     - The QClass
+         *     - The time to live
+         *     - The length of the RData part (the variable part).
+         *
+         * @param reader a ByteArrayReader containing the record to be parsed.
+         * @throws ParseException if there is a parsing error.
+         */
+        protected void parseFixedPart(ByteArrayReader reader) throws ParseException {
+            qclass = QClass.fromByteBuffer(reader);
+            ttl = reader.getUnsignedInt();
+            dataLength = reader.getUnsignedShort().intValue();
         }
 
-        protected void parseVariablePart(ByteArrayBuffer buffer) throws ParseException {
+        /**
+         * Common behavior for the variable part parsing (does nothing).
+         * The specific behavior will be handled by the subclasses.
+         *
+         * @param reader a ByteArrayReader containing the record to be parsed.
+         * @throws ParseException if there is a parsing error.
+         */
+        protected void parseVariablePart(ByteArrayReader reader) throws ParseException {
 
         }
 

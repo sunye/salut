@@ -1,6 +1,6 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedByte;
 import org.atlanmod.salut.io.UnsignedShort;
 
@@ -90,7 +90,7 @@ public class PseudoRecord extends AbstractRecord {
     private static class PseudoRecordBuilder implements RecordParser<PseudoRecord> {
 
         @Override
-        public PseudoRecord parse(NameArray name, ByteArrayBuffer buffer) throws ParseException {
+        public PseudoRecord parse(NameArray name, ByteArrayReader buffer) throws ParseException {
             UnsignedShort optionCode = buffer.getUnsignedShort();
             UnsignedShort payload = buffer.getUnsignedShort();
             UnsignedByte extendedRCode = buffer.getUnsignedByte();

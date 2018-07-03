@@ -1,7 +1,7 @@
 package org.atlanmod.salut.mdns;
 
 import fr.inria.atlanmod.commons.log.Log;
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedShort;
 
 import java.util.Objects;
@@ -149,13 +149,13 @@ public class Header {
      *
      * @param buffer a byte array buffer where the header will be written.
      */
-    public void writeOn(ByteArrayBuffer buffer) {
-        buffer.putUnsignedShord(id);
-        buffer.putUnsignedShord(flags.toUnsignedShort());
-        buffer.putUnsignedShord(questionRecordCount);
-        buffer.putUnsignedShord(answerRecordCount);
-        buffer.putUnsignedShord(authorityRecordCount);
-        buffer.putUnsignedShord(additionalRecordCount);
+    public void writeOn(ByteArrayReader buffer) {
+        buffer.putUnsignedShort(id);
+        buffer.putUnsignedShort(flags.toUnsignedShort());
+        buffer.putUnsignedShort(questionRecordCount);
+        buffer.putUnsignedShort(answerRecordCount);
+        buffer.putUnsignedShort(authorityRecordCount);
+        buffer.putUnsignedShort(additionalRecordCount);
     }
 
     /**
@@ -164,7 +164,7 @@ public class Header {
      * @param buffer
      * @return a new Header instance
      */
-    public static Header fromByteBuffer(ByteArrayBuffer buffer) {
+    public static Header fromByteBuffer(ByteArrayReader buffer) {
         UnsignedShort id            = buffer.getUnsignedShort();
         QRFlag flags      = QRFlag.fromUnsignedShort(buffer.getUnsignedShort());
         UnsignedShort questions     = buffer.getUnsignedShort();

@@ -2,7 +2,7 @@ package org.atlanmod.salut.mdns;
 
 import fr.inria.atlanmod.commons.log.Log;
 import org.atlanmod.salut.data.*;
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedInt;
 
 import java.text.ParseException;
@@ -63,11 +63,11 @@ public abstract class PointerRecord extends NormalRecord {
         /**
          * Parses the variable part of a PTR record.
          *
-         * @param buffer a `ByteArrayBuffer` containing the record to parse.
+         * @param buffer a `ByteArrayReader` containing the record to parse.
          * @throws ParseException
          */
         @Override
-        protected void parseVariablePart(ByteArrayBuffer buffer) throws ParseException {
+        protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
             NameArray ptrName = NameArray.fromByteBuffer(buffer);
             Log.info("PTR(pointerName={0}, getServerName={1})", ptrName, name);
 

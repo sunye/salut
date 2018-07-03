@@ -136,6 +136,7 @@
                         <targetClasses>
                             <param>org.atlanmod.salut.io*</param>
                             <param>org.atlanmod.salut.cache*</param>
+                            <param>org.atlanmod.salut.mdns*</param>
                         </targetClasses>
                     </configuration>
                 </plugin>

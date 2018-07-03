@@ -1,6 +1,7 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.io.UnsignedShort;
 
 import java.text.ParseException;
 import java.util.Map;
@@ -74,6 +75,15 @@ public enum QClass {
                 '}';
     }
 
+    /**
+     * Returns an unsigned short (2-byte) value representing this QClass.
+     *
+     * @return an UnsignedShort
+     */
+    public UnsignedShort unsignedShortValue() {
+        return UnsignedShort.fromInt(this.code);
+    }
+
     private final static Map<Integer, QClass> MAP = stream(QClass.values())
             .collect(toMap(each -> each.code, each -> each));
 
@@ -81,7 +91,7 @@ public enum QClass {
         return Optional.ofNullable(MAP.get(code));
     }
 
-    public static QClass fromByteBuffer(ByteArrayBuffer buffer) throws ParseException {
+    public static QClass fromByteBuffer(ByteArrayReader buffer) throws ParseException {
         int code = buffer.getUnsignedShort().intValue();
         code = code & CLASS_MASK;
 

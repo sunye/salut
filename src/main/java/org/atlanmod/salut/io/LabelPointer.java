@@ -11,6 +11,8 @@ import fr.inria.atlanmod.commons.Preconditions;
  *
  * While in theory the position may be between 0 and 2^14 (16,384), it is limited between the position the label
  * pointer was read and the mdns messages maximum size.
+ *
+ * For more details, see section 18.14 from [RFC 6762](https://tools.ietf.org/html/rfc6762#section-18.14)
  * 
  */
 public class LabelPointer extends UnsignedShort {

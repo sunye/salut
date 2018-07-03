@@ -1,6 +1,6 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedInt;
 
 import java.text.ParseException;
@@ -22,7 +22,7 @@ public class TextRecord extends NormalRecord {
 
         private List<String> labels;
 
-        protected void parseVariablePart(ByteArrayBuffer buffer) throws ParseException {
+        protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
             labels = buffer.readTextStrings(dataLength);
         }
 

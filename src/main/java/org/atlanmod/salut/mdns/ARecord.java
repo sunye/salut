@@ -3,13 +3,14 @@ package org.atlanmod.salut.mdns;
 import fr.inria.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.data.DomainName;
 import org.atlanmod.salut.data.DomainNameBuilder;
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
+import org.atlanmod.salut.io.UnsignedShort;
 
 import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.text.ParseException;
+import java.util.Objects;
 
 /**
  * The `ARecord` class represents DNS IP4 getAddress records (ARecord).
@@ -57,7 +58,36 @@ public class ARecord extends NormalRecord {
         return "ARecord{" +
                 "data=" + names +
                 ", getAddress=" + address +
+                ", ttl="+ttl +
                 '}';
+    }
+
+    public void writeOn(ByteArrayWriter writer) {
+
+        // Fixed part
+        writer.putNameArray(names)
+                .putRecordType(RecordType.A)
+                .putQClass(QClass.IN)
+                .putUnsignedInt(ttl.unsignedIntValue())
+                .putUnsignedShort(UnsignedShort.fromInt(4));
+
+        // Variable part
+        writer.putInet4Address(this.address);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ARecord aRecord = (ARecord) o;
+        return address.equals(aRecord.address) &&
+                serverName.equals(aRecord.serverName) &&
+                super.equals(aRecord);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(address, serverName);
     }
 
     public static RecordParser<ARecord> parser() {
@@ -71,13 +101,13 @@ public class ARecord extends NormalRecord {
         /**
          * Parses the variable part of a ARecord.
          *
-         * @param buffer a byte array buffer containing the record.
+         * @param reader a byte array reader containing the record.
          *
          * @throws ParseException if the record is not well-formed.
          */
         @Override
-        protected void parseVariablePart(ByteArrayBuffer buffer) throws ParseException {
-            address = (Inet4Address) parseInet4Address(buffer);
+        protected void parseVariablePart(ByteArrayReader reader) throws ParseException {
+            address = reader.readInet4Address();
             serverName = DomainNameBuilder.fromNameArray(name);
         }
 
@@ -86,16 +116,6 @@ public class ARecord extends NormalRecord {
             return new ARecord(name, qclass, ttl, address, serverName);
         }
 
-        private InetAddress parseInet4Address(ByteArrayBuffer buffer) throws ParseException {
-            byte[] addressBytes = new byte[4];
-            buffer.get(addressBytes);
-            try {
-                InetAddress address = Inet4Address.getByAddress(addressBytes);
-                return address;
-            } catch (UnknownHostException e) {
-                throw new ParseException("UnknownHostException - Parsing error when reading a A AbstractRecord.", buffer.position());
-            }
-        }
     }
 
     @VisibleForTesting

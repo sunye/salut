@@ -11,34 +11,56 @@ import java.util.Objects;
  */
 public class UnsignedByte extends Number implements Comparable<UnsignedByte> {
 
-    public final static int MIN_VALUE = 0;
-    public final static int MAX_VALUE = 255;
+    public final static short MIN_VALUE = 0;
+    public final static short MAX_VALUE = 255;
     public final static int UNSIGNED_BYTE_MASK = 0xFF;
+
+    private static UnsignedByte[] cache = new UnsignedByte[MAX_VALUE + 1];
 
     protected final short value;
 
     protected UnsignedByte(short value) {
-        assert value >= 0 && value < 256 : "Invalid unsigned byte value";
+        Preconditions.checkGreaterThanOrEqualTo(value, MIN_VALUE);
+        Preconditions.checkLessThanOrEqualTo(value, MAX_VALUE);
 
         this.value = value;
     }
 
+    /**
+     * Returns an <code>UnsignedByte</code> object wrapping the value.
+     *
+     * In contrast to the `UnsignedByte` constructor, this method will
+     * cache some values.
+     *
+     * @param value the value to wrap
+     * @return the <code>UnsignedByte</code>
+     */
+    private static UnsignedByte valueOf(short value) {
+        assert value >= MIN_VALUE && value <= MAX_VALUE;
+
+        if (cache[value] == null) {
+            cache[value] = new UnsignedByte(value);
+        }
+        return cache[value];
+    }
+
     public static UnsignedByte fromByte(byte value) {
         short unsigned = (short) (value & UNSIGNED_BYTE_MASK);
-        return new UnsignedByte(unsigned);
+        return valueOf(unsigned);
     }
 
     public static UnsignedByte fromShort(short value) {
         Preconditions.checkArgument(value >= MIN_VALUE && value <= MAX_VALUE);
         short unsigned = (short) (value & UNSIGNED_BYTE_MASK);
 
-        return new UnsignedByte(unsigned);
+        return valueOf(unsigned);
     }
 
     public static UnsignedByte fromInt(int value) {
         Preconditions.checkArgument(value >= MIN_VALUE && value <= MAX_VALUE);
         short unsigned = (short) (value & UNSIGNED_BYTE_MASK);
-        return new UnsignedByte(unsigned);
+
+        return valueOf(unsigned);
     }
 
     @Override

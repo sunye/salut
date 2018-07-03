@@ -1,5 +1,7 @@
 package org.atlanmod.salut.data;
 
+import org.atlanmod.salut.mdns.NameArray;
+
 /**
  *
  * From [RFC 6763](https://tools.ietf.org/html/rfc6763)
@@ -22,4 +24,6 @@ public interface DomainName {
 
     String LOCAL_STR = "local";
     String ARPA = "arpa";
+
+    NameArray toNameArray();
 }

@@ -2,11 +2,13 @@ package org.atlanmod.salut.mdns;
 
 import fr.inria.atlanmod.commons.Preconditions;
 import fr.inria.atlanmod.commons.annotation.VisibleForTesting;
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class NameArray {
 
@@ -21,6 +23,20 @@ public class NameArray {
         return names.size();
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NameArray)) return false;
+        NameArray nameArray = (NameArray) o;
+        return Objects.equals(names, nameArray.names);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(names);
+    }
+
     public boolean contains(String aLabel) {
         return names.contains(aLabel);
     }
@@ -30,6 +46,28 @@ public class NameArray {
         return "NameArray{" +
                 "data=" + names +
                 '}';
+    }
+
+    /**
+     * Adds a name (label) to this NameArray.
+     *
+     * @param name the name (label) to add.
+     */
+    public void add(String name) {
+        Preconditions.checkNotNull(name);
+
+        this.names.add(name);
+    }
+
+    /**
+     * Adds (concatenates) all labels of another NameArray to this one.
+     *
+     * @param nameArray the NameArray containing the labels to add.
+     */
+    public void addAll(NameArray nameArray) {
+        Preconditions.checkNotNull(nameArray);
+
+        this.names.addAll(nameArray.getNames());
     }
 
     public String get(int index ) {
@@ -50,6 +88,10 @@ public class NameArray {
         return names.get(0);
     }
 
+    public List<String> getNames() {
+        return names;
+    }
+
     public NameArray subArray(int fromIndex, int toIndex) {
         return new NameArray(names.subList(fromIndex, toIndex));
     }
@@ -65,13 +107,12 @@ public class NameArray {
      * @param buffer a byte array buffer containing an encoded qualified name.
      * @return a new name array instance
      */
-    public static NameArray fromByteBuffer(ByteArrayBuffer buffer, int position) throws ParseException {
+    public static NameArray fromByteBuffer(ByteArrayReader buffer, int position) throws ParseException {
         buffer.position(position);
-        List<String> labels = buffer.readLabels();
-        return new NameArray(labels);
+        return buffer.readLabels();
     }
 
-    public static NameArray fromByteBuffer(ByteArrayBuffer buffer) throws ParseException {
+    public static NameArray fromByteBuffer(ByteArrayReader buffer) throws ParseException {
         return NameArray.fromByteBuffer(buffer, buffer.position());
     }
 
@@ -79,6 +120,14 @@ public class NameArray {
         return new NameArray(Arrays.asList(strings));
     }
 
+    /**
+     * Creates an empty instance of a NameArray.
+     *
+     * @return a NameArray instance
+     */
+    public static NameArray create() {
+        return new NameArray(new ArrayList<String>());
+    }
 
     /**
      * For unit testing

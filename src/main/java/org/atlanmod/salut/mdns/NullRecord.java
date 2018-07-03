@@ -1,6 +1,6 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedInt;
 
 import java.text.ParseException;
@@ -30,7 +30,7 @@ public class NullRecord extends AbstractRecord {
     private static class NullRecordParser implements RecordParser<NullRecord> {
 
         @Override
-        public NullRecord parse(NameArray name, ByteArrayBuffer buffer) throws ParseException {
+        public NullRecord parse(NameArray name, ByteArrayReader buffer) throws ParseException {
             QClass qclass = QClass.fromByteBuffer(buffer);
             UnsignedInt ttl = buffer.getUnsignedInt();
             int dataLength = buffer.getUnsignedShort().intValue();

@@ -1,7 +1,7 @@
 package org.atlanmod.salut.mdns;
 
 import fr.inria.atlanmod.commons.collect.MoreArrays;
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -16,7 +16,7 @@ class NameArrayTest {
         byte[] bytes = {8, 109, 121, 100, 111, 109, 97, 105, 110,
                 3, 99, 111, 109, 0};
 
-        NameArray qname = NameArray.fromByteBuffer(ByteArrayBuffer.wrap(bytes));
+        NameArray qname = NameArray.fromByteBuffer(ByteArrayReader.wrap(bytes));
 
         assertTrue(qname.size() == 2);
         assertTrue(qname.contains("mydomain"));
@@ -36,7 +36,7 @@ class NameArrayTest {
                 0};
 
         byte[] bytes = MoreArrays.addAll(first, second);
-        ByteArrayBuffer bb = ByteArrayBuffer.wrap(bytes);
+        ByteArrayReader bb = ByteArrayReader.wrap(bytes);
         NameArray qnameFirst = NameArray.fromByteBuffer(bb);
         NameArray qnameSecond = NameArray.fromByteBuffer(bb);
 
@@ -67,7 +67,7 @@ class NameArrayTest {
 
         byte[] buffer = MoreArrays.addAll(firstPart, secondPart);
 
-        ByteArrayBuffer bb = ByteArrayBuffer.wrap(buffer);
+        ByteArrayReader bb = ByteArrayReader.wrap(buffer);
         NameArray qname = NameArray.fromByteBuffer(bb, firstPart.length);
 
         assertTrue(qname.size() == 3);

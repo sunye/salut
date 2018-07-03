@@ -27,7 +27,7 @@ public enum OptionCode {
      *
      * @see <a href="http://files.dns-sd.org/draft-sekar-dns-ul.txt">Dynamic DNS Update Leases</a>
      */
-    UL(2,""),
+    UL(2,"DDNS-UL"),
 
     /**
      * DNS Name Server Identifier
@@ -115,10 +115,7 @@ public enum OptionCode {
 
     @Override
     public String toString() {
-        return "OptionCode{" +
-                "code=" + code +
-                ", label='" + label + '\'' +
-                '}';
+        return label;
     }
 
     private final static Map<Integer, OptionCode> map = stream(OptionCode.values())

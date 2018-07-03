@@ -1,0 +1,64 @@
+package org.atlanmod.salut.mdns;
+
+import org.atlanmod.salut.data.DomainName;
+import org.atlanmod.salut.data.DomainNameBuilder;
+import org.atlanmod.salut.data.ServiceInstanceName;
+import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.io.ByteArrayWriter;
+import org.atlanmod.salut.io.UnsignedInt;
+import org.atlanmod.salut.io.UnsignedShort;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.text.ParseException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ * Integration tests for record parsing and writing.
+ *
+ */
+public class RecordParsingIT {
+
+    private ByteArrayWriter writer;
+
+    @BeforeEach
+    void setup() {
+        writer = new ByteArrayWriter();
+    }
+
+    @Test
+    void testARecordReadWrite() throws ParseException, UnknownHostException {
+
+        NameArray names = NameArray.fromList("MacBook", "local");
+        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
+        DomainName domaine = DomainNameBuilder.fromNameArray(names);
+        ARecord record = ARecord.createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
+
+        record.writeOn(writer);
+        ByteArrayReader reader = writer.getByteArrayReader();
+        AbstractRecord readRecord = AbstractRecord.fromByteBuffer(reader);
+
+        assertThat(record).isEqualTo(readRecord);
+    }
+
+    @Test
+    void testSRVRecordReadWrite() throws ParseException {
+
+        ServerSelectionRecord record =
+        ServerSelectionRecord.createRecord(NameArray.fromList("music", "raop", "tcp", "mac", "local"), QClass.IN,
+                UnsignedInt.fromInt(500), UnsignedShort.fromInt(10), UnsignedShort.fromInt(33),
+                UnsignedShort.fromInt(80),NameArray.fromList("mac", "local") ,
+                null, null);
+
+        record.writeOne(writer);
+
+        ByteArrayReader reader = writer.getByteArrayReader();
+        AbstractRecord readRecord = AbstractRecord.fromByteBuffer(reader);
+
+        assertThat(record).isEqualTo(readRecord);
+    }
+}

@@ -1,38 +1,45 @@
 package org.atlanmod.salut.io;
 
 import fr.inria.atlanmod.commons.log.Log;
+import org.atlanmod.salut.mdns.NameArray;
+import org.atlanmod.salut.mdns.QClass;
+import org.atlanmod.salut.mdns.RecordType;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
- * The class `ByteArrayBuffer` is a wrapper class for the {@code ByteBuffer} class.
+ * The class `ByteArrayReader` is a wrapper class for the {@code ByteBuffer} class.
  * It adds specific operations for reading unsigned values, labels, compressed labels, etc.
  */
-public class ByteArrayBuffer {
+public class ByteArrayReader {
 
 
     private final static int MAX_DOMAIN_NAME_LENGTH = 64;
     private final ByteBuffer buffer;
 
-    public ByteArrayBuffer(ByteBuffer buffer) {
+    public ByteArrayReader(ByteBuffer buffer) {
         this.buffer = buffer;
     }
 
-    public static ByteArrayBuffer allocate(int capacity) {
+    public static ByteArrayReader allocate(int capacity) {
         ByteBuffer wrapped = ByteBuffer.allocate(capacity);
-        return new ByteArrayBuffer(wrapped);
+        return new ByteArrayReader(wrapped);
     }
 
-    public static ByteArrayBuffer wrap(byte[] array) {
+    public static ByteArrayReader wrap(byte[] array) {
         ByteBuffer wrapped = ByteBuffer.wrap(array, 0, array.length);
-        return new ByteArrayBuffer(wrapped);
+        return new ByteArrayReader(wrapped);
     }
 
-    public static ByteArrayBuffer fromString(String str) {
+    public static ByteArrayReader fromString(String str) {
         return wrap(toByteArray(str));
     }
 
@@ -46,8 +53,23 @@ public class ByteArrayBuffer {
         return data;
     }
 
-    public ByteArrayBuffer duplicate() {
-        return new ByteArrayBuffer(buffer.duplicate());
+    public RecordType readRecordType() throws ParseException {
+        int code = this.getUnsignedShort().intValue();
+
+        Optional<RecordType> type = RecordType.fromCode(code);
+        if (! type.isPresent()) {
+            throw new ParseException("Parsing error when reading Question Type. Unknown code: " + code, buffer.position());
+        } else {
+            return type.get();
+        }
+    }
+
+    public QClass readQClass() throws ParseException {
+        return QClass.fromByteBuffer(this);
+    }
+
+    public ByteArrayReader duplicate() {
+        return new ByteArrayReader(buffer.duplicate());
     }
 
     /**
@@ -58,21 +80,19 @@ public class ByteArrayBuffer {
      *
      * @return a list potentially containing the strings representing a qualified name.
      */
-    public List<String> readLabels() throws ParseException {
-        //Log.info("Reading label at position: {0}", buffer.position());
-
-        List<String> labels = new ArrayList<>();
+    public NameArray readLabels() throws ParseException {
+        NameArray labels = NameArray.create();
         LabelLength lengthOrPointer = this.getLabelLength();
 
         while (lengthOrPointer.isValidNameLength()) {
-            String label = this.getLabel(lengthOrPointer.intValue());
+            String label = this.getLabel(lengthOrPointer);
             labels.add(label);
             lengthOrPointer = this.getLabelLength();
         }
         if (lengthOrPointer.isPointer()) {
             UnsignedByte high = UnsignedByte.fromByte(lengthOrPointer.byteValue());
             LabelPointer pointer = LabelPointer.fromBytes(high, this.getUnsignedByte());
-            ByteArrayBuffer other = this.duplicate(); // To keep current position in this Buffer.
+            ByteArrayReader other = this.duplicate(); // To keep current position in this Buffer.
             other.position(checkOffset(pointer.offset()));
             labels.addAll(other.readLabels());
 
@@ -85,28 +105,16 @@ public class ByteArrayBuffer {
 
             throw new ParseException("Extend and Unknown labels are not supported.", currentPosition - 1);
         }
-
-        /*
-        if (labels.isEmpty()) {
-            int currentPosition = buffer.position();
-            String message = MessageFormat.format("Empty NameArray at position {0}. Before: {1}, Read: {2}, After: {3}",
-                    currentPosition - 1,
-                    this.getUnsignedByte(currentPosition - 2),
-                    this.getUnsignedByte(currentPosition - 1),
-                    this.getUnsignedByte(currentPosition));
-            Log.warn(message);
-        }
-        */
-
         return labels;
     }
+
 
     public List<String> readTextStrings(int recordLength) {
         List<String> strings = new ArrayList<>();
         int bytesRead = 0;
         do {
-            UnsignedByte length = this.getUnsignedByte();
-            String label = this.getLabel(length.intValue());
+            LabelLength length = this.getLabelLength();
+            String label = this.getLabel(length);
             bytesRead += length.intValue() + 1;
             strings.add(label);
         } while (bytesRead < recordLength);
@@ -120,11 +128,10 @@ public class ByteArrayBuffer {
      * @param length the number of characters to be read.
      * @return A String representing the label.
      */
-    private String getLabel(int length) {
-        byte[] labelBuffer = new byte[length];
+    protected String getLabel(LabelLength length) {
+        byte[] labelBuffer = new byte[length.intValue()];
         buffer.get(labelBuffer);
         String newLabel = new String(labelBuffer, StandardCharsets.UTF_8);
-        //Log.info("Label read: {0}", newLabel);
 
         return newLabel;
     }
@@ -140,7 +147,7 @@ public class ByteArrayBuffer {
         return UnsignedShort.fromShort(buffer.getShort());
     }
 
-    public void putUnsignedShord(UnsignedShort us) {
+    public void putUnsignedShort(UnsignedShort us) {
         buffer.putShort(us.shortValue());
     }
 
@@ -172,7 +179,7 @@ public class ByteArrayBuffer {
         buffer.position(newPosition);
     }
 
-    public ByteArrayBuffer get(byte[] dst) {
+    public ByteArrayReader get(byte[] dst) {
         buffer.get(dst);
         return this;
     }
@@ -192,5 +199,21 @@ public class ByteArrayBuffer {
             throw new ParseException("pointer overflow", buffer.position());
         }
         return pointer;
+    }
+
+    /**
+     * Reads a 4-bytes IPv4 address
+     * @return This ByteArrayReader
+     * @throws ParseException If there is a parsing error
+     */
+    public Inet4Address readInet4Address() throws ParseException {
+        byte[] addressBytes = new byte[4];
+        get(addressBytes);
+        try {
+            Inet4Address address = (Inet4Address) Inet4Address.getByAddress(addressBytes);
+            return address;
+        } catch (UnknownHostException e) {
+            throw new ParseException("UnknownHostException - Parsing error when reading a Inet4 addresss.", position());
+        }
     }
 }

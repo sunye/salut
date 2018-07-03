@@ -31,7 +31,7 @@ public class LabelLength extends Number {
     }
 
     public static LabelLength fromUnsignedByte(UnsignedByte ub) {
-        return fromInt(ub.intValue());
+        return new LabelLength(ub.shortValue());
     }
 
     /**
@@ -90,6 +90,11 @@ public class LabelLength extends Number {
     @Override
     public double doubleValue() {
         return (double) value;
+    }
+
+    @Override
+    public short shortValue() {
+        return value;
     }
 
     @Override

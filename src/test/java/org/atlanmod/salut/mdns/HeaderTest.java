@@ -1,12 +1,13 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 public class HeaderTest {
 
@@ -19,10 +20,10 @@ public class HeaderTest {
 
     @Test
     void writeOn() {
-        ByteArrayBuffer from = ByteArrayBuffer.fromString(packetStr);
+        ByteArrayReader from = ByteArrayReader.fromString(packetStr);
         Header header = Header.fromByteBuffer(from);
 
-        ByteArrayBuffer to = ByteArrayBuffer.allocate(12);
+        ByteArrayReader to = ByteArrayReader.allocate(12);
         header.writeOn(to);
 
         assertTrue(Arrays.equals(from.array(), to.array()));
@@ -33,7 +34,7 @@ public class HeaderTest {
         byte[] headerArray = {0x00, 0x00, 0x00, 0x00, 0x00, 0x03,
                 0x00, 0x00, 0x01, 0x00, 0x00, 0x01};
 
-        ByteArrayBuffer buffer = ByteArrayBuffer.wrap(headerArray);
+        ByteArrayReader buffer = ByteArrayReader.wrap(headerArray);
         Header header = Header.fromByteBuffer(buffer);
 
         assertEquals(0, header.id());
@@ -42,6 +43,21 @@ public class HeaderTest {
         assertEquals(0, header.answerRecordCount());
         assertEquals(256, header.authorityRecordCount());
         assertEquals(1, header.additionalRecordCount());
+    }
 
+    @Test
+    void testEquals() {
+        byte[] headerArray = {0x00, 0x00, 0x00, 0x00, 0x00, 0x03,
+                0x00, 0x00, 0x01, 0x00, 0x00, 0x01};
+        ByteArrayReader buffer = ByteArrayReader.wrap(headerArray);
+        Header header = Header.fromByteBuffer(buffer);
+        buffer.position(0);
+        Header same = Header.fromByteBuffer(buffer);
+
+        assertAll(
+                () -> assertThat(header).isEqualTo(header),
+                () -> assertThat(header).isEqualTo(same),
+                () -> assertThat(header).isNotEqualTo(null)
+        );
     }
 }

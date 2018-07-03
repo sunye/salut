@@ -1,7 +1,7 @@
 package org.atlanmod.salut.mdns;
 
 import fr.inria.atlanmod.commons.log.Log;
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
 
 import java.text.ParseException;
 
@@ -29,10 +29,10 @@ public class Question {
                 '}';
     }
 
-    public static Question fromByteBuffer(ByteArrayBuffer buffer, int position) throws ParseException {
+    public static Question fromByteBuffer(ByteArrayReader buffer, int position) throws ParseException {
 
         NameArray qname  = NameArray.fromByteBuffer(buffer);
-        RecordType qtype  = RecordType.fromByteBuffer(buffer);
+        RecordType qtype  = buffer.readRecordType();
         QClass qclass = QClass.fromByteBuffer(buffer);
 
         Question newQuestion = new Question(qname, qtype, qclass);
@@ -40,7 +40,7 @@ public class Question {
         return newQuestion;
     }
 
-    public static Question fromByteBuffer(ByteArrayBuffer buffer) throws ParseException {
+    public static Question fromByteBuffer(ByteArrayReader buffer) throws ParseException {
         return Question.fromByteBuffer(buffer, buffer.position());
     }
 }

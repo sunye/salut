@@ -1,5 +1,7 @@
 package org.atlanmod.salut.data;
 
+import org.atlanmod.salut.mdns.NameArray;
+
 import java.net.Inet4Address;
 
 public class ReverseInet4Address implements DomainName {
@@ -19,5 +21,10 @@ public class ReverseInet4Address implements DomainName {
         return "ReverseInet4Address{" +
                 address +
                 '}';
+    }
+
+    @Override
+    public NameArray toNameArray() {
+        throw new RuntimeException();
     }
 }

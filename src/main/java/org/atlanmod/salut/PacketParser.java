@@ -1,7 +1,7 @@
 package org.atlanmod.salut;
 
 import fr.inria.atlanmod.commons.log.Log;
-import org.atlanmod.salut.io.ByteArrayBuffer;
+import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.mdns.*;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class PacketParser {
 
-    private final ByteArrayBuffer buffer;
+    private final ByteArrayReader buffer;
 
     private Header header;
     private List<Question> questions = Collections.emptyList();
@@ -24,7 +24,7 @@ public class PacketParser {
     private List<Additional> additionals = Collections.emptyList();
 
     public PacketParser(byte[] data) {
-        this.buffer = ByteArrayBuffer.wrap(data);
+        this.buffer = ByteArrayReader.wrap(data);
     }
 
     public void parse () {
