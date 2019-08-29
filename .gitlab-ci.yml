@@ -26,8 +26,11 @@ pages:
   stage: deploy
   script:
   - 'mvn --settings .gitlab.maven.settings.xml site'
+  - mkdir .public
+  - cp -r target/site/* .public
+  - mv .public public
   artifacts:
     paths:
-    - target/site
+    - public
   only:
   - master
