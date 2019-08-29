@@ -98,16 +98,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
-                <configuration>
-                    <doclet>ch.raffael.mddoclet.MarkdownDoclet</doclet>
-                    <docletArtifact>
-                        <groupId>ch.raffael.markdown-doclet</groupId>
-                        <artifactId>markdown-doclet</artifactId>
-                        <version>1.4</version>
-                    </docletArtifact>
-                    <useStandardDocletOptions>true</useStandardDocletOptions>
-                </configuration>
+                <version>3.1.1</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -175,7 +166,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.7.1</version>
+                <version>3.8.2</version>
             </plugin>
         </plugins>
     </build>
@@ -183,6 +174,10 @@
 
     <reporting>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
@@ -200,7 +195,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
                 <configuration>
                     <doclet>ch.raffael.mddoclet.MarkdownDoclet</doclet>
                     <docletArtifact>
