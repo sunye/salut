@@ -1,1 +1,22 @@
 = Referenced
+
+[small]
+[width="100%",cols="34%,33%,33%",]
+|===
+|*Column Name* 
+|*Short Description* 
+|*Meaning*
+
+| ((AAA))
+| BBB
+| CCC
+
+| ((One-Shot Multicast DNS Queries))
+| bla
+| bla
+
+| ((Continuous Multicast DNS Querying))
+| bla
+| bla
+
+|===
