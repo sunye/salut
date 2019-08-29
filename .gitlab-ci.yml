@@ -1,7 +1,7 @@
 image: maven:3.6.1-jdk-8
 
 variables:
-  MAVEN_OPTS: "-Dhttps.proxyHost=proxy-serveur.univ-nantes.prive -Dhttps.proxyPort=3128 -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+  MAVEN_OPTS: "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
 
 cache:
@@ -22,17 +22,10 @@ test:
   script:
     - 'mvn --settings ./.gitlab.maven.settings.xml $MAVEN_OPTS test'
 
-#deploy:
-#  stage: deploy
-#  script:
-#    - 'mvn $MAVEN_OPTS deploy'
-#  only:
-#    - master
-
 pages:
   stage: deploy
   script:
-  - 'mvn -Dhttps.proxyHost=proxy-serveur.univ-nantes.prive -Dhttps.proxyPort=3128 --settings .gitlab.maven.settings.xml clean site'
+  - 'mvn --settings .gitlab.maven.settings.xml site'
   - 'mv target/site/* ./public/'
   artifacts:
     paths:
