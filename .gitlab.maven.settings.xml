@@ -14,12 +14,23 @@
                 <name>Jenkins CI Releases</name>
                 <releases>
                   <enabled>true</enabled>
-                  <updatePolicy>always</updatePolicy>
+                  <updatePolicy>daily</updatePolicy>
                   <checksumPolicy>warn</checksumPolicy>
                 </releases>
                 <url>https://repo.jenkins-ci.org/public</url>
                 <layout>default</layout>
             </repository>
+            <repository>
+                <id>maven-central</id>
+                <name>Maven Central</name>
+                <releases>
+                  <enabled>true</enabled>
+                  <updatePolicy>daily</updatePolicy>
+                  <checksumPolicy>warn</checksumPolicy>
+                </releases>
+                <url>https://repo1.maven.org/maven2/</url>
+                <layout>default</layout>
+            </repository>            
         </repositories>
     </profile>
 </profiles>
