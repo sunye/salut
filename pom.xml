@@ -336,6 +336,13 @@
             <version>1.4</version>
         </dependency-->
 
+        <dependency>
+            <groupId>org.jenkins-ci</groupId>
+            <artifactId>annotation-indexer</artifactId>
+            <version>1.12</version>
+            <classifier>javadoc</classifier>
+        </dependency>
+
 
     </dependencies>
 
