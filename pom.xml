@@ -335,6 +335,14 @@
             <version>2.8.2</version>
         </dependency>
 
+        <!-- site -->
+        <dependency>
+            <groupId>org.jenkins-ci</groupId>
+            <artifactId>annotation-indexer</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+
     </dependencies>
 
     <profiles>
