@@ -28,7 +28,7 @@ test:
 pages:
   stage: deploy
   script:
-  - 'mvn -Dhttps.proxyHost=proxy-serveur.univ-nantes.prive -Dhttps.proxyPort=3128 -X clean site'
+  - 'mvn -Dhttps.proxyHost=proxy-serveur.univ-nantes.prive -Dhttps.proxyPort=3128 -U clean site'
   - 'mv target/site/* ./public/'
   artifacts:
     paths:
