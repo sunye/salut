@@ -24,3 +24,14 @@ test:
 #    - 'mvn $MAVEN_OPTS deploy'
 #  only:
 #    - master
+
+pages:
+  stage: deploy
+  script:
+  - mvn $MAVEN_OPTS site
+  - mv target/site/* ./public/
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
