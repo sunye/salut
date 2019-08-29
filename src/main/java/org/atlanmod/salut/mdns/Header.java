@@ -1,6 +1,6 @@
 package org.atlanmod.salut.mdns;
 
-import fr.inria.atlanmod.commons.log.Log;
+import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedShort;
 

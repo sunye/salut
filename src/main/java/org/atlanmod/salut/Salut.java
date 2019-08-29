@@ -1,7 +1,8 @@
 package org.atlanmod.salut;
 
-import fr.inria.atlanmod.commons.log.Log;
-import org.atlanmod.salut.sd.Service;
+import org.atlanmod.commons.log.Log;
+import org.atlanmod.salut.mdns.ServerSelectionRecord;
+import org.atlanmod.salut.sd.ServiceDescription;
 import org.atlanmod.salut.sd.ServicePublisher;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class Salut implements ServicePublisher {
     private static final int SOCKET_TTL = 10;
 
     private MulticastSocket socket;
+    private InetAddress localHost;
 
 
     public Salut() {}
@@ -25,7 +27,9 @@ public class Salut implements ServicePublisher {
     public void run() throws IOException {
         Log.info("run()");
 
-        this.openSocket(InetAddress.getLocalHost());
+        this.localHost = InetAddress.getLocalHost();
+
+        this.openSocket(localHost);
         SocketReceiver receiver = new SocketReceiver(this.socket);
         SocketSender sender = new SocketSender(this.socket);
         IncomingPacketWorker parser = new IncomingPacketWorker(receiver);
@@ -63,8 +67,10 @@ public class Salut implements ServicePublisher {
 
 
     @Override
-    public void publish(Service service) {
+    public void publish(ServiceDescription service) {
+        //ServerSelectionRecord srv =
 
+        ServerSelectionRecord.fromService(localHost, service);
     }
 
     public static void main(String[] args) throws IOException {

@@ -20,7 +20,7 @@ class LabelPointerTest {
         assertThat(p.offset()).isEqualTo(0x03);
     }
 
-    @DisplayName("Tests method fromBytes() with invalid pointer values")
+    @DisplayName("Tests method create() with invalid pointer values")
     @ParameterizedTest
     @ValueSource(shorts = {0, 1})
     void testFromBytesInvalid(short value) {
@@ -31,7 +31,7 @@ class LabelPointerTest {
                 UnsignedByte.fromInt(highValue), UnsignedByte.fromByte(lowValue)));
     }
 
-    @DisplayName("Tests method fromBytes() with valid pointer values")
+    @DisplayName("Tests method create() with valid pointer values")
     @ParameterizedTest
     @ValueSource(shorts = {(short)0xC000, (short) 0xCFFF})
     void testFromBytes(short value) {

@@ -7,7 +7,7 @@ import org.atlanmod.salut.io.UnsignedInt;
 
 public class MetaQueryPointerRecord extends PointerRecord {
 
-    public MetaQueryPointerRecord(NameArray name, QClass qclass, UnsignedInt ttl) {
+    public MetaQueryPointerRecord(LabelArray name, QClass qclass, UnsignedInt ttl) {
         super(name, qclass, ttl);
     }
 

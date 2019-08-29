@@ -1,8 +1,8 @@
 package org.atlanmod.salut.mdns;
 
-import fr.inria.atlanmod.commons.annotation.VisibleForTesting;
-import org.atlanmod.salut.data.DomainName;
-import org.atlanmod.salut.data.DomainNameBuilder;
+import org.atlanmod.commons.annotation.VisibleForTesting;
+import org.atlanmod.salut.data.Domain;
+import org.atlanmod.salut.data.DomainBuilder;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
@@ -18,16 +18,16 @@ import java.util.Objects;
  * The DNS ARecord has the following format:
  *
  * # ARecord
- * Server Name| Time to live| QCLASS | IP 4 Address
+ * Server Label| Time to live| QCLASS | IP 4 Address
  * --|--
  * &lowbar;printer._tcp.local.  | 28800 | A | 127.16.8.1
  */
 public class ARecord extends NormalRecord {
 
     private final Inet4Address address;
-    private final DomainName serverName;
+    private final Domain serverName;
 
-    private ARecord(NameArray name, QClass qclass, UnsignedInt ttl, Inet4Address address, DomainName serverName) {
+    private ARecord(LabelArray name, QClass qclass, UnsignedInt ttl, Inet4Address address, Domain serverName) {
         super(name, qclass, ttl);
         this.address = address;
         this.serverName = serverName;
@@ -36,7 +36,7 @@ public class ARecord extends NormalRecord {
     /**
      * @return the server name.
      */
-    public DomainName getServerName() {
+    public Domain getServerName() {
         return this.serverName;
     }
 
@@ -96,7 +96,7 @@ public class ARecord extends NormalRecord {
 
     private static class ARecordParser extends NormalRecordParser<ARecord> {
         private Inet4Address address;
-        private DomainName serverName;
+        private Domain serverName;
 
         /**
          * Parses the variable part of a ARecord.
@@ -108,7 +108,7 @@ public class ARecord extends NormalRecord {
         @Override
         protected void parseVariablePart(ByteArrayReader reader) throws ParseException {
             address = reader.readInet4Address();
-            serverName = DomainNameBuilder.fromNameArray(name);
+            serverName = DomainBuilder.fromLabels(name);
         }
 
         @Override
@@ -119,7 +119,7 @@ public class ARecord extends NormalRecord {
     }
 
     @VisibleForTesting
-    public static ARecord createRecord(NameArray name, QClass qclass, UnsignedInt ttl, Inet4Address address, DomainName serverName) {
+    public static ARecord createRecord(LabelArray name, QClass qclass, UnsignedInt ttl, Inet4Address address, Domain serverName) {
         return new ARecord(name, qclass, ttl, address, serverName);
     }
 }

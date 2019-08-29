@@ -1,7 +1,7 @@
 package org.atlanmod.salut.mdns;
 
-import fr.inria.atlanmod.commons.annotation.Singleton;
-import fr.inria.atlanmod.commons.annotation.Static;
+import org.atlanmod.commons.annotation.Singleton;
+import org.atlanmod.commons.annotation.Static;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;

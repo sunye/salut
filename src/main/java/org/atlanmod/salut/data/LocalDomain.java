@@ -1,6 +1,6 @@
 package org.atlanmod.salut.data;
 
-import org.atlanmod.salut.mdns.NameArray;
+import org.atlanmod.salut.mdns.LabelArray;
 
 import java.util.Objects;
 
@@ -8,11 +8,11 @@ import java.util.Objects;
  * Host name of the form: "single-dns-label.local.".
  *
  */
-public class LocalDomainName implements DomainName {
+public class LocalDomain implements Domain {
     private final String name;
 
 
-    public LocalDomainName(String name) {
+    public LocalDomain(String name) {
         this.name = name;
     }
 
@@ -29,7 +29,7 @@ public class LocalDomainName implements DomainName {
         if (other == null || getClass() != other.getClass()) {
             return false;
         }
-        LocalDomainName that = (LocalDomainName) other;
+        LocalDomain that = (LocalDomain) other;
         return Objects.equals(name, that.name);
     }
 
@@ -39,7 +39,7 @@ public class LocalDomainName implements DomainName {
     }
 
     @Override
-    public NameArray toNameArray() {
-        return NameArray.fromList(this.name, LOCAL_STR);
+    public LabelArray toNameArray() {
+        return LabelArray.fromList(this.name, LOCAL_STR);
     }
 }

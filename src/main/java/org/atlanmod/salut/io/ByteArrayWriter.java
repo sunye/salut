@@ -1,14 +1,13 @@
 package org.atlanmod.salut.io;
 
-import fr.inria.atlanmod.commons.primitive.Bytes;
-import org.atlanmod.salut.mdns.NameArray;
+import org.atlanmod.commons.primitive.Bytes;
+import org.atlanmod.salut.data.Label;
+import org.atlanmod.salut.mdns.LabelArray;
 import org.atlanmod.salut.mdns.QClass;
 import org.atlanmod.salut.mdns.RecordType;
 
 import java.net.Inet4Address;
-import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,9 +55,9 @@ public class ByteArrayWriter {
      * @param names an array of names
      * @return This ByteArrayWriter
      */
-    public ByteArrayWriter putNameArray(NameArray names) {
-        for (String each : names.getNames()) {
-            this.putLabel(each);
+    public ByteArrayWriter putNameArray(LabelArray names) {
+        for (Label each : names.getLabels()) {
+            this.putLabel(each.toString());
         }
 
         this.putUnsignedByte(UnsignedByte.fromInt(0));

@@ -1,6 +1,6 @@
 package org.atlanmod.salut.io;
 
-import fr.inria.atlanmod.commons.Preconditions;
+import org.atlanmod.commons.Preconditions;
 
 import java.util.Objects;
 

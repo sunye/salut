@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  *  }
  *
  * class ServerEntry {
- *      name : DomainName
+ *      name : Domain
  * }
  *
  *  class InstanceEntry {
@@ -75,7 +75,7 @@ import java.util.stream.Collectors;
 public class Cache {
     private Map<ServiceInstanceName, InstanceEntry>  instances = new HashMap<>();
     private Map<ServiceType, ServiceEntry>           services = new HashMap<>();
-    private Map<DomainName, ServerEntry>             servers = new HashMap<>();
+    private Map<Domain, ServerEntry>             servers = new HashMap<>();
     private Map<InetAddress, AddressEntry>           addresses = new HashMap<>();
 
     /**
@@ -128,7 +128,7 @@ public class Cache {
      */
     public synchronized void cache(ARecord aRecord) throws ParseException {
         Inet4Address address = aRecord.getAddress();
-        DomainName name = aRecord.getServerName();
+        Domain name = aRecord.getServerName();
 
         AddressEntry entry = addresses.get(address);
         if (Objects.isNull(entry)) {
@@ -150,7 +150,7 @@ public class Cache {
      * @param name
      * @return a List containing all associated addresses. An empty list, if none.
      */
-    public synchronized List<InetAddress> getAddressesForServer(DomainName name) {
+    public synchronized List<InetAddress> getAddressesForServer(Domain name) {
         ServerEntry entry = this.servers.get(name);
         if (Objects.isNull(entry)) {
             return Collections.emptyList();
@@ -167,7 +167,7 @@ public class Cache {
      *
      * @return a List containing all associated data. An empty list, if none.
      */
-    public synchronized List<DomainName> getServersForAddress(InetAddress address) {
+    public synchronized List<Domain> getServersForAddress(InetAddress address) {
         AddressEntry entry = this.addresses.get(address);
         if (Objects.isNull(entry)) {
             return Collections.emptyList();
@@ -180,7 +180,7 @@ public class Cache {
     }
 
     /**
-     * Finds all Service Instances providing a given `ServiceType`.
+     * Finds all ServiceDescription Instances providing a given `ServiceType`.
      *
      * @param serviceType
      * @return
@@ -199,11 +199,11 @@ public class Cache {
     }
 
     /**
-     * Finds all Servers for a given Service Instance
+     * Finds all Servers for a given ServiceDescription Instance
      * @param instance
      * @return
      */
-    public synchronized List<DomainName> getServersForInstance(ServiceInstanceName instance) {
+    public synchronized List<Domain> getServersForInstance(ServiceInstanceName instance) {
         InstanceEntry entry = this.instances.get(instance);
 
         if (Objects.isNull(entry)) {

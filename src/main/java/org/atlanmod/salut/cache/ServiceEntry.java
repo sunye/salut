@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The `ServiceEntry` class represents Service Types.
+ * The `ServiceEntry` class represents ServiceDescription Types.
  *
  * A service type may be provided by different service instances.
  */

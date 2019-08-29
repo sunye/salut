@@ -22,4 +22,8 @@ public enum TransportProtocol {
     public static TransportProtocol fromString(String name) {
         return MAP.getOrDefault(name, TransportProtocol.unknown);
     }
+
+    public static TransportProtocol fromLabel(Label label) {
+        return fromString(label.toString());
+    }
 }

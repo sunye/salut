@@ -1,8 +1,6 @@
 package org.atlanmod.salut;
 
-import org.atlanmod.salut.sd.Service;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,23 +15,30 @@ public class ServiceBuilderTest {
         Map<String, byte[]> properties = new HashMap<String, byte[]>();
         properties.put(serviceKey, text.getBytes());
 
-        /*
-        Service service = Service.builder()
-                .getType("_html._tcp.local.")
-                .data("apache-someuniqueid")
-                .getPort(80)
+        Salut salut = new Salut();
+        salut.builder()
+                .service()
+                .name("my printer")
+                .port(221)
+                .udp()
+                .airplay()
                 .persistent()
-                .properties(properties)
-                .build();
-         */
+                .weight(200)
+                .priority(1)
+                .publish();
 
-        /*
-
-        assertEquals("tcp", service.getProtocol());
-        assertEquals("apache-someuniqueid", service.getName());
-        assertEquals(80, service.getPort());
-        assertEquals("local", service.getDomain());
-        assertArrayEquals(text.getBytes(), service.getPropertyBytes(serviceKey));
-*/
     }
+
+    @Test
+    void servicePublishingTest() {
+        Salut salut = new Salut();
+        salut.builder()
+                .service()
+                .name("apache-someuniqueid")
+                .port(80)
+                .tcp()
+                .http()
+                .publish();
+    }
+
 }

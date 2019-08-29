@@ -1,6 +1,6 @@
 package org.atlanmod.salut.mdns;
 
-import fr.inria.atlanmod.commons.log.Log;
+import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.data.*;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedInt;
@@ -16,14 +16,14 @@ import java.text.ParseException;
  *
  * # PTR Record
  *
- * Server Name| Time to live| QCLASS | QTYPE | Service Instance Name
+ * Server Label| Time to live| QCLASS | QTYPE | ServiceDescription Instance Label
  * --|--
  * &lowbar;printer._tcp.local.  | 28800 | IN | PTR | PrintsAlot._printer._tcp.local.
  *
  */
 public abstract class PointerRecord extends NormalRecord {
 
-    PointerRecord(NameArray name, QClass qclass, UnsignedInt ttl) {
+    PointerRecord(LabelArray name, QClass qclass, UnsignedInt ttl) {
         super(name, qclass, ttl);
     }
 
@@ -68,15 +68,15 @@ public abstract class PointerRecord extends NormalRecord {
          */
         @Override
         protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
-            NameArray ptrName = NameArray.fromByteBuffer(buffer);
+            LabelArray ptrName = LabelArray.fromByteBuffer(buffer);
             Log.info("PTR(pointerName={0}, getServerName={1})", ptrName, name);
 
-            if (DomainName.ARPA.equals(name.lastName())) {
+            if (Domain.ARPA.equals(name.last())) {
                 // There should be a better way to determine whether the pointer record is a
                 // reverse lookup.
                 Log.warn("Reverse Pointer: {0} ", name);
                 isReverseLookup = true;
-            } else if ("_services".equals(name.firstName())) {
+            } else if ("_services".equals(name.first())) {
                 Log.warn("Meta Query Pointer: {0} ", name);
                 isMetaQuery = true;
             }

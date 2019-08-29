@@ -1,6 +1,6 @@
 package org.atlanmod.salut.mdns;
 
-import fr.inria.atlanmod.commons.Preconditions;
+import org.atlanmod.commons.Preconditions;
 import org.atlanmod.salut.io.UnsignedShort;
 
 import java.util.Objects;
@@ -92,7 +92,7 @@ public class QRFlag implements Cloneable {
      * 5	Update	[RFC2136]
      * 6-15	Unassigned
      *
-     * @see <a href="https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-5">Domain Name System (DNS) Parameters</a>
+     * @see <a href="https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-5">Domain Label System (DNS) Parameters</a>
      *
      * @return an int value representing the operation code.
      */

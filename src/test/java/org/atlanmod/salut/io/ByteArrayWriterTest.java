@@ -1,6 +1,7 @@
 package org.atlanmod.salut.io;
 
-import org.atlanmod.salut.mdns.NameArray;
+import org.atlanmod.salut.data.Label;
+import org.atlanmod.salut.mdns.LabelArray;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -59,7 +60,7 @@ class ByteArrayWriterTest {
                 .putUnsignedShort(UnsignedShort.fromInt(0xBB))
                 .putUnsignedInt(UnsignedInt.fromInt(0x1111))
                 .putLabel("a label")
-                .putNameArray(NameArray.fromList("pc", "local"))
+                .putNameArray(LabelArray.fromList("pc", "local"))
                 .putUnsignedByte(UnsignedByte.fromInt(0x0));
 
         ByteArrayReader reader = writer.getByteArrayReader();
@@ -67,24 +68,24 @@ class ByteArrayWriterTest {
         assertThat(reader.getUnsignedByte()).isEqualTo(UnsignedByte.fromInt(0xF));
         assertThat(reader.getUnsignedShort()).isEqualTo(UnsignedShort.fromInt(0xBB));
         assertThat(reader.getUnsignedInt()).isEqualTo(UnsignedInt.fromInt(0x1111));
-        assertThat(reader.getLabel(reader.getLabelLength())).isEqualTo("a label");
-        assertThat(reader.readLabels()).isEqualTo(NameArray.fromList("pc", "local"));
+        assertThat(reader.getLabel(reader.getLabelLength())).isEqualTo(Label.create("a label"));
+        assertThat(reader.readLabels()).isEqualTo(LabelArray.fromList("pc", "local"));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"mac book pro", "aa aa", })
-    void testPutLabel(String label) {
-        writer.putLabel(label);
+    void testPutLabel(String string) {
+        writer.putLabel(string);
         ByteArrayReader reader = writer.getByteArrayReader();
         LabelLength length = reader.getLabelLength();
-        String readLabel = reader.getLabel(length);
+        Label readLabel = reader.getLabel(length);
 
-        assertThat(readLabel).isEqualTo(label);
+        assertThat(readLabel.toString()).isEqualTo(string);
     }
 
     @Test
     void testPutNameArray() throws ParseException {
-        NameArray names = NameArray.fromList("Itunes", "MacBook", "local");
+        LabelArray names = LabelArray.fromList("Itunes", "MacBook", "local");
         writer.putNameArray(names);
         ByteArrayReader reader = writer.getByteArrayReader();
 

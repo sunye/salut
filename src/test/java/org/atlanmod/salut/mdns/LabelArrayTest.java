@@ -1,6 +1,7 @@
 package org.atlanmod.salut.mdns;
 
-import fr.inria.atlanmod.commons.collect.MoreArrays;
+import org.atlanmod.commons.collect.MoreArrays;
+import org.atlanmod.salut.data.Label;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +9,13 @@ import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class NameArrayTest {
+class LabelArrayTest {
+    Label mydomain = Label.create("mydomain");
+    Label com = Label.create("com");
+    Label printer = Label.create("printer");
+    Label arpanet = Label.create("arpanet");
+    Label org = Label.create("org");
+    Label www = Label.create("www");
 
     @Test
     void testFromByteBufferSingle() throws ParseException {
@@ -16,11 +23,11 @@ class NameArrayTest {
         byte[] bytes = {8, 109, 121, 100, 111, 109, 97, 105, 110,
                 3, 99, 111, 109, 0};
 
-        NameArray qname = NameArray.fromByteBuffer(ByteArrayReader.wrap(bytes));
+        LabelArray qname = LabelArray.fromByteBuffer(ByteArrayReader.wrap(bytes));
 
         assertTrue(qname.size() == 2);
-        assertTrue(qname.contains("mydomain"));
-        assertTrue(qname.contains("com"));
+        assertTrue(qname.contains(mydomain));
+        assertTrue(qname.contains(com));
     }
 
     @Test
@@ -37,17 +44,17 @@ class NameArrayTest {
 
         byte[] bytes = MoreArrays.addAll(first, second);
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        NameArray qnameFirst = NameArray.fromByteBuffer(bb);
-        NameArray qnameSecond = NameArray.fromByteBuffer(bb);
+        LabelArray qnameFirst = LabelArray.fromByteBuffer(bb);
+        LabelArray qnameSecond = LabelArray.fromByteBuffer(bb);
 
         assertTrue(qnameFirst.size() == 2);
-        assertTrue(qnameFirst.contains("mydomain"));
-        assertTrue(qnameFirst.contains("com"));
+        assertTrue(qnameFirst.contains(mydomain));
+        assertTrue(qnameFirst.contains(com));
 
         assertTrue(qnameSecond.size() == 3);
-        assertTrue(qnameSecond.contains("printer"));
-        assertTrue(qnameSecond.contains("arpanet"));
-        assertTrue(qnameSecond.contains("org"));
+        assertTrue(qnameSecond.contains(printer));
+        assertTrue(qnameSecond.contains(arpanet));
+        assertTrue(qnameSecond.contains(org));
     }
 
 
@@ -68,12 +75,12 @@ class NameArrayTest {
         byte[] buffer = MoreArrays.addAll(firstPart, secondPart);
 
         ByteArrayReader bb = ByteArrayReader.wrap(buffer);
-        NameArray qname = NameArray.fromByteBuffer(bb, firstPart.length);
+        LabelArray qname = LabelArray.fromByteBuffer(bb, firstPart.length);
 
         assertTrue(qname.size() == 3);
-        assertTrue(qname.contains("www"));
-        assertTrue(qname.contains("arpanet"));
-        assertTrue(qname.contains("org"));
+        assertTrue(qname.contains(www));
+        assertTrue(qname.contains(arpanet));
+        assertTrue(qname.contains(org));
     }
 
     @Test

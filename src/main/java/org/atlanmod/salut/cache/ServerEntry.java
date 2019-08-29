@@ -1,6 +1,6 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.data.DomainName;
+import org.atlanmod.salut.data.Domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +16,13 @@ public class ServerEntry {
 
     public final List<AddressToServerLink> addresses = new ArrayList<>();
     public final List<InstanceToServerLink> instances = new ArrayList<>();
-    private DomainName name;
+    private Domain name;
 
-    public ServerEntry(DomainName name) {
+    public ServerEntry(Domain name) {
         this.name = name;
     }
 
-    public DomainName getName() {
+    public Domain getName() {
         return name;
     }
 }

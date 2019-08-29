@@ -1,14 +1,17 @@
 package org.atlanmod.salut.mdns;
 
-import fr.inria.atlanmod.commons.annotation.VisibleForTesting;
-import org.atlanmod.salut.data.DomainName;
-import org.atlanmod.salut.data.DomainNameBuilder;
+import org.atlanmod.commons.annotation.VisibleForTesting;
+import org.atlanmod.salut.data.Domain;
+import org.atlanmod.salut.data.DomainBuilder;
+import org.atlanmod.salut.data.InstanceName;
 import org.atlanmod.salut.data.ServiceInstanceName;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
+import org.atlanmod.salut.sd.ServiceDescription;
 
+import java.net.InetAddress;
 import java.text.ParseException;
 
 /**
@@ -17,7 +20,7 @@ import java.text.ParseException;
  *
  * # SRV AbstractRecord
  *
- * | Service Instance Name | Time To Live | QCLASS | QTYPE | Weight | Priority | Port | Server Name |
+ * | ServiceDescription Instance Label | Time To Live | QCLASS | QTYPE | Weight | Priority | Port | Server Label |
  * | --- | ---|---|---|---|---|---|---|---|
  * | PrintsAlot._printer._tcp.local. | 120 | IN | SRV | 0 | 0 | 515 | blackhawk.local. |
  *
@@ -46,19 +49,21 @@ import java.text.ParseException;
  * This points to a server named sipserver.example.com listening on TCP port 5060 for Session Initiation Protocol (SIP) protocol services. The priority given here is 0, and the weight is 5.
  *
  * As in MX records, the target in SRV records must point to hostname with an address record (A or AAAA record). Pointing to a hostname with a CNAME record is not a valid configuration.
+ *
+ * @see  "[RFC2782](https://tools.ietf.org/html/rfc2782)"
  */
 public class ServerSelectionRecord extends NormalRecord {
 
     private UnsignedShort priority;
     private UnsignedShort weight;
     private UnsignedShort port;
-    private NameArray target;
-    private DomainName serverName;
+    private LabelArray target;
+    private Domain serverName;
     private ServiceInstanceName serviceInstanceName;
 
-    private ServerSelectionRecord(NameArray name, QClass qclass, UnsignedInt ttl, UnsignedShort priority,
-                                  UnsignedShort weight, UnsignedShort port, NameArray target,
-                                  DomainName serverName, ServiceInstanceName serviceInstanceName) {
+    private ServerSelectionRecord(LabelArray name, QClass qclass, UnsignedInt ttl, UnsignedShort priority,
+                                  UnsignedShort weight, UnsignedShort port, LabelArray target,
+                                  Domain serverName, ServiceInstanceName serviceInstanceName) {
         super(name, qclass, ttl);
         this.priority = priority;
         this.weight = weight;
@@ -82,9 +87,9 @@ public class ServerSelectionRecord extends NormalRecord {
      *
      */
     @VisibleForTesting
-    public static ServerSelectionRecord createRecord(NameArray name, QClass qclass, UnsignedInt ttl, UnsignedShort priority,
-                                                     UnsignedShort weight, UnsignedShort port, NameArray target,
-                                                     DomainName serverName, ServiceInstanceName serviceInstanceName) {
+    public static ServerSelectionRecord createRecord(LabelArray name, QClass qclass, UnsignedInt ttl, UnsignedShort priority,
+                                                     UnsignedShort weight, UnsignedShort port, LabelArray target,
+                                                     Domain serverName, ServiceInstanceName serviceInstanceName) {
 
         return new ServerSelectionRecord(name, qclass, ttl, priority, weight, port, target,
                 serverName, serviceInstanceName);
@@ -116,7 +121,7 @@ public class ServerSelectionRecord extends NormalRecord {
         return this.serviceInstanceName;
     }
 
-    public DomainName getServerName() {
+    public Domain getServerName() {
         return this.serverName;
     }
 
@@ -153,6 +158,18 @@ public class ServerSelectionRecord extends NormalRecord {
                 .putNameArray(target);
     }
 
+    public static ServerSelectionRecord fromService(InetAddress host, ServiceDescription service) {
+        return new ServerSelectionRecord(LabelArray.fromList("null"),
+                QClass.IN,
+                service.ttl(),
+                service.priority(),
+                service.weight(),
+                service.port(),
+                LabelArray.fromList("target"),
+                null,
+                service.name());
+    }
+
     /**
      * The class `SRVRecordParser` is used to parse the variable part of a DNS SRV record.
      */
@@ -161,8 +178,8 @@ public class ServerSelectionRecord extends NormalRecord {
         private UnsignedShort priority;
         private UnsignedShort weight;
         private UnsignedShort port;
-        private NameArray target;
-        private DomainName serverName;
+        private LabelArray target;
+        private Domain serverName;
         private ServiceInstanceName serviceInstanceName;
 
         /**
@@ -175,8 +192,8 @@ public class ServerSelectionRecord extends NormalRecord {
             priority = buffer.getUnsignedShort();
             weight = buffer.getUnsignedShort();
             port = buffer.getUnsignedShort();
-            target = NameArray.fromByteBuffer(buffer);
-            serverName = DomainNameBuilder.fromNameArray(this.target);
+            target = LabelArray.fromByteBuffer(buffer);
+            serverName = DomainBuilder.fromLabels(this.target);
             serviceInstanceName = ServiceInstanceName.fromNameArray(this.name);
         }
 

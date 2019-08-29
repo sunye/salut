@@ -1,7 +1,7 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.data.DomainName;
-import org.atlanmod.salut.data.DomainNameBuilder;
+import org.atlanmod.salut.data.Domain;
+import org.atlanmod.salut.data.DomainBuilder;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,15 +20,15 @@ class ARecordTest {
 
     @BeforeEach
     void setup() throws UnknownHostException, ParseException {
-        NameArray names = NameArray.fromList("MacBook", "local");
+        LabelArray names = LabelArray.fromList("MacBook", "local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
-        DomainName domaine = DomainNameBuilder.fromNameArray(names);
+        Domain domaine = DomainBuilder.fromLabels(names);
         record = ARecord.createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
     }
 
     @Test
     void testGetServerName() throws ParseException {
-        DomainName expected = DomainNameBuilder.parseString("MacBook.local");
+        Domain expected = DomainBuilder.parseString("MacBook.local");
         assertThat(record.getServerName()).isEqualTo(expected);
     }
 
@@ -40,9 +40,9 @@ class ARecordTest {
 
     @Test
     void testEquals() throws ParseException, UnknownHostException {
-        NameArray names = NameArray.fromList("MacBook", "local");
+        LabelArray names = LabelArray.fromList("MacBook", "local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
-        DomainName domaine = DomainNameBuilder.fromNameArray(names);
+        Domain domaine = DomainBuilder.fromLabels(names);
         ARecord other = ARecord.createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
 
         assertAll(

@@ -1,10 +1,10 @@
 package org.atlanmod.salut.data;
 
-import org.atlanmod.salut.mdns.NameArray;
+import org.atlanmod.salut.mdns.LabelArray;
 
 import java.net.Inet6Address;
 
-public class ReverseInet6Address implements DomainName {
+public class ReverseInet6Address implements Domain {
     private Inet6Address address;
 
     public ReverseInet6Address(Inet6Address address) {
@@ -12,7 +12,7 @@ public class ReverseInet6Address implements DomainName {
     }
 
     @Override
-    public NameArray toNameArray() {
+    public LabelArray toNameArray() {
         throw new RuntimeException();
     }
 

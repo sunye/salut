@@ -18,7 +18,7 @@ Abstract
    ubiquitous, the ability to operate with less configured
    infrastructure is increasingly important.  In particular, the ability
    to look up DNS resource record data types (including, but not limited
-   to, host names) in the absence of a conventional managed DNS server
+   to, host labels) in the absence of a conventional managed DNS server
    is useful.
 
    Multicast DNS (mDNS) provides the ability to perform DNS-like
@@ -27,9 +27,9 @@ Abstract
    of the DNS namespace to be free for local use, without the need to
    pay any annual fee, and without the need to set up delegations or
    otherwise configure a conventional DNS server to answer for those
-   names.
+   labels.
 
-   The primary benefits of Multicast DNS names are that (i) they require
+   The primary benefits of Multicast DNS labels are that (i) they require
    little or no administration or configuration to set them up, (ii)
    they work when no infrastructure is present, and (iii) they work
    during infrastructure failures.
@@ -183,7 +183,7 @@ RFC 6762                      Multicast DNS                February 2013
 
    Multicast DNS borrows heavily from the existing DNS protocol
    [RFC1034] [RFC1035] [RFC6195], using the existing DNS message
-   structure, name syntax, and resource record types.  This document
+   structure, label syntax, and resource record types.  This document
    specifies no new operation codes or response codes.  This document
    describes how clients send DNS-like queries via IP multicast, and how
    a collection of hosts cooperate to collectively answer those queries
@@ -202,11 +202,11 @@ RFC 6762                      Multicast DNS                February 2013
    Multicast to UDP port 5353".  The design rationale for selecting UDP
    port 5353 is discussed in Appendix A.
 
-   This document uses the term "host name" in the strict sense to mean a
-   fully qualified domain name that has an IPv4 or IPv6 address record.
-   It does not use the term "host name" in the commonly used but
+   This document uses the term "host label" in the strict sense to mean a
+   fully qualified domain label that has an IPv4 or IPv6 address record.
+   It does not use the term "host label" in the commonly used but
    incorrect sense to mean just the first DNS label of a host's fully
-   qualified domain name.
+   qualified domain label.
 
    A DNS (or mDNS) packet contains an IP Time to Live (TTL) in the IP
    header, which is effectively a hop-count limit for the packet, to
@@ -236,13 +236,13 @@ RFC 6762                      Multicast DNS                February 2013
    resource record sets [RFC1034]:
 
       A "shared" resource record set is one where several Multicast DNS
-      responders may have records with the same name, rrtype, and
+      responders may have records with the same label, rrtype, and
       rrclass, and several responders may respond to a particular query.
 
       A "unique" resource record set is one where all the records with
-      that name, rrtype, and rrclass are conceptually under the control
+      that label, rrtype, and rrclass are conceptually under the control
       or ownership of a single responder, and it is expected that at
-      most one responder should respond to a query for that name,
+      most one responder should respond to a query for that label,
       rrtype, and rrclass.  Before claiming ownership of a unique
       resource record set, a responder MUST probe to verify that no
       other responder already claims ownership of that set, as described
@@ -253,7 +253,7 @@ RFC 6762                      Multicast DNS                February 2013
       identical rdata for these records.  If they do not give answers
       containing identical rdata, then the probing step will reject the
       data as being inconsistent with what is already being advertised
-      on the network for those names.)
+      on the network for those labels.)
 
    Strictly speaking, the terms "shared" and "unique" apply to resource
    record sets, not to individual resource records.  However, it is
@@ -266,11 +266,11 @@ RFC 6762                      Multicast DNS                February 2013
 
    A host that belongs to an organization or individual who has control
    over some portion of the DNS namespace can be assigned a globally
-   unique name within that portion of the DNS namespace, such as,
+   unique label within that portion of the DNS namespace, such as,
    "cheshire.example.com.".  For those of us who have this luxury, this
    works very well.  However, the majority of home computer users do not
    have easy access to any portion of the global DNS namespace within
-   which they have the authority to create names.  This leaves the
+   which they have the authority to create labels.  This leaves the
    majority of home computers effectively anonymous for practical
    purposes.
 
@@ -285,44 +285,44 @@ RFC 6762                      Multicast DNS                February 2013
 
 
    To remedy this problem, this document allows any computer user to
-   elect to give their computers link-local Multicast DNS host names of
+   elect to give their computers link-local Multicast DNS host labels of
    the form: "single-dns-label.local.".  For example, a laptop computer
-   may answer to the name "MyComputer.local.".  Any computer user is
-   granted the authority to name their computer this way, provided that
-   the chosen host name is not already in use on that link.  Having
+   may answer to the label "MyComputer.local.".  Any computer user is
+   granted the authority to label their computer this way, provided that
+   the chosen host label is not already in use on that link.  Having
    named their computer this way, the user has the authority to continue
-   utilizing that name until such time as a name conflict occurs on the
+   utilizing that label until such time as a label conflict occurs on the
    link that is not resolved in the user's favor.  If this happens, the
-   computer (or its human user) MUST cease using the name, and SHOULD
-   attempt to allocate a new unique name for use on that link.  These
+   computer (or its human user) MUST cease using the label, and SHOULD
+   attempt to allocate a new unique label for use on that link.  These
    conflicts are expected to be relatively rare for people who choose
-   reasonably imaginative names, but it is still important to have a
+   reasonably imaginative labels, but it is still important to have a
    mechanism in place to handle them when they happen.
 
    This document specifies that the DNS top-level domain ".local." is a
    special domain with special semantics, namely that any fully
-   qualified name ending in ".local." is link-local, and names within
+   qualified label ending in ".local." is link-local, and labels within
    this domain are meaningful only on the link where they originate.
    This is analogous to IPv4 addresses in the 169.254/16 prefix or IPv6
    addresses in the FE80::/10 prefix, which are link-local and
    meaningful only on the link where they originate.
 
-   Any DNS query for a name ending with ".local." MUST be sent to the
+   Any DNS query for a label ending with ".local." MUST be sent to the
    mDNS IPv4 link-local multicast address 224.0.0.251 (or its IPv6
    equivalent FF02::FB).  The design rationale for using a fixed
    multicast address instead of selecting from a range of multicast
    addresses using a hash function is discussed in Appendix B.
-   Implementers MAY choose to look up such names concurrently via other
+   Implementers MAY choose to look up such labels concurrently via other
    mechanisms (e.g., Unicast DNS) and coalesce the results in some
    fashion.  Implementers choosing to do this should be aware of the
-   potential for user confusion when a given name can produce different
+   potential for user confusion when a given label can produce different
    results depending on external network conditions (such as, but not
-   limited to, which name lookup mechanism responds faster).
+   limited to, which label lookup mechanism responds faster).
 
-   It is unimportant whether a name ending with ".local." occurred
-   because the user explicitly typed in a fully qualified domain name
+   It is unimportant whether a label ending with ".local." occurred
+   because the user explicitly typed in a fully qualified domain label
    ending in ".local.", or because the user entered an unqualified
-   domain name and the host software appended the suffix ".local."
+   domain label and the host software appended the suffix ".local."
    because that suffix appears in the user's search list.  The ".local."
    suffix could appear in the search list because the user manually
    configured it, or because it was received via DHCP [RFC2132] or via
@@ -340,41 +340,41 @@ Cheshire & Krochmal          Standards Track                    [Page 6]
 RFC 6762                      Multicast DNS                February 2013
 
 
-   DNS queries for names that do not end with ".local." MAY be sent to
+   DNS queries for labels that do not end with ".local." MAY be sent to
    the mDNS multicast address, if no other conventional DNS server is
    available.  This can allow hosts on the same link to continue
-   communicating using each other's globally unique DNS names during
+   communicating using each other's globally unique DNS labels during
    network outages that disrupt communication with the greater Internet.
-   When resolving global names via local multicast, it is even more
+   When resolving global labels via local multicast, it is even more
    important to use DNS Security Extensions (DNSSEC) [RFC4033] or other
    security mechanisms to ensure that the response is trustworthy.
-   Resolving global names via local multicast is a contentious issue,
+   Resolving global labels via local multicast is a contentious issue,
    and this document does not discuss it further, instead concentrating
-   on the issue of resolving local names using DNS messages sent to a
+   on the issue of resolving local labels using DNS messages sent to a
    multicast address.
 
    This document recommends a single flat namespace for dot-local host
-   names, (i.e., the names of DNS "A" and "AAAA" records, which map
-   names to IPv4 and IPv6 addresses), but other DNS record types (such
+   labels, (i.e., the labels of DNS "A" and "AAAA" records, which map
+   labels to IPv4 and IPv6 addresses), but other DNS record types (such
    as those used by DNS-Based Service Discovery [RFC6763]) may contain
    as many labels as appropriate for the desired usage, up to a maximum
    of 255 bytes, plus a terminating zero byte at the end.  Name length
    issues are discussed further in Appendix C.
 
-   Enforcing uniqueness of host names is probably desirable in the
+   Enforcing uniqueness of host labels is probably desirable in the
    common case, but this document does not mandate that.  It is
    permissible for a collection of coordinated hosts to agree to
-   maintain multiple DNS address records with the same name, possibly
+   maintain multiple DNS address records with the same label, possibly
    for load-balancing or fault-tolerance reasons.  This document does
    not take a position on whether that is sensible.  It is important
    that both modes of operation be supported.  The Multicast DNS
-   protocol allows hosts to verify and maintain unique names for
+   protocol allows hosts to verify and maintain unique labels for
    resource records where that behavior is desired, and it also allows
-   hosts to maintain multiple resource records with a single shared name
+   hosts to maintain multiple resource records with a single shared label
    where that behavior is desired.  This consideration applies to all
-   resource records, not just address records (host names).  In summary:
+   resource records, not just address records (host labels).  In summary:
    It is required that the protocol have the ability to detect and
-   handle name conflicts, but it is not required that this ability be
+   handle label conflicts, but it is not required that this ability be
    used for every record.
 
 4.  Reverse Address Mapping
@@ -382,12 +382,12 @@ RFC 6762                      Multicast DNS                February 2013
    Like ".local.", the IPv4 and IPv6 reverse mapping domains are also
    defined to be link-local:
 
-      Any DNS query for a name ending with "254.169.in-addr.arpa." MUST
+      Any DNS query for a label ending with "254.169.in-addr.arpa." MUST
       be sent to the mDNS IPv4 link-local multicast address 224.0.0.251
-      or the mDNS IPv6 multicast address FF02::FB.  Since names under
+      or the mDNS IPv6 multicast address FF02::FB.  Since labels under
       this domain correspond to IPv4 link-local addresses, it is logical
       that the local link is the best place to find information
-      pertaining to those names.
+      pertaining to those labels.
 
 
 
@@ -396,7 +396,7 @@ Cheshire & Krochmal          Standards Track                    [Page 7]
 RFC 6762                      Multicast DNS                February 2013
 
 
-      Likewise, any DNS query for a name within the reverse mapping
+      Likewise, any DNS query for a label within the reverse mapping
       domains for IPv6 link-local addresses ("8.e.f.ip6.arpa.",
       "9.e.f.ip6.arpa.", "a.e.f.ip6.arpa.", and "b.e.f.ip6.arpa.") MUST
       be sent to the mDNS IPv6 link-local multicast address FF02::FB or
@@ -422,7 +422,7 @@ RFC 6762                      Multicast DNS                February 2013
    DNS queries blindly to 224.0.0.251:5353, without necessarily even
    being aware of what a multicast address is.  This change can
    typically be implemented with just a few lines of code in an existing
-   DNS resolver library.  If a name being queried falls within one of
+   DNS resolver library.  If a label being queried falls within one of
    the reserved Multicast DNS domains (see Sections 3 and 4), then,
    rather than using the configured Unicast DNS server address, the
    query is instead sent to 224.0.0.251:5353 (or its IPv6 equivalent
@@ -453,7 +453,7 @@ RFC 6762                      Multicast DNS                February 2013
 
 
    While a basic DNS resolver like this may be adequate for simple host
-   name lookup, it may not get ideal behavior in other cases.
+   label lookup, it may not get ideal behavior in other cases.
    Additional refinements to create a fully compliant Multicast DNS
    querier are described below.
 
@@ -678,7 +678,7 @@ RFC 6762                      Multicast DNS                February 2013
 
    Unicast replies are subject to all the same packet generation rules
    as multicast replies, including the cache-flush bit (Section 10.2)
-   and (except when defending a unique name against a probe from another
+   and (except when defending a unique label against a probe from another
    host) randomized delays to reduce network collisions (Section 6).
 
 5.5.  Direct Unicast Queries to Port 5353
@@ -717,8 +717,8 @@ RFC 6762                      Multicast DNS                February 2013
    to issue responses containing that record.
 
    The determination of whether a given record answers a given question
-   is made using the standard DNS rules: the record name must match the
-   question name, the record rrtype must match the question qtype unless
+   is made using the standard DNS rules: the record label must match the
+   question label, the record rrtype must match the question qtype unless
    the qtype is "ANY" (255) or the rrtype is "CNAME" (5), and the record
    rrclass must match the question qclass unless the qclass is "ANY"
    (255).  As with Unicast DNS, generally only DNS class 1 ("Internet")
@@ -735,12 +735,12 @@ RFC 6762                      Multicast DNS                February 2013
    A Multicast DNS responder MUST only respond when it has a positive,
    non-null response to send, or it authoritatively knows that a
    particular record does not exist.  For unique records, where the host
-   has already established sole ownership of the name, it MUST return
+   has already established sole ownership of the label, it MUST return
    negative answers to queries for records that it knows not to exist.
    For example, a host with no IPv6 address, that has claimed sole
-   ownership of the name "host.local." for all rrtypes, MUST respond to
+   ownership of the label "host.local." for all rrtypes, MUST respond to
    AAAA queries for "host.local." by sending a negative answer
-   indicating that no AAAA records exist for that name.  See Section
+   indicating that no AAAA records exist for that label.  See Section
    6.1, "Negative Responses".  For shared records, which are owned by no
    single host, the nonexistence of a given record is ascertained by the
    failure of any machine to respond to the Multicast DNS query, not by
@@ -772,12 +772,12 @@ RFC 6762                      Multicast DNS                February 2013
    believe that it will be the only responder on the link that will send
    a response (i.e., because it is able to answer every question in the
    query message, and for all of those answer records it has previously
-   verified that the name, rrtype, and rrclass are unique on the link),
+   verified that the label, rrtype, and rrclass are unique on the link),
    it SHOULD NOT impose any random delay before responding, and SHOULD
    normally generate its response within at most 10 ms.  In particular,
    this applies to responding to probe queries with the unicast-response
    bit set.  Since receiving a probe query gives a clear indication that
-   some other responder is planning to start using this name in the very
+   some other responder is planning to start using this label in the very
    near future, answering such probe queries to defend a unique record
    is a high priority and needs to be done without delay.  A probe query
 
@@ -794,7 +794,7 @@ RFC 6762                      Multicast DNS                February 2013
    Section 8.2, "Simultaneous Probe Tiebreaking").
 
    Responding without delay is appropriate for records like the address
-   record for a particular host name, when the host name has been
+   record for a particular host label, when the host label has been
    previously verified unique.  Responding without delay is *not*
    appropriate for things like looking up PTR records used for DNS-Based
    Service Discovery [RFC6763], where a large number of responses may be
@@ -860,7 +860,7 @@ RFC 6762                      Multicast DNS                February 2013
    and cache the previous transmission will retry its request and
    receive a subsequent response.  In the special case of answering
    probe queries, because of the limited time before the probing host
-   will make its decision about whether or not to use the name, a
+   will make its decision about whether or not to use the label, a
    Multicast DNS responder MUST respond quickly.  In this special case
    only, when responding via multicast to a probe, a Multicast DNS
    responder is only required to delay its transmission as necessary to
@@ -883,9 +883,9 @@ RFC 6762                      Multicast DNS                February 2013
 
    However, operational experience showed that explicit negative
    responses can sometimes be valuable.  One such example is when a
-   querier is querying for a AAAA record, and the host name in question
+   querier is querying for a AAAA record, and the host label in question
    has no associated IPv6 addresses.  In this case, the responding host
-   knows it currently has exclusive ownership of that name, and it knows
+   knows it currently has exclusive ownership of that label, and it knows
    that it currently does not have any IPv6 addresses, so an explicit
    negative response is preferable to the querier having to retransmit
    its query multiple times, and eventually give up with a timeout,
@@ -900,19 +900,19 @@ Cheshire & Krochmal          Standards Track                   [Page 16]
 RFC 6762                      Multicast DNS                February 2013
 
 
-   Any time a responder receives a query for a name for which it has
-   verified exclusive ownership, for a type for which that name has no
+   Any time a responder receives a query for a label for which it has
+   verified exclusive ownership, for a type for which that label has no
    records, the responder MUST (except as allowed in (a) below) respond
    asserting the nonexistence of that record using a DNS NSEC record
    [RFC4034].  In the case of Multicast DNS the NSEC record is not being
    used for its usual DNSSEC [RFC4033] security properties, but simply
    as a way of expressing which records do or do not exist with a given
-   name.
+   label.
 
-   On receipt of a question for a particular name, rrtype, and rrclass,
+   On receipt of a question for a particular label, rrtype, and rrclass,
    for which a responder does have one or more unique answers, the
    responder MAY also include an NSEC record in the Additional Record
-   Section indicating the nonexistence of other rrtypes for that name
+   Section indicating the nonexistence of other rrtypes for that label
    and rrclass.
 
    Implementers working with devices with sufficient memory and CPU
@@ -924,8 +924,8 @@ RFC 6762                      Multicast DNS                February 2013
    Multicast DNS implementations MUST at least correctly generate and
    parse the restricted DNS NSEC record format described below:
 
-      o The 'Next Domain Name' field contains the record's own name.
-        When used with name compression, this means that the 'Next
+      o The 'Next Domain Name' field contains the record's own label.
+        When used with label compression, this means that the 'Next
         Domain Name' field always takes exactly two bytes in the
         message.
 
@@ -940,10 +940,10 @@ RFC 6762                      Multicast DNS                February 2013
    Type Bit Map block number zero, it cannot express the existence of
    rrtypes above 255.  Consequently, if a Multicast DNS responder were
    to have records with rrtypes above 255, it MUST NOT generate these
-   restricted-form NSEC records for those names, since to do so would
-   imply that the name has no records with rrtypes above 255, which
+   restricted-form NSEC records for those labels, since to do so would
+   imply that the label has no records with rrtypes above 255, which
    would be false.  In such cases a Multicast DNS responder MUST either
-   (a) emit no NSEC record for that name, or (b) emit a full NSEC record
+   (a) emit no NSEC record for that label, or (b) emit a full NSEC record
    containing the appropriate Type Bit Map block(s) with the correct
    bits set for all the record types that exist.  In practice this is
    not a significant limitation, since rrtypes above 255 are not
@@ -957,7 +957,7 @@ RFC 6762                      Multicast DNS                February 2013
 
 
    If a Multicast DNS implementation receives an NSEC record where the
-   'Next Domain Name' field is not the record's own name, then the
+   'Next Domain Name' field is not the record's own label, then the
    implementation SHOULD ignore the 'Next Domain Name' field and process
    the remainder of the NSEC record as usual.  In Multicast DNS the
    'Next Domain Name' field is not currently used, but it could be used
@@ -993,16 +993,16 @@ RFC 6762                      Multicast DNS                February 2013
    seconds.
 
    A responder MUST only generate negative responses to queries for
-   which it has legitimate ownership of the name, rrtype, and rrclass in
-   question, and can legitimately assert that no record with that name,
+   which it has legitimate ownership of the label, rrtype, and rrclass in
+   question, and can legitimately assert that no record with that label,
    rrtype, and rrclass exists.  A responder can assert that a specified
-   rrtype does not exist for one of its names if it knows a priori that
-   it has exclusive ownership of that name (e.g., names of reverse
+   rrtype does not exist for one of its labels if it knows a priori that
+   it has exclusive ownership of that label (e.g., labels of reverse
    address mapping PTR records, which are derived from IP addresses,
    which should be unique on the local link) or if it previously claimed
-   unique ownership of that name using probe queries for rrtype "ANY".
+   unique ownership of that label using probe queries for rrtype "ANY".
    (If it were to use probe queries for a specific rrtype, then it would
-   only own the name for that rrtype, and could not assert that other
+   only own the label for that rrtype, and could not assert that other
    rrtypes do not exist.)
 
 
@@ -1032,7 +1032,7 @@ RFC 6762                      Multicast DNS                February 2013
 
    When a Multicast DNS responder places an IPv4 or IPv6 address record
    (rrtype "A" or "AAAA") into a response message, it SHOULD also place
-   any records of the other address type with the same name into the
+   any records of the other address type with the same label into the
    additional section, if there is space in the message.  This is to
    provide fate sharing, so that all a device's addresses are delivered
    atomically in a single message, to reduce the risk that packet loss
@@ -1075,8 +1075,8 @@ RFC 6762                      Multicast DNS                February 2013
    because when a query message contains more than one question, a
    Multicast DNS responder cannot generally be certain that other
    responders will not also be simultaneously generating answers to
-   other questions in that query message.  (Answers defending a name, in
-   response to a probe for that name, are not subject to this delay rule
+   other questions in that query message.  (Answers defending a label, in
+   response to a probe for that label, are not subject to this delay rule
    and are still sent immediately.)
 
 6.4.  Response Aggregation
@@ -1103,14 +1103,14 @@ RFC 6762                      Multicast DNS                February 2013
    necessarily all of them.
 
    This somewhat surprising behavior is commonly seen with caching
-   (i.e., "recursive") name servers.  If a caching server receives a
+   (i.e., "recursive") label servers.  If a caching server receives a
    qtype "ANY" query for which it has at least one valid answer, it is
    allowed to return only those matching answers it happens to have
    already in its cache, and it is not required to reconsult the
-   authoritative name server to check if there are any more records that
+   authoritative label server to check if there are any more records that
    also match the qtype "ANY" query.
 
-   For example, one might imagine that a query for qtype "ANY" for name
+   For example, one might imagine that a query for qtype "ANY" for label
    "host.example.com" would return both the IPv4 (A) and the IPv6 (AAAA)
    address records for that host.  In reality, what happens is that it
    depends on the history of what queries have been previously received
@@ -1124,10 +1124,10 @@ Cheshire & Krochmal          Standards Track                   [Page 20]
 RFC 6762                      Multicast DNS                February 2013
 
 
-   the authoritative name server for the name in question), and, in that
+   the authoritative label server for the label in question), and, in that
    case, it will typically return all IPv4 and IPv6 address records.
    However, if some other host has recently done a query for qtype "A"
-   for name "host.example.com", so that the caching server already has
+   for label "host.example.com", so that the caching server already has
    IPv4 address records for "host.example.com" in its cache but no IPv6
    address records, then it will return only the IPv4 address records it
    already has cached, and no IPv6 address records.
@@ -1142,7 +1142,7 @@ RFC 6762                      Multicast DNS                February 2013
 
    If a Multicast DNS responder ("A") observes some other Multicast DNS
    responder ("B") send a Multicast DNS response message containing a
-   resource record with the same name, rrtype, and rrclass as one of A's
+   resource record with the same label, rrtype, and rrclass as one of A's
    resource records, but *different* rdata, then:
 
       o If A's resource record is intended to be a shared resource
@@ -1155,7 +1155,7 @@ RFC 6762                      Multicast DNS                February 2013
 
    If a Multicast DNS responder ("A") observes some other Multicast DNS
    responder ("B") send a Multicast DNS response message containing a
-   resource record with the same name, rrtype, and rrclass as one of A's
+   resource record with the same label, rrtype, and rrclass as one of A's
    resource records, and *identical* rdata, then:
 
       o If the TTL of B's resource record given in the message is at
@@ -1380,17 +1380,17 @@ RFC 6762                      Multicast DNS                February 2013
    Multicast DNS responder desires to be unique on the local link, it
    MUST send a Multicast DNS query asking for those resource records, to
    see if any of them are already in use.  The primary example of this
-   is a host's address records, which map its unique host name to its
+   is a host's address records, which map its unique host label to its
    unique IPv4 and/or IPv6 addresses.  All probe queries SHOULD be done
-   using the desired resource record name and class (usually class 1,
+   using the desired resource record label and class (usually class 1,
    "Internet"), and query type "ANY" (255), to elicit answers for all
-   types of records with that name.  This allows a single question to be
+   types of records with that label.  This allows a single question to be
    used in place of several questions, which is more efficient on the
    network.  It also allows a host to verify exclusive ownership of a
-   name for all rrtypes, which is desirable in most cases.  It would be
+   label for all rrtypes, which is desirable in most cases.  It would be
    confusing, for example, if one host owned the "A" record for
    "myhost.local.", but a different host owned the "AAAA" record for
-   that name.
+   that label.
 
 
 
@@ -1435,13 +1435,13 @@ RFC 6762                      Multicast DNS                February 2013
    In order to allow services to announce their presence without
    unreasonable delay, the time window for probing is intentionally set
    quite short.  As a result of this, from the time the first probe
-   packet is sent, another device on the network using that name has
-   just 750 ms to respond to defend its name.  On networks that are
+   packet is sent, another device on the network using that label has
+   just 750 ms to respond to defend its label.  On networks that are
    slow, or busy, or both, it is possible for round-trip latency to
    account for a few hundred milliseconds, and software delays in slow
    devices can add additional delay.  Hence, it is important that when a
-   device receives a probe query for a name that it is currently using,
-   it SHOULD generate its response to defend that name immediately and
+   device receives a probe query for a label that it is currently using,
+   it SHOULD generate its response to defend that label immediately and
    send it as quickly as possible.  The usual rules about random delays
    before responding, to avoid sudden bursts of simultaneous answers
    from different hosts, do not apply here since normally at most one
@@ -1468,13 +1468,13 @@ RFC 6762                      Multicast DNS                February 2013
    During probing, from the time the first probe packet is sent until
    250 ms after the third probe, if any conflicting Multicast DNS
    response is received, then the probing host MUST defer to the
-   existing host, and SHOULD choose new names for some or all of its
+   existing host, and SHOULD choose new labels for some or all of its
    resource records as appropriate.  Apparently conflicting Multicast
    DNS responses received *before* the first probe packet is sent MUST
    be silently ignored (see discussion of stale probe packets in Section
    8.2, "Simultaneous Probe Tiebreaking", below).  In the case of a host
    probing using query type "ANY" as recommended above, any answer
-   containing a record with that name, of any type, MUST be considered a
+   containing a record with that label, of any type, MUST be considered a
    conflicting response and handled accordingly.
 
    If fifteen conflicts occur within any ten-second period, then the
@@ -1487,7 +1487,7 @@ RFC 6762                      Multicast DNS                February 2013
    trying again.
 
    If a responder knows by other means that its unique resource record
-   set name, rrtype, and rrclass cannot already be in use by any other
+   set label, rrtype, and rrclass cannot already be in use by any other
    responder on the network, then it SHOULD skip the probing step for
    that resource record set.  For example, when creating the reverse
    address mapping PTR records, the host can reasonably assume that no
@@ -1504,9 +1504,9 @@ RFC 6762                      Multicast DNS                February 2013
 
    The astute reader will observe that there is a race condition
    inherent in the previous description.  If two hosts are probing for
-   the same name simultaneously, neither will receive any response to
+   the same label simultaneously, neither will receive any response to
    the probe, and the hosts could incorrectly conclude that they may
-   both proceed to use the name.  To break this symmetry, each host
+   both proceed to use the label.  To break this symmetry, each host
    populates the query message's Authority Section with the record or
 
 
@@ -1522,10 +1522,10 @@ RFC 6762                      Multicast DNS                February 2013
    Update message [RFC2136] [RFC3007].
 
    When a host is probing for a group of related records with the same
-   name (e.g., the SRV and TXT record describing a DNS-SD service), only
+   label (e.g., the SRV and TXT record describing a DNS-SD service), only
    a single question need be placed in the Question Section, since query
    type "ANY" (255) is used, which will elicit answers for all records
-   with that name.  However, for tiebreaking to work correctly in all
+   with that label.  However, for tiebreaking to work correctly in all
    cases, the Authority Section must contain *all* the records and
    proposed rdata being probed for uniqueness.
 
@@ -1551,7 +1551,7 @@ RFC 6762                      Multicast DNS                February 2013
    answer subsequent probes.  If the apparently winning simultaneous
    probe was in fact just an old stale packet on the network (maybe from
    the host itself), then when it retries its probing in one second, its
-   probes will go unanswered, and it will successfully claim the name.
+   probes will go unanswered, and it will successfully claim the label.
 
    The determination of "lexicographically later" is performed by first
    comparing the record class (excluding the cache-flush bit described
@@ -1573,8 +1573,8 @@ RFC 6762                      Multicast DNS                February 2013
 
 
    In the case of resource records containing rdata that is subject to
-   name compression [RFC1035], the names MUST be uncompressed before
-   comparison.  (The details of how a particular name is compressed is
+   label compression [RFC1035], the labels MUST be uncompressed before
+   comparison.  (The details of how a particular label is compressed is
    an artifact of how and where the record is written into the DNS
    message; it is not an intrinsic property of the resource record
    itself.)
@@ -1604,7 +1604,7 @@ RFC 6762                      Multicast DNS                February 2013
 
 8.2.1.  Simultaneous Probe Tiebreaking for Multiple Records
 
-   When a host is probing for a set of records with the same name, or a
+   When a host is probing for a set of records with the same label, or a
    message is received containing multiple tiebreaker records answering
    a given probe question in the Question Section, the host's records
    and the tiebreaker records from the message are each sorted into
@@ -1691,7 +1691,7 @@ RFC 6762                      Multicast DNS                February 2013
    update neighboring caches.  For example, if any of a host's IP
    addresses change, it MUST re-announce those address records.  The
    host does not need to repeat the Probing step because it has already
-   established unique ownership of that name.
+   established unique ownership of that label.
 
    In the case of shared records, a host MUST send a "goodbye"
    announcement with RR TTL zero (see Section 10.1, "Goodbye Packets")
@@ -1712,7 +1712,7 @@ RFC 6762                      Multicast DNS                February 2013
 
    A conflict occurs when a Multicast DNS responder has a unique record
    for which it is currently authoritative, and it receives a Multicast
-   DNS response message containing a record with the same name, rrtype
+   DNS response message containing a record with the same label, rrtype
    and rrclass, but inconsistent rdata.  What may be considered
    inconsistent is context sensitive, except that resource records with
    identical rdata are never considered inconsistent, even if they
@@ -1722,8 +1722,8 @@ RFC 6762                      Multicast DNS                February 2013
 
    A common example of a resource record type that is intended to be
    unique, not shared between hosts, is the address record that maps a
-   host's name to its IP address.  Should a host witness another host
-   announce an address record with the same name but a different IP
+   host's label to its IP address.  Should a host witness another host
+   announce an address record with the same label but a different IP
    address, then that is considered inconsistent, and that address
    record is considered to be in conflict.
 
@@ -1742,46 +1742,46 @@ RFC 6762                      Multicast DNS                February 2013
 
    Section 8, "Probing and Announcing on Startup".  The protocol used in
    the Probing phase will determine a winner and a loser, and the loser
-   MUST cease using the name, and reconfigure.
+   MUST cease using the label, and reconfigure.
 
    It is very important that any host receiving a resource record that
    conflicts with one of its own MUST take action as described above.
-   In the case of two hosts using the same host name, where one has been
-   configured to require a unique host name and the other has not, the
-   one that has not been configured to require a unique host name will
+   In the case of two hosts using the same host label, where one has been
+   configured to require a unique host label and the other has not, the
+   one that has not been configured to require a unique host label will
    not perceive any conflict, and will not take any action.  By
-   reverting to Probing state, the host that desires a unique host name
-   will go through the necessary steps to ensure that a unique host name
+   reverting to Probing state, the host that desires a unique host label
+   will go through the necessary steps to ensure that a unique host label
    is obtained.
 
    The recommended course of action after probing and failing is as
    follows:
 
-      1. Programmatically change the resource record name in an attempt
-         to find a new name that is unique.  This could be done by
+      1. Programmatically change the resource record label in an attempt
+         to find a new label that is unique.  This could be done by
          adding some further identifying information (e.g., the model
-         name of the hardware) if it is not already present in the name,
-         or appending the digit "2" to the name, or incrementing a
-         number at the end of the name if one is already present.
+         label of the hardware) if it is not already present in the label,
+         or appending the digit "2" to the label, or incrementing a
+         number at the end of the label if one is already present.
 
-      2. Probe again, and repeat as necessary until a unique name is
+      2. Probe again, and repeat as necessary until a unique label is
          found.
 
-      3. Once an available unique name has been determined, by probing
+      3. Once an available unique label has been determined, by probing
          without receiving any conflicting response, record this newly
-         chosen name in persistent storage so that the device will use
-         the same name the next time it is power-cycled.
+         chosen label in persistent storage so that the device will use
+         the same label the next time it is power-cycled.
 
       4. Display a message to the user or operator informing them of the
-         name change.  For example:
+         label change.  For example:
 
-            The name "Bob's Music" is in use by another music server on
+            The label "Bob's Music" is in use by another music server on
             the network.  Your music collection has been renamed to
-            "Bob's Music (2)".  If you want to change this name, use
+            "Bob's Music (2)".  If you want to change this label, use
             [describe appropriate menu item or preference dialog here].
 
          The details of how the user or operator is informed of the new
-         name depends on context.  A desktop computer with a screen
+         label depends on context.  A desktop computer with a screen
          might put up a dialog box.  A headless server in the closet may
          write a message to a log file, or use whatever mechanism
          (email, SNMP trap, etc.) it uses to inform the administrator of
@@ -1796,12 +1796,12 @@ Cheshire & Krochmal          Standards Track                   [Page 32]
 RFC 6762                      Multicast DNS                February 2013
 
 
-         they will notice the name has changed, and connect to the
+         they will notice the label has changed, and connect to the
          server in the usual way (e.g., via web browser) to configure a
-         new name.
+         new label.
 
       5. After one minute of probing, if the Multicast DNS responder has
-         been unable to find any unused name, it should log an error
+         been unable to find any unused label, it should log an error
          message to inform the user or operator of this fact.  This
          situation should never occur in normal operation.  The only
          situations that would cause this to happen would be either a
@@ -1809,15 +1809,15 @@ RFC 6762                      Multicast DNS                February 2013
          obscure hardware or software bug that acts like a deliberate
          denial-of-service attack.
 
-   These considerations apply to address records (i.e., host names) and
+   These considerations apply to address records (i.e., host labels) and
    to all resource records where uniqueness (or maintenance of some
    other defined constraint) is desired.
 
 10.  Resource Record TTL Values and Cache Coherency
 
    As a general rule, the recommended TTL value for Multicast DNS
-   resource records with a host name as the resource record's name
-   (e.g., A, AAAA, HINFO) or a host name contained within the resource
+   resource records with a host label as the resource record's label
+   (e.g., A, AAAA, HINFO) or a host label contained within the resource
    record's rdata (e.g., SRV, reverse mapping PTR record) SHOULD be 120
    seconds.
 
@@ -1852,7 +1852,7 @@ Cheshire & Krochmal          Standards Track                   [Page 33]
 RFC 6762                      Multicast DNS                February 2013
 
 
-   response packet, giving the same resource record name, rrtype,
+   response packet, giving the same resource record label, rrtype,
    rrclass, and rdata, but an RR TTL of zero.  This has the effect of
    updating the TTL stored in neighboring hosts' cache entries to zero,
    causing that cache entry to be promptly deleted.
@@ -1884,7 +1884,7 @@ RFC 6762                      Multicast DNS                February 2013
    bit, the cache-flush bit, tells neighboring hosts that this is not a
    shared record type.  Instead of merging this new record additively
    into the cache in addition to any previous records with the same
-   name, rrtype, and rrclass, all old records with that name, rrtype,
+   label, rrtype, and rrclass, all old records with that label, rrtype,
    and rrclass that were received more than one second ago are declared
    invalid, and marked to expire from the cache in one second.
 
@@ -1895,7 +1895,7 @@ RFC 6762                      Multicast DNS                February 2013
    of the DNS response with the cache-flush bit set, it means, "This is
    an assertion that this information is the truth and the whole truth,
    and anything you may have heard more than a second ago regarding
-   records of this name/rrtype/rrclass is no longer true".
+   records of this label/rrtype/rrclass is no longer true".
 
    To accommodate the case where the set of records from one host
    constituting a single unique RRSet is too large to fit in a single
@@ -2052,7 +2052,7 @@ RFC 6762                      Multicast DNS                February 2013
    record SHOULD be promptly flushed from the cache.
 
    The end result of this is that if a printer suffers a sudden power
-   failure or other abrupt disconnection from the network, its name may
+   failure or other abrupt disconnection from the network, its label may
    continue to appear in DNS-SD browser lists displayed on users'
    screens.  Eventually, that entry will expire from the cache
    naturally, but if a user tries to access the printer before that
@@ -2190,18 +2190,18 @@ RFC 6762                      Multicast DNS                February 2013
 
 12.  Special Characteristics of Multicast DNS Domains
 
-   Unlike conventional DNS names, names that end in ".local." have only
-   local significance.  The same is true of names within the IPv4 link-
+   Unlike conventional DNS labels, labels that end in ".local." have only
+   local significance.  The same is true of labels within the IPv4 link-
    local reverse mapping domain "254.169.in-addr.arpa." and the IPv6
    link-local reverse mapping domains "8.e.f.ip6.arpa.",
    "9.e.f.ip6.arpa.", "a.e.f.ip6.arpa.", and "b.e.f.ip6.arpa.".
 
-   These names function primarily as protocol identifiers, rather than
+   These labels function primarily as protocol identifiers, rather than
    as user-visible identifiers.  Even though they may occasionally be
    visible to end users, that is not their primary purpose.  As such,
-   these names should be treated as opaque identifiers.  In particular,
+   these labels should be treated as opaque identifiers.  In particular,
    the string "local" should not be translated or localized into
-   different languages, much as the name "localhost" is not translated
+   different languages, much as the label "localhost" is not translated
    or localized into different languages.
 
    Conventional Unicast DNS seeks to provide a single unified namespace,
@@ -2209,7 +2209,7 @@ RFC 6762                      Multicast DNS                February 2013
    planet it is performed or to which recursive DNS server the query is
    sent.  In contrast, each IP link has its own private ".local.",
    "254.169.in-addr.arpa." and IPv6 link-local reverse mapping
-   namespaces, and the answer to any query for a name within those
+   namespaces, and the answer to any query for a label within those
    domains depends on where that query is asked.  (This characteristic
    is not unique to Multicast DNS.  Although the original concept of DNS
    was a single global namespace, in recent years, split views,
@@ -2217,8 +2217,8 @@ RFC 6762                      Multicast DNS                February 2013
    meant that the answer to a given DNS query has become dependent on
    the location of the querier.)
 
-   The IPv4 name server address for a Multicast DNS domain is
-   224.0.0.251.  The IPv6 name server address for a Multicast DNS domain
+   The IPv4 label server address for a Multicast DNS domain is
+   224.0.0.251.  The IPv6 label server address for a Multicast DNS domain
    is FF02::FB.  These are multicast addresses; therefore, they identify
    not a single host but a collection of hosts, working in cooperation
    to maintain some reasonable facsimile of a competently managed DNS
@@ -2231,10 +2231,10 @@ RFC 6762                      Multicast DNS                February 2013
    use of NS (Name Server) records, and there is also no concept of
    delegation of subdomains within a Multicast DNS domain.  Just because
    a particular host on the network may answer queries for a particular
-   record type with the name "example.local." does not imply anything
-   about whether that host will answer for the name
+   record type with the label "example.local." does not imply anything
+   about whether that host will answer for the label
    "child.example.local.", or indeed for other record types with the
-   name "example.local.".
+   label "example.local.".
 
 
 
@@ -2270,26 +2270,26 @@ RFC 6762                      Multicast DNS                February 2013
 
 13.  Enabling and Disabling Multicast DNS
 
-   The option to fail-over to Multicast DNS for names not ending in
+   The option to fail-over to Multicast DNS for labels not ending in
    ".local." SHOULD be a user-configured option, and SHOULD be disabled
    by default because of the possible security issues related to
-   unintended local resolution of apparently global names.  Enabling
-   Multicast DNS for names not ending in ".local." may be appropriate on
+   unintended local resolution of apparently global labels.  Enabling
+   Multicast DNS for labels not ending in ".local." may be appropriate on
    a secure isolated network, or on some future network were machines
    exclusively use DNSSEC for all DNS queries, and have Multicast DNS
    responders capable of generating the appropriate cryptographic DNSSEC
    signatures, thereby guarding against spoofing.
 
-   The option to look up unqualified (relative) names by appending
+   The option to look up unqualified (relative) labels by appending
    ".local." (or not) is controlled by whether ".local." appears (or
    not) in the client's DNS search list.
 
    No special control is needed for enabling and disabling Multicast DNS
-   for names explicitly ending with ".local." as entered by the user.
-   The user doesn't need a way to disable Multicast DNS for names ending
+   for labels explicitly ending with ".local." as entered by the user.
+   The user doesn't need a way to disable Multicast DNS for labels ending
    with ".local.", because if the user doesn't want to use Multicast
-   DNS, they can achieve this by simply not using those names.  If a
-   user *does* enter a name ending in ".local.", then we can safely
+   DNS, they can achieve this by simply not using those labels.  If a
+   user *does* enter a label ending in ".local.", then we can safely
    assume the user's intention was probably that it should work.  Having
    user configuration options that can be (intentionally or
 
@@ -2300,24 +2300,24 @@ Cheshire & Krochmal          Standards Track                   [Page 41]
 RFC 6762                      Multicast DNS                February 2013
 
 
-   unintentionally) set so that local names don't work is just one more
+   unintentionally) set so that local labels don't work is just one more
    way of frustrating the user's ability to perform the tasks they want,
    perpetuating the view that, "IP networking is too complicated to
    configure and too hard to use".
 
 14.  Considerations for Multiple Interfaces
 
-   A host SHOULD defend its dot-local host name on all active interfaces
+   A host SHOULD defend its dot-local host label on all active interfaces
    on which it is answering Multicast DNS queries.
 
-   In the event of a name conflict on *any* interface, a host should
-   configure a new host name, if it wishes to maintain uniqueness of its
-   host name.
+   In the event of a label conflict on *any* interface, a host should
+   configure a new host label, if it wishes to maintain uniqueness of its
+   host label.
 
-   A host may choose to use the same name (or set of names) for all of
+   A host may choose to use the same label (or set of labels) for all of
    its address records on all interfaces, or it may choose to manage its
    Multicast DNS interfaces independently, potentially answering to a
-   different name (or set of names) on different interfaces.
+   different label (or set of labels) on different interfaces.
 
    Except in the case of proxying and other similar specialized uses,
    addresses in IPv4 or IPv6 address records in Multicast DNS responses
@@ -2326,10 +2326,10 @@ RFC 6762                      Multicast DNS                February 2013
 
    Just as the same link-local IP address may validly be in use
    simultaneously on different links by different hosts, the same link-
-   local host name may validly be in use simultaneously on different
+   local host label may validly be in use simultaneously on different
    links, and this is not an error.  A multihomed host with connections
    to two different links may be able to communicate with two different
-   hosts that are validly using the same name.  While this kind of name
+   hosts that are validly using the same label.  While this kind of label
    duplication should be rare, it means that a host that wants to fully
    support this case needs network programming APIs that allow
    applications to specify on what interface to perform a link-local
@@ -2356,7 +2356,7 @@ Cheshire & Krochmal          Standards Track                   [Page 42]
 RFC 6762                      Multicast DNS                February 2013
 
 
-   When the host announces its host name (i.e., its address records) on
+   When the host announces its host label (i.e., its address records) on
    its wireless interface, those announcement records are sent with the
    cache-flush bit set, so when they arrive on the Ethernet segment,
    they will cause all the peers on the Ethernet to flush the host's
@@ -2477,23 +2477,23 @@ RFC 6762                      Multicast DNS                February 2013
    Unicast DNS have been badly constrained by the perceived need to
    accommodate old buggy legacy DNS implementations.  In reality, the
    DNS specification itself actually imposes no limits on what
-   characters may be used in names, and good DNS implementations handle
+   characters may be used in labels, and good DNS implementations handle
    any arbitrary eight-bit data without trouble.  "Clarifications to the
    DNS Specification" [RFC2181] directly discusses the subject of
    allowable character set in Section 11 ("Name syntax"), and explicitly
-   states that DNS names may contain arbitrary eight-bit data.  However,
-   the old rules for ARPANET host names back in the 1980s required host
-   names to be just letters, digits, and hyphens [RFC1034], and since
+   states that DNS labels may contain arbitrary eight-bit data.  However,
+   the old rules for ARPANET host labels back in the 1980s required host
+   labels to be just letters, digits, and hyphens [RFC1034], and since
    the predominant use of DNS is to store host address records, many
    have assumed that the DNS protocol itself suffers from the same
    limitation.  It might be accurate to say that there could be
    hypothetical bad implementations that do not handle eight-bit data
    correctly, but it would not be accurate to say that the protocol
-   doesn't allow names containing eight-bit data.
+   doesn't allow labels containing eight-bit data.
 
    Multicast DNS is a new protocol and doesn't (yet) have old buggy
    legacy implementations to constrain the design choices.  Accordingly,
-   it adopts the simple obvious elegant solution: all names in Multicast
+   it adopts the simple obvious elegant solution: all labels in Multicast
    DNS MUST be encoded as precomposed UTF-8 [RFC3629] "Net-Unicode"
    [RFC5198] text.
 
@@ -2502,17 +2502,17 @@ RFC 6762                      Multicast DNS                February 2013
    file, as a hint to identify whether the data is big-endian or little-
    endian, and calling it a "Byte Order Mark" (BOM).  Since there is
    only one possible byte order for UTF-8 data, a BOM is neither
-   necessary nor permitted.  Multicast DNS names MUST NOT contain a
+   necessary nor permitted.  Multicast DNS labels MUST NOT contain a
    "Byte Order Mark".  Any occurrence of the Unicode character U+FEFF at
-   the start or anywhere else in a Multicast DNS name MUST be
-   interpreted as being an actual intended part of the name,
+   the start or anywhere else in a Multicast DNS label MUST be
+   interpreted as being an actual intended part of the label,
    representing (just as for any other legal unicode value) an actual
    literal instance of that character (in this case a zero-width non-
    breaking space character).
 
-   For names that are restricted to US-ASCII [RFC0020] letters, digits,
+   For labels that are restricted to US-ASCII [RFC0020] letters, digits,
    and hyphens, the UTF-8 encoding is identical to the US-ASCII
-   encoding, so this is entirely compatible with existing host names.
+   encoding, so this is entirely compatible with existing host labels.
    For characters outside the US-ASCII range, UTF-8 encoding is used.
 
 
@@ -2530,12 +2530,12 @@ RFC 6762                      Multicast DNS                February 2013
    [RFC3492] are discussed further in Appendix F.
 
    The simple rules for case-insensitivity in Unicast DNS [RFC1034]
-   [RFC1035] also apply in Multicast DNS; that is to say, in name
+   [RFC1035] also apply in Multicast DNS; that is to say, in label
    comparisons, the lowercase letters "a" to "z" (0x61 to 0x7A) match
    their uppercase equivalents "A" to "Z" (0x41 to 0x5A).  Hence, if a
-   querier issues a query for an address record with the name
+   querier issues a query for an address record with the label
    "myprinter.local.", then a responder having an address record with
-   the name "MyPrinter.local." should issue a response.  No other
+   the label "MyPrinter.local." should issue a response.  No other
    automatic equivalences should be assumed.  In particular, all UTF-8
    multibyte characters (codes 0x80 and higher) are compared by simple
    binary comparison of the raw byte values.  Accented characters are
@@ -2543,11 +2543,11 @@ RFC 6762                      Multicast DNS                February 2013
    counterparts.  Where automatic equivalences are desired, this may be
    achieved through the use of programmatically generated CNAME records.
    For example, if a responder has an address record for an accented
-   name Y, and a querier issues a query for a name X, where X is the
+   label Y, and a querier issues a query for a label X, where X is the
    same as Y with all the accents removed, then the responder may issue
    a response containing two resource records: a CNAME record "X CNAME
-   Y", asserting that the requested name X (unaccented) is an alias for
-   the true (accented) name Y, followed by the address record for Y.
+   Y", asserting that the requested label X (unaccented) is an alias for
+   the true (accented) label Y, followed by the address record for Y.
 
 17.  Multicast DNS Message Size
 
@@ -2751,37 +2751,37 @@ RFC 6762                      Multicast DNS                February 2013
 18.14.  Name Compression
 
    When generating Multicast DNS messages, implementations SHOULD use
-   name compression wherever possible to compress the names of resource
-   records, by replacing some or all of the resource record name with a
+   label compression wherever possible to compress the labels of resource
+   records, by replacing some or all of the resource record label with a
    compact two-byte reference to an appearance of that data somewhere
    earlier in the message [RFC1035].
 
    This applies not only to Multicast DNS responses, but also to
    queries.  When a query contains more than one question, successive
-   questions in the same message often contain similar names, and
-   consequently name compression SHOULD be used, to save bytes.  In
+   questions in the same message often contain similar labels, and
+   consequently label compression SHOULD be used, to save bytes.  In
    addition, queries may also contain Known Answers in the Answer
    Section, or probe tiebreaking data in the Authority Section, and
-   these names SHOULD similarly be compressed for network efficiency.
+   these labels SHOULD similarly be compressed for network efficiency.
 
-   In addition to compressing the *names* of resource records, names
+   In addition to compressing the *labels* of resource records, labels
    that appear within the *rdata* of the following rrtypes SHOULD also
    be compressed in all Multicast DNS messages:
 
      NS, CNAME, PTR, DNAME, SOA, MX, AFSDB, RT, KX, RP, PX, SRV, NSEC
 
-   Until future IETF Standards Action [RFC5226] specifying that names in
-   the rdata of other types should be compressed, names that appear
+   Until future IETF Standards Action [RFC5226] specifying that labels in
+   the rdata of other types should be compressed, labels that appear
    within the rdata of any type not listed above MUST NOT be compressed.
 
    Implementations receiving Multicast DNS messages MUST correctly
-   decode compressed names appearing in the Question Section, and
-   compressed names of resource records appearing in other sections.
+   decode compressed labels appearing in the Question Section, and
+   compressed labels of resource records appearing in other sections.
 
-   In addition, implementations MUST correctly decode compressed names
+   In addition, implementations MUST correctly decode compressed labels
    appearing within the *rdata* of the rrtypes listed above.  Where
    possible, implementations SHOULD also correctly decode compressed
-   names appearing within the *rdata* of other rrtypes known to the
+   labels appearing within the *rdata* of other rrtypes known to the
    implementers at the time of implementation, because such forward-
    thinking planning helps facilitate the deployment of future
    implementations that may have reason to compress those rrtypes.  It
@@ -2791,7 +2791,7 @@ RFC 6762                      Multicast DNS                February 2013
    of decompressing all known types helps keep future options open.
 
    One specific difference between Unicast DNS and Multicast DNS is that
-   Unicast DNS does not allow name compression for the target host in an
+   Unicast DNS does not allow label compression for the target host in an
    SRV record, because Unicast DNS implementations before the first SRV
    specification in 1996 [RFC2052] may not decode these compressed
 
@@ -2808,7 +2808,7 @@ RFC 6762                      Multicast DNS                February 2013
    created after 1996, all Multicast DNS implementations are REQUIRED to
    decode compressed SRV records correctly.
 
-   In legacy unicast responses generated to answer legacy queries, name
+   In legacy unicast responses generated to answer legacy queries, label
    compression MUST NOT be performed on SRV records.
 
 19.  Summary of Differences between Multicast DNS and Unicast DNS
@@ -2826,9 +2826,9 @@ RFC 6762                      Multicast DNS                February 2013
    * uses UDP port 5353 instead of port 53
    * operates in well-defined parts of the DNS namespace
    * has no SOA (Start of Authority) records
-   * uses UTF-8, and only UTF-8, to encode resource record names
-   * allows names up to 255 bytes plus a terminating zero byte
-   * allows name compression in rdata for SRV and other record types
+   * uses UTF-8, and only UTF-8, to encode resource record labels
+   * allows labels up to 255 bytes plus a terminating zero byte
+   * allows label compression in rdata for SRV and other record types
    * allows larger UDP packets
    * allows more than one question in a query message
    * defines consistent results for qtype "ANY" and qclass "ANY" queries
@@ -2873,22 +2873,22 @@ RFC 6762                      Multicast DNS                February 2013
    really were on two entirely separate Ethernet segments.
 
    A dual-stack (v4/v6) host can participate in both ".local." zones,
-   and should register its name(s) and perform its lookups both using
+   and should register its label(s) and perform its lookups both using
    IPv4 and IPv6.  This enables it to reach, and be reached by, both
    IPv4-only and IPv6-only hosts.  In effect, this acts like a
    multihomed host, with one connection to the logical "IPv4 Ethernet
    segment", and a connection to the logical "IPv6 Ethernet segment".
    When such a host generates NSEC records, if it is using the same host
-   name for its IPv4 addresses and its IPv6 addresses on that network
-   interface, its NSEC records should indicate that the host name has
+   label for its IPv4 addresses and its IPv6 addresses on that network
+   interface, its NSEC records should indicate that the host label has
    both A and AAAA records.
 
 21.  Security Considerations
 
-   The algorithm for detecting and resolving name conflicts is, by its
+   The algorithm for detecting and resolving label conflicts is, by its
    very nature, an algorithm that assumes cooperating participants.  Its
    purpose is to allow a group of hosts to arrive at a mutually disjoint
-   set of host names and other DNS resource record names, in the absence
+   set of host labels and other DNS resource record labels, in the absence
    of any central authority to coordinate this or mediate disputes.  In
    the absence of any higher authority to resolve disputes, the only
    alternative is that the participants must work together cooperatively
@@ -2916,28 +2916,28 @@ Cheshire & Krochmal          Standards Track                   [Page 52]
 RFC 6762                      Multicast DNS                February 2013
 
 
-   If DNS queries for *global* DNS names are sent to the mDNS multicast
+   If DNS queries for *global* DNS labels are sent to the mDNS multicast
    address (during network outages which disrupt communication with the
    greater Internet) it is *especially* important to use DNSSEC, because
    the user may have the impression that he or she is communicating with
    some authentic host, when in fact he or she is really communicating
-   with some local host that is merely masquerading as that name.  This
-   is less critical for names ending with ".local.", because the user
-   should be aware that those names have only local significance and no
+   with some local host that is merely masquerading as that label.  This
+   is less critical for labels ending with ".local.", because the user
+   should be aware that those labels have only local significance and no
    global authority is implied.
 
    Most computer users neglect to type the trailing dot at the end of a
-   fully qualified domain name, making it a relative domain name (e.g.,
+   fully qualified domain label, making it a relative domain label (e.g.,
    "www.example.com").  In the event of network outage, attempts to
-   positively resolve the name as entered will fail, resulting in
+   positively resolve the label as entered will fail, resulting in
    application of the search list, including ".local.", if present.  A
    malicious host could masquerade as "www.example.com." by answering
    the resulting Multicast DNS query for "www.example.com.local.".  To
    avoid this, a host MUST NOT append the search suffix ".local.", if
-   present, to any relative (partially qualified) host name containing
+   present, to any relative (partially qualified) host label containing
    two or more labels.  Appending ".local." to single-label relative
-   host names is acceptable, since the user should have no expectation
-   that a single-label host name will resolve as is.  However, users who
+   host labels is acceptable, since the user should have no expectation
+   that a single-label host label will resolve as is.  However, users who
    have both "example.com" and "local" in their search lists should be
    aware that if they type "www" into their web browser, it may not be
    immediately clear to them whether the page that appears is
@@ -3007,19 +3007,19 @@ RFC 6762                      Multicast DNS                February 2013
 
 22.1.  Domain Name Reservation Considerations
 
-   The six domains listed above, and any names falling within those
+   The six domains listed above, and any labels falling within those
    domains (e.g., "MyPrinter.local.", "34.12.254.169.in-addr.arpa.",
    "Ink-Jet._pdl-datastream._tcp.local.") are special [RFC6761] in the
    following ways:
 
-      1. Users may use these names as they would other DNS names,
+      1. Users may use these labels as they would other DNS labels,
          entering them anywhere that they would otherwise enter a
-         conventional DNS name, or a dotted decimal IPv4 address, or a
+         conventional DNS label, or a dotted decimal IPv4 address, or a
          literal IPv6 address.
 
          Since there is no central authority responsible for assigning
-         dot-local names, and all devices on the local network are
-         equally entitled to claim any dot-local name, users SHOULD be
+         dot-local labels, and all devices on the local network are
+         equally entitled to claim any dot-local label, users SHOULD be
 
 
 
@@ -3030,7 +3030,7 @@ RFC 6762                      Multicast DNS                February 2013
 
          aware of this and SHOULD exercise appropriate caution.  In an
          untrusted or unfamiliar network environment, users SHOULD be
-         aware that using a name like "www.local" may not actually
+         aware that using a label like "www.local" may not actually
          connect them to the web site they expected, and could easily
          connect them to a different web page, or even a fake or spoof
          of their intended web site, designed to trick them into
@@ -3039,34 +3039,34 @@ RFC 6762                      Multicast DNS                February 2013
          example, when connecting with ssh, the ssh host key
          verification process will inform the user if it detects that
          the identity of the entity they are communicating with has
-         changed since the last time they connected to that name.
+         changed since the last time they connected to that label.
 
-      2. Application software may use these names as they would other
-         similar DNS names, and is not required to recognize the names
+      2. Application software may use these labels as they would other
+         similar DNS labels, and is not required to recognize the labels
          and treat them specially.  Due to the relative ease of spoofing
-         dot-local names, end-to-end cryptographic security remains
+         dot-local labels, end-to-end cryptographic security remains
          important when communicating across a local network, just as it
          is when communicating across the global Internet.
 
-      3. Name resolution APIs and libraries SHOULD recognize these names
-         as special and SHOULD NOT send queries for these names to their
+      3. Name resolution APIs and libraries SHOULD recognize these labels
+         as special and SHOULD NOT send queries for these labels to their
          configured (unicast) caching DNS server(s).  This is to avoid
-         unnecessary load on the root name servers and other name
-         servers, caused by queries for which those name servers do not
+         unnecessary load on the root label servers and other label
+         servers, caused by queries for which those label servers do not
          have useful non-negative answers to give, and will not ever
          have useful non-negative answers to give.
 
-      4. Caching DNS servers SHOULD recognize these names as special and
+      4. Caching DNS servers SHOULD recognize these labels as special and
          SHOULD NOT attempt to look up NS records for them, or otherwise
          query authoritative DNS servers in an attempt to resolve these
-         names.  Instead, caching DNS servers SHOULD generate immediate
+         labels.  Instead, caching DNS servers SHOULD generate immediate
          NXDOMAIN responses for all such queries they may receive (from
-         misbehaving name resolver libraries).  This is to avoid
-         unnecessary load on the root name servers and other name
+         misbehaving label resolver libraries).  This is to avoid
+         unnecessary load on the root label servers and other label
          servers.
 
       5. Authoritative DNS servers SHOULD NOT by default be configurable
-         to answer queries for these names, and, like caching DNS
+         to answer queries for these labels, and, like caching DNS
          servers, SHOULD generate immediate NXDOMAIN responses for all
          such queries they may receive.  DNS server software MAY provide
          a configuration option to override this default, for testing
@@ -3074,8 +3074,8 @@ RFC 6762                      Multicast DNS                February 2013
 
       6. DNS server operators SHOULD NOT attempt to configure
          authoritative DNS servers to act as authoritative for any of
-         these names.  Configuring an authoritative DNS server to act as
-         authoritative for any of these names may not, in many cases,
+         these labels.  Configuring an authoritative DNS server to act as
+         authoritative for any of these labels may not, in many cases,
 
 
 
@@ -3084,19 +3084,19 @@ Cheshire & Krochmal          Standards Track                   [Page 55]
 RFC 6762                      Multicast DNS                February 2013
 
 
-         yield the expected result.  Since name resolver libraries and
-         caching DNS servers SHOULD NOT send queries for those names
+         yield the expected result.  Since label resolver libraries and
+         caching DNS servers SHOULD NOT send queries for those labels
          (see 3 and 4 above), such queries SHOULD be suppressed before
          they even reach the authoritative DNS server in question, and
          consequently it will not even get an opportunity to answer
          them.
 
-      7. DNS Registrars MUST NOT allow any of these names to be
+      7. DNS Registrars MUST NOT allow any of these labels to be
          registered in the normal way to any person or entity.  These
-         names are reserved protocol identifiers with special meaning
-         and fall outside the set of names available for allocation by
-         registrars.  Attempting to allocate one of these names as if it
-         were a normal domain name will probably not work as desired,
+         labels are reserved protocol identifiers with special meaning
+         and fall outside the set of labels available for allocation by
+         registrars.  Attempting to allocate one of these labels as if it
+         were a normal domain label will probably not work as desired,
          for reasons 3, 4, and 6 above.
 
 23.  Acknowledgments
@@ -3126,10 +3126,10 @@ RFC 6762                      Multicast DNS                February 2013
    [RFC0020]  Cerf, V., "ASCII format for network interchange", RFC 20,
               October 1969.
 
-   [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
+   [RFC1034]  Mockapetris, P., "Domain labels - concepts and facilities",
               STD 13, RFC 1034, November 1987.
 
-   [RFC1035]  Mockapetris, P., "Domain names - implementation and
+   [RFC1035]  Mockapetris, P., "Domain labels - implementation and
               specification", STD 13, RFC 1035, November 1987.
 
 
@@ -3161,7 +3161,7 @@ RFC 6762                      Multicast DNS                February 2013
 
    [SN]       IANA, "Service Name and Transport Protocol Port Number
               Registry", <http://www.iana.org/assignments/
-              service-names-port-numbers/>.
+              service-labels-port-numbers/>.
 
 24.2.  Informative References
 
@@ -3373,7 +3373,7 @@ RFC 6762                      Multicast DNS                February 2013
 Appendix B.  Design Rationale for Not Using Hashed Multicast Addresses
 
    Some discovery protocols use a range of multicast addresses, and
-   determine the address to be used by a hash function of the name being
+   determine the address to be used by a hash function of the label being
    sought.  Queries are sent via multicast to the address as indicated
    by the hash function, and responses are returned to the querier via
    unicast.  Particularly in IPv6, where multicast addresses are
@@ -3385,7 +3385,7 @@ Appendix B.  Design Rationale for Not Using Hashed Multicast Addresses
    There are some disadvantages to using hashed multicast addresses like
    this in a service discovery protocol:
 
-   * When a host has a large number of records with different names, the
+   * When a host has a large number of records with different labels, the
      host may have to join a large number of multicast groups.  Each
      time a host joins or leaves a multicast group, this results in
      Internet Group Management Protocol (IGMP) or Multicast Listener
@@ -3424,7 +3424,7 @@ RFC 6762                      Multicast DNS                February 2013
 
 Appendix C.  Design Rationale for Maximum Multicast DNS Name Length
 
-   Multicast DNS names may be up to 255 bytes long (in the on-the-wire
+   Multicast DNS labels may be up to 255 bytes long (in the on-the-wire
    message format), not counting the terminating zero byte at the end.
 
    "Domain Names - Implementation and Specification" [RFC1035] says:
@@ -3435,15 +3435,15 @@ Appendix C.  Design Rationale for Maximum Multicast DNS Name Length
 
       labels          63 octets or less
 
-      names           255 octets or less
+      labels           255 octets or less
 
       ...
 
-      the total length of a domain name (i.e., label octets and label
+      the total length of a domain label (i.e., label octets and label
       length octets) is restricted to 255 octets or less.
 
    This text does not state whether this 255-byte limit includes the
-   terminating zero at the end of every name.
+   terminating zero at the end of every label.
 
    Several factors lead us to conclude that the 255-byte limit does
    *not* include the terminating zero:
@@ -3461,7 +3461,7 @@ Appendix C.  Design Rationale for Maximum Multicast DNS Name Length
      at the end.
 
    o In the case of DNS label lengths, the stated limit is 63 bytes.  As
-     with the total name length, this limit is exactly one less than a
+     with the total label length, this limit is exactly one less than a
      power of two.  This label length limit also excludes the label
      length byte at the start of every label.  Including that extra
      byte, a 63-byte label takes 64 bytes of space in memory or in a DNS
@@ -3482,32 +3482,32 @@ RFC 6762                      Multicast DNS                February 2013
      sizeof("foo") (which includes the terminating zero byte at the end)
      is 4.
 
-   o The text describing the total length of a domain name mentions
+   o The text describing the total length of a domain label mentions
      explicitly that label length and data octets are included, but does
      not mention the terminating zero at the end.  The zero byte at the
-     end of a domain name is not a label length.  Indeed, the value zero
+     end of a domain label is not a label length.  Indeed, the value zero
      is chosen as the terminating marker precisely because it is not a
      legal length byte value -- DNS prohibits empty labels.  For
-     example, a name like "bad..name." is not a valid domain name
+     example, a label like "bad..label." is not a valid domain label
      because it contains a zero-length label in the middle, which cannot
      be expressed in a DNS message, because software parsing the message
      would misinterpret a zero label-length byte as being a zero "end of
-     name" marker instead.
+     label" marker instead.
 
    Finally, "Clarifications to the DNS Specification" [RFC2181] offers
    additional confirmation that, in the context of DNS specifications,
-   the stated "length" of a domain name does not include the terminating
-   zero byte at the end.  That document refers to the root name, which
+   the stated "length" of a domain label does not include the terminating
+   zero byte at the end.  That document refers to the root label, which
    is typically written as "." and is represented in a DNS message by a
    single lone zero byte (i.e., zero bytes of data plus a terminating
-   zero), as the "zero length full name":
+   zero), as the "zero length full label":
 
-      The zero length full name is defined as representing the root of
+      The zero length full label is defined as representing the root of
       the DNS tree, and is typically written and displayed as ".".
 
    This wording supports the interpretation that, in a DNS context, when
-   talking about lengths of names, the terminating zero byte at the end
-   is not counted.  If the root name (".") is considered to be zero
+   talking about lengths of labels, the terminating zero byte at the end
+   is not counted.  If the root label (".") is considered to be zero
    length, then to be consistent, the length (for example) of "org" has
    to be 4 and the length of "ietf.org" has to be 9, as shown below:
 
@@ -3532,7 +3532,7 @@ Cheshire & Krochmal          Standards Track                   [Page 63]
 RFC 6762                      Multicast DNS                February 2013
 
 
-   This means that the maximum length of a domain name, as represented
+   This means that the maximum length of a domain label, as represented
    in a Multicast DNS message, up to but not including the final
    terminating zero, must not exceed 255 bytes.
 
@@ -3540,14 +3540,14 @@ RFC 6762                      Multicast DNS                February 2013
    differently, and argue that the 255-byte limit does include the
    terminating zero, and that the "Clarifications to the DNS
    Specification" [RFC2181] statement that "." is the "zero length full
-   name" was simply a mistake.
+   label" was simply a mistake.
 
    Hence, implementers should be aware that other Unicast DNS
-   implementations may limit the maximum domain name to 254 bytes plus a
+   implementations may limit the maximum domain label to 254 bytes plus a
    terminating zero, depending on how that implementer interpreted the
    DNS specifications.
 
-   Compliant Multicast DNS implementations MUST support names up to 255
+   Compliant Multicast DNS implementations MUST support labels up to 255
    bytes plus a terminating zero, i.e., 256 bytes total.
 
 Appendix D.  Benefits of Multicast Responses
@@ -3577,7 +3577,7 @@ Appendix D.  Benefits of Multicast Responses
      require lower cache lifetimes and more frequent network polling,
      resulting in a higher packet rate.
 
-   * Passive Conflict Detection.  Just because a name has been
+   * Passive Conflict Detection.  Just because a label has been
      previously verified to be unique does not guarantee it will
      continue to be so indefinitely.  By allowing all Multicast DNS
 
@@ -3631,7 +3631,7 @@ Appendix E.  Design Rationale for Encoding Negative Responses
    Unicast DNS NXDOMAIN response applies to the entire message, but for
    efficiency Multicast DNS allows (and encourages) multiple responses
    in a single message.  If the error code in the header were NXDOMAIN,
-   it would not be clear to which name(s) that error code applied.
+   it would not be clear to which label(s) that error code applied.
 
    Asserting nonexistence by emitting a resource record with zero-length
    rdata would mean that there would be no way to differentiate between
@@ -3655,7 +3655,7 @@ RFC 6762                      Multicast DNS                February 2013
    response to an SRV query, a responder should include A record(s)
    giving its IPv4 addresses in the Additional Section, and an NSEC
    record indicating which other types it does or does not have for this
-   name.  If the responder is running on a host that does not support
+   label.  If the responder is running on a host that does not support
    IPv6 (or does support IPv6 but currently has no IPv6 address on that
    interface) then this NSEC record in the Additional Section will
    indicate this absence of AAAA records.  In effect, the responder is
@@ -3689,7 +3689,7 @@ Appendix F.  Use of UTF-8
    encode to a legal Punycode string that fits within DNS's 63-byte
    limit, depending on the order the characters appear.  This is
    extremely hard to present in a user interface that explains to users
-   why one name is allowed, but another name containing the exact same
+   why one label is allowed, but another label containing the exact same
    characters is not.  Neither Punycode nor any other of the "ASCII-
    Compatible Encodings" [RFC5890] proposed for Unicast DNS may be used
 
@@ -3706,7 +3706,7 @@ RFC 6762                      Multicast DNS                February 2013
 
 Appendix G.  Private DNS Namespaces
 
-   The special treatment of names ending in ".local." has been
+   The special treatment of labels ending in ".local." has been
    implemented in Macintosh computers since the days of Mac OS 9, and
    continues today in Mac OS X and iOS.  There are also implementations
    for Microsoft Windows [B4W], Linux, and other platforms.
@@ -3716,12 +3716,12 @@ Appendix G.  Private DNS Namespaces
    have used the ".local" top-level domain.  Using ".local" as a private
    top-level domain conflicts with Multicast DNS and may cause problems
    for users.  Clients can be configured to send both Multicast and
-   Unicast DNS queries in parallel for these names, and this does allow
-   names to be looked up both ways, but this results in additional
-   network traffic and additional delays in name resolution, as well as
+   Unicast DNS queries in parallel for these labels, and this does allow
+   labels to be looked up both ways, but this results in additional
+   network traffic and additional delays in label resolution, as well as
    potentially creating user confusion when it is not clear whether any
    given result was received via link-local multicast from a peer on the
-   same link, or from the configured unicast name server.  Because of
+   same link, or from the configured unicast label server.  Because of
    this, we recommend against using ".local" as a private Unicast DNS
    top-level domain.  We do not recommend use of unregistered top-level
    domains at all, but should network operators decide to do this, the
@@ -3771,7 +3771,7 @@ RFC 6762                      Multicast DNS                February 2013
 
    o "Discovering Named Instances of Abstract Services using DNS" [NIAS]
      proposed a way to perform NBP-like service discovery using DNS-
-     compatible names and record types.
+     compatible labels and record types.
 
    o "Multicast DNS" (this document) specifies a way to transport those
      DNS-compatible queries and responses using IP multicast, for zero-
@@ -3779,14 +3779,14 @@ RFC 6762                      Multicast DNS                February 2013
      was available.
 
    In 2001, an update to Mac OS 9 added resolver library support for
-   host name lookup using Multicast DNS.  If the user typed a name such
+   host label lookup using Multicast DNS.  If the user typed a label such
    as "MyPrinter.local." into any piece of networking software that used
-   the standard Mac OS 9 name lookup APIs, then those name lookup APIs
-   would recognize the name as a dot-local name and query for it by
+   the standard Mac OS 9 label lookup APIs, then those label lookup APIs
+   would recognize the label as a dot-local label and query for it by
    sending simple one-shot Multicast DNS queries to 224.0.0.251:5353.
-   This enabled the user to, for example, enter the name
+   This enabled the user to, for example, enter the label
    "MyPrinter.local." into their web browser in order to view a
-   printer's status and configuration web page, or enter the name
+   printer's status and configuration web page, or enter the label
    "MyPrinter.local." into the printer setup utility to create a print
    queue for printing documents on that printer.
 

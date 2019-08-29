@@ -1,33 +1,22 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.mdns.NameArray;
-import org.atlanmod.salut.data.DomainName;
-import org.atlanmod.salut.data.DomainNameBuilder;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.text.ParseException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.atlanmod.salut.mdns.LabelArray;
 
 class InstanceEntryTest {
-    private NameArray names = NameArray.fromList("MacBook", "local");
+    private LabelArray names = LabelArray.fromList("MacBook", "local");
     private ServiceEntry entry;
 
     /*
     @BeforeEach
     void setup() throws ParseException {
-        DomainName name = DomainNameBuilder.fromNameArray(names);
+        Domain name = DomainBuilder.fromLabels(names);
         this.entry = new ServiceEntry(TimeToLive.fromSeconds(0), name);
     }
 
 
     @Test
     void name() throws ParseException {
-        DomainName name = DomainNameBuilder.fromNameArray(names);
+        Domain name = DomainBuilder.fromLabels(names);
 
         assertEquals(name, entry.name());
     }
@@ -38,7 +27,7 @@ class InstanceEntryTest {
         AddressEntry ae = new Inet4AddressEntry(TimeToLive.fromSeconds(0), inet4address);
         entry.getAddresses().add(ae);
 
-        assertTrue(ae.getNames().contains(entry));
+        assertTrue(ae.getLabels().contains(entry));
         assertTrue(entry.getAddresses().contains(ae));
         assertTrue(entry.getAddresses()
                 .references()

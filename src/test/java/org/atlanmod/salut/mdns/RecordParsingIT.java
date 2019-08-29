@@ -1,8 +1,7 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.data.DomainName;
-import org.atlanmod.salut.data.DomainNameBuilder;
-import org.atlanmod.salut.data.ServiceInstanceName;
+import org.atlanmod.salut.data.Domain;
+import org.atlanmod.salut.data.DomainBuilder;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
@@ -33,9 +32,9 @@ public class RecordParsingIT {
     @Test
     void testARecordReadWrite() throws ParseException, UnknownHostException {
 
-        NameArray names = NameArray.fromList("MacBook", "local");
+        LabelArray names = LabelArray.fromList("MacBook", "local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
-        DomainName domaine = DomainNameBuilder.fromNameArray(names);
+        Domain domaine = DomainBuilder.fromLabels(names);
         ARecord record = ARecord.createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
 
         record.writeOn(writer);
@@ -49,9 +48,9 @@ public class RecordParsingIT {
     void testSRVRecordReadWrite() throws ParseException {
 
         ServerSelectionRecord record =
-        ServerSelectionRecord.createRecord(NameArray.fromList("music", "raop", "tcp", "mac", "local"), QClass.IN,
+        ServerSelectionRecord.createRecord(LabelArray.fromList("music", "raop", "tcp", "mac", "local"), QClass.IN,
                 UnsignedInt.fromInt(500), UnsignedShort.fromInt(10), UnsignedShort.fromInt(33),
-                UnsignedShort.fromInt(80),NameArray.fromList("mac", "local") ,
+                UnsignedShort.fromInt(80), LabelArray.fromList("mac", "local") ,
                 null, null);
 
         record.writeOne(writer);

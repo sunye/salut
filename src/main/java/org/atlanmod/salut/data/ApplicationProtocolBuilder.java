@@ -17,6 +17,10 @@ public class ApplicationProtocolBuilder {
             return new KnownApplicationProtocol(application);
         }
     }
+
+    public static ApplicationProtocol fromLabel(@Nonnull Label label) {
+        return fromString(label.toString());
+    }
 }
 
 class UnknownApplicationProtocol implements ApplicationProtocol {

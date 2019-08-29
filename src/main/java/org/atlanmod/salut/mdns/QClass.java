@@ -17,6 +17,12 @@ import static java.util.stream.Collectors.toMap;
  * As noted in [RFC6762], Multicast DNS can only carry DNS records with classes in the
  * range 0-32767.
  * Classes in the range 32768 to 65535 are incompatible with Multicast DNS.
+ *
+ * From [RFC6762]:
+ *
+ * 18.12.  Repurposing of Top Bit of qclass in Question Section
+ * In the Question Section of a Multicast DNS query, the top bit of the qclass field is used
+ * to indicate that unicast responses are preferred for this particular question.  (See Section 5.4.)
  */
 public enum QClass {
 
@@ -41,13 +47,13 @@ public enum QClass {
 
     /**
      * Hesiod
-     * [Dyer, S., and F. Hsu, "Hesiod", Project Athena Technical Plan - Name Service, April 1987.]
+     * [Dyer, S., and F. Hsu, "Hesiod", Project Athena Technical Plan - Label ServiceDescription, April 1987.]
      */
     HS(4, "hs"),
 
     /**
      * None
-     * @see <a href="https://tools.ietf.org/html/rfc2136">Dynamic Updates in the Domain Name System (DNS UPDATE)</a>
+     * @see <a href="https://tools.ietf.org/html/rfc2136">Dynamic Updates in the Domain Label System (DNS UPDATE)</a>
      */
     None(254, "None"),
 
@@ -58,7 +64,7 @@ public enum QClass {
      */
     Any(255, "any");
 
-    private static final int CLASS_MASK   = 0x7FFF;
+    public static final int CLASS_MASK   = 0x7FFF;
     private int code;
     private String label;
 
@@ -102,4 +108,5 @@ public enum QClass {
             return type.get();
         }
     }
+
 }

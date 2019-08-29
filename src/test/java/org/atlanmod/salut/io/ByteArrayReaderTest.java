@@ -1,6 +1,7 @@
 package org.atlanmod.salut.io;
 
-import org.atlanmod.salut.mdns.NameArray;
+import org.atlanmod.salut.data.Label;
+import org.atlanmod.salut.mdns.LabelArray;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -18,6 +19,9 @@ Classe de test pour la classe ByteArrayReader
 Cette classe a pour but de faire l'ensemble des tests unitaires de ByteArrayReader
  */
 class ByteArrayReaderTest {
+
+    private Label mydomain = Label.create("mydomain");
+    private Label com = Label.create("com");
 
     @Test
     void wrap() {
@@ -39,18 +43,18 @@ class ByteArrayReaderTest {
         byte[] bytes = {8, 109, 121, 100, 111, 109, 97, 105, 110, 3, 99, 111, 109, 0};
 
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        List<String> labels = bb.readLabels().getNames();
+        List<Label> labels = bb.readLabels().getLabels();
 
         assertTrue(labels.size() == 2);
-        assertTrue(labels.contains("mydomain"));
-        assertTrue(labels.contains("com"));
+        assertTrue(labels.contains(mydomain));
+        assertTrue(labels.contains(com));
     }
 
     /*
     Test de la méthode ReadLabels en provoquant une exception
      */
     @Test
-    void testReadLabelsException() {
+    void testReadLabelsException() throws Exception {
 
         assertAll(
                 () -> assertThrows(ParseException.class,
@@ -66,7 +70,7 @@ class ByteArrayReaderTest {
                                     109, 121, 100, 111, 109, 97, 105, 110, 64};
 
                             ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-                            NameArray labels = bb.readLabels();
+                            LabelArray labels = bb.readLabels();
                         }),
                 () -> assertThrows(ParseException.class,
                         () -> {
@@ -89,7 +93,7 @@ class ByteArrayReaderTest {
                                     109, 121, 100, 111, 109, 97, 105, 110, 64};
 
                             ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-                            NameArray labels = bb.readLabels();
+                            LabelArray labels = bb.readLabels();
                         })
         );
     }
@@ -122,7 +126,7 @@ class ByteArrayReaderTest {
 
 
     @Test
-    void testReadLabelsKO() throws ParseException {
+    void testReadLabelsKO() throws Exception {
         byte[] bytes = {
                 8, 109, 121, 100, 111, 109, 97, 105, 110, 3,
                 8, 109, 121, 100, 111, 109, 97, 105, 110, 3,
@@ -140,9 +144,9 @@ class ByteArrayReaderTest {
     void testReadTextString() {
         byte[] bytes = {8, 109, 121, 100, 111, 109, 97, 105, 110, 3, 99, 111, 109, 0};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        List<String> strings = bb.readTextStrings(10);
-        assertTrue(strings.contains("mydomain"));
-        assertTrue(strings.contains("com"));
+        List<Label> strings = bb.readTextLabels(10);
+        assertTrue(strings.contains(mydomain));
+        assertTrue(strings.contains(com));
     }
 
     @Test
@@ -227,7 +231,8 @@ class ByteArrayReaderTest {
     void testCheckOffset(){
         byte[] buffer = { 8, 3, 100, 101, 102, -64, 64, 0 };
         ByteArrayReader bb = ByteArrayReader.wrap(buffer);
-        assertThrows(ParseException.class, ()->{NameArray.fromByteBuffer(bb, 1);});
+        assertThrows(ParseException.class, ()->{
+            LabelArray.fromByteBuffer(bb, 1);});
     }
 
     @Test
@@ -298,7 +303,7 @@ class ByteArrayReaderTest {
 
 
                     ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-                    NameArray labels = bb.readLabels();
+                    LabelArray labels = bb.readLabels();
                 }));
 
     }
@@ -342,9 +347,9 @@ class ByteArrayReaderTest {
     void readTextStrings() throws ParseException {
         byte[] bytes = {5, 6, 7, 8, 9};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        NameArray labels = bb.readLabels();
-        List<String> lbb = bb.readTextStrings(2);
-        assertTrue(lbb.get(0) == "5");
+        LabelArray labels = bb.readLabels();
+        List<Label> lbb = bb.readTextLabels(2);
+        assertTrue(lbb.get(0).equals(Label.create("5")));
     }
 
     @Test

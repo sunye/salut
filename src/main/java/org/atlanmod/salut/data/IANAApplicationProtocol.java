@@ -8,7 +8,7 @@ import static java.util.stream.Collectors.toMap;
 /**
  * IANA-registered application protocol (music, ipp, etc.)
  *
- * @see <a href="http://www.dns-sd.org/servicetypes.html">DNS SRV (RFC 2782) Service Types</a>
+ * @see <a href="http://www.dns-sd.org/servicetypes.html">DNS SRV (RFC 2782) ServiceDescription Types</a>
  */
 public enum IANAApplicationProtocol {
 
@@ -38,7 +38,7 @@ public enum IANAApplicationProtocol {
     ipp("ipp"),
 
     /**
-     * AirTunes Service
+     * AirTunes ServiceDescription
      */
     raop("raop"),
 
@@ -53,7 +53,7 @@ public enum IANAApplicationProtocol {
     ssh("ssh"),
 
     /**
-     * DNS Service Discovery
+     * DNS ServiceDescription Discovery
      */
     dnssd("dns-sd"),
 

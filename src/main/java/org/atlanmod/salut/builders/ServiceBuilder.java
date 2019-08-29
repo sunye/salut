@@ -1,36 +1,43 @@
 package org.atlanmod.salut.builders;
 
 
-import org.atlanmod.salut.data.ApplicationProtocol;
-import org.atlanmod.salut.data.IANAApplicationProtocol;
-import org.atlanmod.salut.data.ApplicationProtocolBuilder;
-import org.atlanmod.salut.data.TransportProtocol;
-import org.atlanmod.salut.sd.Service;
+import org.atlanmod.salut.data.*;
+import org.atlanmod.salut.io.UnsignedInt;
+import org.atlanmod.salut.io.UnsignedShort;
+import org.atlanmod.salut.sd.ServiceDescription;
 import org.atlanmod.salut.sd.ServicePublisher;
 
+import java.text.ParseException;
 import java.util.Optional;
 
 
 public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServiceName, IPort,
         SetTransportProtocol, IQuery {
 
+
     /**
      * the local getPort on which the service runs
      */
-    private int port;
+    private UnsignedShort port;
 
     /**
      * getWeight of the service
      */
-    private int weight = 0;
+    private UnsignedShort weight = UnsignedShort.fromInt(0);
 
     /**
-     * getPriority of the service
+     * The priority of the service
      */
-    private int priority = 0;
+    private UnsignedShort priority = UnsignedShort.fromInt(0);
 
     /**
-     * Service Transport protocol (TCP or UDP).
+     * The time to live
+     * Default value = 1 hour (3,600 seconds).
+     */
+    private UnsignedInt ttl = UnsignedInt.fromInt(60*60);
+
+    /**
+     * ServiceDescription Transport protocol (TCP or UDP).
      */
     private TransportProtocol protocol = TransportProtocol.tcp;
 
@@ -42,13 +49,13 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
     /**
      * Unqualified service instance name.
      */
-    private String name;
+    private ServiceInstanceName name;
 
 
     /**
-     * Service subtype
+     * ServiceDescription subtype
      *
-     * @see <a href="https://tools.ietf.org/html/rfc6763#section-7.1">DNS-Based Service Discovery</a>
+     * @see <a href="https://tools.ietf.org/html/rfc6763#section-7.1">DNS-Based ServiceDescription Discovery</a>
      */
     private Optional<String> subtype = Optional.empty();
 
@@ -65,13 +72,17 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
     }
 
     public SetTransportProtocol port(int port) {
-        this.port = port;
+        this.port = UnsignedShort.fromInt(port);
         return this;
     }
 
 
     public ServiceBuilder name(String name) {
-        this.name = name;
+        try {
+            this.name = ServiceInstanceName.parseString(name);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 
@@ -82,12 +93,17 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
 
 
     public IPublish weight(int weight) {
-        this.weight = weight;
+        this.weight = UnsignedShort.fromInt(weight);
         return this;
     }
 
     public IPublish priority(int priority) {
-        this.priority = priority;
+        this.priority = UnsignedShort.fromInt(priority);
+        return this;
+    }
+
+    public IPublish ttl(int ttl) {
+        this.ttl = UnsignedInt.fromInt(ttl);
         return this;
     }
 
@@ -123,7 +139,7 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
     }
 
     public void publish() {
-        Service service = new Service(name, port, protocol, serviceType, subtype, weight, priority);
+        ServiceDescription service = new ServiceDescription(name, port, protocol, serviceType, subtype, weight, priority, ttl);
         publisher.publish(service);
     }
 

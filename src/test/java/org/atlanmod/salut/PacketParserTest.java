@@ -1,6 +1,6 @@
 package org.atlanmod.salut;
 
-import fr.inria.atlanmod.commons.log.Log;
+import org.atlanmod.commons.log.Log;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -46,7 +46,7 @@ class PacketParserTest {
             "000C" + // Type PTR
             "8001" + // Class IN
             //------------ RR
-            "00" + // RR Name (empty)
+            "00" + // RR Label (empty)
             "0029" + // RRType x41 (OPT - Pseudo NormalRecord)
             "05A0" + // sender's UDP payload size
             "00001194" + // extended RCODE and flags (not TTL)

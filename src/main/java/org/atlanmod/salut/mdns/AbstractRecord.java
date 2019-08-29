@@ -1,19 +1,19 @@
 package org.atlanmod.salut.mdns;
 
-import fr.inria.atlanmod.commons.log.Log;
+import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.io.ByteArrayReader;
 
 import java.text.ParseException;
 
 public abstract class AbstractRecord {
 
-    protected final NameArray names;
+    protected final LabelArray names;
 
-    public AbstractRecord(NameArray names) {
+    public AbstractRecord(LabelArray names) {
         this.names = names;
     }
 
-    public NameArray name() {
+    public LabelArray name() {
         return names;
     }
 
@@ -30,7 +30,7 @@ public abstract class AbstractRecord {
      */
     public static AbstractRecord fromByteBuffer(ByteArrayReader reader) throws ParseException {
         ParserFactory factory =  ParserFactory.getInstance();
-        NameArray qname = NameArray.fromByteBuffer(reader);
+        LabelArray qname = LabelArray.fromByteBuffer(reader);
         RecordType qtype = reader.readRecordType();
         RecordParser<AbstractRecord> parser = factory.getParser(qtype);
 

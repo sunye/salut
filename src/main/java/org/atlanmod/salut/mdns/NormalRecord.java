@@ -38,7 +38,7 @@ public abstract class NormalRecord extends AbstractRecord {
     protected final QClass qclass;
     protected final TimeToLive ttl;
 
-    NormalRecord(NameArray name, QClass qclass, UnsignedInt ttl) {
+    NormalRecord(LabelArray name, QClass qclass, UnsignedInt ttl) {
         super(name);
         this.qclass = qclass;
         this.ttl = TimeToLive.fromSeconds(ttl);
@@ -85,13 +85,13 @@ public abstract class NormalRecord extends AbstractRecord {
 
     protected static abstract class NormalRecordParser<T extends NormalRecord> implements RecordParser<T> {
 
-        protected NameArray name;
+        protected LabelArray name;
         protected QClass qclass;
         protected UnsignedInt ttl;
         protected int dataLength;
 
         @Override
-        public T parse(NameArray name, ByteArrayReader buffer) throws ParseException {
+        public T parse(LabelArray name, ByteArrayReader buffer) throws ParseException {
             this.name = name;
             this.parseFixedPart(buffer);
             this.parseVariablePart(buffer);

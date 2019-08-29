@@ -1,15 +1,14 @@
 package org.atlanmod.salut.io;
 
-import fr.inria.atlanmod.commons.log.Log;
-import org.atlanmod.salut.mdns.NameArray;
+import org.atlanmod.commons.log.Log;
+import org.atlanmod.salut.data.Label;
+import org.atlanmod.salut.mdns.LabelArray;
 import org.atlanmod.salut.mdns.QClass;
 import org.atlanmod.salut.mdns.RecordType;
 
 import java.net.Inet4Address;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,12 +79,12 @@ public class ByteArrayReader {
      *
      * @return a list potentially containing the strings representing a qualified name.
      */
-    public NameArray readLabels() throws ParseException {
-        NameArray labels = NameArray.create();
+    public LabelArray readLabels() throws ParseException {
+        LabelArray labels = LabelArray.create();
         LabelLength lengthOrPointer = this.getLabelLength();
 
         while (lengthOrPointer.isValidNameLength()) {
-            String label = this.getLabel(lengthOrPointer);
+            Label label = this.getLabel(lengthOrPointer);
             labels.add(label);
             lengthOrPointer = this.getLabelLength();
         }
@@ -109,17 +108,17 @@ public class ByteArrayReader {
     }
 
 
-    public List<String> readTextStrings(int recordLength) {
-        List<String> strings = new ArrayList<>();
+    public List<Label> readTextLabels(int recordLength) {
+        List<Label> labels = new ArrayList<>();
         int bytesRead = 0;
         do {
             LabelLength length = this.getLabelLength();
-            String label = this.getLabel(length);
+            Label label = this.getLabel(length);
             bytesRead += length.intValue() + 1;
-            strings.add(label);
+            labels.add(label);
         } while (bytesRead < recordLength);
 
-        return strings;
+        return labels;
     }
 
     /**
@@ -128,12 +127,11 @@ public class ByteArrayReader {
      * @param length the number of characters to be read.
      * @return A String representing the label.
      */
-    protected String getLabel(LabelLength length) {
+    protected Label getLabel(LabelLength length) {
         byte[] labelBuffer = new byte[length.intValue()];
         buffer.get(labelBuffer);
-        String newLabel = new String(labelBuffer, StandardCharsets.UTF_8);
 
-        return newLabel;
+        return Label.create(labelBuffer);
     }
 
     /**

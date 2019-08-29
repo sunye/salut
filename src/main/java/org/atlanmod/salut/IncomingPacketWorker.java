@@ -1,6 +1,6 @@
 package org.atlanmod.salut;
 
-import fr.inria.atlanmod.commons.log.Log;
+import org.atlanmod.commons.log.Log;
 
 import java.net.DatagramPacket;
 

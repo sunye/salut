@@ -1,15 +1,12 @@
 package org.atlanmod.salut.cache;
 
+import org.atlanmod.salut.data.DomainBuilder;
 import org.atlanmod.salut.io.UnsignedInt;
-import org.atlanmod.salut.data.DomainName;
-import org.atlanmod.salut.data.DomainNameBuilder;
+import org.atlanmod.salut.data.Domain;
 import org.atlanmod.salut.data.ServiceInstanceName;
 import org.atlanmod.salut.data.ServiceType;
-import org.atlanmod.salut.mdns.NameArray;
-import org.atlanmod.salut.mdns.QClass;
-import org.atlanmod.salut.mdns.ARecord;
-import org.atlanmod.salut.mdns.PointerRecord;
-import org.atlanmod.salut.mdns.ServerSelectionRecord;
+import org.atlanmod.salut.mdns.*;
+import org.atlanmod.salut.mdns.LabelArray;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -87,20 +84,20 @@ class CacheTest {
     @Test
     void tesGetAddressesForServer() throws ParseException, UnknownHostException {
         // Paramétrage des attributs pour le cache
-        DomainName domainName = DomainNameBuilder.parseString("Donatelo.local");
+        Domain domain = DomainBuilder.parseString("Donatelo.local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
         TimeToLive time = TimeToLive.fromSeconds(2);
 
         ARecord ip4address = mock(ARecord.class); // Création de la doublure
         // Configuration des attentes
-        when(ip4address.getServerName()).thenReturn(domainName);
+        when(ip4address.getServerName()).thenReturn(domain);
         when(ip4address.getAddress()).thenReturn(address);
         when(ip4address.getTtl()).thenReturn(time);
 
         cache.cache(ip4address); // Mise à jour du cache / serveur / instance / liens
 
         assertFalse(ip4address.getTtl().hasExpired());
-        List<InetAddress> addresses = cache.getAddressesForServer(domainName);
+        List<InetAddress> addresses = cache.getAddressesForServer(domain);
         assertThat(addresses).contains(address);
     }
 
@@ -110,21 +107,21 @@ class CacheTest {
     @Test
     void testGetServersForAddress() throws ParseException, UnknownHostException {
         // Paramétrage des attributs pour le cache
-        DomainName domainName = DomainNameBuilder.parseString("Donatelo.local");
+        Domain domain = DomainBuilder.parseString("Donatelo.local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
 
         TimeToLive time = TimeToLive.fromSeconds(2);
         ARecord ip4address = mock(ARecord.class); // Création de la doublure
         // Configuration des attentes
-        when(ip4address.getServerName()).thenReturn(domainName);
+        when(ip4address.getServerName()).thenReturn(domain);
         when(ip4address.getAddress()).thenReturn(address);
         when(ip4address.getTtl()).thenReturn(time);
 
         cache.cache(ip4address); // Mise à jour du cache / serveur / instance / liens
 
         assertFalse(ip4address.getTtl().hasExpired());
-        List<DomainName> servers = cache.getServersForAddress(address);
-        assertThat(servers).contains(domainName);
+        List<Domain> servers = cache.getServersForAddress(address);
+        assertThat(servers).contains(domain);
     }
 
     /*
@@ -134,7 +131,7 @@ class CacheTest {
     void testGetServersForInstance() throws ParseException {
         // Paramétrage des attributs pour le cache
         ServiceInstanceName instance = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
-        DomainName domain = DomainNameBuilder.parseString("Donatelo.local");
+        Domain domain = DomainBuilder.parseString("Donatelo.local");
 
         TimeToLive time = TimeToLive.fromSeconds(2);
         ServerSelectionRecord srv = mock(ServerSelectionRecord.class); // Création de la doublure
@@ -147,7 +144,7 @@ class CacheTest {
         cache.cache(srv); // Mise à jour du cache / serveur / instance / liens
 
         assertFalse(srv.getTtl().hasExpired());
-        List<DomainName> servers = cache.getServersForInstance(instance);
+        List<Domain> servers = cache.getServersForInstance(instance);
         assertThat(servers).contains(domain);
     }
 
@@ -158,16 +155,16 @@ class CacheTest {
 	@Test
     void testCacheFromInet() throws UnknownHostException, ParseException {
         // Paramétrage des attributs pour le cache
-        NameArray names = NameArray.fromList("MacBook", "local");
+        LabelArray names = LabelArray.fromList("MacBook", "local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
-        DomainName domaine = DomainNameBuilder.fromNameArray(names);
+        Domain domaine = DomainBuilder.fromLabels(names);
         ARecord record = ARecord.createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
 
 
         Cache cache = new Cache();
         cache.cache(record); // Mise à jour du cache / serveur / instance / liens
 
-        assertTrue(cache.getAddressesForServer(DomainNameBuilder.fromNameArray(names)).contains(address));
+        assertTrue(cache.getAddressesForServer(DomainBuilder.fromLabels(names)).contains(address));
     }
 
     /*
@@ -202,14 +199,14 @@ class CacheTest {
     @Test
     void tesGetAddressesForServerTTLExpire() throws ParseException, UnknownHostException, InterruptedException {
         // Paramétrage des attributs pour le cache
-        DomainName domainName = DomainNameBuilder.parseString("Donatelo.local");
+        Domain domain = DomainBuilder.parseString("Donatelo.local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
 
         TimeToLive time = TimeToLive.fromSeconds(2);
 
         ARecord ip4address = mock(ARecord.class); // Création de la doublure
         // Configuration des attentes
-        when(ip4address.getServerName()).thenReturn(domainName);
+        when(ip4address.getServerName()).thenReturn(domain);
         when(ip4address.getAddress()).thenReturn(address);
         when(ip4address.getTtl()).thenReturn(time);
 
@@ -217,7 +214,7 @@ class CacheTest {
 
         cache.cache(ip4address); // Mise à jour du cache / serveur / instance / liens
 
-        List<InetAddress> addresses = cache.getAddressesForServer(domainName); // Actualisation
+        List<InetAddress> addresses = cache.getAddressesForServer(domain); // Actualisation
         assertTrue(ip4address.getTtl().hasExpired());
 //        assertTrue(addresses.isEmpty());
 
@@ -229,14 +226,14 @@ class CacheTest {
     @Test
     void testGetServersForAddressTTLExpire() throws ParseException, UnknownHostException, InterruptedException {
         // Paramétrage des attributs pour le cache
-        DomainName domainName = DomainNameBuilder.parseString("Donatelo.local");
+        Domain domain = DomainBuilder.parseString("Donatelo.local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
 
         TimeToLive time = TimeToLive.fromSeconds(2);
 
         ARecord ip4address = mock(ARecord.class); // Création de la doublure
         // Configuration des attentes
-        when(ip4address.getServerName()).thenReturn(domainName);
+        when(ip4address.getServerName()).thenReturn(domain);
         when(ip4address.getAddress()).thenReturn(address);
         when(ip4address.getTtl()).thenReturn(time);
 
@@ -244,7 +241,7 @@ class CacheTest {
 
         cache.cache(ip4address); // Mise à jour du cache / serveur / instance / liens
 
-        List<DomainName> servers = cache.getServersForAddress(address); // Actualisation
+        List<Domain> servers = cache.getServersForAddress(address); // Actualisation
         assertTrue(ip4address.getTtl().hasExpired());
 //        assertTrue(servers.isEmpty());
     }
@@ -256,7 +253,7 @@ class CacheTest {
     void testGetServersForInstanceTTLExpire() throws ParseException, InterruptedException {
         // Paramétrage des attributs pour le cache
         ServiceInstanceName instance = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
-        DomainName domain = DomainNameBuilder.parseString("Donatelo.local");
+        Domain domain = DomainBuilder.parseString("Donatelo.local");
 
         TimeToLive time = TimeToLive.fromSeconds(2);
 
@@ -270,7 +267,7 @@ class CacheTest {
 
         cache.cache(srv); // Mise à jour du cache / serveur / instance / liens
 
-        List<DomainName> servers = cache.getServersForInstance(instance); // Actualisation
+        List<Domain> servers = cache.getServersForInstance(instance); // Actualisation
         assertTrue(srv.getTtl().hasExpired());
  //       assertTrue(servers.isEmpty());
     }
@@ -282,7 +279,7 @@ class CacheTest {
     void cacheGetServersForInstanceIsNull() throws ParseException {
         // Paramétrage des attributs pour le cache
         ServiceInstanceName instance = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
-        DomainName domain = DomainNameBuilder.parseString("Donatelo.local");
+        Domain domain = DomainBuilder.parseString("Donatelo.local");
 
 
         ServerSelectionRecord srv = mock(ServerSelectionRecord.class); // Création de la doublure
@@ -293,7 +290,7 @@ class CacheTest {
 
         cache.cache(srv); // Mise à jour du cache / serveur / instance / liens
 
-        List<DomainName> servers = cache.getServersForInstance(null);
+        List<Domain> servers = cache.getServersForInstance(null);
         assertTrue(servers.isEmpty());
         //       assertTrue(servers.isEmpty());
     }
@@ -304,19 +301,19 @@ class CacheTest {
     @Test
     void testGetServersForAddressIsNull() throws ParseException, UnknownHostException {
         // Paramétrage des attributs pour le cache
-        DomainName domainName = DomainNameBuilder.parseString("Donatelo.local");
+        Domain domain = DomainBuilder.parseString("Donatelo.local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
 
 
         ARecord ip4address = mock(ARecord.class); // Création de la doublure
         // Configuration des attentes
-        when(ip4address.getServerName()).thenReturn(domainName);
+        when(ip4address.getServerName()).thenReturn(domain);
         when(ip4address.getAddress()).thenReturn(address);
 
 
         cache.cache(ip4address); // Mise à jour du cache / serveur / instance / liens
 
-        List<DomainName> servers = cache.getServersForAddress(null);
+        List<Domain> servers = cache.getServersForAddress(null);
         assertTrue(servers.isEmpty());
     }
 
@@ -326,13 +323,13 @@ class CacheTest {
     @Test
     void tesGetAddressesForServerIsNull() throws ParseException, UnknownHostException, InterruptedException {
         // Paramétrage des attributs pour le cache
-        DomainName domainName = DomainNameBuilder.parseString("Donatelo.local");
+        Domain domain = DomainBuilder.parseString("Donatelo.local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
 
 
         ARecord ip4address = mock(ARecord.class); // Création de la doublure
         // Configuration des attentes
-        when(ip4address.getServerName()).thenReturn(domainName);
+        when(ip4address.getServerName()).thenReturn(domain);
         when(ip4address.getAddress()).thenReturn(address);
 
         cache.cache(ip4address); // Mise à jour du cache / serveur / instance / liens
@@ -362,15 +359,15 @@ class CacheTest {
     @Disabled
     @Test
     void tesGetAddressesForServerTimeout() throws ParseException, UnknownHostException, InterruptedException {
-        DomainName domainName = DomainNameBuilder.parseString("Donatelo.local");
+        Domain domain = DomainBuilder.parseString("Donatelo.local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
         ARecord ip4address = mock(ARecord.class);
-        when(ip4address.getServerName()).thenReturn(domainName);
+        when(ip4address.getServerName()).thenReturn(domain);
         when(ip4address.getAddress()).thenReturn(address);
         when(ip4address.getTtl()).thenReturn(TimeToLive.fromSeconds(1));
         cache.cache(ip4address);
         Thread.currentThread().sleep(2000);
-        List<InetAddress> addresses = cache.getAddressesForServer(domainName);
+        List<InetAddress> addresses = cache.getAddressesForServer(domain);
         assertThat(addresses).isEmpty();
     }
 
@@ -416,15 +413,15 @@ class CacheTest {
     @Test
     void testGetServersForAddressNoDomainName() throws ParseException, UnknownHostException {
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{12, 0, 0, 5});
-        List<DomainName> domainNames = cache.getServersForAddress(address);
-        assertThat(domainNames).isEmpty();
+        List<Domain> domains = cache.getServersForAddress(address);
+        assertThat(domains).isEmpty();
     }
 
 
     @Test
     void testGetServersForInstanceNoDomainName() throws ParseException {
         ServiceInstanceName instance = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
-        List<DomainName> servers = cache.getServersForInstance(instance);
+        List<Domain> servers = cache.getServersForInstance(instance);
         assertThat(servers).isEmpty();
     }
 }

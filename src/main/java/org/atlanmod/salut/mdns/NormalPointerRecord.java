@@ -1,6 +1,5 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.data.DomainName;
 import org.atlanmod.salut.data.ServiceInstanceName;
 import org.atlanmod.salut.data.ServiceName;
 import org.atlanmod.salut.data.ServiceType;
@@ -15,7 +14,7 @@ class NormalPointerRecord extends PointerRecord {
     private ServiceInstanceName  pointerName;
     private ServiceName serviceName;
 
-    NormalPointerRecord(NameArray name, QClass qclass, UnsignedInt ttl, ServiceInstanceName pointerName, ServiceName serverName) {
+    NormalPointerRecord(LabelArray name, QClass qclass, UnsignedInt ttl, ServiceInstanceName pointerName, ServiceName serverName) {
         super(name, qclass, ttl);
         this.pointerName = pointerName;
         this.serviceName = serverName;

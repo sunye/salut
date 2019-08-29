@@ -1,6 +1,6 @@
 package org.atlanmod.salut.data;
 
-import fr.inria.atlanmod.commons.annotation.VisibleForTesting;
+import org.atlanmod.commons.annotation.VisibleForTesting;
 
 import javax.annotation.Nonnull;
 import java.text.ParseException;

@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<module label="Checker">
+
+    <property label="charset" value="UTF-8" />
+    <property label="severity" value="warning" />
+    <property label="fileExtensions" value="java" />
+
+    <module label="FileTabCharacter">
+        <property label="eachLine" value="true" />
+    </module>
+
+
+
+    <module label="TreeWalker">
+        <module label="NPathComplexity">
+            <property label="max" value="20"/>
+        </module>
+        <module label="CyclomaticComplexity">
+            <property label="max" value="3"/>
+        </module>
+
+
+        <module label="OuterTypeFilename" />
+
+        <module label="IllegalTokenText">
+            <property label="tokens" value="STRING_LITERAL, CHAR_LITERAL" />
+            <property label="format"
+                      value="\\u00(08|09|0(a|A)|0(c|C)|0(d|D)|22|27|5(C|c))|\\(0(10|11|12|14|15|42|47)|134)" />
+            <property label="message" value="Avoid using corresponding octal or Unicode escape." />
+        </module>
+
+        <module label="AvoidEscapedUnicodeCharacters">
+            <property label="allowEscapesForControlCharacters" value="true" />
+            <property label="allowByTailComment" value="true" />
+            <property label="allowNonPrintableEscapes" value="true" />
+        </module>
+
+        <module label="LineLength">
+            <property label="max" value="250" />
+            <property label="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://" />
+        </module>
+
+        <module label="AvoidStarImport" />
+
+        <module label="OneTopLevelClass" />
+
+        <module label="NoLineWrap" />
+
+        <module label="EmptyBlock">
+            <property label="option" value="TEXT" />
+            <property label="tokens" value="LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH" />
+        </module>
+
+        <module label="NeedBraces" />
+
+        <module label="LeftCurly">
+            <property label="option" value="nlow" />
+        </module>
+
+        <module label="RightCurly">
+            <property label="option" value="alone" />
+            <property label="tokens"
+                      value="CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, LITERAL_DO, STATIC_INIT, INSTANCE_INIT" />
+        </module>
+
+        <module label="WhitespaceAround">
+            <property label="allowEmptyConstructors" value="true" />
+            <property label="allowEmptyMethods" value="true" />
+            <property label="allowEmptyTypes" value="true" />
+            <property label="allowEmptyLoops" value="true" />
+            <message key="ws.notFollowed"
+                     value="WhitespaceAround: ''{0}'' is not followed by whitespace. Empty blocks may only be represented as '{}' when not part of a multi-block statement (4.1.3)" />
+            <message key="ws.notPreceded"
+                     value="WhitespaceAround: ''{0}'' is not preceded with whitespace." />
+        </module>
+
+        <module label="OneStatementPerLine" />
+
+        <module label="MultipleVariableDeclarations" />
+
+        <module label="ArrayTypeStyle" />
+
+        <module label="MissingSwitchDefault" />
+
+        <module label="FallThrough" />
+
+        <module label="UpperEll" />
+
+        <module label="ModifierOrder" />
+
+        <module label="EmptyLineSeparator">
+            <property label="allowNoEmptyLineBetweenFields" value="true" />
+        </module>
+
+        <module label="SeparatorWrap">
+            <property label="tokens" value="DOT" />
+            <property label="option" value="nl" />
+        </module>
+
+        <module label="SeparatorWrap">
+            <property label="tokens" value="COMMA" />
+            <property label="option" value="EOL" />
+        </module>
+
+        <module label="PackageName">
+            <property label="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$" />
+            <message key="label.invalidPattern"
+                     value="Package label ''{0}'' must match pattern ''{1}''." />
+        </module>
+
+        <module label="TypeName">
+            <message key="label.invalidPattern"
+                     value="Type label ''{0}'' must match pattern ''{1}''." />
+        </module>
+
+        <module label="MemberName">
+            <property label="format" value="^[a-z][a-zA-Z0-9]*$" />
+            <message key="label.invalidPattern"
+                     value="Member label ''{0}'' must match pattern ''{1}''." />
+        </module>
+
+        <module label="ParameterName">
+            <property label="format" value="^[a-z][a-zA-Z0-9]*$" />
+            <message key="label.invalidPattern"
+                     value="Parameter label ''{0}'' must match pattern ''{1}''." />
+        </module>
+
+        <module label="LocalVariableName">
+            <property label="tokens" value="VARIABLE_DEF" />
+            <property label="format" value="^[a-z][a-zA-Z0-9]*$" />
+            <property label="allowOneCharVarInForLoop" value="true" />
+            <message key="label.invalidPattern"
+                     value="Local variable label ''{0}'' must match pattern ''{1}''." />
+        </module>
+
+        <module label="ClassTypeParameterName">
+            <property label="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)" />
+            <message key="label.invalidPattern"
+                     value="Class type label ''{0}'' must match pattern ''{1}''." />
+        </module>
+
+        <module label="MethodTypeParameterName">
+            <property label="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)" />
+            <message key="label.invalidPattern"
+                     value="Method type label ''{0}'' must match pattern ''{1}''." />
+        </module>
+
+        <module label="InterfaceTypeParameterName">
+            <property label="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)" />
+            <message key="label.invalidPattern"
+                     value="Interface type label ''{0}'' must match pattern ''{1}''." />
+        </module>
+
+        <module label="GenericWhitespace">
+            <message key="ws.followed"
+                     value="GenericWhitespace ''{0}'' is followed by whitespace." />
+            <message key="ws.preceded"
+                     value="GenericWhitespace ''{0}'' is preceded with whitespace." />
+            <message key="ws.illegalFollow"
+                     value="GenericWhitespace ''{0}'' should followed by whitespace." />
+            <message key="ws.notPreceded"
+                     value="GenericWhitespace ''{0}'' is not preceded with whitespace." />
+        </module>
+
+        <module label="Indentation">
+            <property label="basicOffset" value="4" />
+            <property label="braceAdjustment" value="0" />
+            <property label="caseIndent" value="2" />
+            <property label="throwsIndent" value="4" />
+            <property label="lineWrappingIndentation" value="4" />
+            <property label="arrayInitIndent" value="2" />
+            <property label="forceStrictCondition" value="false" />
+        </module>
+
+        <module label="AbbreviationAsWordInName">
+            <property label="ignoreFinal" value="false" />
+            <property label="allowedAbbreviationLength" value="3" />
+        </module>
+
+        <module label="CustomImportOrder">
+            <property label="specialImportsRegExp" value="com.google" />
+            <property label="sortImportsInGroupAlphabetically" value="true" />
+            <property label="customImportOrderRules"
+                      value="THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE###STATIC" />
+        </module>
+
+        <module label="MethodParamPad" />
+
+        <module label="OperatorWrap">
+            <property label="option" value="NL" />
+            <property label="tokens"
+                      value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR, LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR " />
+        </module>
+
+        <module label="AnnotationLocation">
+            <property label="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF" />
+        </module>
+
+        <module label="AnnotationLocation">
+            <property label="tokens" value="VARIABLE_DEF" />
+            <property label="allowSamelineMultipleAnnotations" value="true" />
+        </module>
+
+        <module label="NonEmptyAtclauseDescription" />
+
+        <module label="SummaryJavadoc">
+            <property label="forbiddenSummaryFragments"
+                      value="^@return the *|^This method returns |^A [{]@code [a-zA-Z0-9]+[}]( is a )" />
+        </module>
+
+        <module label="AtclauseOrder">
+            <property label="tagOrder" value="@param, @return, @throws, @deprecated" />
+            <property label="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF" />
+        </module>
+
+        <module label="JavadocMethod">
+            <property label="scope" value="public" />
+            <property label="allowMissingParamTags" value="true" />
+            <property label="allowMissingThrowsTags" value="true" />
+            <property label="allowMissingReturnTag" value="true" />
+            <property label="minLineCount" value="2" />
+            <property label="allowedAnnotations" value="Override, Test" />
+            <property label="allowThrowsTagsForSubclasses" value="true" />
+        </module>
+
+        <module label="MethodName">
+            <property label="format" value="^[a-z][a-zA-Z0-9_]*$" />
+            <message key="label.invalidPattern"
+                     value="Method label ''{0}'' must match pattern ''{1}''." />
+        </module>
+
+        <module label="SingleLineJavadoc">
+            <property label="ignoreInlineTags" value="false" />
+        </module>
+
+        <module label="EmptyCatchBlock">
+            <property label="exceptionVariableName" value="expected|ignored" />
+        </module>
+
+        <module label="CommentsIndentation">
+            <property label="tokens" value="BLOCK_COMMENT_BEGIN" />
+        </module>
+    </module>
+
+</module>

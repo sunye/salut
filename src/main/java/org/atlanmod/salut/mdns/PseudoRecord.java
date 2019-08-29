@@ -21,7 +21,7 @@ import java.text.ParseException;
  The fixed part of an OPT RR is structured as follows:
 
  +------------+--------------+------------------------------+
- | Field Name | Field Type   | Description                  |
+ | FieldLabel | Field Type   | Description                  |
  +------------+--------------+------------------------------+
  | NAME       | domain data  | MUST be 0 (root domain)      |
  | TYPE       | u_int16_t    | OPT (41)                     |
@@ -64,7 +64,7 @@ public class PseudoRecord extends AbstractRecord {
     private UnsignedByte    version;
     private UnsignedShort   rdlen;
 
-    public PseudoRecord(NameArray name, UnsignedShort payload, UnsignedByte extendedRCode,
+    public PseudoRecord(LabelArray name, UnsignedShort payload, UnsignedByte extendedRCode,
                         UnsignedByte version, UnsignedShort rdlen) {
         super(name);
         this.payload = payload;
@@ -90,7 +90,7 @@ public class PseudoRecord extends AbstractRecord {
     private static class PseudoRecordBuilder implements RecordParser<PseudoRecord> {
 
         @Override
-        public PseudoRecord parse(NameArray name, ByteArrayReader buffer) throws ParseException {
+        public PseudoRecord parse(LabelArray name, ByteArrayReader buffer) throws ParseException {
             UnsignedShort optionCode = buffer.getUnsignedShort();
             UnsignedShort payload = buffer.getUnsignedShort();
             UnsignedByte extendedRCode = buffer.getUnsignedByte();

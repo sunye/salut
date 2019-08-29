@@ -1,7 +1,7 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.data.DomainName;
-import org.atlanmod.salut.data.DomainNameBuilder;
+import org.atlanmod.salut.data.Domain;
+import org.atlanmod.salut.data.DomainBuilder;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedInt;
 
@@ -15,17 +15,17 @@ import java.text.ParseException;
  * The DNS ARecord has the following format:
  *
  * # AAAARecord
- * Server Name| Time to live| QCLASS | IP 6 Address
+ * Server Label| Time to live| QCLASS | IP 6 Address
  * --|--
  * &lowbar;printer._tcp.local.  | 28800 | A | 2001:db8::1
  */
 public class AAAARecord extends NormalRecord {
 
     private Inet6Address address;
-    private DomainName serverName;
+    private Domain serverName;
 
-    private AAAARecord(NameArray name, QClass qclass, UnsignedInt ttl, Inet6Address address,
-                       DomainName serverName) {
+    private AAAARecord(LabelArray name, QClass qclass, UnsignedInt ttl, Inet6Address address,
+                       Domain serverName) {
         super(name, qclass, ttl);
         this.address = address;
         this.serverName = serverName;
@@ -45,7 +45,7 @@ public class AAAARecord extends NormalRecord {
     /**
      * @return the server name.
      */
-    public DomainName getServerName() {
+    public Domain getServerName() {
         return this.serverName;
     }
 
@@ -59,7 +59,7 @@ public class AAAARecord extends NormalRecord {
 
     private static class AAAARecordParser extends NormalRecordParser<AAAARecord> {
         private Inet6Address address;
-        private DomainName serverName;
+        private Domain serverName;
 
         private static InetAddress parseInet6Address(ByteArrayReader buffer) throws ParseException {
             byte[] addressBytes = new byte[16];
@@ -74,7 +74,7 @@ public class AAAARecord extends NormalRecord {
 
         protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
             address = (Inet6Address) parseInet6Address(buffer);
-            serverName = DomainNameBuilder.fromNameArray(name);
+            serverName = DomainBuilder.fromLabels(name);
         }
 
         @Override

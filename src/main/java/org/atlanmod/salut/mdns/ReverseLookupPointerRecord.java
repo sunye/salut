@@ -11,7 +11,7 @@ import org.atlanmod.salut.io.UnsignedInt;
  */
 class ReverseLookupPointerRecord extends PointerRecord {
 
-    ReverseLookupPointerRecord(NameArray name, QClass qclass, UnsignedInt ttl) {
+    ReverseLookupPointerRecord(LabelArray name, QClass qclass, UnsignedInt ttl) {
         super(name, qclass, ttl);
     }
 

@@ -12,7 +12,7 @@ import java.text.ParseException;
 public class NullRecord extends AbstractRecord {
 
 
-    public NullRecord(NameArray name) {
+    public NullRecord(LabelArray name) {
         super(name);
     }
 
@@ -30,7 +30,7 @@ public class NullRecord extends AbstractRecord {
     private static class NullRecordParser implements RecordParser<NullRecord> {
 
         @Override
-        public NullRecord parse(NameArray name, ByteArrayReader buffer) throws ParseException {
+        public NullRecord parse(LabelArray name, ByteArrayReader buffer) throws ParseException {
             QClass qclass = QClass.fromByteBuffer(buffer);
             UnsignedInt ttl = buffer.getUnsignedInt();
             int dataLength = buffer.getUnsignedShort().intValue();

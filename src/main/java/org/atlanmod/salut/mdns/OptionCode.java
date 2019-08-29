@@ -10,7 +10,7 @@ import static java.util.stream.Collectors.toMap;
  * Option Code for OPT record.
  *
  * @see <a href="https://tools.ietf.org/html/rfc6891">RFC 6891</a>
- * @see <a href="https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml>Domain Name System (DNS) Parameters</a>
+ * @see <a href="https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml>Domain Label System (DNS) Parameters</a>
  *
  */
 public enum OptionCode {
@@ -30,7 +30,7 @@ public enum OptionCode {
     UL(2,"DDNS-UL"),
 
     /**
-     * DNS Name Server Identifier
+     * DNS Label Server Identifier
      *
      * @see <a href="http://www.iana.org/go/rfc5001>RFC 5001</a>
      */
@@ -74,7 +74,7 @@ public enum OptionCode {
 
     /**
      * Cookie
-     * <a href="https://tools.ietf.org/html/rfc7873">Domain Name System (DNS) Cookies</a>
+     * <a href="https://tools.ietf.org/html/rfc7873">Domain Label System (DNS) Cookies</a>
      */
     Cookie(10, "Cookie"),
 

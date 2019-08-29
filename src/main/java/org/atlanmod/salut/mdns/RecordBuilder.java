@@ -4,6 +4,6 @@ import org.atlanmod.salut.io.UnsignedInt;
 
 public interface RecordBuilder<T> {
 
-    T build(NameArray name, RecordType type, QClass qclass, UnsignedInt ttl);
+    T build(LabelArray name, RecordType type, QClass qclass, UnsignedInt ttl);
 
 }

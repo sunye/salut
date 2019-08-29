@@ -1,35 +1,46 @@
 package org.atlanmod.salut.builders;
 
+import org.atlanmod.salut.data.*;
+
 public class QueryBuilder implements SetServiceTransportProtocol,
         SetServiceApplicationProtocol, IQuery {
 
+    private ApplicationProtocol applicationProtocol;
+    private TransportProtocol transportProtocol;
+    private Domain domain;
+
     @Override
     public IQuery http() {
-        return null;
+        applicationProtocol = ApplicationProtocolBuilder.fromApplicationProtocol(IANAApplicationProtocol.http);
+        return this;
     }
 
     @Override
     public IQuery airplay() {
-        return null;
+        applicationProtocol = ApplicationProtocolBuilder.fromApplicationProtocol(IANAApplicationProtocol.airplay);
+        return this;
     }
 
     @Override
     public IQuery application(String str) {
-        return null;
+        applicationProtocol = ApplicationProtocolBuilder.fromString(str);
+        return this;
     }
 
     @Override
     public void run() {
-
+        //domain = DomainBuilder.
     }
 
     @Override
     public SetServiceApplicationProtocol udp() {
-        return null;
+        transportProtocol = TransportProtocol.udp;
+        return this;
     }
 
     @Override
     public SetServiceApplicationProtocol tcp() {
-        return null;
+        transportProtocol = TransportProtocol.tcp;
+        return this;
     }
 }

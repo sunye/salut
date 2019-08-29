@@ -1,6 +1,6 @@
 package org.atlanmod.salut.io;
 
-import fr.inria.atlanmod.commons.Preconditions;
+import org.atlanmod.commons.Preconditions;
 
 /**
  * A label pointer is an unsigned 16-bit value, where the top two bits of 11 indicate the pointer format,
