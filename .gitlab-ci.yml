@@ -1,4 +1,4 @@
-image: maven:3.6.1-jdk-8
+image: maven:3.5.2-jdk-8
 
 variables:
   MAVEN_OPTS: "-Dhttps.proxyHost=proxy-serveur.univ-nantes.prive -Dhttps.proxyPort=3128 -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
