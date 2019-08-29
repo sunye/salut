@@ -13,6 +13,8 @@
     </proxy>
 </proxies>
 
+<localRepository>.m2/repository/</localRepository>
+
 <profiles>
     <profile>
         <id>default</id>

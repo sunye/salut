@@ -6,7 +6,7 @@ variables:
 
 cache:
   paths:
-    - .m2/
+    - .m2/repository/
 
 before_script:
   - 'apt-get update -qq && apt-get install -y -qq graphviz' 
