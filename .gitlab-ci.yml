@@ -16,7 +16,7 @@ build:
 test:
   stage: test
   script:
-    - 'mvn $MAVEN_OPTS test'
+    - 'mvn --settings ./.gitlab.maven.settings.xml $MAVEN_OPTS test'
 
 #deploy:
 #  stage: deploy
