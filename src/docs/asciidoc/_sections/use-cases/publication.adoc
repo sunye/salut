@@ -1,0 +1,57 @@
+
+[cols="30s,70n",options="header", frame=sides]
+|===
+|*Item* |*Description*
+| # | 1
+| Use Case	| Publication
+| AKA 
+| Registration
+| Goal in Context | Register a service
+| Scope	| what system is being considered black-box under design
+| Level	| Summary
+| Success End Condition	|
+| Failed End Condition	|
+| Primary Actor |	An Application (Client) wishing to publish an IP-based service 
+
+| Secondary Actor 
+| Multicast DNS Responder
+
+| Trigger	|
+| Priority	| High
+| Frequency	| Each time an application wants to publish a service 
+
+| Pre-conditions 
+| The responder already has a local address
+
+| Post-conditions |
+|Main success scenario	
+a|
+. The `Client Application` starts up a service
+. The `Client Application` specifies a <<service-instance-name>>, a <<port>>, and a <<service-type>>
+. The `Responder` creates three records: a Service (SRV), a Pointer (PTR), and a Text (TXT).
+. The `Responder` creates a message containing these records and sends it to the network.
+
+| Extensions	
+a| . <#> : <condition> : <action or use-case>
+. <#> : <condition> : <action or use-case>"
+| Variations	
+a| . <#> : <action or use-case>
+. <#> : <action or use-case>
+|Superordinate Use Case	| None
+|Subordinate Use Cases	| optional, depending on tools, links to sub.use cases
+|Performance Target	|the amount of time this use case should take
+
+|Open Issues	
+a|
+* Should the publication message be send once or several times? 
+
+|Schedule	|
+|Constraints	|
+|Annexes	|
+|===
+
+
+
+
+
+

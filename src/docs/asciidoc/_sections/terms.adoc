@@ -1,0 +1,42 @@
+= Referenced
+
+[.small]
+[width="100%",cols="34%,33%,33%",]
+|===
+|*Term* 
+|*Short Description* 
+|*Meaning*
+
+| [[port, Port]] Port 
+| a 
+| ax
+
+| [[publication,Publication]] Publication  
+| Activity
+| Registers a Service with a DNS Responder.
+
+| Registration
+|
+| See <<publication>>
+
+| Package
+|
+| Minimum size = 9,000 bytes
+
+| ((One-Shot Multicast DNS Queries))
+| bla
+| bla
+
+| ((Continuous Multicast DNS Querying))
+| bla
+| bla
+
+| [[service-instance-name, Service Instance Name]] Service Instance Name
+| a
+| a
+
+| [[service-type, Service Type]] Service Type 
+| bla
+| bla
+
+|===

@@ -1,0 +1,3 @@
+= Domain Analysis
+
+include::./use-cases/use-cases.adoc[]

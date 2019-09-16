@@ -1,0 +1,7 @@
+= Salut
+:imagesdir: images
+:includedir: _sections
+
+include::{includedir}/domain-analysis.adoc[leveloffset=+1]
+
+include::{includedir}/terms.adoc[leveloffset=+1]

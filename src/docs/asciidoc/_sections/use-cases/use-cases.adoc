@@ -1,0 +1,27 @@
+== Use Cases
+
+
+[plantuml, diagram-classes, png]
+....
+left to right direction
+skinparam packageStyle rectangle
+actor Client_Application
+entity Bob
+rectangle Salut {
+  Client_Application -- (Publication)
+  Client_Application -- (Discovery)
+  Bob -- (Resolution)
+}
+....
+
+=== Publication
+
+include::publication.adoc[]
+
+=== Discovery
+
+include::discovery.adoc[]
+
+=== Resolution
+
+include::resolution.adoc[]
