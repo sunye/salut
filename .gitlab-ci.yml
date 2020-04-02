@@ -7,6 +7,7 @@ variables:
 cache:
   paths:
     - .m2/repository/
+  key: "$CI_BUILD_REF_NAME"
 
 before_script:
   - 'apt-get update -qq && apt-get install -y -qq graphviz rsync'
@@ -16,21 +17,30 @@ build:
   stage: build
   script:
     - 'mvn --settings ./.gitlab.maven.settings.xml $MAVEN_OPTS -e $MAVEN_CLI_OPTS compile'
+  artifacts:
+    paths:
+      - target/
 
 test:
   stage: test
   script:
     - 'mvn --settings ./.gitlab.maven.settings.xml $MAVEN_OPTS test'
+  artifacts:
+    paths:
+      - target/
 
 verify:
   stage: test
   script:
     - 'mvn --settings ./.gitlab.maven.settings.xml $MAVEN_OPTS verify'
+  artifacts:
+    paths:
+      - target/
 
 pages:
   stage: deploy
   script:
-  - 'mvn --settings .gitlab.maven.settings.xml verify site'
+  - 'mvn --settings .gitlab.maven.settings.xml site'
   - mkdir -p public
   - rsync -r target/site/ public
   artifacts:
