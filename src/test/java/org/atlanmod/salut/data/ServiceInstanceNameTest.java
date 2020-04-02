@@ -79,4 +79,21 @@ class ServiceInstanceNameTest {
     void create_service_instance_name_from_string_check_domain_name() throws ParseException {
         assertThat(music.domain()).isEqualTo(new LocalDomain("MacBook"));
     }
+
+    @DisplayName("Given two equivalent service instance names"
+        + "When equals() is called"
+        + "Then it returns true")
+    @Test
+    void test_equals() throws ParseException {
+        ServiceInstanceName one =
+        ServiceInstanceName.createServiceName(InstanceName.fromString("canon-mg5300"),
+            ServiceName.fromStrings("ipp", "tcp"),
+            LocalDomain.fromString("mac-pro"));
+        ServiceInstanceName other =
+            ServiceInstanceName.createServiceName(InstanceName.fromString("canon-mg5300"),
+                ServiceName.fromStrings("ipp", "tcp"),
+                LocalDomain.fromString("mac-pro"));
+
+        assertThat(one).isEqualTo(other);
+    }
 }

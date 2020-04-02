@@ -1,5 +1,6 @@
 package org.atlanmod.salut.data;
 
+import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.mdns.LabelArray;
 
 import java.util.Objects;
@@ -12,7 +13,7 @@ public class LocalDomain implements Domain {
     private final String name;
 
 
-    public LocalDomain(String name) {
+    protected LocalDomain(String name) {
         this.name = name;
     }
 
@@ -41,5 +42,10 @@ public class LocalDomain implements Domain {
     @Override
     public LabelArray toNameArray() {
         return LabelArray.fromList(this.name, LOCAL_STR);
+    }
+
+    @VisibleForTesting
+    public static LocalDomain fromString(String name) {
+        return new LocalDomain(name);
     }
 }

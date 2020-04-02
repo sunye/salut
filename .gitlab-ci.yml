@@ -30,7 +30,7 @@ verify:
 pages:
   stage: deploy
   script:
-  - 'mvn --settings .gitlab.maven.settings.xml -DskipTests package site'
+  - 'mvn --settings .gitlab.maven.settings.xml verify site'
   - mkdir -p public
   - rsync -r target/site/ public
   artifacts:
