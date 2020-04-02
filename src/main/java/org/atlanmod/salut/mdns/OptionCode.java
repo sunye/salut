@@ -118,12 +118,12 @@ public enum OptionCode {
         return label;
     }
 
-    private final static Map<Integer, OptionCode> map = stream(OptionCode.values())
+    private final static Map<Integer, OptionCode> MAP = stream(OptionCode.values())
             .collect(toMap(each -> each.code, each -> each));
 
 
     public static Optional<OptionCode> fromCode(int code) {
-        return Optional.ofNullable(map.get(code));
+        return Optional.ofNullable(MAP.get(code));
     }
 
 }

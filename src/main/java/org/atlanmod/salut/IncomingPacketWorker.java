@@ -5,9 +5,6 @@ import org.atlanmod.commons.log.Log;
 import java.net.DatagramPacket;
 
 public class IncomingPacketWorker implements Runnable {
-
-    private static final int HEADER_SIZE = 12;
-
     private final SocketReceiver receiver;
 
     public IncomingPacketWorker(SocketReceiver receiver) {

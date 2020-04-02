@@ -13,7 +13,7 @@ public class Label implements Serializable {
     /**
      * The maximum length of labels
      **/
-    public static int MAX_LENGTH = 63;
+    public static final int MAX_LENGTH = 63;
 
     private final String label;
 
