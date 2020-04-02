@@ -26,13 +26,13 @@ verify:
   stage: test
   script:
     - 'mvn --settings ./.gitlab.maven.settings.xml $MAVEN_OPTS verify'
+
 pages:
   stage: deploy
   script:
-  - 'mvn --settings .gitlab.maven.settings.xml site'
-  - mkdir .public
-  - cp -r target/site/* .public
-  - mv .public public
+  - 'mvn --settings .gitlab.maven.settings.xml -DskipTests package site'
+  - mkdir -p public
+  - rsync -r target/site/ public
   artifacts:
     paths:
     - public
