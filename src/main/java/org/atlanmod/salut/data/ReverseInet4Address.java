@@ -6,7 +6,7 @@ import java.net.Inet4Address;
 
 public class ReverseInet4Address implements Domain {
 
-    private Inet4Address address;
+    private final Inet4Address address;
 
     public ReverseInet4Address(Inet4Address address) {
         this.address = address;
@@ -26,5 +26,24 @@ public class ReverseInet4Address implements Domain {
     @Override
     public LabelArray toNameArray() {
         throw new RuntimeException();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ReverseInet4Address that = (ReverseInet4Address) o;
+
+        return address.equals(that.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return address.hashCode();
     }
 }

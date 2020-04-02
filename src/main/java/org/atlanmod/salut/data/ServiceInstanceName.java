@@ -76,12 +76,32 @@ public class ServiceInstanceName {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ServiceInstanceName that = (ServiceInstanceName) o;
+        return instanceName.equals(that.instanceName) &&
+            serviceName.equals(that.serviceName) &&
+            domain.equals(that.domain);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = instanceName != null ? instanceName.hashCode() : 0;
+        result = 31 * result + (serviceName != null ? serviceName.hashCode() : 0);
+        result = 31 * result + (domain != null ? domain.hashCode() : 0);
+        return result;
+    }
+
     public static ServiceInstanceName fromNameArray(LabelArray names) throws ParseException {
         Log.info("Parsing ServiceDescription Instance Label: {0}", names);
         Preconditions.checkArgument(names.size() >= 4);
 
         InstanceName instanceName = InstanceName.fromLabel(names.get(0));
-        ServiceName serviceName = ServiceName.fromNameArray(names.subArray(1,3));
+        ServiceName serviceName = ServiceName.fromLabelArray(names.subArray(1,3));
         Domain host = DomainBuilder.fromLabels(names.subArray(3, names.size()));
 
         return new ServiceInstanceName(instanceName, serviceName, host);
@@ -100,7 +120,7 @@ public class ServiceInstanceName {
         }
 
         return new ServiceInstanceName(InstanceName.fromString(labels[0]),
-                ServiceName.fromNameArray(LabelArray.fromList(labels[1], labels[2])),
+                ServiceName.fromLabelArray(LabelArray.fromList(labels[1], labels[2])),
                 DomainBuilder.fromLabels(LabelArray.fromList(labels[3], labels[4])));
     }
 

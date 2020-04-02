@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.text.ParseException;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.google.common.truth.Truth.*;
 
 class ByteArrayWriterTest {
 

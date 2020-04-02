@@ -1,13 +1,14 @@
 package org.atlanmod.salut.mdns;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Arrays;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.assertj.core.api.Assertions.*;
 
 public class HeaderTest {
 

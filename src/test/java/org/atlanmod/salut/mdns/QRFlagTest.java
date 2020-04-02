@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.google.common.truth.Truth.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class QRFlagTest {
@@ -37,7 +37,7 @@ class QRFlagTest {
     @ValueSource(bytes = {0, 1, 8, 14, 15})
     void testSetOpCode(byte code) {
         QRFlag queryFlag = QRFlag.fromInt(0);
-        assertThat(queryFlag.opCode()).isZero();
+        assertThat(queryFlag.opCode()).isEqualTo(0);
         queryFlag.setOpCode(code);
         assertThat(queryFlag.opCode()).isEqualTo(code);
     }
@@ -180,7 +180,7 @@ class QRFlagTest {
         QRFlag clean = QRFlag.fromInt(0);
         QRFlag dirt = QRFlag.fromInt(0xFFFF);
         assertAll(
-                () -> assertThat(clean.responseCode()).isZero(),
+                () -> assertThat(clean.responseCode()).isEqualTo(0),
                 () -> assertThat(dirt.responseCode() == 15)
         );
 

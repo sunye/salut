@@ -2,10 +2,11 @@ package org.atlanmod.salut.io;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import static org.assertj.core.api.Assertions.*;
+import static com.google.common.truth.Truth.*;
 
 /*
 Classe de test pour la classe UnsignedInt
@@ -130,11 +131,14 @@ public class UnsignedIntTest {
         assertThat(unsignedInt0.longValue()).isEqualTo(value);
     }
 
+
     @ParameterizedTest
     @ValueSource(ints = {Integer.MAX_VALUE, 31, 467})
     void floatValue(int value) {
+        float expected = (float) value;
         UnsignedInt unsignedInt = UnsignedInt.fromInt(value);
-        assertThat(unsignedInt.floatValue()).isEqualTo(value);
+
+        assertThat(unsignedInt.floatValue()).isEqualTo(expected);
     }
 
     @ParameterizedTest

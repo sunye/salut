@@ -82,7 +82,7 @@ public abstract class PointerRecord extends NormalRecord {
             }
             else {
                 pointerName = ServiceInstanceName.fromNameArray(ptrName);
-                serverName   = ServiceName.fromNameArray(name);
+                serverName   = ServiceName.fromLabelArray(name);
             }
         }
 

@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static com.google.common.truth.Truth.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,7 +33,7 @@ import static org.mockito.Mockito.when;
 Classe de test pour la classe Cache
 Cette classe a pour but de faire l'ensemble des tests unitaires de Cache
  */
-class CacheTest {
+class CacheIT {
     private Cache cache;
 
     @BeforeEach

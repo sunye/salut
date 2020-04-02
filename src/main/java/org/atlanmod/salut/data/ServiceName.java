@@ -66,7 +66,7 @@ public class ServiceName {
         return Objects.hash(application, transport);
     }
 
-    public static ServiceName fromNameArray(LabelArray names) throws ParseException {
+    public static ServiceName fromLabelArray(LabelArray names) throws ParseException {
         Log.info("Parsing ServiceDescription Label: {0}", names);
         Preconditions.checkArgument(names.size() == 2);
 

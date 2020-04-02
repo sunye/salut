@@ -1,10 +1,13 @@
-package org.atlanmod.salut;
+package org.atlanmod.salut.builders;
 
+import org.atlanmod.salut.Salut;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-public class QueryBuilderTest {
+public class QueryBuilderIT {
 
 
+    @Disabled
     @Test
     void queryTest() {
         Salut salut = new Salut();

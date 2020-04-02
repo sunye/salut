@@ -1,6 +1,6 @@
 package org.atlanmod.salut.io;
 
-import static org.assertj.core.api.Assertions.*;
+import static com.google.common.truth.Truth.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Disabled;

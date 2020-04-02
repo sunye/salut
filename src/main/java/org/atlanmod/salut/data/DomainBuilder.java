@@ -31,6 +31,13 @@ public abstract class DomainBuilder {
         }
     }
 
+    /**
+     * Creates a Domain instance after parsing a String
+     *
+     * @param str
+     * @return
+     * @throws ParseException
+     */
     public static Domain parseString(String str) throws ParseException {
         String[] labels = str.split("\\.");
         return fromLabels(LabelArray.fromArray(labels));

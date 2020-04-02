@@ -14,7 +14,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.google.common.truth.Truth.*;
 
 /**
  * Integration tests for record parsing and writing.

@@ -1,13 +1,13 @@
 package org.atlanmod.salut.mdns;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Arrays;
 import org.atlanmod.salut.data.Label;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.Arrays;
-
-import static org.assertj.core.api.Assertions.*;
 
 class LabelTest {
 
@@ -42,8 +42,7 @@ class LabelTest {
         char[] bytes = new char[Label.MAX_LENGTH + 1];
         Arrays.fill(bytes, 'a');
         String str = new String(bytes);
-        Throwable thrown = catchThrowable(() -> Label.create(str));
-        assertThat(thrown).isInstanceOf(RuntimeException.class);
+        assertThrows(RuntimeException.class, () -> Label.create(str));
 
     }
 }

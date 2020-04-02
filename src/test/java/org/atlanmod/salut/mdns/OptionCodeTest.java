@@ -2,7 +2,7 @@ package org.atlanmod.salut.mdns;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static com.google.common.truth.Truth.*;
 
 class OptionCodeTest {
 

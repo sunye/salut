@@ -1,14 +1,14 @@
 package org.atlanmod.salut.io;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.Objects;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class UnsignedShortTest {
 
@@ -152,7 +152,7 @@ public class UnsignedShortTest {
     @ValueSource(ints = {UnsignedShort.MIN_VALUE, UnsignedShort.MAX_VALUE, 1, 254})
     void testHashCode(int value) {
         UnsignedShort ub = UnsignedShort.fromInt(value);
-        assertThat(ub.hashCode()).isEqualTo(Objects.hash(value));
+        assertThat(ub.hashCode()).isEqualTo(value);
     }
 
     @ParameterizedTest
@@ -208,5 +208,11 @@ public class UnsignedShortTest {
     @ValueSource(ints = {Integer.MIN_VALUE, -1, UnsignedShort.MAX_VALUE +1, Integer.MAX_VALUE})
     void testInvalidFromInt(int value) {
         assertThrows(IllegalArgumentException.class, () -> UnsignedShort.fromInt(value));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {Integer.MIN_VALUE, -1, UnsignedShort.MAX_VALUE +1, Integer.MAX_VALUE})
+    void constructor_with_invalid_values_throws_exception(int value) {
+        assertThrows(IllegalArgumentException.class, () -> new  UnsignedShort(value));
     }
 }

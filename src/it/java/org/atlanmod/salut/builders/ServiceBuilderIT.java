@@ -1,13 +1,16 @@
-package org.atlanmod.salut;
+package org.atlanmod.salut.builders;
 
+import org.atlanmod.salut.Salut;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ServiceBuilderTest {
+public class ServiceBuilderIT {
 
 
+    @Disabled
     @Test
     void test() {
         String serviceKey = "srvname";
@@ -29,6 +32,8 @@ public class ServiceBuilderTest {
 
     }
 
+
+    @Disabled
     @Test
     void servicePublishingTest() {
         Salut salut = new Salut();

@@ -11,7 +11,7 @@ import java.nio.BufferUnderflowException;
 import java.text.ParseException;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.google.common.truth.Truth.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /*

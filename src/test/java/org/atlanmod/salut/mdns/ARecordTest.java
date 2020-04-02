@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
 import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.assertj.core.api.Assertions.*;
+import static com.google.common.truth.Truth.*;
 
 class ARecordTest {
 

@@ -27,4 +27,18 @@ public class InternetDomain implements Domain {
     public LabelArray toNameArray() {
         return names;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        InternetDomain that = (InternetDomain) o;
+        return names.equals(that.names);
+    }
+
+    @Override
+    public int hashCode() {
+        return names.hashCode();
+    }
 }
