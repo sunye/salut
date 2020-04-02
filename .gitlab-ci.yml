@@ -22,6 +22,10 @@ test:
   script:
     - 'mvn --settings ./.gitlab.maven.settings.xml $MAVEN_OPTS test'
 
+verify:
+  stage: test
+  script:
+    - 'mvn --settings ./.gitlab.maven.settings.xml $MAVEN_OPTS verify'
 pages:
   stage: deploy
   script:

@@ -257,7 +257,7 @@
                 <executions>
                     <execution>
                         <id>generate-pdf-doc</id>
-                        <phase>generate-resources</phase>
+                        <phase>pre-site</phase>
                         <goals>
                             <goal>process-asciidoc</goal>
                         </goals>
