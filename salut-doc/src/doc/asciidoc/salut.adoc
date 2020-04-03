@@ -1,0 +1,145 @@
+:revealjs_center: false
+:revealjs_display: flex
+:revealjs_transition: none
+:revealjs_slideNumber: c/t
+:revealjs_theme: stereopticon
+:revealjs_width: 1920
+:revealjs_height: 1080
+:revealjs_history: true
+:revealjs_margin: 0
+:imagesdir: images
+:imagesoutdir: out/images
+:source-highlighter: highlightjs
+
+= The Development of «Salut»
+//:author: Gerson Sunyé
+//:email: gerson.sunye@univ-nantes.fr
+
+Gerson Sunyé
+
+https://sunye-g.univ-nantes.io
+
+== About Salut
+
+* Salut is a simple Java implementation of Multicast DNS Service Discovery (mDNS-SD). 
+* It follows (https://tools.ietf.org/html/rfc6762[RFC 6762] and https://tools.ietf.org/html/rfc6763[RFC 6763] and is compatible with https://developer.apple.com/bonjour/[Apple's Bonjour] mDNS-SD implementation.
+
+* Development website: 
+* Source code: https://gitlab.univ-nantes.fr/sunye-g/salut/
+
+
+== RFC
+
+- problèmes, doc à plusieurs niveaux, beaucoup de documents, description par aspect parfois
+
+== Doc
+
+*
+https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NetServices/Articles/NetServicesArchitecture.html#//apple_ref/doc/uid/20001074-SW1[Bonjour Overview]
+* https://www.bortzmeyer.org/6762.html[RFC 6762: Multicast DNS]
+
+== Mind Map
+
+[plantuml, mind-map, png]  
+....
+@startmindmap
+* Debian
+** Ubuntu
+*** Linux Mint
+*** Kubuntu
+*** Lubuntu
+*** KDE Neon
+** LMDE
+** SolydXK
+** SteamOS
+** Raspbian with a very long name
+*** <s>Raspmbc</s> => OSMC
+*** <s>Raspyfi</s> => Volumio
+@endmindmap
+....
+
+== SRV 
+
+[plantuml, srv-mind-map, png, align=center, width=800px]  
+....
+@startmindmap
+* SRV
+-- QClass
+-- QType
+-- Weight
+-- Port #
+++ Priority
+++ Target
+++ Service Type
+++ Host Name
++++ Domain
++++ Instance Name
+@endmindmap
+....
+
+
+== Diagram
+
+[plantuml, diagram-classes, png]     
+....
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+....
+
+== Use Case PlantUML
+
+[plantuml, salut-use-cases, png, width="600px", align=center]     
+....
+left to right direction
+skinparam packageStyle rectangle
+actor customer
+actor clerk
+rectangle checkout {
+  customer -- (checkout)
+  (checkout) .> (payment) : include
+  (help) .> (checkout) : extends
+  (checkout) -- clerk
+}
+....
+
+
+== Ditaa
+
+[ditaa, target="ditaa-diagram"]
+....
+                   +-------------+
+                   | Asciidoctor |-------+
+                   |   diagram   |       |
+                   +-------------+       | PNG out
+                       ^                 |
+                       | ditaa in        |
+                       |                 v
+ +--------+   +--------+----+    /---------------\
+ |        | --+ Asciidoctor +--> |               |
+ |  Text  |   +-------------+    |   Beautiful   |
+ |Document|   |   !magic!   |    |    Output     |
+ |     {d}|   |             |    |               |
+ +---+----+   +-------------+    \---------------/
+     :                                   ^
+     |          Lots of work             |
+     +-----------------------------------+
+....
+
+== other
+
+https://github.com/fflewddur/hola
+
+
+
+== Information Expert
+
+Message size calculation=  Header, Questions, Etc.
+
+[bibliography]
+== References

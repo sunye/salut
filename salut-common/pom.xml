@@ -6,13 +6,12 @@
 
 
     <parent>
-        <groupId>atlanmod.org</groupId>
+        <groupId>org.atlanmod.salut</groupId>
         <artifactId>salut</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>salut-common</artifactId>
     <packaging>jar</packaging>
-
 
 </project>
