@@ -47,9 +47,9 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
     private ApplicationProtocol serviceType;
 
     /**
-     * Unqualified service instance name.
+     * instance name.
      */
-    private ServiceInstanceName name;
+    private InstanceName name;
 
 
     /**
@@ -78,11 +78,7 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
 
 
     public ServiceBuilder name(String name) {
-        try {
-            this.name = ServiceInstanceName.parseString(name);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        this.name = InstanceName.fromString(name);
         return this;
     }
 

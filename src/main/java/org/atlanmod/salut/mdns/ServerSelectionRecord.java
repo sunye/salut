@@ -159,6 +159,7 @@ public class ServerSelectionRecord extends NormalRecord {
     }
 
     public static ServerSelectionRecord fromService(InetAddress host, ServiceDescription service) {
+        // FIXME
         return new ServerSelectionRecord(LabelArray.fromList("null"),
                 QClass.IN,
                 service.ttl(),
@@ -167,7 +168,7 @@ public class ServerSelectionRecord extends NormalRecord {
                 service.port(),
                 LabelArray.fromList("target"),
                 null,
-                service.name());
+                null);
     }
 
     /**

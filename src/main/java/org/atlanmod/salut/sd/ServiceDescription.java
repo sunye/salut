@@ -66,9 +66,9 @@ public class ServiceDescription {
     /**
      * Unqualified service instance data ("mac-book", "printer", etc.)
      */
-    private ServiceInstanceName instanceName;
+    private InstanceName instanceName;
 
-    public ServiceInstanceName name() {
+    public InstanceName name() {
         return instanceName;
     }
 
@@ -88,7 +88,7 @@ public class ServiceDescription {
      * @param weight
      * @param priority
      */
-    public ServiceDescription(ServiceInstanceName instanceName, UnsignedShort port, TransportProtocol transportProtocol, ApplicationProtocol applicationProtocol,
+    public ServiceDescription(InstanceName instanceName, UnsignedShort port, TransportProtocol transportProtocol, ApplicationProtocol applicationProtocol,
                               Optional<String> subtype, UnsignedShort weight, UnsignedShort priority, UnsignedInt ttl) {
 
         this.instanceName = instanceName;

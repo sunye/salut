@@ -1,42 +1,79 @@
 = Referenced
 
 [.small]
-[width="100%",cols="34%,33%,33%",]
+[width="100%",cols="25%,25%,25%,25%",]
 |===
 |*Term* 
 |*Short Description* 
 |*Meaning*
+|*Examples*
 
 | [[port, Port]] Port 
 | a 
 | ax
+|
 
 | [[publication,Publication]] Publication  
 | Activity
 | Registers a Service with a DNS Responder.
+|
 
 | Registration
 |
 | See <<publication>>
+|
 
 | Package
 |
 | Minimum size = 9,000 bytes
+|
 
 | ((One-Shot Multicast DNS Queries))
 | bla
 | bla
+|
 
 | ((Continuous Multicast DNS Querying))
 | bla
 | bla
+|
 
 | [[service-instance-name, Service Instance Name]] Service Instance Name
-| a
-| a
+| A Service Instance Names is composed of an Instance, a Service and a Domain.
+| `Service Instance Name = <Instance>.<Service>.<Domain>`
+| `Zealous Lizard's Tune Studio._music._tcp.local.`
+
+| Instance Name (aka Huma, readable service intance name)
+| The <Instance> portion of the Service Instance Name is a user-friendly name consisting of arbitrary Net-Unicode text
+| `Joe's Music Libray`, `Canon MG5300 series`
+|
+
+| Service (aka Service type)
+| The <Service> portion of the Service Instance Name consists of a pair
+of DNS labels, following the convention already established for SRV
+records.
+| The first label of the pair is an underscore
+character followed by the Service Name.  The Service Name
+identifies what the service does and what application protocol it
+uses to do it.  The second label is either "_tcp" (for application
+protocols that run over TCP) or "_udp" (for all others).
+|
+
+| Domain Name
+|  The <Domain> portion of the Service Instance Name specifies the DNS
+subdomain within which those names are registered.  It may be
+"local.", meaning "link-local Multicast DNS" [RFC6762], or it may be
+a conventional Unicast DNS domain name, such as "ietf.org.",
+"cs.stanford.edu.", or "eng.us.ibm.com."  Because Service Instance
+Names are not host names, they are not constrained by the usual rules
+for host names [RFC1033] [RFC1034] [RFC1035], and rich-text service
+subdomains are allowed and encouraged
+| aa
+|
 
 | [[service-type, Service Type]] Service Type 
+|
 | bla
-| bla
+\
 
 |===
