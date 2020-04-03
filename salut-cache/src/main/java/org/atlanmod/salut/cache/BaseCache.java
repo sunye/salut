@@ -1,17 +1,25 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.commons.Preconditions;
-import org.atlanmod.commons.annotation.VisibleForTesting;
-import org.atlanmod.salut.data.*;
-import org.atlanmod.salut.mdns.ARecord;
-import org.atlanmod.salut.mdns.PointerRecord;
-import org.atlanmod.salut.mdns.ServerSelectionRecord;
-
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.text.ParseException;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
+import org.atlanmod.commons.Preconditions;
+import org.atlanmod.commons.annotation.VisibleForTesting;
+import org.atlanmod.salut.data.Domain;
+import org.atlanmod.salut.data.ServiceInstanceName;
+import org.atlanmod.salut.data.ServiceName;
+import org.atlanmod.salut.mdns.ARecord;
+import org.atlanmod.salut.mdns.PointerRecord;
+import org.atlanmod.salut.mdns.ServerSelectionRecord;
 
 /**
  * Caches locally Multicast DNS records.
@@ -74,7 +82,7 @@ import java.util.stream.Collectors;
  */
 public class BaseCache implements Cache {
     private Map<ServiceInstanceName, InstanceEntry> instances = new HashMap<>();
-    private Map<ServiceType, ServiceEntry> services = new HashMap<>();
+    private Map<ServiceName, ServiceEntry> services = new HashMap<>();
     private Map<Domain, ServerEntry> servers = new HashMap<>();
     private Map<InetAddress, AddressEntry> addresses = new HashMap<>();
     private SortedSet<Link> links = new TreeSet<>(Links.comparator());
@@ -87,38 +95,37 @@ public class BaseCache implements Cache {
 
     @Override
     public synchronized void cache(ServerSelectionRecord srv) {
-        ServiceInstanceName name = srv.getServiceInstanceName();
-        Domain domain = srv.getServerName();
+        ServiceInstanceName name = srv.serviceInstanceName();
+        Domain domain = srv.serverName();
 
         InstanceEntry instanceEntry = instances.computeIfAbsent(name, k -> new InstanceEntry(k));
         ServerEntry serverEntry = servers.computeIfAbsent(domain, k -> new ServerEntry(k));
 
-        Link newLink = Links.link(srv.getTtl(), instanceEntry, serverEntry, srv.getWeight(), srv.getPriority(),
-            srv.getPort());
+        Link newLink = Links.link(srv.ttl(), instanceEntry, serverEntry, srv.weight(), srv.priority(),
+            srv.port());
         links.add(newLink);
     }
 
     @Override
     public synchronized void cache(PointerRecord ptr) {
-        ServiceType type = ptr.getServiceType();
-        ServiceName name = ptr.getServiceName();
-        ServiceInstanceName instanceName = ptr.getServiceInstanceName();
+        ServiceName name = ptr.serviceName();
+        ServiceInstanceName instanceName = ptr.serviceInstanceName();
 
-        ServiceEntry service = services.computeIfAbsent(type, k -> new ServiceEntry(name));
+        ServiceEntry service = services.computeIfAbsent(name, k -> new ServiceEntry(name));
         InstanceEntry instance = instances.computeIfAbsent(instanceName, k -> new InstanceEntry(k));
 
-        Link newLink = Links.link(ptr.getTtl(), service, instance);
+        Link newLink = Links.link(ptr.ttl(), service, instance);
         links.add(newLink);
     }
 
     @Override
     public synchronized void cache(ARecord aRecord) throws ParseException {
-        Inet4Address address = aRecord.getAddress();
-        Domain name = aRecord.getServerName();
+        Inet4Address address = aRecord.address();
+        Domain name = aRecord.serverName();
 
         AddressEntry entry = addresses.computeIfAbsent(address, k -> new Inet4AddressEntry(address));
         ServerEntry server = servers.computeIfAbsent(name, k -> new ServerEntry(k));
-        Link newLink = Links.link(aRecord.getTtl(), entry, server);
+        Link newLink = Links.link(aRecord.ttl(), entry, server);
 
         links.add(newLink);
     }
@@ -150,8 +157,8 @@ public class BaseCache implements Cache {
     }
 
     @Override
-    public synchronized List<ServiceInstanceName> getInstancesForService(ServiceType serviceType) {
-        ServiceEntry service = this.services.get(serviceType);
+    public synchronized List<ServiceInstanceName> getInstancesForService(ServiceName serviceName) {
+        ServiceEntry service = this.services.get(serviceName);
 
         if (Objects.isNull(service)) {
             return Collections.emptyList();
@@ -164,10 +171,10 @@ public class BaseCache implements Cache {
     }
 
     @Override
-    public synchronized List<Domain> getServersForInstance(ServiceInstanceName instance) {
-        Preconditions.checkNotNull(instance);
+    public synchronized List<Domain> getServersForInstance(ServiceInstanceName serviceInstanceName) {
+        Preconditions.checkNotNull(serviceInstanceName);
 
-        InstanceEntry entry = this.instances.get(instance);
+        InstanceEntry entry = this.instances.get(serviceInstanceName);
 
         if (Objects.isNull(entry)) {
             return Collections.emptyList();
@@ -222,7 +229,7 @@ public class BaseCache implements Cache {
     }
 
     @VisibleForTesting
-    protected Map<ServiceType, ServiceEntry> services() {
+    protected Map<ServiceName, ServiceEntry> services() {
         return Collections.unmodifiableMap(services);
     }
 

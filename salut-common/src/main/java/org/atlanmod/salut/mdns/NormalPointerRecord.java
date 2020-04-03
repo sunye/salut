@@ -2,10 +2,9 @@ package org.atlanmod.salut.mdns;
 
 import org.atlanmod.salut.data.ServiceInstanceName;
 import org.atlanmod.salut.data.ServiceName;
-import org.atlanmod.salut.data.ServiceType;
 import org.atlanmod.salut.io.UnsignedInt;
 
-class NormalPointerRecord extends PointerRecord {
+class NormalPointerRecord extends AbstractPointerRecord {
     /**
      * A <domain-name> which points to some location in the domain name space.
      *
@@ -20,17 +19,12 @@ class NormalPointerRecord extends PointerRecord {
         this.serviceName = serverName;
     }
 
-    public ServiceInstanceName getServiceInstanceName() {
+    public ServiceInstanceName serviceInstanceName() {
         return this.pointerName;
     }
 
-    public ServiceName getServiceName() {
+    public ServiceName serviceName() {
         return this.serviceName;
-    }
-
-    @Override
-    public ServiceType getServiceType() {
-        return serviceName.getServiceType();
     }
 
     /**

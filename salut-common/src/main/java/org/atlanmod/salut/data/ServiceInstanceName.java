@@ -8,7 +8,7 @@ import org.atlanmod.salut.mdns.LabelArray;
 import java.text.ParseException;
 
 /**
- * ServiceDescription Instance Name = <Instance> . <ServiceDescription> . <Domain>
+ * Service Instance Name = <Instance> . <Service> . <Domain>
  * <p>
  * Domain data
  * used by DNS-SD take the following forms:
@@ -44,8 +44,8 @@ public class ServiceInstanceName {
     /**
      * 4.3.  Internal Handling of Names
      * <p>
-     * > "If client software takes the <Instance>, <ServiceDescription>, and <Domain>
-     * portions of a ServiceDescription Instance Label and internally concatenates them
+     * > "If client software takes the <Instance>, <Service>, and <Domain>
+     * portions of a Service Instance Label and internally concatenates them
      * together into a single string, then because the <Instance> portion is
      * allowed to contain any characters, including dots, appropriate
      * precautions MUST be taken to ensure that DNS label boundaries are
@@ -53,7 +53,7 @@ public class ServiceInstanceName {
      * ways, such as character escaping.
      * <p>
      * This document RECOMMENDS that if concatenating the three portions of
-     * a ServiceDescription Instance Label, any dots in the <Instance> portion be
+     * a Service Instance Label, any dots in the <Instance> portion be
      * escaped following the customary DNS convention for text files: by
      * preceding literal dots with a backslash (so "." becomes "\.").
      * Likewise, any backslashes in the <Instance> portion should also be
@@ -97,7 +97,7 @@ public class ServiceInstanceName {
     }
 
     public static ServiceInstanceName fromNameArray(LabelArray names) throws ParseException {
-        Log.info("Parsing ServiceDescription Instance Label: {0}", names);
+        Log.info("Parsing Service Instance Name: {0}", names);
         Preconditions.checkArgument(names.size() >= 4);
 
         InstanceName instanceName = InstanceName.fromLabel(names.get(0));
@@ -116,7 +116,7 @@ public class ServiceInstanceName {
     public static ServiceInstanceName parseString(String str) throws ParseException {
         String[] labels = str.split("\\.");
         if (labels.length != 5) {
-            throw new ParseException("ServiceDescription Instance Names must have 5 labels", 0);
+            throw new ParseException("Service Instance Names must have 5 labels", 0);
         }
 
         return new ServiceInstanceName(InstanceName.fromString(labels[0]),

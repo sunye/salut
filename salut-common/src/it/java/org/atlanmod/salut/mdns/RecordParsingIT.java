@@ -35,7 +35,8 @@ public class RecordParsingIT {
         LabelArray names = LabelArray.fromList("MacBook", "local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
         Domain domaine = DomainBuilder.fromLabels(names);
-        ARecord record = ARecord.createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
+        BaseARecord record = BaseARecord
+            .createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
 
         record.writeOn(writer);
         ByteArrayReader reader = writer.getByteArrayReader();
@@ -47,8 +48,9 @@ public class RecordParsingIT {
     @Test
     void testSRVRecordReadWrite() throws ParseException {
 
-        ServerSelectionRecord record =
-        ServerSelectionRecord.createRecord(LabelArray.fromList("music", "raop", "tcp", "mac", "local"), QClass.IN,
+        BaseServerSelectionRecord record =
+        BaseServerSelectionRecord
+            .createRecord(LabelArray.fromList("music", "raop", "tcp", "mac", "local"), QClass.IN,
                 UnsignedInt.fromInt(500), UnsignedShort.fromInt(10), UnsignedShort.fromInt(33),
                 UnsignedShort.fromInt(80), LabelArray.fromList("mac", "local") ,
                 null, null);

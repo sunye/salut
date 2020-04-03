@@ -19,7 +19,7 @@ import java.text.ParseException;
  * --|--
  * &lowbar;printer._tcp.local.  | 28800 | A | 2001:db8::1
  */
-public class AAAARecord extends NormalRecord {
+public class AAAARecord extends AbstractNormalRecord {
 
     private Inet6Address address;
     private Domain serverName;

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The `InstanceEntry` class represents ServiceDescription Instances.
+ * The `InstanceEntry` class represents Service Instancen Names.
  */
 class InstanceEntry {
 

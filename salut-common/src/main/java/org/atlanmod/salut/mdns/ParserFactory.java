@@ -29,11 +29,11 @@ public class ParserFactory {
      * Record types that are not in this map will be ignored.
      */
     private ParserFactory() {
-        parsers.put(RecordType.A, ARecord.parser());
+        parsers.put(RecordType.A, BaseARecord.parser());
         parsers.put(RecordType.AAAA, AAAARecord.parser());
-        parsers.put(RecordType.PTR, PointerRecord.parser());
+        parsers.put(RecordType.PTR, AbstractPointerRecord.parser());
         parsers.put(RecordType.OPT, PseudoRecord.parser());
-        parsers.put(RecordType.SRV, ServerSelectionRecord.parser());
+        parsers.put(RecordType.SRV, BaseServerSelectionRecord.parser());
         parsers.put(RecordType.TXT, TextRecord.parser());
     }
 

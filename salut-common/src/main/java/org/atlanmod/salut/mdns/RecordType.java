@@ -181,7 +181,7 @@ public enum RecordType {
     /**
      * Server Selection
      *
-     * @see <a href="https://tools.ietf.org/html/rfc6335">ServiceDescription Label and Port Number Procedures</a>
+     * @see <a href="https://tools.ietf.org/html/rfc6335">Service Label and Port Number Procedures</a>
      */
     SRV(    33, "srv"),
 

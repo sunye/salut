@@ -37,7 +37,7 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
     private UnsignedInt ttl = UnsignedInt.fromInt(60*60);
 
     /**
-     * ServiceDescription Transport protocol (TCP or UDP).
+     * Service Transport protocol (TCP or UDP).
      */
     private TransportProtocol protocol = TransportProtocol.tcp;
 
@@ -53,9 +53,9 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
 
 
     /**
-     * ServiceDescription subtype
+     * Service subtype
      *
-     * @see <a href="https://tools.ietf.org/html/rfc6763#section-7.1">DNS-Based ServiceDescription Discovery</a>
+     * @see <a href="https://tools.ietf.org/html/rfc6763#section-7.1">DNS-Based ServiceDiscovery</a>
      */
     private Optional<String> subtype = Optional.empty();
 

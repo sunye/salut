@@ -8,7 +8,7 @@ import java.util.Objects;
  *
  *    4.1.1.  Instance Names
  *
- * > "The <Instance> portion of the ServiceDescription Instance Label is a user-
+ * > "The <Instance> portion of the Service Instance Label is a user-
  *    friendly label consisting of arbitrary Net-Unicode text [RFC5198].  It
  *    MUST NOT contain ASCII control characters (byte values 0x00-0x1F and
  *    0x7F) [RFC20] but otherwise is allowed to contain any characters,
@@ -24,7 +24,7 @@ import java.util.Objects;
  *    4.1.3 Domain Names
  *    (...)
  *
- * >  "In addition, because ServiceDescription Instance Names are not constrained by
+ * >  "In addition, because Service Instance Names are not constrained by
  *    the limitations of host data, this document recommends that they be
  *    stored in the DNS, and communicated over the wire, encoded as
  *    straightforward canonical precomposed UTF-8 [RFC3629] "Net-Unicode"

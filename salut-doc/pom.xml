@@ -12,39 +12,8 @@
 
     <artifactId>salut-doc</artifactId>
 
-
-
     <build>
         <plugins>
-
-
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.5</version>
-                <executions>
-                    <execution>
-                        <id>report-aggregate</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>report-aggregate</goal>
-                        </goals>
-                        <configuration>
-                            <title>JaCoCo</title>
-                            <footer>Code Coverage Report for Salut ${project.version}</footer>
-                            <includes>
-                                <!-- Analyze class files only to exclude shaded agent JAR from report -->
-                                <include>**/*.class</include>
-                            </includes>
-                            <excludes>
-                                <exclude>**/HelpMojo.class</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>

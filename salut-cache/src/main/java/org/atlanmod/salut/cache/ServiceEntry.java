@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The `ServiceEntry` class represents ServiceDescription Types.
+ * The `ServiceEntry` class represents Service Names.
  *
- * A service type may be provided by different service instances.
+ * A service name may be provided by different service instances.
  */
 public class ServiceEntry {
     public final List<Links.ServiceToInstanceLink> instances = new ArrayList<>();

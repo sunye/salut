@@ -11,22 +11,22 @@ import java.util.Objects;
 /**
  * From [RFC 6763](https://tools.ietf.org/html/rfc6763):
  * <p>
- * > "The <ServiceDescription> portion of the ServiceDescription Instance Label consists of a pair
+ * > "The <Service> portion of the Service Instance Label consists of a pair
  * of DNS labels, following the convention already established for SRV
  * records [RFC2782].
  * The first label of the pair is an underscore
- * character followed by the ServiceDescription Label [RFC6335].  The ServiceDescription Label
+ * character followed by the Service Name [RFC6335].  The Service Name
  * identifies what the service does and what application protocol it
  * uses to do it.
  * The second label is either "_tcp" (for application
  * protocols that run over TCP) or "_udp" (for all others).  For more
- * details, see Section 7, "ServiceDescription Names"."
+ * details, see Section 7, "Service Names"."
  * <p>
  * The record contains just one piece of information, the name of the service instance (which is the same as the name
  * of the SRV record).
  * PTR records are accordingly named just like SRV records but without the instance name:
  * <p>
- * <ServiceDescription Type>.<Domain>
+ * <Service Name>.<Domain>
  * Example: _printer._tcp.local.
  */
 public class ServiceName {
@@ -67,7 +67,7 @@ public class ServiceName {
     }
 
     public static ServiceName fromLabelArray(LabelArray names) throws ParseException {
-        Log.info("Parsing ServiceDescription Label: {0}", names);
+        Log.info("Parsing Service Name: {0}", names);
         Preconditions.checkArgument(names.size() == 2);
 
         ApplicationProtocol type = ApplicationProtocolBuilder.fromLabel(names.get(0));
@@ -90,14 +90,11 @@ public class ServiceName {
     public static ServiceName parseString(String str) throws ParseException {
         String[] labels = str.split("\\.");
         if (labels.length != 2) {
-            throw new ParseException("ServiceDescription Names must have 2 labels", 0);
+            throw new ParseException("Service Names must have 2 labels", 0);
         }
 
         return new ServiceName(ApplicationProtocolBuilder.fromString(labels[0]),
                 TransportProtocol.fromString(labels[1]));
     }
 
-    public ServiceType getServiceType() {
-        return new ServiceType(application, transport);
-    }
 }

@@ -2,27 +2,22 @@ package org.atlanmod.salut.mdns;
 
 import org.atlanmod.salut.data.ServiceInstanceName;
 import org.atlanmod.salut.data.ServiceName;
-import org.atlanmod.salut.data.ServiceType;
 import org.atlanmod.salut.io.UnsignedInt;
 
-public class MetaQueryPointerRecord extends PointerRecord {
+public class MetaQueryPointerRecord extends AbstractPointerRecord {
 
     public MetaQueryPointerRecord(LabelArray name, QClass qclass, UnsignedInt ttl) {
         super(name, qclass, ttl);
     }
 
     @Override
-    public ServiceInstanceName getServiceInstanceName() {
+    public ServiceInstanceName serviceInstanceName() {
         return null;
     }
 
     @Override
-    public ServiceName getServiceName() {
+    public ServiceName serviceName() {
         return null;
     }
 
-    @Override
-    public ServiceType getServiceType() {
-        return null;
-    }
 }

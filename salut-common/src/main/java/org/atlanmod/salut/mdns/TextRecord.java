@@ -27,7 +27,7 @@ import java.util.List;
  *    bytes, as described below in Section 6.2.
  * ```
  */
-public class TextRecord extends NormalRecord {
+public class TextRecord extends AbstractNormalRecord {
     private List<Label> labels;
 
     private TextRecord(LabelArray name, QClass qclass, UnsignedInt ttl, List<Label> labels) {

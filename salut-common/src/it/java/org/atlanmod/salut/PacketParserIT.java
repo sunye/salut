@@ -2,6 +2,7 @@ package org.atlanmod.salut;
 
 import org.atlanmod.commons.log.Log;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-class PacketParserTest {
+class PacketParserIT {
 
     /*
      In addition to compressing the *data* of resource records, data
@@ -23,7 +24,7 @@ class PacketParserTest {
      NS, CNAME, PTR, DNAME, SOA, MX, AFSDB, RT, KX, RP, PX, SRV, NSEC
      */
 
-    private static String[] dirs = {"./appa-org.atlanmod.salut/src/test/resources/", "./src/test/resources/"};
+    private static String[] dirs = {"./src/it/resources/expected"};
 
     private String packetStr = "0000" + // Transaction ID
             "0000" + // Flags

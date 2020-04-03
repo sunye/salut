@@ -1,7 +1,7 @@
 package org.atlanmod.salut;
 
 import org.atlanmod.commons.log.Log;
-import org.atlanmod.salut.mdns.ServerSelectionRecord;
+import org.atlanmod.salut.mdns.BaseServerSelectionRecord;
 import org.atlanmod.salut.sd.ServiceDescription;
 import org.atlanmod.salut.sd.ServicePublisher;
 
@@ -70,7 +70,7 @@ public class Salut implements ServicePublisher {
     public void publish(ServiceDescription service) {
         //ServerSelectionRecord srv =
 
-        ServerSelectionRecord.fromService(localHost, service);
+        BaseServerSelectionRecord.fromService(localHost, service);
     }
 
     public static void main(String[] args) throws IOException {

@@ -47,7 +47,7 @@ public enum QClass {
 
     /**
      * Hesiod
-     * [Dyer, S., and F. Hsu, "Hesiod", Project Athena Technical Plan - Label ServiceDescription, April 1987.]
+     * [Dyer, S., and F. Hsu, "Hesiod", Project Athena Technical Plan - Label Service, April 1987.]
      */
     HS(4, "hs"),
 

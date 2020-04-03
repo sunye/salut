@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.util.List;
 import org.atlanmod.salut.data.Domain;
 import org.atlanmod.salut.data.ServiceInstanceName;
-import org.atlanmod.salut.data.ServiceType;
+import org.atlanmod.salut.data.ServiceName;
 import org.atlanmod.salut.mdns.ARecord;
 import org.atlanmod.salut.mdns.PointerRecord;
 import org.atlanmod.salut.mdns.ServerSelectionRecord;
@@ -50,17 +50,17 @@ public interface Cache {
     List<Domain> getServersForAddress(InetAddress address);
 
     /**
-     * Finds all ServiceDescription Instances providing a given `ServiceType`.
+     * Finds all Service Instance Names providing a given {@code ServiceName}.
      *
-     * @param serviceType
+     * @param serviceName
      * @return
      */
-    List<ServiceInstanceName> getInstancesForService(ServiceType serviceType);
+    List<ServiceInstanceName> getInstancesForService(ServiceName serviceName);
 
     /**
-     * Finds all Servers for a given ServiceDescription Instance
-     * @param instance
+     * Finds all Servers for a given Service Instance Name
+     * @param serviceInstanceName
      * @return
      */
-    List<Domain> getServersForInstance(ServiceInstanceName instance);
+    List<Domain> getServersForInstance(ServiceInstanceName serviceInstanceName);
 }

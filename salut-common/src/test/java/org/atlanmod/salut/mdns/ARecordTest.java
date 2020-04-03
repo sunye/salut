@@ -23,19 +23,20 @@ class ARecordTest {
         LabelArray names = LabelArray.fromList("MacBook", "local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
         Domain domaine = DomainBuilder.fromLabels(names);
-        record = ARecord.createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
+        record = BaseARecord
+            .createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
     }
 
     @Test
     void testGetServerName() throws ParseException {
         Domain expected = DomainBuilder.parseString("MacBook.local");
-        assertThat(record.getServerName()).isEqualTo(expected);
+        assertThat(record.serverName()).isEqualTo(expected);
     }
 
     @Test
     void getAddress() throws UnknownHostException {
         Inet4Address expected = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
-        assertThat(record.getAddress()).isEqualTo(expected);
+        assertThat(record.address()).isEqualTo(expected);
     }
 
     @Test
@@ -43,7 +44,8 @@ class ARecordTest {
         LabelArray names = LabelArray.fromList("MacBook", "local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
         Domain domaine = DomainBuilder.fromLabels(names);
-        ARecord other = ARecord.createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
+        ARecord other = BaseARecord
+            .createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
 
         assertAll(
                 () -> assertThat(other).isEqualTo(record),

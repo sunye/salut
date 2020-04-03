@@ -5,7 +5,7 @@ import org.atlanmod.salut.io.ByteArrayReader;
 
 import java.text.ParseException;
 
-public abstract class AbstractRecord {
+public abstract class AbstractRecord implements Record {
 
     protected final LabelArray names;
 
