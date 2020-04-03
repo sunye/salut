@@ -15,6 +15,12 @@
         <version>1.0.4</version>
     </parent>
 
+    <modules>
+        <module>salut-common</module>
+        <module>salut-io</module>
+        <module>salut-cache</module>
+        <module>salut-doc</module>
+    </modules>
 
     <properties>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
