@@ -1,5 +1,7 @@
+## IntelliJ IDEA
 .idea
 .DS_Store
+*.iml
 
 # Maven files
 target/
