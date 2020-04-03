@@ -20,4 +20,9 @@ public class AddressToServerLink extends AbstractLink {
     public ServerEntry getServer() {
         return server;
     }
+
+    public void unlink() {
+        address.servers.remove(this);
+        server.addresses.remove(this);
+    }
 }

@@ -16,7 +16,7 @@ public class InstanceToServerLink extends AbstractLink {
     private UnsignedShort port;
 
     public InstanceToServerLink(TimeToLive ttl, InstanceEntry instance, ServerEntry server,
-                                UnsignedShort weight, UnsignedShort priority, UnsignedShort port) {
+        UnsignedShort weight, UnsignedShort priority, UnsignedShort port) {
         super(ttl);
         this.instance = instance;
         this.server = server;
@@ -43,5 +43,11 @@ public class InstanceToServerLink extends AbstractLink {
 
     public UnsignedShort getPort() {
         return port;
+    }
+
+    @Override
+    public void unlink() {
+        instance.servers.remove(this);
+        server.instances.remove(this);
     }
 }

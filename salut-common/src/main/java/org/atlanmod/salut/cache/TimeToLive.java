@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * The TimeToLive class represents an expiration time.
  */
-public class TimeToLive {
+public class TimeToLive implements Comparable<TimeToLive>{
 
     private long valueInSeconds;
     private long expireTimeMillis;
@@ -25,7 +25,7 @@ public class TimeToLive {
      * @return a TimeToLive instance.
      */
     public static TimeToLive fromSeconds(long seconds) {
-        long now = System.currentTimeMillis();
+        long now = now();
         long expireTime = now + seconds * 1000;
 
         return new TimeToLive(seconds, expireTime);
@@ -44,8 +44,8 @@ public class TimeToLive {
     @Override
     public String toString() {
         return "TTL {value=" +  valueInSeconds +
-                "s, expire=" + expireTimeMillis +
-                "}";
+            "s, expire=" + expireTimeMillis +
+            "}";
     }
 
     /**
@@ -54,7 +54,21 @@ public class TimeToLive {
      * @return True, if this time to live has expired.
      */
     public boolean hasExpired() {
-        return System.currentTimeMillis() > this.expireTimeMillis;
+        return now() > this.expireTimeMillis;
+    }
+
+
+    /**
+     * Calculates the remaining time to this TTL expiration.
+     *
+     * @return The remaining time, in milliseconds.
+     */
+    public long delayTimeMillis() {
+        return this.expireTimeMillis - now();
+    }
+
+    private static long now() {
+        return System.currentTimeMillis();
     }
 
     @Override
@@ -76,5 +90,22 @@ public class TimeToLive {
      */
     public UnsignedInt unsignedIntValue() {
         return UnsignedInt.fromLong(this.valueInSeconds);
+    }
+
+    /**
+     * Compares two TTLs in function of their expiration time.
+     * @param other the other TTL to compare
+     * @return 0, if both TTLs are the same, -1 if current TTL is inferior to other's TTL,
+     * +1 otherwise.
+     */
+    @Override
+    public int compareTo(TimeToLive other) {
+        if (this.expireTimeMillis < other.expireTimeMillis) {
+            return -1;
+        } else if (this.expireTimeMillis > other.expireTimeMillis) {
+            return +1;
+        } else {
+            return 0;
+        }
     }
 }
