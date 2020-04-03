@@ -1,0 +1,73 @@
+= Developers Guide
+
+
+==  Project Organization
+
+=== Directory Layout
+
+The project follows Apache Maven's conventions.
+Platform-specific artifacts (if any), such as Eclipse plugins, are placed in a specific directory,
+for instance `./plugins/eclipse/`.
+
+All software dependencies are declared in the Project Object Model (pom.xml file).
+Prefer use a `dependencyManagement` to manage the dependencies, and use `properties` to manage the dependencies version.
+
+=== Package Organization
+
+Keep together classes that implement a same feature.
+Organize packages by features, not by layers.
+Read this http://www.javapractices.com/topic/TopicAction.do?Id=205[article] for more information.
+
+Avoid packages named `beans`, `exceptions`, `factories`, or `collections`.
+
+
+== Code Conventions
+
+The Java source code follows Google's Style Guide:
+https://google.github.io/styleguide/javaguide.html
+
+Except for special cases, getters and setters must not return a mutable collection.
+
+### Preconditions
+
+Use preconditions instead of assertions or comments for checking conditions that must always be true and invariants in method bodies.
+
+```java
+public void foo(int i) {
+  Preconditions.checkArgument(i > 0 && i <= 12, "Out of range");
+  // Method code
+}
+```
+
+### Annotations (JSR-305)
+
+Use JSR-305 annotations, such as `@Nonnull`, `@Nullable`, `@ParametersAreNonnullByDefault`, etc.
+These annotations are not processed at runtime, but are very useful for static code analysis.
+
+### Documentation
+
+Every packages, classes, methods and fields should be properly documented.
+
+The package documentation is located in `main/javadoc`, next to the `main/java` directory, and must only contains `package-info.java` files.
+
+
+## Software quality
+
+Ideally, all methods should be tested in unit tests. For classes and methods related to data management, tests must also be created in the integration tests.
+
+
+## Design Tips
+
+### Supertypes should not depend on subtypes.
+
+More precisely, an interface should not reference its implementation classes. For instance, the following code excerpt should be avoided:
+
+```java
+public interface IFactory {
+  IFactory eINSTANCE = FactoryImpl.init();
+}
+```
+
+<!-- Avoid casts -->
+<!-- Avoid conditional behavior -->
+<!-- Design first for testability, then for performance -->
