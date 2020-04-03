@@ -38,7 +38,7 @@ class CacheIT {
 
     @BeforeEach
     void setup() {
-        cache = new Cache();
+        cache = new BaseCache();
     }
 
     /*
@@ -161,7 +161,7 @@ class CacheIT {
         ARecord record = ARecord.createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
 
 
-        Cache cache = new Cache();
+        Cache cache = new BaseCache();
         cache.cache(record); // Mise à jour du cache / serveur / instance / liens
 
         assertTrue(cache.getAddressesForServer(DomainBuilder.fromLabels(names)).contains(address));
