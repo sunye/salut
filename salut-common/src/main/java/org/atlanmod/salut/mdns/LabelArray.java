@@ -42,9 +42,7 @@ public class LabelArray {
 
     @Override
     public String toString() {
-        return "LabelArray{" +
-                "data=" + labels +
-                '}';
+        return "la"+labels.toString();
     }
 
     /**

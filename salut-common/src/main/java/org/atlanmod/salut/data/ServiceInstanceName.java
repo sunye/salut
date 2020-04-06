@@ -98,7 +98,11 @@ public class ServiceInstanceName {
 
     public static ServiceInstanceName fromNameArray(LabelArray names) throws ParseException {
         Log.info("Parsing Service Instance Name: {0}", names);
-        Preconditions.checkArgument(names.size() >= 4);
+        Preconditions.checkArgument(names.size() >= 4, "Expecting at least 4 labels, found " + names.size());
+
+        if (names.contains(Label.create("_sub"))) {
+            Log.warn("Service subtype !!! : {0}", names);
+        }
 
         InstanceName instanceName = InstanceName.fromLabel(names.get(0));
         ServiceName serviceName = ServiceName.fromLabelArray(names.subArray(1,3));

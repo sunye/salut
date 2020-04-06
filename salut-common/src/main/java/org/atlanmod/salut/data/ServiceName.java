@@ -68,9 +68,9 @@ public class ServiceName {
 
     public static ServiceName fromLabelArray(LabelArray names) throws ParseException {
         Log.info("Parsing Service Name: {0}", names);
-        Preconditions.checkArgument(names.size() == 2);
+        Preconditions.checkArgument(names.size() == 2, "Expecting 2 names, found " + names.size());
 
-        ApplicationProtocol type = ApplicationProtocolBuilder.fromLabel(names.get(0));
+        ApplicationProtocol type    = ApplicationProtocolBuilder.fromLabel(names.get(0));
         TransportProtocol transport = TransportProtocol.fromLabel(names.get(1));
 
         return new ServiceName(type, transport);

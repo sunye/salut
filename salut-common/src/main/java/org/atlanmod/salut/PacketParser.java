@@ -28,15 +28,10 @@ public class PacketParser {
     }
 
     public void parse () {
+        Log.info(" ------ Start Parsing ------");
 
         try {
-            header = Header.fromByteBuffer(buffer);
-            this.parseQuestions(header.questionRecordCount());
-            this.parseAnswers(header.answerRecordCount());
-            this.parseAuthorities(header.authorityRecordCount());
-            this.parseAdditional(header.additionalRecordCount());
-
-            Log.info("Packet parsed successfully !");
+            doParse();
 
         } catch (ParseException | IllegalArgumentException e) {
             String message = MessageFormat.format("Error when parsing packet at position {0}",
@@ -53,6 +48,16 @@ public class PacketParser {
             Log.info("Found {0} questions, {1} answers, {2} authorities, and {3} additionals.",
                     questions.size(), answers.size(), authorities.size(), additionals.size());
         }
+    }
+
+    public void doParse() throws ParseException {
+        header = Header.fromByteBuffer(buffer);
+        this.parseQuestions(header.questionRecordCount());
+        this.parseAnswers(header.answerRecordCount());
+        this.parseAuthorities(header.authorityRecordCount());
+        this.parseAdditional(header.additionalRecordCount());
+
+        Log.info("Packet parsed successfully !");
     }
 
     public void parseQuestions(int numberOfQuestions) throws ParseException {

@@ -1,5 +1,7 @@
 package org.atlanmod.salut.io;
 
+import java.nio.charset.StandardCharsets;
+import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.data.Label;
 import org.atlanmod.salut.mdns.LabelArray;
@@ -108,14 +110,15 @@ public class ByteArrayReader {
     }
 
 
-    public List<Label> readTextLabels(int recordLength) {
-        List<Label> labels = new ArrayList<>();
+    public List<String> readTextDataStrings(int recordLength) {
+        List<String> labels = new ArrayList<>();
         int bytesRead = 0;
         do {
             LabelLength length = this.getLabelLength();
-            Label label = this.getLabel(length);
+            String label = this.getString(length);
             bytesRead += length.intValue() + 1;
             labels.add(label);
+            Log.info("Read label {0}", label);
         } while (bytesRead < recordLength);
 
         return labels;
@@ -125,13 +128,28 @@ public class ByteArrayReader {
      * Reads a label of a given number of characters, encoded in UTF8.
      *
      * @param length the number of characters to be read.
-     * @return A String representing the label.
+     * @return A Label representing the read value.
      */
     protected Label getLabel(LabelLength length) {
         byte[] labelBuffer = new byte[length.intValue()];
         buffer.get(labelBuffer);
 
         return Label.create(labelBuffer);
+    }
+
+    /**
+     * Reads a string of a given number of characters, encoded in UTF8.
+     *
+     * @param length the number of characters to be read.
+     * @return A String representing the label.
+     */
+    protected String getString(LabelLength length){
+        Preconditions.checkArgument(length.shortValue() <= 255);
+
+        byte[] labelBuffer = new byte[length.intValue()];
+        buffer.get(labelBuffer);
+        String readString = new String(labelBuffer, StandardCharsets.UTF_8);
+        return readString;
     }
 
     /**

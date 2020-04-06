@@ -144,9 +144,9 @@ class ByteArrayReaderTest {
     void testReadTextString() {
         byte[] bytes = {8, 109, 121, 100, 111, 109, 97, 105, 110, 3, 99, 111, 109, 0};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        List<Label> strings = bb.readTextLabels(10);
-        assertTrue(strings.contains(mydomain));
-        assertTrue(strings.contains(com));
+        List<String> strings = bb.readTextDataStrings(10);
+        assertTrue(strings.contains("mydomain"));
+        assertTrue(strings.contains("com"));
     }
 
     @Test
@@ -348,8 +348,8 @@ class ByteArrayReaderTest {
         byte[] bytes = {5, 6, 7, 8, 9};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
         LabelArray labels = bb.readLabels();
-        List<Label> lbb = bb.readTextLabels(2);
-        assertTrue(lbb.get(0).equals(Label.create("5")));
+        List<String> lbb = bb.readTextDataStrings(2);
+        assertTrue(lbb.get(0).equals("5"));
     }
 
     @Test

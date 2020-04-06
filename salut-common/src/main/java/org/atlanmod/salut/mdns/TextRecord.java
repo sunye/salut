@@ -1,5 +1,6 @@
 package org.atlanmod.salut.mdns;
 
+import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.data.Label;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedInt;
@@ -28,9 +29,9 @@ import java.util.List;
  * ```
  */
 public class TextRecord extends AbstractNormalRecord {
-    private List<Label> labels;
+    private List<String> labels;
 
-    private TextRecord(LabelArray name, QClass qclass, UnsignedInt ttl, List<Label> labels) {
+    private TextRecord(LabelArray name, QClass qclass, UnsignedInt ttl, List<String> labels) {
         super(name, qclass, ttl);
         this.labels = labels;
     }
@@ -41,10 +42,11 @@ public class TextRecord extends AbstractNormalRecord {
 
     private static class TextRecordParser extends NormalRecordParser<TextRecord> {
 
-        private List<Label> labels;
+        private List<String> labels;
 
         protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
-            labels = buffer.readTextLabels(dataLength);
+            Log.info("Data length = {0}", dataLength);
+            labels = buffer.readTextDataStrings(dataLength);
         }
 
         @Override

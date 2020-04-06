@@ -12,13 +12,13 @@ import java.text.ParseException;
  * PTR records enable service discovery by mapping the type of the service to a list of name of specific
  * instances of that type of service.
  *
- * The PTR abstract record has the following format:
+ * The PTR  record has the following format:
  *
  * # PTR Record
  *
- * Server Label| Time to live| QCLASS | QTYPE | Service Instance Label
+ * Server Name | Time to live| QCLASS | QTYPE | Service Instance Label
  * --|--
- * &lowbar;printer._tcp.local.  | 28800 | IN | PTR | PrintsAlot._printer._tcp.local.
+ * _printer._tcp.local.  | 28800 | IN | PTR | PrintsAlot._printer._tcp.local.
  *
  */
 public abstract class AbstractPointerRecord extends AbstractNormalRecord implements PointerRecord {
@@ -43,15 +43,15 @@ public abstract class AbstractPointerRecord extends AbstractNormalRecord impleme
         private boolean isReverseLookup = false;
         private boolean isMetaQuery = false;
         protected  ServiceInstanceName pointerName;
-        protected  ServiceName serverName;
+        protected  ServiceName serviceName;
 
 
         /**
          *
          * @return The type of the service that is being declared.
          */
-        public ServiceName getServerName() {
-            return this.serverName;
+        public ServiceName getServiceName() {
+            return this.serviceName;
         }
 
 
@@ -65,20 +65,22 @@ public abstract class AbstractPointerRecord extends AbstractNormalRecord impleme
         @Override
         protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
             LabelArray ptrName = LabelArray.fromByteBuffer(buffer);
-            Log.info("PTR(pointerName={0}, getServerName={1})", ptrName, name);
+            Log.info("PTR(pointerName={0}, serviceName={1})", ptrName, name);
 
-            if (Domain.ARPA.equals(name.last())) {
+            if (Domain.ARPA.equals(name.last().toString())) {
                 // There should be a better way to determine whether the pointer record is a
                 // reverse lookup.
                 Log.warn("Reverse Pointer: {0} ", name);
                 isReverseLookup = true;
-            } else if ("_services".equals(name.first())) {
+            } else if ("_services".equals(name.first().toString())) {
                 Log.warn("Meta Query Pointer: {0} ", name);
                 isMetaQuery = true;
             }
             else {
                 pointerName = ServiceInstanceName.fromNameArray(ptrName);
-                serverName   = ServiceName.fromLabelArray(name);
+                Log.info("---");
+                // Ignore domain, parse only Service Name
+                serviceName = ServiceName.fromLabelArray(name.subArray(0,2));
             }
         }
 
@@ -93,7 +95,7 @@ public abstract class AbstractPointerRecord extends AbstractNormalRecord impleme
                 return new MetaQueryPointerRecord(name, qclass, ttl);
             }
             else {
-                return new NormalPointerRecord(name, qclass, ttl, pointerName, serverName);
+                return new NormalPointerRecord(name, qclass, ttl, pointerName, serviceName);
             }
         }
     }
