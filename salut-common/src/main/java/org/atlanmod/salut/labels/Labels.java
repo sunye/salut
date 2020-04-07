@@ -10,6 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * List of labels
+ */
 public class Labels {
 
     private final List<Label> labels;
@@ -45,7 +48,7 @@ public class Labels {
     }
 
     /**
-     * Adds a name (label) to this LabelArray.
+     * Adds a name (label) to this object.
      *
      * @param name the name (label) to add.
      */
@@ -57,9 +60,9 @@ public class Labels {
     }
 
     /**
-     * Adds (concatenates) all labels of another LabelArray to this one.
+     * Adds (concatenates) all labels of another object to this one.
      *
-     * @param labels the LabelArray containing the labels to add.
+     * @param labels the Label list containing the labels to add.
      */
     public Labels addAll(Labels labels) {
         Preconditions.checkNotNull(labels);
@@ -126,16 +129,16 @@ public class Labels {
     }
 
     /**
-     * Creates an empty instance of a LabelArray.
+     * Creates an empty instance of a Labels.
      *
-     * @return a LabelArray instance
+     * @return a new instance
      */
     public static Labels create() {
         return new Labels(new ArrayList<Label>());
     }
 
     /**
-     * Creates a LabelArray from an array of Labels.
+     * Creates a label list from an array of Labels.
      * @param names one or more labels containing a qualified name.
      *
      * @return a new name array
@@ -145,7 +148,7 @@ public class Labels {
     }
 
     /**
-     * Creates a LabelArray from an array of Strings.
+     * Creates a label list from an array of Strings.
      * @param names one or more strings containing a qualified name.
      *
      * @return a new name array
@@ -159,6 +162,8 @@ public class Labels {
      * The sum of the sizes, in octets, of all labels when written on a byte array
      */
     public int dataLength() {
+        // FIXME: The data length cannot be calculated here, if compression is used
+
         int length = 0;
         for (Label each : labels) {
             length += each.dataLength();
