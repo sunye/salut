@@ -1,6 +1,6 @@
 package org.atlanmod.salut.builders;
 
-public interface SetServiceApplicationProtocol {
+public interface QueryApplicationProtocolModifier {
 
     IQuery http();
     IQuery airplay();

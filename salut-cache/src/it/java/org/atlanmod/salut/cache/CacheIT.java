@@ -169,7 +169,7 @@ class CacheIT {
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
         Domain domaine = DomainBuilder.fromLabels(names);
         ARecord record = BaseARecord
-            .createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
+            .createRecord(QClass.IN, UnsignedInt.fromInt(10), address, domaine);
 
 
         Cache cache = new BaseCache();

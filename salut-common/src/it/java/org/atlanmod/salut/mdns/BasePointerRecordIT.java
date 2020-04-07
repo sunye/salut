@@ -23,19 +23,12 @@ class BasePointerRecordIT {
 
 
     @Test
-    void test() throws ParseException {
+    void serialize_unserialize_ptr_record() throws ParseException {
         Labels labels = Labels.fromList("aaa", "bbb");
 
         ServiceInstanceName instance = ServiceInstanceName.parseString("My wifes library.daap.tcp.macintosh.local");
         PointerName server = PointerName.fromLabels(Labels.fromList("daap", "tcp", "local"));
 
-
-        BasePointerRecord ptr = new BasePointerRecord(labels,
-            QClass.IN,
-            UnsignedInt.fromInt(160),
-            instance,
-            server
-            );
 
         BasePointerRecord expected = BasePointerRecord.create(labels,
             QClass.IN,
@@ -43,12 +36,11 @@ class BasePointerRecordIT {
             instance,
             server);
 
-        ptr.writeOne(writer);
+        expected.writeOne(writer);
         ByteArrayReader reader = writer.getByteArrayReader();
         AbstractRecord actual = AbstractRecord.fromByteBuffer(reader);
 
         assertThat(actual).isEqualTo(expected);
-
 
     }
 

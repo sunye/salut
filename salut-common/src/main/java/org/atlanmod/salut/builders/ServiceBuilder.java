@@ -6,13 +6,16 @@ import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.atlanmod.salut.names.InstanceName;
 import org.atlanmod.salut.sd.ServiceDescription;
-import org.atlanmod.salut.sd.ServicePublisher;
 
 import java.util.Optional;
 
 
-public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServiceName, IPort,
-        SetTransportProtocol, IQuery {
+public class ServiceBuilder implements ServiceApplicationProtocolChooser, ServicePublisher,
+    ServiceInstanceNameModifier,
+    ServicePortModifier,
+    ServiceTransportProtocolChooser,
+    ServicePersistenceChooser,
+    IQuery {
 
 
     /**
@@ -64,72 +67,77 @@ public class ServiceBuilder implements SetApplicationProtocol, IPublish, IServic
      */
     private boolean persistent = false;
 
-    private ServicePublisher publisher;
+    private org.atlanmod.salut.sd.ServicePublisher publisher;
 
 
-    public ServiceBuilder(ServicePublisher publisher) {
+    public ServiceBuilder(org.atlanmod.salut.sd.ServicePublisher publisher) {
         this.publisher = publisher;
     }
 
-    public SetTransportProtocol port(int port) {
+    public ServicePersistenceChooser port(int port) {
         this.port = UnsignedShort.fromInt(port);
         return this;
     }
 
 
-    public ServiceBuilder name(String name) {
+    public ServiceApplicationProtocolChooser instance(String name) {
         this.name = InstanceName.fromString(name);
         return this;
     }
 
-    public IPublish subtype(String subtype) {
+    public ServicePublisher subtype(String subtype) {
         this.subtype = Optional.ofNullable(subtype);
         return this;
     }
 
 
-    public IPublish weight(int weight) {
+    public ServicePublisher weight(int weight) {
         this.weight = UnsignedShort.fromInt(weight);
         return this;
     }
 
-    public IPublish priority(int priority) {
+    public ServicePublisher priority(int priority) {
         this.priority = UnsignedShort.fromInt(priority);
         return this;
     }
 
-    public IPublish ttl(int ttl) {
+    public ServicePublisher ttl(int ttl) {
         this.ttl = UnsignedInt.fromInt(ttl);
         return this;
     }
 
-    public IPublish persistent() {
+    public ServicePublisher persistent() {
         this.persistent = true;
         return this;
     }
 
-    public SetApplicationProtocol tcp() {
+    public ServicePublisher nonpersistent() {
+        this.persistent = true;
+        return this;
+    }
+
+    public ServicePortModifier tcp() {
         this.protocol = TransportProtocol.tcp;
         return this;
     }
 
-    public SetApplicationProtocol udp() {
+    public ServicePortModifier udp() {
         this.protocol = TransportProtocol.udp;
         return this;
     }
 
-    public IPublish http() {
+    public ServiceTransportProtocolChooser http() {
         this.serviceType = ApplicationProtocolBuilder.fromApplicationProtocol(IANAApplicationProtocol.http);
         return this;
     }
 
-    public IPublish airplay() {
+    public ServiceTransportProtocolChooser airplay() {
         this.serviceType = ApplicationProtocolBuilder.fromApplicationProtocol(IANAApplicationProtocol.airplay);
         return this;
     }
 
     @Override
-    public IPublish application(String str) {
+    public ServiceTransportProtocolChooser application(String str) {
         this.serviceType = ApplicationProtocolBuilder.fromString(str);
         return this;
     }

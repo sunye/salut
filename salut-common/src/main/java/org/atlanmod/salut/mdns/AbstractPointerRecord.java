@@ -26,8 +26,8 @@ import org.atlanmod.salut.names.ServiceInstanceName;
  */
 public abstract class AbstractPointerRecord extends AbstractNormalRecord implements PointerRecord {
 
-    AbstractPointerRecord(Labels name, QClass qclass, UnsignedInt ttl) {
-        super(name, qclass, ttl);
+    AbstractPointerRecord(QClass qclass, UnsignedInt ttl) {
+        super(qclass, ttl);
     }
 
     /**
@@ -82,12 +82,12 @@ public abstract class AbstractPointerRecord extends AbstractNormalRecord impleme
         @Override
         protected PointerRecord build() {
             if (isReverseLookup) {
-                return new ReverseLookupPointerRecord(labels, qclass, ttl);
+                return new ReverseLookupPointerRecord(qclass, ttl);
             } else if (isMetaQuery) {
-                return new MetaQueryPointerRecord(labels, qclass, ttl);
+                return new MetaQueryPointerRecord(qclass, ttl);
             }
             else {
-                return new BasePointerRecord(labels, qclass, ttl, instance, service);
+                return new BasePointerRecord(qclass, ttl, instance, service);
             }
         }
     }

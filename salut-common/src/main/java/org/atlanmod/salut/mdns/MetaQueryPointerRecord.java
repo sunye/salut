@@ -8,8 +8,8 @@ import org.atlanmod.salut.io.UnsignedInt;
 
 public class MetaQueryPointerRecord extends AbstractPointerRecord {
 
-    public MetaQueryPointerRecord(Labels name, QClass qclass, UnsignedInt ttl) {
-        super(name, qclass, ttl);
+    public MetaQueryPointerRecord(QClass qclass, UnsignedInt ttl) {
+        super(qclass, ttl);
     }
 
     @Override

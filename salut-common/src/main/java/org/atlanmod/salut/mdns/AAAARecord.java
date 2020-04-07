@@ -26,9 +26,9 @@ public class AAAARecord extends AbstractNormalRecord {
     private Inet6Address address;
     private Domain serverName;
 
-    private AAAARecord(Labels name, QClass qclass, UnsignedInt ttl, Inet6Address address,
+    private AAAARecord(QClass qclass, UnsignedInt ttl, Inet6Address address,
                        Domain serverName) {
-        super(name, qclass, ttl);
+        super(qclass, ttl);
         this.address = address;
         this.serverName = serverName;
     }
@@ -53,10 +53,7 @@ public class AAAARecord extends AbstractNormalRecord {
 
     @Override
     public String toString() {
-        return "AAAARecord{" +
-                "getAddress=" + address +
-                ", data=" + labels +
-                '}';
+        return "AAAARecord{" + address + '}';
     }
 
     @Override
@@ -87,7 +84,7 @@ public class AAAARecord extends AbstractNormalRecord {
 
         @Override
         protected AAAARecord build() {
-            return new AAAARecord(labels, qclass, ttl, address, serverName);
+            return new AAAARecord(qclass, ttl, address, serverName);
         }
 
     }

@@ -7,6 +7,7 @@ import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.salut.names.ServiceInstanceName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +38,7 @@ public class RecordParsingIT {
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
         Domain domaine = DomainBuilder.fromLabels(names);
         BaseARecord record = BaseARecord
-            .createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
+            .createRecord(QClass.IN, UnsignedInt.fromInt(10), address, domaine);
 
         record.writeOn(writer);
         ByteArrayReader reader = writer.getByteArrayReader();
@@ -51,10 +52,12 @@ public class RecordParsingIT {
 
         BaseServerSelectionRecord record =
         BaseServerSelectionRecord
-            .createRecord(Labels.fromList("music", "raop", "tcp", "mac", "local"), QClass.IN,
+            .create(QClass.IN,
                 UnsignedInt.fromInt(500), UnsignedShort.fromInt(10), UnsignedShort.fromInt(33),
-                UnsignedShort.fromInt(80), Labels.fromList("mac", "local") ,
-                null, null);
+                UnsignedShort.fromInt(80),
+                DomainBuilder.fromLabels(Labels.fromList("mac", "local")),
+                ServiceInstanceName.fromLabels(Labels.fromList("music", "raop", "tcp", "mac", "local"))
+            );
 
         record.writeOne(writer);
 

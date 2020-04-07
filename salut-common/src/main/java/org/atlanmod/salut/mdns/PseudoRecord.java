@@ -66,9 +66,8 @@ public class PseudoRecord extends AbstractRecord {
     private UnsignedByte    version;
     private UnsignedShort   rdlen;
 
-    public PseudoRecord(Labels name, UnsignedShort payload, UnsignedByte extendedRCode,
+    public PseudoRecord(UnsignedShort payload, UnsignedByte extendedRCode,
                         UnsignedByte version, UnsignedShort rdlen) {
-        super(name);
         this.payload = payload;
         this.extendedRCode = extendedRCode;
         this.version = version;
@@ -110,7 +109,7 @@ public class PseudoRecord extends AbstractRecord {
                 buffer.getUnsignedByte();
             }
 
-            return new PseudoRecord(name, payload, extendedRCode, version, rdlen);
+            return new PseudoRecord(payload, extendedRCode, version, rdlen);
         }
     }
 }

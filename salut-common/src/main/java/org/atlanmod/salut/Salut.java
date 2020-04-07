@@ -22,7 +22,20 @@ public class Salut implements ServicePublisher {
     private InetAddress localHost;
 
 
-    public Salut() {}
+    /**
+     * Main class.
+     * Singleton
+     */
+    private Salut() {}
+
+    /**
+     * Returns the instance of this class.
+     *
+     * @return the instance of this class
+     */
+    public static Salut getInstance() {
+        return Holder.INSTANCE;
+    }
 
     public void run() throws IOException {
         Log.info("run()");
@@ -77,4 +90,16 @@ public class Salut implements ServicePublisher {
         Salut zero = new Salut();
         zero.run();
     }
+
+    /**
+     * The initialization-on-demand holder of the singleton of this class.
+     */
+    private static final class Holder {
+
+        /**
+         * The instance of the outer class.
+         */
+        static final Salut INSTANCE = new Salut();
+    }
+
 }

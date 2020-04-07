@@ -13,6 +13,20 @@ Salut is a work-in-progress. Currently, no feature is available.
 
 === Service Publication
 
+```java
+    Salut.getInstance()
+        .builder()
+        .service()
+        .name("my printer")
+        .port(221)
+        .udp()
+        .airplay()
+        .persistent()
+        .weight(200)
+        .priority(1)
+        .publish();
+```
+
 == Similar projects
 
 == References

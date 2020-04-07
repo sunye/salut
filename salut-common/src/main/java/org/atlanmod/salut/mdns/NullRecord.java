@@ -14,15 +14,9 @@ import org.atlanmod.salut.labels.Labels;
 public class NullRecord extends AbstractRecord {
 
 
-    public NullRecord(Labels name) {
-        super(name);
-    }
-
     @Override
     public String toString() {
-        return "NullRecord{" +
-                "data=" + labels +
-                '}';
+        return "NullRecord";
     }
 
     public static RecordParser<NullRecord> parser() {
@@ -46,7 +40,7 @@ public class NullRecord extends AbstractRecord {
                 buffer.getUnsignedByte(); // RDATA
             }
 
-            return new NullRecord(name);
+            return new NullRecord();
         }
     }
 }

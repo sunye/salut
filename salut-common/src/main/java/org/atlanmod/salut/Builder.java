@@ -1,6 +1,6 @@
 package org.atlanmod.salut;
 
-import org.atlanmod.salut.builders.IServiceName;
+import org.atlanmod.salut.builders.ServiceInstanceNameModifier;
 import org.atlanmod.salut.builders.QueryBuilder;
 import org.atlanmod.salut.builders.ServiceBuilder;
 
@@ -17,7 +17,7 @@ public class Builder {
      *
      * @return A ServiceBuilder
      */
-    public IServiceName service() {
+    public ServiceInstanceNameModifier service() {
         return new ServiceBuilder(salut);
     }
 

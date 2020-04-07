@@ -25,7 +25,7 @@ class ARecordTest {
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
         Domain domaine = DomainBuilder.fromLabels(names);
         record = BaseARecord
-            .createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
+            .createRecord(QClass.IN, UnsignedInt.fromInt(10), address, domaine);
     }
 
     @Test
@@ -46,7 +46,7 @@ class ARecordTest {
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
         Domain domaine = DomainBuilder.fromLabels(names);
         ARecord other = BaseARecord
-            .createRecord(names, QClass.IN, UnsignedInt.fromInt(10), address, domaine);
+            .createRecord(QClass.IN, UnsignedInt.fromInt(10), address, domaine);
 
         assertAll(
                 () -> assertThat(other).isEqualTo(record),

@@ -10,8 +10,8 @@ public class QueryBuilderIT {
     @Disabled
     @Test
     void queryTest() {
-        Salut salut = new Salut();
-        salut.builder()
+        Salut.getInstance()
+            .builder()
                 .query()
                 .tcp()
                 .airplay()

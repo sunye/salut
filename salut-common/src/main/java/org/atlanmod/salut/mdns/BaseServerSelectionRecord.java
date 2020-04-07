@@ -46,9 +46,13 @@ import java.text.ParseException;
  * _sip._tcp.example.com. 86400 IN SRV 0 5 5060 sipserver.example.com.
  * ```
  *
- * This points to a server named sipserver.example.com listening on TCP port 5060 for Session Initiation Protocol (SIP) protocol services. The priority given here is 0, and the weight is 5.
+ * This points to a server named sipserver.example.com listening on TCP port 5060 for
+ * Session Initiation Protocol (SIP) protocol services.
+ * The priority given here is 0, and the weight is 5.
  *
- * As in MX records, the target in SRV records must point to hostname with an address record (A or AAAA record). Pointing to a hostname with a CNAME record is not a valid configuration.
+ * As in MX records, the target in SRV records must point to hostname with an address record
+ * (A or AAAA record).
+ * Pointing to a hostname with a CNAME record is not a valid configuration.
  *
  * @see  "[RFC2782](https://tools.ietf.org/html/rfc2782)"
  */
@@ -58,18 +62,16 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
     private UnsignedShort priority;
     private UnsignedShort weight;
     private UnsignedShort port;
-    private Labels target;
     private Domain serverName;
     private ServiceInstanceName serviceInstanceName;
 
-    private BaseServerSelectionRecord(Labels name, QClass qclass, UnsignedInt ttl, UnsignedShort priority,
-                                  UnsignedShort weight, UnsignedShort port, Labels target,
+    private BaseServerSelectionRecord(QClass qclass, UnsignedInt ttl, UnsignedShort priority,
+                                  UnsignedShort weight, UnsignedShort port,
                                   Domain serverName, ServiceInstanceName serviceInstanceName) {
-        super(name, qclass, ttl);
+        super(qclass, ttl);
         this.priority = priority;
         this.weight = weight;
         this.port = port;
-        this.target = target;
         this.serverName = serverName;
         this.serviceInstanceName = serviceInstanceName;
     }
@@ -88,11 +90,11 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
      *
      */
     @VisibleForTesting
-    public static BaseServerSelectionRecord createRecord(Labels name, QClass qclass, UnsignedInt ttl, UnsignedShort priority,
-                                                     UnsignedShort weight, UnsignedShort port, Labels target,
+    public static BaseServerSelectionRecord create(QClass qclass, UnsignedInt ttl, UnsignedShort priority,
+                                                     UnsignedShort weight, UnsignedShort port,
                                                      Domain serverName, ServiceInstanceName serviceInstanceName) {
 
-        return new BaseServerSelectionRecord(name, qclass, ttl, priority, weight, port, target,
+        return new BaseServerSelectionRecord(qclass, ttl, priority, weight, port,
                 serverName, serviceInstanceName);
     }
 
@@ -130,19 +132,18 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
     @Override
     public String toString() {
         return "SRVRecord{" +
-                "data=" + labels +
-                ", class=" + qclass +
+                "class=" + qclass +
                 ", getTtl=" + ttl +
                 ", getPriority=" + priority +
                 ", getWeight=" + weight +
                 ", getPort=" + port +
-                ", target=" + target +
+                ", server=" + serverName +
                 '}';
     }
 
     public void writeOne(ByteArrayWriter writer) {
         // Fixed part
-        writer.putNameArray(labels)
+        writer.putNameArray(serviceInstanceName.toLabels())
                 .putRecordType(RecordType.SRV)
                 .putQClass(QClass.IN)
                 .putUnsignedInt(ttl.unsignedIntValue())
@@ -152,18 +153,17 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
         writer.putUnsignedShort(priority)
                 .putUnsignedShort(weight)
                 .putUnsignedShort(port)
-                .putNameArray(target);
+                .putNameArray(serverName.toLabels());
     }
 
     public static ServerSelectionRecord fromService(InetAddress host, ServiceDescription service) {
         // FIXME
-        return new BaseServerSelectionRecord(Labels.fromList("null"),
+        return new BaseServerSelectionRecord(
                 QClass.IN,
                 service.ttl(),
                 service.priority(),
                 service.weight(),
                 service.port(),
-                Labels.fromList("target"),
                 null,
                 null);
     }
@@ -200,7 +200,7 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
          */
         @Override
         protected ServerSelectionRecord build() {
-            return new BaseServerSelectionRecord(labels, qclass, ttl, priority, weight, port, target,
+            return new BaseServerSelectionRecord(qclass, ttl, priority, weight, port,
                     serverName, serviceInstanceName);
         }
     }

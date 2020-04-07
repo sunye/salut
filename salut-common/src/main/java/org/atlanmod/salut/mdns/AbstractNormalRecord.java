@@ -39,8 +39,7 @@ public abstract class AbstractNormalRecord extends AbstractRecord implements Nor
     protected final QClass qclass;
     protected final TimeToLive ttl;
 
-    AbstractNormalRecord(Labels name, QClass qclass, UnsignedInt ttl) {
-        super(name);
+    AbstractNormalRecord(QClass qclass, UnsignedInt ttl) {
         this.qclass = qclass;
         this.ttl = TimeToLive.fromSeconds(ttl);
     }
@@ -57,11 +56,7 @@ public abstract class AbstractNormalRecord extends AbstractRecord implements Nor
 
     @Override
     public String toString() {
-        return "{" +
-                "data=" + labels +
-                ", qclass=" + qclass +
-                ", getTtl=" + ttl +
-                '}';
+        return "{" + qclass + ", " + ttl + '}';
     }
 
     @Override

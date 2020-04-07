@@ -9,16 +9,6 @@ import org.atlanmod.salut.labels.Labels;
 
 public abstract class AbstractRecord implements Record {
 
-    protected final Labels labels;
-
-    public AbstractRecord(Labels labels) {
-        this.labels = labels;
-    }
-
-    public Labels labels() {
-        return labels;
-    }
-
     public abstract void writeOne(ByteArrayWriter writer);
 
 

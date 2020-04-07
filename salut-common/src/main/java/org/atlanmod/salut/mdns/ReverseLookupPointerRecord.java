@@ -12,8 +12,8 @@ import org.atlanmod.salut.names.ServiceInstanceName;
  */
 class ReverseLookupPointerRecord extends AbstractPointerRecord {
 
-    ReverseLookupPointerRecord(Labels name, QClass qclass, UnsignedInt ttl) {
-        super(name, qclass, ttl);
+    ReverseLookupPointerRecord(QClass qclass, UnsignedInt ttl) {
+        super(qclass, ttl);
     }
 
     @Override

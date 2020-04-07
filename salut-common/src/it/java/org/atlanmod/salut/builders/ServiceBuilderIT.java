@@ -16,23 +16,19 @@ import static com.google.common.truth.Truth.*;
 
 public class ServiceBuilderIT {
 
-
-    @Disabled
     @Test
     void test()  {
         MockPublisher publisher = new MockPublisher();
         ServiceBuilder builder = new ServiceBuilder(publisher);
-        builder.name("my printer")
-                .port(221)
-                .udp()
+        builder.instance("my printer")
                 .airplay()
+                .udp()
+                .port(221)
                 .persistent()
                 .weight(200)
                 .priority(1)
                 .publish();
 
-        // ServiceInstanceName instanceName, UnsignedShort port, TransportProtocol transportProtocol, ApplicationProtocol applicationProtocol,
-        //                              Optional<String> subtype, UnsignedShort weight, UnsignedShort priority, UnsignedInt ttl
         ServiceDescription expected = new ServiceDescription(InstanceName.fromString("my printer"),
             UnsignedShort.fromInt(221),
             TransportProtocol.udp,
@@ -49,14 +45,15 @@ public class ServiceBuilderIT {
     @Disabled
     @Test
     void servicePublishingTest() {
-        Salut salut = new Salut();
-        salut.builder()
-                .service()
-                .name("apache-someuniqueid")
-                .port(80)
-                .tcp()
-                .http()
-                .publish();
+        Salut.getInstance()
+            .builder()
+            .service()
+            .instance("apache-someuniqueid")
+            .http()
+            .tcp()
+            .port(80)
+            .nonpersistent()
+            .publish();
     }
 
     static class MockPublisher implements ServicePublisher {

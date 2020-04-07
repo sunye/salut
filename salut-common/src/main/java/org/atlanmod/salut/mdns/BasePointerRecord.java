@@ -41,8 +41,8 @@ class BasePointerRecord extends AbstractPointerRecord {
 
     private PointerName server;
 
-    BasePointerRecord(Labels name, QClass qclass, UnsignedInt ttl, ServiceInstanceName instance, PointerName server) {
-        super(name, qclass, ttl);
+    BasePointerRecord(QClass qclass, UnsignedInt ttl, ServiceInstanceName instance, PointerName server) {
+        super(qclass, ttl);
         this.instance = instance;
         this.server = server;
     }
@@ -106,6 +106,6 @@ class BasePointerRecord extends AbstractPointerRecord {
     public static BasePointerRecord create(Labels name, QClass qclass, UnsignedInt ttl,
         ServiceInstanceName instance, PointerName server) {
 
-        return new BasePointerRecord(name, qclass, ttl, instance, server);
+        return new BasePointerRecord(qclass, ttl, instance, server);
     }
 }

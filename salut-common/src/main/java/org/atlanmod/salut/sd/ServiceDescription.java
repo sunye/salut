@@ -1,5 +1,6 @@
 package org.atlanmod.salut.sd;
 
+import java.util.Objects;
 import org.atlanmod.salut.data.ApplicationProtocol;
 import org.atlanmod.salut.names.InstanceName;
 import org.atlanmod.salut.data.TransportProtocol;
@@ -98,5 +99,45 @@ public class ServiceDescription {
         this.weight = weight;
         this.priority = priority;
         this.ttl = ttl;
+    }
+
+    @Override
+    public String toString() {
+        return "ServiceDescription{" +
+            "port=" + port +
+            ", weight=" + weight +
+            ", priority=" + priority +
+            ", ttl=" + ttl +
+            ", transportProtocol=" + transportProtocol +
+            ", applicationProtocol=" + applicationProtocol +
+            ", instanceName=" + instanceName +
+            ", subtype=" + subtype +
+            '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ServiceDescription that = (ServiceDescription) o;
+        return Objects.equals(port, that.port) &&
+            Objects.equals(weight, that.weight) &&
+            Objects.equals(priority, that.priority) &&
+            Objects.equals(ttl, that.ttl) &&
+            transportProtocol == that.transportProtocol &&
+            Objects.equals(applicationProtocol, that.applicationProtocol) &&
+            Objects.equals(instanceName, that.instanceName) &&
+            Objects.equals(subtype, that.subtype);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects
+            .hash(port, weight, priority, ttl, transportProtocol, applicationProtocol, instanceName,
+                subtype);
     }
 }

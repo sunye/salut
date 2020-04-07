@@ -32,8 +32,8 @@ import org.atlanmod.salut.labels.Labels;
 public class TextRecord extends AbstractNormalRecord {
     private List<String> properties;
 
-    private TextRecord(Labels name, QClass qclass, UnsignedInt ttl, List<String> properties) {
-        super(name, qclass, ttl);
+    private TextRecord( QClass qclass, UnsignedInt ttl, List<String> properties) {
+        super(qclass, ttl);
         this.properties = properties;
     }
 
@@ -58,7 +58,7 @@ public class TextRecord extends AbstractNormalRecord {
 
         @Override
         protected TextRecord build() {
-            return new TextRecord(labels, qclass, ttl, properties);
+            return new TextRecord(qclass, ttl, properties);
         }
     }
 }

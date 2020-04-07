@@ -4,7 +4,7 @@ import org.atlanmod.salut.data.*;
 import org.atlanmod.salut.domains.Domain;
 
 public class QueryBuilder implements SetServiceTransportProtocol,
-        SetServiceApplicationProtocol, IQuery {
+    QueryApplicationProtocolModifier, IQuery {
 
     private ApplicationProtocol applicationProtocol;
     private TransportProtocol transportProtocol;
@@ -34,13 +34,13 @@ public class QueryBuilder implements SetServiceTransportProtocol,
     }
 
     @Override
-    public SetServiceApplicationProtocol udp() {
+    public QueryApplicationProtocolModifier udp() {
         transportProtocol = TransportProtocol.udp;
         return this;
     }
 
     @Override
-    public SetServiceApplicationProtocol tcp() {
+    public QueryApplicationProtocolModifier tcp() {
         transportProtocol = TransportProtocol.tcp;
         return this;
     }

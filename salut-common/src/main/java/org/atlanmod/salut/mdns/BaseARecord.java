@@ -28,8 +28,8 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
     private final Inet4Address address;
     private final Domain serverName;
 
-    private BaseARecord(Labels name, QClass qclass, UnsignedInt ttl, Inet4Address address, Domain serverName) {
-        super(name, qclass, ttl);
+    private BaseARecord(QClass qclass, UnsignedInt ttl, Inet4Address address, Domain serverName) {
+        super(qclass, ttl);
         this.address = address;
         this.serverName = serverName;
     }
@@ -51,8 +51,7 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
     @Override
     public String toString() {
         return "ARecord{" +
-                "data=" + labels +
-                ", getAddress=" + address +
+                "address=" + address +
                 ", ttl="+ttl +
                 '}';
     }
@@ -60,7 +59,7 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
     public void writeOn(ByteArrayWriter writer) {
 
         // Fixed part
-        writer.putNameArray(labels)
+        writer.putNameArray(serverName.toLabels())
                 .putRecordType(RecordType.A)
                 .putQClass(QClass.IN)
                 .putUnsignedInt(ttl.unsignedIntValue())
@@ -114,13 +113,13 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
 
         @Override
         protected ARecord build() {
-            return new BaseARecord(labels, qclass, ttl, address, serverName);
+            return new BaseARecord(qclass, ttl, address, serverName);
         }
 
     }
 
     @VisibleForTesting
-    public static BaseARecord createRecord(Labels name, QClass qclass, UnsignedInt ttl, Inet4Address address, Domain serverName) {
-        return new BaseARecord(name, qclass, ttl, address, serverName);
+    public static BaseARecord createRecord(QClass qclass, UnsignedInt ttl, Inet4Address address, Domain serverName) {
+        return new BaseARecord(qclass, ttl, address, serverName);
     }
 }
