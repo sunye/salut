@@ -1,8 +1,8 @@
 package org.atlanmod.salut.io;
 
 import org.atlanmod.commons.primitive.Bytes;
-import org.atlanmod.salut.data.Label;
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.labels.Label;
+import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.mdns.QClass;
 import org.atlanmod.salut.mdns.RecordType;
 
@@ -55,7 +55,7 @@ public class ByteArrayWriter {
      * @param names an array of names
      * @return This ByteArrayWriter
      */
-    public ByteArrayWriter putNameArray(LabelArray names) {
+    public ByteArrayWriter putNameArray(Labels names) {
         for (Label each : names.getLabels()) {
             this.putLabel(each.toString());
         }

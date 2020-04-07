@@ -1,12 +1,14 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.data.ServiceInstanceName;
-import org.atlanmod.salut.data.ServiceName;
+import org.atlanmod.salut.io.ByteArrayWriter;
+import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.salut.names.PointerName;
+import org.atlanmod.salut.names.ServiceInstanceName;
 import org.atlanmod.salut.io.UnsignedInt;
 
 public class MetaQueryPointerRecord extends AbstractPointerRecord {
 
-    public MetaQueryPointerRecord(LabelArray name, QClass qclass, UnsignedInt ttl) {
+    public MetaQueryPointerRecord(Labels name, QClass qclass, UnsignedInt ttl) {
         super(name, qclass, ttl);
     }
 
@@ -16,8 +18,13 @@ public class MetaQueryPointerRecord extends AbstractPointerRecord {
     }
 
     @Override
-    public ServiceName serviceName() {
+    public PointerName pointerName() {
         return null;
     }
 
+    @Override
+    public void writeOne(ByteArrayWriter writer) {
+        // TODO
+        throw new UnsupportedOperationException();
+    }
 }

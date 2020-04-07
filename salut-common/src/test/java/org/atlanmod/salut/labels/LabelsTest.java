@@ -1,7 +1,6 @@
-package org.atlanmod.salut.mdns;
+package org.atlanmod.salut.labels;
 
 import org.atlanmod.commons.collect.MoreArrays;
-import org.atlanmod.salut.data.Label;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +8,7 @@ import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class LabelArrayTest {
+class LabelsTest {
     Label mydomain = Label.create("mydomain");
     Label com = Label.create("com");
     Label printer = Label.create("printer");
@@ -23,7 +22,7 @@ class LabelArrayTest {
         byte[] bytes = {8, 109, 121, 100, 111, 109, 97, 105, 110,
                 3, 99, 111, 109, 0};
 
-        LabelArray qname = LabelArray.fromByteBuffer(ByteArrayReader.wrap(bytes));
+        Labels qname = Labels.fromByteBuffer(ByteArrayReader.wrap(bytes));
 
         assertTrue(qname.size() == 2);
         assertTrue(qname.contains(mydomain));
@@ -44,8 +43,8 @@ class LabelArrayTest {
 
         byte[] bytes = MoreArrays.addAll(first, second);
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        LabelArray qnameFirst = LabelArray.fromByteBuffer(bb);
-        LabelArray qnameSecond = LabelArray.fromByteBuffer(bb);
+        Labels qnameFirst = Labels.fromByteBuffer(bb);
+        Labels qnameSecond = Labels.fromByteBuffer(bb);
 
         assertTrue(qnameFirst.size() == 2);
         assertTrue(qnameFirst.contains(mydomain));
@@ -75,7 +74,7 @@ class LabelArrayTest {
         byte[] buffer = MoreArrays.addAll(firstPart, secondPart);
 
         ByteArrayReader bb = ByteArrayReader.wrap(buffer);
-        LabelArray qname = LabelArray.fromByteBuffer(bb, firstPart.length);
+        Labels qname = Labels.fromByteBuffer(bb, firstPart.length);
 
         assertTrue(qname.size() == 3);
         assertTrue(qname.contains(www));

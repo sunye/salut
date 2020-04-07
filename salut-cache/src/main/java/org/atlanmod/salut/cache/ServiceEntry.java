@@ -1,6 +1,7 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.data.ServiceName;
+import org.atlanmod.salut.names.PointerName;
+import org.atlanmod.salut.names.ServiceName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,10 @@ public class ServiceEntry {
 
     protected ServiceEntry(ServiceName name) {
         this.name = name;
+    }
+
+    protected ServiceEntry(PointerName name) {
+        this(name.service());
     }
 
     public ServiceName name() {

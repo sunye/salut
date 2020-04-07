@@ -1,9 +1,16 @@
-package org.atlanmod.salut.data;
+package org.atlanmod.salut.names;
 
 import static com.google.common.truth.Truth.assertThat;
 
 import java.text.ParseException;
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.data.ApplicationProtocol;
+import org.atlanmod.salut.data.ApplicationProtocolBuilder;
+import org.atlanmod.salut.domains.Domain;
+import org.atlanmod.salut.domains.DomainBuilder;
+import org.atlanmod.salut.data.IANAApplicationProtocol;
+import org.atlanmod.salut.domains.LocalHostName;
+import org.atlanmod.salut.data.TransportProtocol;
+import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +24,7 @@ class ServiceInstanceNameTest {
     @BeforeEach
     void beforeEach() throws ParseException {
         printer = ServiceInstanceName
-            .fromNameArray(LabelArray.fromList("PrintsAlot", "airplay", "tcp", "MacBook", "local"));
+            .fromLabels(Labels.fromList("PrintsAlot", "airplay", "tcp", "MacBook", "local"));
 
         music = ServiceInstanceName
             .parseString("iTunes.airplay.tcp.MacBook.local");
@@ -77,7 +84,7 @@ class ServiceInstanceNameTest {
         + "Then the expected Domain Name is 'MacBook' ")
     @Test
     void create_service_instance_name_from_string_check_domain_name() throws ParseException {
-        assertThat(music.domain()).isEqualTo(new LocalDomain("MacBook"));
+        assertThat(music.domain()).isEqualTo(LocalHostName.fromString("MacBook"));
     }
 
     @DisplayName("Given two equivalent service instance names"
@@ -86,13 +93,13 @@ class ServiceInstanceNameTest {
     @Test
     void test_equals() throws ParseException {
         ServiceInstanceName one =
-        ServiceInstanceName.createServiceName(InstanceName.fromString("canon-mg5300"),
+        ServiceInstanceName.createServiceInstanceName(InstanceName.fromString("canon-mg5300"),
             ServiceName.fromStrings("ipp", "tcp"),
-            LocalDomain.fromString("mac-pro"));
+            LocalHostName.fromString("mac-pro"));
         ServiceInstanceName other =
-            ServiceInstanceName.createServiceName(InstanceName.fromString("canon-mg5300"),
+            ServiceInstanceName.createServiceInstanceName(InstanceName.fromString("canon-mg5300"),
                 ServiceName.fromStrings("ipp", "tcp"),
-                LocalDomain.fromString("mac-pro"));
+                LocalHostName.fromString("mac-pro"));
 
         assertThat(one).isEqualTo(other);
     }

@@ -1,11 +1,14 @@
 package org.atlanmod.salut.mdns;
 
 import org.atlanmod.commons.log.Log;
-import org.atlanmod.salut.data.*;
+import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedInt;
 
 import java.text.ParseException;
+import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.salut.names.PointerName;
+import org.atlanmod.salut.names.ServiceInstanceName;
 
 /**
  * The `PointerRecord` class represents DNS Domain name pointer record (PTR).
@@ -23,7 +26,7 @@ import java.text.ParseException;
  */
 public abstract class AbstractPointerRecord extends AbstractNormalRecord implements PointerRecord {
 
-    AbstractPointerRecord(LabelArray name, QClass qclass, UnsignedInt ttl) {
+    AbstractPointerRecord(Labels name, QClass qclass, UnsignedInt ttl) {
         super(name, qclass, ttl);
     }
 
@@ -42,19 +45,8 @@ public abstract class AbstractPointerRecord extends AbstractNormalRecord impleme
     private static class PTRRecordParser extends NormalRecordParser<PointerRecord> {
         private boolean isReverseLookup = false;
         private boolean isMetaQuery = false;
-        protected  ServiceInstanceName pointerName;
-        protected  ServiceName serviceName;
-
-
-        /**
-         *
-         * @return The type of the service that is being declared.
-         */
-        public ServiceName getServiceName() {
-            return this.serviceName;
-        }
-
-
+        protected ServiceInstanceName instance;
+        protected PointerName service;
 
         /**
          * Parses the variable part of a PTR record.
@@ -64,23 +56,23 @@ public abstract class AbstractPointerRecord extends AbstractNormalRecord impleme
          */
         @Override
         protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
-            LabelArray ptrName = LabelArray.fromByteBuffer(buffer);
-            Log.info("PTR(pointerName={0}, serviceName={1})", ptrName, name);
+            // TODO Consider dataLength
 
-            if (Domain.ARPA.equals(name.last().toString())) {
+            Labels instanceLabels = Labels.fromByteBuffer(buffer);
+            Log.info("PTR(pointerName={0}, serviceName={1})", instanceLabels, labels);
+
+            if (Domain.ARPA.equals(labels.last().toString())) {
                 // There should be a better way to determine whether the pointer record is a
                 // reverse lookup.
-                Log.warn("Reverse Pointer: {0} ", name);
+                Log.warn("Reverse Pointer: {0} ", labels);
                 isReverseLookup = true;
-            } else if ("_services".equals(name.first().toString())) {
-                Log.warn("Meta Query Pointer: {0} ", name);
+            } else if ("_services".equals(labels.first().toString())) {
+                Log.warn("Meta Query Pointer: {0} ", labels);
                 isMetaQuery = true;
             }
             else {
-                pointerName = ServiceInstanceName.fromNameArray(ptrName);
-                Log.info("---");
-                // Ignore domain, parse only Service Name
-                serviceName = ServiceName.fromLabelArray(name.subArray(0,2));
+                service = PointerName.fromLabels(labels);
+                instance = ServiceInstanceName.fromLabels(instanceLabels);
             }
         }
 
@@ -90,12 +82,12 @@ public abstract class AbstractPointerRecord extends AbstractNormalRecord impleme
         @Override
         protected PointerRecord build() {
             if (isReverseLookup) {
-                return new ReverseLookupPointerRecord(name, qclass, ttl);
+                return new ReverseLookupPointerRecord(labels, qclass, ttl);
             } else if (isMetaQuery) {
-                return new MetaQueryPointerRecord(name, qclass, ttl);
+                return new MetaQueryPointerRecord(labels, qclass, ttl);
             }
             else {
-                return new NormalPointerRecord(name, qclass, ttl, pointerName, serviceName);
+                return new BasePointerRecord(labels, qclass, ttl, instance, service);
             }
         }
     }

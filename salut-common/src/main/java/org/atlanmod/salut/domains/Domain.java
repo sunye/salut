@@ -1,6 +1,7 @@
-package org.atlanmod.salut.data;
+package org.atlanmod.salut.domains;
 
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.labels.Label;
+import org.atlanmod.salut.labels.Labels;
 
 /**
  *
@@ -27,5 +28,7 @@ public interface Domain {
     String IP4          = "in-addr";
     String IP6          = "ip6";
 
-    LabelArray toNameArray();
+    Label LOCAL_LABEL   = Label.create(LOCAL_STR);
+
+    Labels toLabels();
 }

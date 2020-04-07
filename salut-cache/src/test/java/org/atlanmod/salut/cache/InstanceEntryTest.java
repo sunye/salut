@@ -1,9 +1,9 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.labels.Labels;
 
 class InstanceEntryTest {
-    private LabelArray names = LabelArray.fromList("MacBook", "local");
+    private Labels names = Labels.fromList("MacBook", "local");
     private ServiceEntry entry;
 
     /*

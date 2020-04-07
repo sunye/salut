@@ -5,6 +5,7 @@ import org.atlanmod.salut.io.ByteArrayReader;
 
 import java.text.ParseException;
 import java.util.Optional;
+import org.atlanmod.salut.labels.Labels;
 
 /**
  * The question section is used to carry the "question" in most queries,
@@ -45,7 +46,7 @@ public class Question {
     /**
      * Label of the node to which the query pertains
      */
-    private final LabelArray name;
+    private final Labels name;
 
     /**
      * unicast-response bit
@@ -54,7 +55,7 @@ public class Question {
     private final RecordType type;
     private QClass qclass;
 
-    private Question(LabelArray name, RecordType type, QClass qclass, boolean isQU) {
+    private Question(Labels name, RecordType type, QClass qclass, boolean isQU) {
         this.name = name;
         this.type = type;
         this.qclass = qclass;
@@ -78,7 +79,7 @@ public class Question {
         to indicate that unicast responses are preferred for this particular question.  (See Section 5.4.)
          */
 
-        LabelArray qname  = LabelArray.fromByteBuffer(buffer);
+        Labels qname  = Labels.fromByteBuffer(buffer);
         RecordType qtype  = buffer.readRecordType();
         int code          = buffer.getUnsignedShort().intValue();
         boolean requiresUnicast = code >= 0x8000;

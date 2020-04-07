@@ -4,18 +4,22 @@ import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.io.ByteArrayReader;
 
 import java.text.ParseException;
+import org.atlanmod.salut.io.ByteArrayWriter;
+import org.atlanmod.salut.labels.Labels;
 
 public abstract class AbstractRecord implements Record {
 
-    protected final LabelArray names;
+    protected final Labels labels;
 
-    public AbstractRecord(LabelArray names) {
-        this.names = names;
+    public AbstractRecord(Labels labels) {
+        this.labels = labels;
     }
 
-    public LabelArray name() {
-        return names;
+    public Labels labels() {
+        return labels;
     }
+
+    public abstract void writeOne(ByteArrayWriter writer);
 
 
     /**
@@ -30,7 +34,7 @@ public abstract class AbstractRecord implements Record {
      */
     public static AbstractRecord fromByteBuffer(ByteArrayReader reader) throws ParseException {
         ParserFactory factory =  ParserFactory.getInstance();
-        LabelArray qname = LabelArray.fromByteBuffer(reader);
+        Labels qname = Labels.fromByteBuffer(reader);
         RecordType qtype = reader.readRecordType();
         RecordParser<AbstractRecord> parser = factory.getParser(qtype);
 

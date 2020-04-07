@@ -1,6 +1,7 @@
 package org.atlanmod.salut.data;
 
 import java.util.Map;
+import org.atlanmod.salut.labels.Label;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toMap;

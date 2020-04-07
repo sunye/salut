@@ -1,9 +1,12 @@
-package org.atlanmod.salut.data;
+package org.atlanmod.salut.names;
 
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.commons.log.Log;
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.data.ApplicationProtocol;
+import org.atlanmod.salut.data.ApplicationProtocolBuilder;
+import org.atlanmod.salut.data.TransportProtocol;
+import org.atlanmod.salut.labels.Labels;
 
 import java.text.ParseException;
 import java.util.Objects;
@@ -24,12 +27,8 @@ import java.util.Objects;
  * <p>
  * The record contains just one piece of information, the name of the service instance (which is the same as the name
  * of the SRV record).
- * PTR records are accordingly named just like SRV records but without the instance name:
- * <p>
- * <Service Name>.<Domain>
- * Example: _printer._tcp.local.
  */
-public class ServiceName {
+public class ServiceName implements Name {
     private ApplicationProtocol application;
     private TransportProtocol transport;
 
@@ -66,7 +65,7 @@ public class ServiceName {
         return Objects.hash(application, transport);
     }
 
-    public static ServiceName fromLabelArray(LabelArray names) throws ParseException {
+    public static ServiceName fromLabels(Labels names) throws ParseException {
         Log.info("Parsing Service Name: {0}", names);
         Preconditions.checkArgument(names.size() == 2, "Expecting 2 names, found " + names.size());
 
@@ -97,4 +96,8 @@ public class ServiceName {
                 TransportProtocol.fromString(labels[1]));
     }
 
+    @Override
+    public Labels toLabels() {
+        return Labels.fromList(application.name(), transport.name());
+    }
 }

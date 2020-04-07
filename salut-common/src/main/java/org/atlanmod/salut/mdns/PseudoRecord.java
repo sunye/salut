@@ -1,10 +1,12 @@
 package org.atlanmod.salut.mdns;
 
 import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedByte;
 import org.atlanmod.salut.io.UnsignedShort;
 
 import java.text.ParseException;
+import org.atlanmod.salut.labels.Labels;
 
 /**
  * From rfc 6891
@@ -64,7 +66,7 @@ public class PseudoRecord extends AbstractRecord {
     private UnsignedByte    version;
     private UnsignedShort   rdlen;
 
-    public PseudoRecord(LabelArray name, UnsignedShort payload, UnsignedByte extendedRCode,
+    public PseudoRecord(Labels name, UnsignedShort payload, UnsignedByte extendedRCode,
                         UnsignedByte version, UnsignedShort rdlen) {
         super(name);
         this.payload = payload;
@@ -87,10 +89,16 @@ public class PseudoRecord extends AbstractRecord {
         return new PseudoRecordBuilder();
     }
 
+    @Override
+    public void writeOne(ByteArrayWriter writer) {
+        // TODO
+        throw new UnsupportedOperationException();
+    }
+
     private static class PseudoRecordBuilder implements RecordParser<PseudoRecord> {
 
         @Override
-        public PseudoRecord parse(LabelArray name, ByteArrayReader buffer) throws ParseException {
+        public PseudoRecord parse(Labels name, ByteArrayReader buffer) throws ParseException {
             UnsignedShort optionCode = buffer.getUnsignedShort();
             UnsignedShort payload = buffer.getUnsignedShort();
             UnsignedByte extendedRCode = buffer.getUnsignedByte();

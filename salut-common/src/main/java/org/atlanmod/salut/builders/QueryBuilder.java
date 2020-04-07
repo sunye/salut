@@ -1,6 +1,7 @@
 package org.atlanmod.salut.builders;
 
 import org.atlanmod.salut.data.*;
+import org.atlanmod.salut.domains.Domain;
 
 public class QueryBuilder implements SetServiceTransportProtocol,
         SetServiceApplicationProtocol, IQuery {

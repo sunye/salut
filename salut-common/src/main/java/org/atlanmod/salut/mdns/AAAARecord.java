@@ -1,14 +1,16 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.data.Domain;
-import org.atlanmod.salut.data.DomainBuilder;
+import org.atlanmod.salut.domains.Domain;
+import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
+import org.atlanmod.salut.labels.Labels;
 
 /**
  * The `AAAARecord` class represents DNS IP6 getAddress records (AAAA).
@@ -24,7 +26,7 @@ public class AAAARecord extends AbstractNormalRecord {
     private Inet6Address address;
     private Domain serverName;
 
-    private AAAARecord(LabelArray name, QClass qclass, UnsignedInt ttl, Inet6Address address,
+    private AAAARecord(Labels name, QClass qclass, UnsignedInt ttl, Inet6Address address,
                        Domain serverName) {
         super(name, qclass, ttl);
         this.address = address;
@@ -53,8 +55,14 @@ public class AAAARecord extends AbstractNormalRecord {
     public String toString() {
         return "AAAARecord{" +
                 "getAddress=" + address +
-                ", data=" + names +
+                ", data=" + labels +
                 '}';
+    }
+
+    @Override
+    public void writeOne(ByteArrayWriter writer) {
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     private static class AAAARecordParser extends NormalRecordParser<AAAARecord> {
@@ -74,12 +82,12 @@ public class AAAARecord extends AbstractNormalRecord {
 
         protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
             address = (Inet6Address) parseInet6Address(buffer);
-            serverName = DomainBuilder.fromLabels(name);
+            serverName = DomainBuilder.fromLabels(labels);
         }
 
         @Override
         protected AAAARecord build() {
-            return new AAAARecord(name, qclass, ttl, address, serverName);
+            return new AAAARecord(labels, qclass, ttl, address, serverName);
         }
 
     }

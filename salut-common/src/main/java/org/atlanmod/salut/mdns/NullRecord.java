@@ -1,9 +1,11 @@
 package org.atlanmod.salut.mdns;
 
 import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 
 import java.text.ParseException;
+import org.atlanmod.salut.labels.Labels;
 
 /**
  *
@@ -12,14 +14,14 @@ import java.text.ParseException;
 public class NullRecord extends AbstractRecord {
 
 
-    public NullRecord(LabelArray name) {
+    public NullRecord(Labels name) {
         super(name);
     }
 
     @Override
     public String toString() {
         return "NullRecord{" +
-                "data=" + names +
+                "data=" + labels +
                 '}';
     }
 
@@ -27,10 +29,16 @@ public class NullRecord extends AbstractRecord {
         return new NullRecordParser();
     }
 
+    @Override
+    public void writeOne(ByteArrayWriter writer) {
+        // TODO
+        throw new UnsupportedOperationException();
+    }
+
     private static class NullRecordParser implements RecordParser<NullRecord> {
 
         @Override
-        public NullRecord parse(LabelArray name, ByteArrayReader buffer) throws ParseException {
+        public NullRecord parse(Labels name, ByteArrayReader buffer) throws ParseException {
             QClass qclass = QClass.fromByteBuffer(buffer);
             UnsignedInt ttl = buffer.getUnsignedInt();
             int dataLength = buffer.getUnsignedShort().intValue();

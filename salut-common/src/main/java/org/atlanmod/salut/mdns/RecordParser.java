@@ -3,7 +3,8 @@ package org.atlanmod.salut.mdns;
 import org.atlanmod.salut.io.ByteArrayReader;
 
 import java.text.ParseException;
+import org.atlanmod.salut.labels.Labels;
 
 public interface RecordParser<T extends Record> {
-    T parse(LabelArray name, ByteArrayReader buffer) throws ParseException;
+    T parse(Labels name, ByteArrayReader buffer) throws ParseException;
 }

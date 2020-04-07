@@ -1,4 +1,4 @@
-package org.atlanmod.salut.data;
+package org.atlanmod.salut.domains;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -6,7 +6,9 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.UnknownHostException;
 import java.text.ParseException;
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.data.ReverseInet4Address;
+import org.atlanmod.salut.data.ReverseInet6Address;
+import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +19,7 @@ class DomainBuilderTest {
         + "Then: a Reverse INet4 Address is created")
     @Test
     void create_reverse_inet4_from_labels() throws ParseException, UnknownHostException {
-        LabelArray names = LabelArray.fromList("10", "44", "192", "220", "in-addr", "arpa");
+        Labels names = Labels.fromList("10", "44", "192", "220", "in-addr", "arpa");
         Domain actual = DomainBuilder.fromLabels(names);
 
         ReverseInet4Address expected = new ReverseInet4Address(
@@ -31,7 +33,7 @@ class DomainBuilderTest {
         + "Then: a Reverse INet6 Address is created")
     @Test
     void create_reverse_inet6_from_labels() throws ParseException, UnknownHostException {
-        LabelArray names = LabelArray.fromList("1", "1", "4", "4", "0", "b", "4", "0", "8",
+        Labels names = Labels.fromList("1", "1", "4", "4", "0", "b", "4", "0", "8",
             "a", "9", "9", "c", "0", "8", "8", "0", "0", "0", "0", "0", "0", "0", "0", "0",
             "0", "0", "0", "c", "0", "b", "4", "ip6", "arpa");
         Domain actual = DomainBuilder.fromLabels(names);
@@ -47,10 +49,10 @@ class DomainBuilderTest {
         + "Then: a Local Domain is created")
     @Test
     void create_local_domain_from_labels() throws ParseException {
-        LabelArray labels = LabelArray.fromList("appletv", "local");
+        Labels labels = Labels.fromList("appletv", "local");
         Domain actual = DomainBuilder.fromLabels(labels);
 
-        Domain expected = new LocalDomain("appletv");
+        Domain expected = new LocalHostName("appletv");
 
         assertThat(actual).isEqualTo(expected);
     }
@@ -60,7 +62,7 @@ class DomainBuilderTest {
         + "Then: a Internet Domain is created")
     @Test
     void create_internet_domain_from_labels() throws ParseException {
-        LabelArray labels = LabelArray.fromList("smtp", "nantes", "org");
+        Labels labels = Labels.fromList("smtp", "nantes", "org");
         Domain actual = DomainBuilder.fromLabels(labels);
 
         Domain expected = new InternetDomain(labels);
@@ -76,8 +78,19 @@ class DomainBuilderTest {
         String name = "smtp.nantes.fr";
         Domain actual = DomainBuilder.parseString(name);
 
-        Domain expected = new InternetDomain(LabelArray.fromList("smtp", "nantes", "fr"));
+        Domain expected = new InternetDomain(Labels.fromList("smtp", "nantes", "fr"));
 
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @DisplayName("Given a string only containing 'local' "
+        + "When parseString() is called"
+        + "Then an Local Domain is created")
+    @Test
+    void create_local_domain() throws ParseException {
+        String name = "local";
+        Domain actual = DomainBuilder.parseString(name);
+
+        assertThat(actual).isEqualTo(LocalDomain.getInstance());
     }
 }

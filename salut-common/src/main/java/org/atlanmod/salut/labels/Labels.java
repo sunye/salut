@@ -1,7 +1,6 @@
-package org.atlanmod.salut.mdns;
+package org.atlanmod.salut.labels;
 
 import org.atlanmod.commons.Preconditions;
-import org.atlanmod.salut.data.Label;
 import org.atlanmod.salut.io.ByteArrayReader;
 
 import javax.annotation.Nonnull;
@@ -11,11 +10,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class LabelArray {
+public class Labels {
 
     private final List<Label> labels;
 
-    private LabelArray(List<Label> labels) {
+    private Labels(List<Label> labels) {
         this.labels = labels;
     }
 
@@ -26,9 +25,9 @@ public class LabelArray {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof LabelArray)) return false;
-        LabelArray labelArray = (LabelArray) o;
-        return Objects.equals(labels, labelArray.labels);
+        if (!(o instanceof Labels)) return false;
+        Labels labels = (Labels) o;
+        return Objects.equals(this.labels, labels.labels);
     }
 
     @Override
@@ -50,21 +49,22 @@ public class LabelArray {
      *
      * @param name the name (label) to add.
      */
-    public void add(@Nonnull Label name) {
+    public Labels add(@Nonnull Label name) {
         Preconditions.checkNotNull(name);
 
         this.labels.add(name);
+        return this;
     }
 
     /**
      * Adds (concatenates) all labels of another LabelArray to this one.
      *
-     * @param labelArray the LabelArray containing the labels to add.
+     * @param labels the LabelArray containing the labels to add.
      */
-    public void addAll(LabelArray labelArray) {
-        Preconditions.checkNotNull(labelArray);
-
-        this.labels.addAll(labelArray.getLabels());
+    public Labels addAll(Labels labels) {
+        Preconditions.checkNotNull(labels);
+        this.labels.addAll(labels.getLabels());
+        return this;
     }
 
     public Label get(int index ) {
@@ -89,8 +89,8 @@ public class LabelArray {
         return labels;
     }
 
-    public LabelArray subArray(int fromIndex, int toIndex) {
-        return new LabelArray(labels.subList(fromIndex, toIndex));
+    public Labels subArray(int fromIndex, int toIndex) {
+        return new Labels(labels.subList(fromIndex, toIndex));
     }
 
     /**
@@ -104,25 +104,25 @@ public class LabelArray {
      * @param buffer a byte array buffer containing an encoded qualified name.
      * @return a new name array instance
      */
-    public static LabelArray fromByteBuffer(ByteArrayReader buffer, int position) throws ParseException {
+    public static Labels fromByteBuffer(ByteArrayReader buffer, int position) throws ParseException {
         buffer.position(position);
         return buffer.readLabels();
     }
 
-    public static LabelArray fromByteBuffer(ByteArrayReader buffer) throws ParseException {
-        return LabelArray.fromByteBuffer(buffer, buffer.position());
+    public static Labels fromByteBuffer(ByteArrayReader buffer) throws ParseException {
+        return Labels.fromByteBuffer(buffer, buffer.position());
     }
 
-    public static LabelArray fromArray(String[] strings) {
+    public static Labels fromArray(String[] strings) {
         List<Label> labels = new ArrayList<>(strings.length);
         for (String each: strings) {
             labels.add(Label.create(each));
         }
-        return new LabelArray(labels);
+        return new Labels(labels);
     }
 
-    public static LabelArray fromArray(Label[] strings) {
-        return new LabelArray(Arrays.asList(strings));
+    public static Labels fromArray(Label[] strings) {
+        return new Labels(Arrays.asList(strings));
     }
 
     /**
@@ -130,8 +130,8 @@ public class LabelArray {
      *
      * @return a LabelArray instance
      */
-    public static LabelArray create() {
-        return new LabelArray(new ArrayList<Label>());
+    public static Labels create() {
+        return new Labels(new ArrayList<Label>());
     }
 
     /**
@@ -140,8 +140,8 @@ public class LabelArray {
      *
      * @return a new name array
      */
-    public static LabelArray fromList(Label... names) {
-        return new LabelArray(Arrays.asList(names));
+    public static Labels fromList(Label... names) {
+        return new Labels(Arrays.asList(names));
     }
 
     /**
@@ -150,8 +150,20 @@ public class LabelArray {
      *
      * @return a new name array
      */
-    public static LabelArray fromList(String ... names) {
-        return  LabelArray.fromArray(names);
+    public static Labels fromList(String ... names) {
+        return  Labels.fromArray(names);
     }
 
+
+    /**
+     * The sum of the sizes, in octets, of all labels when written on a byte array
+     */
+    public int dataLength() {
+        int length = 0;
+        for (Label each : labels) {
+            length += each.dataLength();
+        }
+
+        return length;
+    }
 }

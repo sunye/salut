@@ -14,9 +14,9 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.annotation.VisibleForTesting;
-import org.atlanmod.salut.data.Domain;
-import org.atlanmod.salut.data.ServiceInstanceName;
-import org.atlanmod.salut.data.ServiceName;
+import org.atlanmod.salut.domains.Domain;
+import org.atlanmod.salut.names.ServiceInstanceName;
+import org.atlanmod.salut.names.ServiceName;
 import org.atlanmod.salut.mdns.ARecord;
 import org.atlanmod.salut.mdns.PointerRecord;
 import org.atlanmod.salut.mdns.ServerSelectionRecord;
@@ -108,7 +108,7 @@ public class BaseCache implements Cache {
 
     @Override
     public synchronized void cache(PointerRecord ptr) {
-        ServiceName name = ptr.serviceName();
+        ServiceName name = ptr.pointerName().service();
         ServiceInstanceName instanceName = ptr.serviceInstanceName();
 
         ServiceEntry service = services.computeIfAbsent(name, k -> new ServiceEntry(name));

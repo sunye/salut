@@ -1,6 +1,6 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.data.Domain;
+import org.atlanmod.salut.domains.Domain;
 
 import java.util.ArrayList;
 import java.util.List;

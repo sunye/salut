@@ -1,12 +1,13 @@
 package org.atlanmod.salut.mdns;
 
 import org.atlanmod.commons.log.Log;
-import org.atlanmod.salut.data.Label;
 import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 
 import java.text.ParseException;
 import java.util.List;
+import org.atlanmod.salut.labels.Labels;
 
 /**
  * From [RFC6763](https://tools.ietf.org/html/rfc6763#page-31)
@@ -29,29 +30,35 @@ import java.util.List;
  * ```
  */
 public class TextRecord extends AbstractNormalRecord {
-    private List<String> labels;
+    private List<String> properties;
 
-    private TextRecord(LabelArray name, QClass qclass, UnsignedInt ttl, List<String> labels) {
+    private TextRecord(Labels name, QClass qclass, UnsignedInt ttl, List<String> properties) {
         super(name, qclass, ttl);
-        this.labels = labels;
+        this.properties = properties;
     }
 
     public static RecordParser<TextRecord> parser() {
         return new TextRecordParser();
     }
 
+    @Override
+    public void writeOne(ByteArrayWriter writer) {
+        // TODO
+        throw new UnsupportedOperationException();
+    }
+
     private static class TextRecordParser extends NormalRecordParser<TextRecord> {
 
-        private List<String> labels;
+        private List<String> properties;
 
         protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
             Log.info("Data length = {0}", dataLength);
-            labels = buffer.readTextDataStrings(dataLength);
+            properties = buffer.readTextDataStrings(dataLength);
         }
 
         @Override
         protected TextRecord build() {
-            return new TextRecord(name, qclass, ttl, labels);
+            return new TextRecord(labels, qclass, ttl, properties);
         }
     }
 }

@@ -90,4 +90,5 @@ public enum IANAApplicationProtocol {
     public static IANAApplicationProtocol fromString(String label) {
         return MAP.getOrDefault(label, IANAApplicationProtocol.unknown);
     }
+
 }

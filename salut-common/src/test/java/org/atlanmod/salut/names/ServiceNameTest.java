@@ -1,7 +1,9 @@
-package org.atlanmod.salut.data;
+package org.atlanmod.salut.names;
 
-import org.atlanmod.salut.mdns.LabelArray;
-import org.junit.Before;
+import org.atlanmod.salut.data.ApplicationProtocol;
+import org.atlanmod.salut.data.ApplicationProtocolBuilder;
+import org.atlanmod.salut.data.TransportProtocol;
+import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,7 +57,7 @@ class ServiceNameTest {
         + "Then the service name is 'ipp.tcp' ")
     @Test
     void create_from_labels() throws ParseException {
-        ServiceName name = ServiceName.fromLabelArray(LabelArray.fromList("ipp", "tcp"));
+        ServiceName name = ServiceName.fromLabels(Labels.fromList("ipp", "tcp"));
         ServiceName expected =  ServiceName.create(ApplicationProtocolBuilder.fromString("ipp"), TransportProtocol.tcp);
 
         assertThat(name).isEqualTo(expected);

@@ -1,7 +1,7 @@
 package org.atlanmod.salut.mdns;
 
 import java.net.Inet4Address;
-import org.atlanmod.salut.data.Domain;
+import org.atlanmod.salut.domains.Domain;
 
 public interface ARecord extends NormalRecord {
 

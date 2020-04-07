@@ -1,6 +1,6 @@
-package org.atlanmod.salut.data;
+package org.atlanmod.salut.domains;
 
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.labels.Labels;
 
 /**
  * Conventional Unicast DNS domain name.
@@ -10,9 +10,9 @@ import org.atlanmod.salut.mdns.LabelArray;
  */
 public class InternetDomain implements Domain {
 
-    private final LabelArray names;
+    private final Labels names;
 
-    public InternetDomain(LabelArray names) {
+    public InternetDomain(Labels names) {
         this.names = names;
     }
 
@@ -24,7 +24,7 @@ public class InternetDomain implements Domain {
     }
 
     @Override
-    public LabelArray toNameArray() {
+    public Labels toLabels() {
         return names;
     }
 

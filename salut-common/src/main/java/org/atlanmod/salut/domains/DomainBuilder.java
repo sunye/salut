@@ -1,7 +1,10 @@
-package org.atlanmod.salut.data;
+package org.atlanmod.salut.domains;
 
+import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.log.Log;
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.data.ReverseInet4Address;
+import org.atlanmod.salut.data.ReverseInet6Address;
+import org.atlanmod.salut.labels.Labels;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -19,9 +22,15 @@ public abstract class DomainBuilder {
      * @param labels a LabelArray containing the strings that form a domain data.
      * @return a new sub-instance of DomainBuilder.
      */
-    public static Domain fromLabels(LabelArray labels) throws ParseException {
-        if (labels.size() == 2 && Domain.LOCAL_STR.equals(labels.last().toString())) {
-            return new LocalDomain(labels.get(0).toString());
+    public static Domain fromLabels(Labels labels) throws ParseException {
+        Preconditions.checkArgument(labels.size() > 0, "Domains have at least one label");
+
+        if (labels.last().equals(Domain.LOCAL_LABEL) && labels.size() <= 2) {
+            if (labels.size() == 1 ) {
+                return LocalDomain.getInstance();
+            } else {
+                return new LocalHostName(labels.first());
+            }
         } else if (labels.size() == 6 && Domain.ARPA.equals(labels.last().toString()) && Domain.IP4.equals(labels.get(labels.size() - 2).toString())) {
             return parseInet4Address(labels);
         } else if (labels.size() == 34 && Domain.ARPA.equals(labels.last().toString()) && Domain.IP6.equals(labels.get(labels.size() - 2).toString())) {
@@ -40,10 +49,10 @@ public abstract class DomainBuilder {
      */
     public static Domain parseString(String str) throws ParseException {
         String[] labels = str.split("\\.");
-        return fromLabels(LabelArray.fromArray(labels));
+        return fromLabels(Labels.fromArray(labels));
     }
 
-    private static ReverseInet4Address parseInet4Address(LabelArray names) throws ParseException {
+    private static ReverseInet4Address parseInet4Address(Labels names) throws ParseException {
         byte[] array = new byte[4];
         for (int i = 0; i < 4; i++) {
             array[3 - i] = (byte) Integer.parseInt(names.get(i).toString());
@@ -56,7 +65,7 @@ public abstract class DomainBuilder {
         }
     }
 
-    private static ReverseInet6Address parseInet6Address(LabelArray names) throws ParseException {
+    private static ReverseInet6Address parseInet6Address(Labels names) throws ParseException {
         byte[] array = new byte[16];
         for (int i = 0; i < 16; i++) {
             String concat = names.get(i*2+1).toString() + names.get(i*2).toString();

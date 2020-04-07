@@ -1,6 +1,6 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.data.ServiceInstanceName;
+import org.atlanmod.salut.names.ServiceInstanceName;
 
 import java.util.ArrayList;
 import java.util.List;

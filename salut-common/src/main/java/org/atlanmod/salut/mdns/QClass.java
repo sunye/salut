@@ -75,10 +75,7 @@ public enum QClass {
 
     @Override
     public String toString() {
-        return "QClass{" +
-                "code=" + code +
-                ", label='" + label + '\'' +
-                '}';
+        return label;
     }
 
     /**

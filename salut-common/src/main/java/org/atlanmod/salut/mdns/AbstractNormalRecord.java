@@ -6,6 +6,7 @@ import org.atlanmod.salut.io.UnsignedInt;
 
 import java.text.ParseException;
 import java.util.Objects;
+import org.atlanmod.salut.labels.Labels;
 
 /**
  *
@@ -38,7 +39,7 @@ public abstract class AbstractNormalRecord extends AbstractRecord implements Nor
     protected final QClass qclass;
     protected final TimeToLive ttl;
 
-    AbstractNormalRecord(LabelArray name, QClass qclass, UnsignedInt ttl) {
+    AbstractNormalRecord(Labels name, QClass qclass, UnsignedInt ttl) {
         super(name);
         this.qclass = qclass;
         this.ttl = TimeToLive.fromSeconds(ttl);
@@ -57,7 +58,7 @@ public abstract class AbstractNormalRecord extends AbstractRecord implements Nor
     @Override
     public String toString() {
         return "{" +
-                "data=" + names +
+                "data=" + labels +
                 ", qclass=" + qclass +
                 ", getTtl=" + ttl +
                 '}';
@@ -80,14 +81,14 @@ public abstract class AbstractNormalRecord extends AbstractRecord implements Nor
 
     protected static abstract class NormalRecordParser<T extends NormalRecord> implements RecordParser<T> {
 
-        protected LabelArray name;
+        protected Labels labels;
         protected QClass qclass;
         protected UnsignedInt ttl;
         protected int dataLength;
 
         @Override
-        public T parse(LabelArray name, ByteArrayReader buffer) throws ParseException {
-            this.name = name;
+        public T parse(Labels name, ByteArrayReader buffer) throws ParseException {
+            this.labels = name;
             this.parseFixedPart(buffer);
             this.parseVariablePart(buffer);
             return build();

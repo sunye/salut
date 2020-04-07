@@ -1,7 +1,7 @@
 package org.atlanmod.salut.io;
 
-import org.atlanmod.salut.data.Label;
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.labels.Label;
+import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -70,7 +70,7 @@ class ByteArrayReaderTest {
                                     109, 121, 100, 111, 109, 97, 105, 110, 64};
 
                             ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-                            LabelArray labels = bb.readLabels();
+                            Labels labels = bb.readLabels();
                         }),
                 () -> assertThrows(ParseException.class,
                         () -> {
@@ -93,7 +93,7 @@ class ByteArrayReaderTest {
                                     109, 121, 100, 111, 109, 97, 105, 110, 64};
 
                             ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-                            LabelArray labels = bb.readLabels();
+                            Labels labels = bb.readLabels();
                         })
         );
     }
@@ -232,7 +232,7 @@ class ByteArrayReaderTest {
         byte[] buffer = { 8, 3, 100, 101, 102, -64, 64, 0 };
         ByteArrayReader bb = ByteArrayReader.wrap(buffer);
         assertThrows(ParseException.class, ()->{
-            LabelArray.fromByteBuffer(bb, 1);});
+            Labels.fromByteBuffer(bb, 1);});
     }
 
     @Test
@@ -303,7 +303,7 @@ class ByteArrayReaderTest {
 
 
                     ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-                    LabelArray labels = bb.readLabels();
+                    Labels labels = bb.readLabels();
                 }));
 
     }
@@ -347,7 +347,7 @@ class ByteArrayReaderTest {
     void readTextStrings() throws ParseException {
         byte[] bytes = {5, 6, 7, 8, 9};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        LabelArray labels = bb.readLabels();
+        Labels labels = bb.readLabels();
         List<String> lbb = bb.readTextDataStrings(2);
         assertTrue(lbb.get(0).equals("5"));
     }

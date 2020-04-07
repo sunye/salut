@@ -1,7 +1,7 @@
 package org.atlanmod.salut.io;
 
-import org.atlanmod.salut.data.Label;
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.labels.Label;
+import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -60,7 +60,7 @@ class ByteArrayWriterTest {
                 .putUnsignedShort(UnsignedShort.fromInt(0xBB))
                 .putUnsignedInt(UnsignedInt.fromInt(0x1111))
                 .putLabel("a label")
-                .putNameArray(LabelArray.fromList("pc", "local"))
+                .putNameArray(Labels.fromList("pc", "local"))
                 .putUnsignedByte(UnsignedByte.fromInt(0x0));
 
         ByteArrayReader reader = writer.getByteArrayReader();
@@ -69,7 +69,7 @@ class ByteArrayWriterTest {
         assertThat(reader.getUnsignedShort()).isEqualTo(UnsignedShort.fromInt(0xBB));
         assertThat(reader.getUnsignedInt()).isEqualTo(UnsignedInt.fromInt(0x1111));
         assertThat(reader.getLabel(reader.getLabelLength())).isEqualTo(Label.create("a label"));
-        assertThat(reader.readLabels()).isEqualTo(LabelArray.fromList("pc", "local"));
+        assertThat(reader.readLabels()).isEqualTo(Labels.fromList("pc", "local"));
     }
 
     @ParameterizedTest
@@ -85,7 +85,7 @@ class ByteArrayWriterTest {
 
     @Test
     void testPutNameArray() throws ParseException {
-        LabelArray names = LabelArray.fromList("Itunes", "MacBook", "local");
+        Labels names = Labels.fromList("Itunes", "MacBook", "local");
         writer.putNameArray(names);
         ByteArrayReader reader = writer.getByteArrayReader();
 

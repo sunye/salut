@@ -1,9 +1,12 @@
-package org.atlanmod.salut.data;
+package org.atlanmod.salut.names;
 
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.commons.log.Log;
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.domains.Domain;
+import org.atlanmod.salut.domains.DomainBuilder;
+import org.atlanmod.salut.labels.Label;
+import org.atlanmod.salut.labels.Labels;
 
 import java.text.ParseException;
 
@@ -15,7 +18,7 @@ import java.text.ParseException;
  *
  * <Instance> . <sn>._tcp . <servicedomain> . <parentdomain>.
  */
-public class ServiceInstanceName {
+public class ServiceInstanceName implements Name {
 
     private InstanceName instanceName;
     private ServiceName serviceName;
@@ -96,23 +99,23 @@ public class ServiceInstanceName {
         return result;
     }
 
-    public static ServiceInstanceName fromNameArray(LabelArray names) throws ParseException {
-        Log.info("Parsing Service Instance Name: {0}", names);
-        Preconditions.checkArgument(names.size() >= 4, "Expecting at least 4 labels, found " + names.size());
+    public static ServiceInstanceName fromLabels(Labels labels) throws ParseException {
+        Log.info("Parsing Service Instance Name: {0}", labels);
+        Preconditions.checkArgument(labels.size() >= 4, "Expecting at least 4 labels, found " + labels.size());
 
-        if (names.contains(Label.create("_sub"))) {
-            Log.warn("Service subtype !!! : {0}", names);
+        if (labels.contains(Label.create("_sub"))) {
+            Log.warn("Service subtype !!! : {0}", labels);
         }
 
-        InstanceName instanceName = InstanceName.fromLabel(names.get(0));
-        ServiceName serviceName = ServiceName.fromLabelArray(names.subArray(1,3));
-        Domain host = DomainBuilder.fromLabels(names.subArray(3, names.size()));
+        InstanceName instanceName = InstanceName.fromLabel(labels.get(0));
+        ServiceName serviceName = ServiceName.fromLabels(labels.subArray(1,3));
+        Domain host = DomainBuilder.fromLabels(labels.subArray(3, labels.size()));
 
         return new ServiceInstanceName(instanceName, serviceName, host);
     }
 
     @VisibleForTesting
-    public static ServiceInstanceName createServiceName(InstanceName instanceName, ServiceName serviceName,
+    public static ServiceInstanceName createServiceInstanceName(InstanceName instanceName, ServiceName serviceName,
                                                         Domain host) {
         return new ServiceInstanceName(instanceName, serviceName, host);
     }
@@ -124,8 +127,15 @@ public class ServiceInstanceName {
         }
 
         return new ServiceInstanceName(InstanceName.fromString(labels[0]),
-                ServiceName.fromLabelArray(LabelArray.fromList(labels[1], labels[2])),
-                DomainBuilder.fromLabels(LabelArray.fromList(labels[3], labels[4])));
+                ServiceName.fromLabels(Labels.fromList(labels[1], labels[2])),
+                DomainBuilder.fromLabels(Labels.fromList(labels[3], labels[4])));
     }
 
+    @Override
+    public Labels toLabels() {
+        return Labels.create()
+            .addAll(instanceName.toLabels())
+            .addAll(serviceName.toLabels()
+            .addAll(domain.toLabels()));
+    }
 }

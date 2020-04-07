@@ -1,6 +1,8 @@
-package org.atlanmod.salut.data;
+package org.atlanmod.salut.names;
 
 import java.util.Objects;
+import org.atlanmod.salut.labels.Label;
+import org.atlanmod.salut.labels.Labels;
 
 /**
  *
@@ -38,7 +40,7 @@ import java.util.Objects;
  *    A-labels and the query still fails."
  *
  */
-public class InstanceName {
+public class InstanceName implements Name {
     private final Label label;
 
     private InstanceName(Label label) {
@@ -69,5 +71,10 @@ public class InstanceName {
 
     public static InstanceName fromLabel(Label label) {
         return new InstanceName(label);
+    }
+
+    @Override
+    public Labels toLabels() {
+        return Labels.fromList(label);
     }
 }

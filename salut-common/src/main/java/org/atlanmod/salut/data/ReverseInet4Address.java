@@ -1,6 +1,7 @@
 package org.atlanmod.salut.data;
 
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.domains.Domain;
+import org.atlanmod.salut.labels.Labels;
 
 import java.net.Inet4Address;
 
@@ -24,7 +25,7 @@ public class ReverseInet4Address implements Domain {
     }
 
     @Override
-    public LabelArray toNameArray() {
+    public Labels toLabels() {
         throw new RuntimeException();
     }
 

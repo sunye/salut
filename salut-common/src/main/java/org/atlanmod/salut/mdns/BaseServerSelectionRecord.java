@@ -1,9 +1,10 @@
 package org.atlanmod.salut.mdns;
 
 import org.atlanmod.commons.annotation.VisibleForTesting;
-import org.atlanmod.salut.data.Domain;
-import org.atlanmod.salut.data.DomainBuilder;
-import org.atlanmod.salut.data.ServiceInstanceName;
+import org.atlanmod.salut.domains.Domain;
+import org.atlanmod.salut.domains.DomainBuilder;
+import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.salut.names.ServiceInstanceName;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
@@ -57,12 +58,12 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
     private UnsignedShort priority;
     private UnsignedShort weight;
     private UnsignedShort port;
-    private LabelArray target;
+    private Labels target;
     private Domain serverName;
     private ServiceInstanceName serviceInstanceName;
 
-    private BaseServerSelectionRecord(LabelArray name, QClass qclass, UnsignedInt ttl, UnsignedShort priority,
-                                  UnsignedShort weight, UnsignedShort port, LabelArray target,
+    private BaseServerSelectionRecord(Labels name, QClass qclass, UnsignedInt ttl, UnsignedShort priority,
+                                  UnsignedShort weight, UnsignedShort port, Labels target,
                                   Domain serverName, ServiceInstanceName serviceInstanceName) {
         super(name, qclass, ttl);
         this.priority = priority;
@@ -87,8 +88,8 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
      *
      */
     @VisibleForTesting
-    public static BaseServerSelectionRecord createRecord(LabelArray name, QClass qclass, UnsignedInt ttl, UnsignedShort priority,
-                                                     UnsignedShort weight, UnsignedShort port, LabelArray target,
+    public static BaseServerSelectionRecord createRecord(Labels name, QClass qclass, UnsignedInt ttl, UnsignedShort priority,
+                                                     UnsignedShort weight, UnsignedShort port, Labels target,
                                                      Domain serverName, ServiceInstanceName serviceInstanceName) {
 
         return new BaseServerSelectionRecord(name, qclass, ttl, priority, weight, port, target,
@@ -129,7 +130,7 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
     @Override
     public String toString() {
         return "SRVRecord{" +
-                "data=" + names +
+                "data=" + labels +
                 ", class=" + qclass +
                 ", getTtl=" + ttl +
                 ", getPriority=" + priority +
@@ -141,7 +142,7 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
 
     public void writeOne(ByteArrayWriter writer) {
         // Fixed part
-        writer.putNameArray(names)
+        writer.putNameArray(labels)
                 .putRecordType(RecordType.SRV)
                 .putQClass(QClass.IN)
                 .putUnsignedInt(ttl.unsignedIntValue())
@@ -156,13 +157,13 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
 
     public static ServerSelectionRecord fromService(InetAddress host, ServiceDescription service) {
         // FIXME
-        return new BaseServerSelectionRecord(LabelArray.fromList("null"),
+        return new BaseServerSelectionRecord(Labels.fromList("null"),
                 QClass.IN,
                 service.ttl(),
                 service.priority(),
                 service.weight(),
                 service.port(),
-                LabelArray.fromList("target"),
+                Labels.fromList("target"),
                 null,
                 null);
     }
@@ -175,7 +176,7 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
         private UnsignedShort priority;
         private UnsignedShort weight;
         private UnsignedShort port;
-        private LabelArray target;
+        private Labels target;
         private Domain serverName;
         private ServiceInstanceName serviceInstanceName;
 
@@ -189,9 +190,9 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
             priority = buffer.getUnsignedShort();
             weight = buffer.getUnsignedShort();
             port = buffer.getUnsignedShort();
-            target = LabelArray.fromByteBuffer(buffer);
+            target = Labels.fromByteBuffer(buffer);
             serverName = DomainBuilder.fromLabels(this.target);
-            serviceInstanceName = ServiceInstanceName.fromNameArray(this.name);
+            serviceInstanceName = ServiceInstanceName.fromLabels(this.labels);
         }
 
         /**
@@ -199,7 +200,7 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
          */
         @Override
         protected ServerSelectionRecord build() {
-            return new BaseServerSelectionRecord(name, qclass, ttl, priority, weight, port, target,
+            return new BaseServerSelectionRecord(labels, qclass, ttl, priority, weight, port, target,
                     serverName, serviceInstanceName);
         }
     }

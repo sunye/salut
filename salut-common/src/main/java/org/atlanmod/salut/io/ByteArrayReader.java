@@ -3,8 +3,8 @@ package org.atlanmod.salut.io;
 import java.nio.charset.StandardCharsets;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.log.Log;
-import org.atlanmod.salut.data.Label;
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.labels.Label;
+import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.mdns.QClass;
 import org.atlanmod.salut.mdns.RecordType;
 
@@ -81,8 +81,8 @@ public class ByteArrayReader {
      *
      * @return a list potentially containing the strings representing a qualified name.
      */
-    public LabelArray readLabels() throws ParseException {
-        LabelArray labels = LabelArray.create();
+    public Labels readLabels() throws ParseException {
+        Labels labels = Labels.create();
         LabelLength lengthOrPointer = this.getLabelLength();
 
         while (lengthOrPointer.isValidNameLength()) {

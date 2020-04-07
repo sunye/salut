@@ -1,8 +1,9 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.data.Domain;
-import org.atlanmod.salut.data.DomainBuilder;
+import org.atlanmod.salut.domains.Domain;
+import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.io.UnsignedInt;
+import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ class ARecordTest {
 
     @BeforeEach
     void setup() throws UnknownHostException, ParseException {
-        LabelArray names = LabelArray.fromList("MacBook", "local");
+        Labels names = Labels.fromList("MacBook", "local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
         Domain domaine = DomainBuilder.fromLabels(names);
         record = BaseARecord
@@ -41,7 +42,7 @@ class ARecordTest {
 
     @Test
     void testEquals() throws ParseException, UnknownHostException {
-        LabelArray names = LabelArray.fromList("MacBook", "local");
+        Labels names = Labels.fromList("MacBook", "local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
         Domain domaine = DomainBuilder.fromLabels(names);
         ARecord other = BaseARecord

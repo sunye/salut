@@ -1,13 +1,9 @@
 package org.atlanmod.salut.builders;
 
-import java.text.ParseException;
 import java.util.Optional;
 import org.atlanmod.salut.Salut;
-import org.atlanmod.salut.data.ApplicationProtocol;
 import org.atlanmod.salut.data.ApplicationProtocolBuilder;
-import org.atlanmod.salut.data.IANAApplicationProtocol;
-import org.atlanmod.salut.data.InstanceName;
-import org.atlanmod.salut.data.ServiceInstanceName;
+import org.atlanmod.salut.names.InstanceName;
 import org.atlanmod.salut.data.TransportProtocol;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
@@ -15,9 +11,6 @@ import org.atlanmod.salut.sd.ServiceDescription;
 import org.atlanmod.salut.sd.ServicePublisher;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.google.common.truth.Truth.*;
 

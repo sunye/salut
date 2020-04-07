@@ -2,6 +2,7 @@ package org.atlanmod.salut.data;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
+import org.atlanmod.salut.labels.Label;
 
 public class ApplicationProtocolBuilder {
 
@@ -55,6 +56,11 @@ class UnknownApplicationProtocol implements ApplicationProtocol {
     public String toString() {
         return name;
     }
+
+    @Override
+    public String name() {
+        return name;
+    }
 }
 
 class KnownApplicationProtocol implements ApplicationProtocol {
@@ -89,5 +95,10 @@ class KnownApplicationProtocol implements ApplicationProtocol {
     @Override
     public String toString() {
         return application.toString();
+    }
+
+    @Override
+    public String name() {
+        return application.name();
     }
 }

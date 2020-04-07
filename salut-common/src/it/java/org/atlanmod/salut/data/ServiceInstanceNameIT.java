@@ -3,7 +3,8 @@ package org.atlanmod.salut.data;
 import static com.google.common.truth.Truth.assertThat;
 
 import java.text.ParseException;
-import org.atlanmod.salut.mdns.LabelArray;
+import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.salut.names.ServiceInstanceName;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +18,7 @@ public class ServiceInstanceNameIT {
         .parseString("PrintsAlot.airplay.tcp.MacBook.local");
 
     ServiceInstanceName other =  ServiceInstanceName
-        .fromNameArray(LabelArray.fromList("PrintsAlot", "airplay", "tcp", "MacBook", "local"));
+        .fromLabels(Labels.fromList("PrintsAlot", "airplay", "tcp", "MacBook", "local"));
 
     assertThat(one).isEqualTo(other);
   }

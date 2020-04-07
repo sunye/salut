@@ -1,4 +1,4 @@
-package org.atlanmod.salut.data;
+package org.atlanmod.salut.labels;
 
 
 import java.io.Serializable;
@@ -58,5 +58,15 @@ public class Label implements Serializable {
     @Override
     public String toString() {
         return label;
+    }
+
+    /**
+     * The size, in octets, of this label when written on a byte array,
+     * including 1 byte for the label size
+     *
+     * @return The size in octets of the serialized form of this label
+     */
+    public int dataLength() {
+        return label.length() + 1 ;
     }
 }

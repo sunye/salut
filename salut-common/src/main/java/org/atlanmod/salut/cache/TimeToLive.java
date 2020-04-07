@@ -43,9 +43,8 @@ public class TimeToLive implements Comparable<TimeToLive>{
 
     @Override
     public String toString() {
-        return "TTL {value=" +  valueInSeconds +
-            "s, expire=" + expireTimeMillis +
-            "}";
+        return "TTL{" +  valueInSeconds +
+            "s}";
     }
 
     /**
