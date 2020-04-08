@@ -103,4 +103,20 @@ class ServiceInstanceNameTest {
 
         assertThat(one).isEqualTo(other);
     }
+
+    @DisplayName("Given a service instance name 'canon-mg500.ipp.tcp.mac-pro.local' "
+        + "When 'toLabels()' is called"
+        + "Then the expect list of labels must be {'canon-mg500','ipp','tcp','mac-pro','local'}")
+    @Test
+    void test_toLabels() {
+        ServiceInstanceName instance =
+            ServiceInstanceName.createServiceInstanceName(InstanceName.fromString("canon-mg5300"),
+                ServiceName.fromStrings("ipp", "tcp"),
+                LocalHostName.fromString("mac-pro"));
+
+        Labels expected = Labels.fromList("canon-mg5300", "ipp", "tcp", "mac-pro", "local");
+        Labels actual = instance.toLabels();
+
+        assertThat(actual).isEqualTo(expected);
+    }
 }
