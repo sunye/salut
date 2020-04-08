@@ -1,6 +1,6 @@
-= Salut !
+= Salut ! 
 
-Salut is a simple Java implementation of Multicast DNS (https://tools.ietf.org/html/rfc6762[RFC 6762]) and
+Salut is a simple pure Java implementation of Multicast DNS (https://tools.ietf.org/html/rfc6762[RFC 6762]) and
 DNS-Based Service Discovery (https://tools.ietf.org/html/rfc6763[RFC 6763]).
 
 == Current status
