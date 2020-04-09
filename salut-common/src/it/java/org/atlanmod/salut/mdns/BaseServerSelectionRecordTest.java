@@ -10,7 +10,6 @@ import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.atlanmod.salut.labels.Labels;
-import org.atlanmod.salut.names.PointerName;
 import org.atlanmod.salut.names.ServiceInstanceName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +45,7 @@ class BaseServerSelectionRecordTest {
             instance
         );
 
-        expected.writeOne(writer);
+        expected.writeOn(writer);
         ByteArrayReader reader = writer.getByteArrayReader();
         AbstractRecord actual = AbstractRecord.fromByteBuffer(reader);
 

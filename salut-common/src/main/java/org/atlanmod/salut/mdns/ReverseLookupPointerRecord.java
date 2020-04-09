@@ -27,7 +27,7 @@ class ReverseLookupPointerRecord extends AbstractPointerRecord {
     }
 
     @Override
-    public void writeOne(ByteArrayWriter writer) {
+    public void writeOn(ByteArrayWriter writer) {
         // TODO
         throw new UnsupportedOperationException();
     }

@@ -32,22 +32,6 @@ public class RecordParsingIT {
     }
 
     @Test
-    void testARecordReadWrite() throws ParseException, UnknownHostException {
-
-        Labels names = Labels.fromList("MacBook", "local");
-        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
-        Domain domaine = DomainBuilder.fromLabels(names);
-        BaseARecord record = BaseARecord
-            .createRecord(QClass.IN, UnsignedInt.fromInt(10), address, domaine);
-
-        record.writeOn(writer);
-        ByteArrayReader reader = writer.getByteArrayReader();
-        AbstractRecord readRecord = AbstractRecord.fromByteBuffer(reader);
-
-        assertThat(record).isEqualTo(readRecord);
-    }
-
-    @Test
     void testSRVRecordReadWrite() throws ParseException {
 
         BaseServerSelectionRecord record =
@@ -59,7 +43,7 @@ public class RecordParsingIT {
                 ServiceInstanceName.fromLabels(Labels.fromList("music", "raop", "tcp", "mac", "local"))
             );
 
-        record.writeOne(writer);
+        record.writeOn(writer);
 
         ByteArrayReader reader = writer.getByteArrayReader();
         AbstractRecord readRecord = AbstractRecord.fromByteBuffer(reader);

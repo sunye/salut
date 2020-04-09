@@ -1,5 +1,6 @@
 package org.atlanmod.salut.io;
 
+import java.net.Inet6Address;
 import java.nio.charset.StandardCharsets;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.log.Log;
@@ -232,4 +233,21 @@ public class ByteArrayReader {
             throw new ParseException("UnknownHostException - Parsing error when reading a Inet4 addresss.", position());
         }
     }
+
+    /**
+     * Reads a 16-bytes IPv6 address
+     * @return This ByteArrayReader
+     * @throws ParseException If there is a parsing error
+     */
+    public Inet6Address readInet6Address() throws ParseException {
+        byte[] addressBytes = new byte[16];
+        get(addressBytes);
+        try {
+            Inet6Address address = (Inet6Address) Inet6Address.getByAddress(addressBytes);
+            return address;
+        } catch (UnknownHostException e) {
+            throw new ParseException("UnknownHostException - Parsing error when reading a Inet6 addresss.", position());
+        }
+    }
 }
+

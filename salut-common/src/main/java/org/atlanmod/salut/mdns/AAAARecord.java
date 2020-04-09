@@ -1,5 +1,7 @@
 package org.atlanmod.salut.mdns;
 
+import java.net.Inet4Address;
+import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.io.ByteArrayReader;
@@ -10,6 +12,7 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
+import org.atlanmod.salut.io.UnsignedShort;
 import org.atlanmod.salut.labels.Labels;
 
 /**
@@ -57,28 +60,24 @@ public class AAAARecord extends AbstractNormalRecord {
     }
 
     @Override
-    public void writeOne(ByteArrayWriter writer) {
-        // TODO
-        throw new UnsupportedOperationException();
-    }
+    public void writeOn(ByteArrayWriter writer) {
 
+        // Fixed part
+        writer.putNameArray(serverName.toLabels())
+            .putRecordType(RecordType.A)
+            .putQClass(QClass.IN)
+            .putUnsignedInt(ttl.unsignedIntValue())
+            .putUnsignedShort(UnsignedShort.fromInt(4));
+
+        // Variable part
+        writer.putInet6Address(this.address);
+    }
     private static class AAAARecordParser extends NormalRecordParser<AAAARecord> {
         private Inet6Address address;
         private Domain serverName;
 
-        private static InetAddress parseInet6Address(ByteArrayReader buffer) throws ParseException {
-            byte[] addressBytes = new byte[16];
-            buffer.get(addressBytes);
-            try {
-                InetAddress address = Inet6Address.getByAddress(addressBytes);
-                return address;
-            } catch (UnknownHostException e) {
-                throw new ParseException("UnknownHostException - Parsing error when reading a AAAA AbstractRecord.", buffer.position());
-            }
-        }
-
         protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
-            address = (Inet6Address) parseInet6Address(buffer);
+            address = buffer.readInet6Address();
             serverName = DomainBuilder.fromLabels(labels);
         }
 
@@ -87,6 +86,11 @@ public class AAAARecord extends AbstractNormalRecord {
             return new AAAARecord(qclass, ttl, address, serverName);
         }
 
+    }
+
+    @VisibleForTesting
+    public static AAAARecord createRecord(QClass qclass, UnsignedInt ttl, Inet6Address address, Domain serverName) {
+        return new AAAARecord(qclass, ttl, address, serverName);
     }
 }
 

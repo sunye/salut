@@ -89,7 +89,7 @@ class BasePointerRecord extends AbstractPointerRecord {
     }
 
     @Override
-    public void writeOne(ByteArrayWriter writer) {
+    public void writeOn(ByteArrayWriter writer) {
         // FIXME The Data length cannot be calculated here, because labels can be compressed.
 
         UnsignedShort dataLength = UnsignedShort.fromInt(instance.toLabels().dataLength());

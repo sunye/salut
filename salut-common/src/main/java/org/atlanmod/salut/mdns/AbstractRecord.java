@@ -9,7 +9,7 @@ import org.atlanmod.salut.labels.Labels;
 
 public abstract class AbstractRecord implements Record {
 
-    public abstract void writeOne(ByteArrayWriter writer);
+    public abstract void writeOn(ByteArrayWriter writer);
 
 
     /**

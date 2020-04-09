@@ -88,11 +88,6 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
         return new ARecordParser();
     }
 
-    @Override
-    public void writeOne(ByteArrayWriter writer) {
-        // TODO
-        throw new UnsupportedOperationException();
-    }
 
     private static class ARecordParser extends NormalRecordParser<ARecord> {
         private Inet4Address address;

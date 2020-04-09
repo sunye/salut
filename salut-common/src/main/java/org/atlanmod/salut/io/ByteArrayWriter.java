@@ -1,5 +1,6 @@
 package org.atlanmod.salut.io;
 
+import java.net.Inet6Address;
 import org.atlanmod.commons.primitive.Bytes;
 import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.labels.Labels;
@@ -71,6 +72,19 @@ public class ByteArrayWriter {
      * @return This ByteArrayWriter
      */
     public  ByteArrayWriter putInet4Address(Inet4Address address) {
+        for (byte each : address.getAddress()) {
+            bytes.add(each);
+        }
+        return this;
+    }
+
+    /**
+     * Writes an 16-bytes value representing an IPv6 address
+     *
+     * @param address an IPv6 address
+     * @return This ByteArrayWriter
+     */
+    public  ByteArrayWriter putInet6Address(Inet6Address address) {
         for (byte each : address.getAddress()) {
             bytes.add(each);
         }

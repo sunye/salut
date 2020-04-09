@@ -36,7 +36,7 @@ class BasePointerRecordIT {
             instance,
             server);
 
-        expected.writeOne(writer);
+        expected.writeOn(writer);
         ByteArrayReader reader = writer.getByteArrayReader();
         AbstractRecord actual = AbstractRecord.fromByteBuffer(reader);
 

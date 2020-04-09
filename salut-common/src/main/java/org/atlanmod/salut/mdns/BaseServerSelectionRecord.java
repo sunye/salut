@@ -141,7 +141,7 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
                 '}';
     }
 
-    public void writeOne(ByteArrayWriter writer) {
+    public void writeOn(ByteArrayWriter writer) {
         // Fixed part
         writer.putNameArray(serviceInstanceName.toLabels())
                 .putRecordType(RecordType.SRV)
