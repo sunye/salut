@@ -1,0 +1,9 @@
+@startuml
+class Record {
+   name : Label[*]
+}
+
+class ARecord
+
+Record <|-- ARecord
+@enduml
