@@ -12,11 +12,11 @@ cache:
 
 install:
   # Resolve all dependencies
-  - mvn -B -V -q -DskipTests install
+  - mvn -B -V -q -DskipTests validate
 
 script:
   # Build and test with code coverage
-  - mvn -B verify  package sonar:sonar
+  - mvn -B verify  package 
 
 after_success:
   # Publish code coverage in CodeCov
