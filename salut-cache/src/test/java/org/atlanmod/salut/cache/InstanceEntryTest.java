@@ -8,7 +8,7 @@ class InstanceEntryTest {
 
     /*
     @BeforeEach
-    void setup() throws ParseException {
+    void setUp() throws ParseException {
         Domain name = DomainBuilder.fromLabels(names);
         this.entry = new ServiceEntry(TimeToLive.fromSeconds(0), name);
     }

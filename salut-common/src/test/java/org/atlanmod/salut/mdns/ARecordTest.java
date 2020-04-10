@@ -19,7 +19,7 @@ class ARecordTest {
     private ARecord record;
 
     @BeforeEach
-    void setup() throws UnknownHostException, ParseException {
+    void setUp() throws UnknownHostException, ParseException {
         Labels names = Labels.fromList("MacBook", "local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
         Domain domaine = DomainBuilder.fromLabels(names);

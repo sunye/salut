@@ -22,7 +22,7 @@ public class RecordParsingIT {
     private ByteArrayWriter writer;
 
     @BeforeEach
-    void setup() {
+    void setUp() {
         writer = new ByteArrayWriter();
     }
 

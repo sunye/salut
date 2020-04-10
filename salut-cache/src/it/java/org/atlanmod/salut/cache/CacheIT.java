@@ -29,7 +29,7 @@ class CacheIT {
     private BaseCache cache;
 
     @BeforeEach
-    void setup() {
+    void setUp() {
         cache = new BaseCache();
     }
 

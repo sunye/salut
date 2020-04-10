@@ -19,7 +19,7 @@ class BaseServerSelectionRecordTest {
     private ByteArrayWriter writer;
 
     @BeforeEach
-    void setup() {
+    void setUp() {
         writer = new ByteArrayWriter();
     }
 

@@ -15,7 +15,7 @@ class ByteArrayWriterTest {
     private ByteArrayWriter writer;
 
     @BeforeEach
-    void setup() {
+    void setUp() {
         this.writer = new ByteArrayWriter();
     }
 

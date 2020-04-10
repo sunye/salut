@@ -17,7 +17,7 @@ class BasePointerRecordIT {
     private ByteArrayWriter writer;
 
     @BeforeEach
-    void setup() {
+    void setUp() {
         writer = new ByteArrayWriter();
     }
 
