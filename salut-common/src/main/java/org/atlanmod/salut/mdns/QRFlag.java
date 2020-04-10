@@ -1,9 +1,8 @@
 package org.atlanmod.salut.mdns;
 
+import java.util.Objects;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.salut.io.UnsignedShort;
-
-import java.util.Objects;
 
 /**
  * The QRFlag is a 16-bit value, organized as follows:

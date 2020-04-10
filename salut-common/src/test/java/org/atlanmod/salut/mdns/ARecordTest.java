@@ -1,19 +1,18 @@
 package org.atlanmod.salut.mdns;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.text.ParseException;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.text.ParseException;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static com.google.common.truth.Truth.*;
 
 class ARecordTest {
 

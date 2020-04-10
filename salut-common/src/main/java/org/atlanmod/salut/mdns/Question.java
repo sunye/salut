@@ -1,10 +1,9 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.commons.log.Log;
-import org.atlanmod.salut.io.ByteArrayReader;
-
 import java.text.ParseException;
 import java.util.Optional;
+import org.atlanmod.commons.log.Log;
+import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.labels.Labels;
 
 /**

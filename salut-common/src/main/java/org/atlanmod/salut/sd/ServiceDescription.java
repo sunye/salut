@@ -1,13 +1,12 @@
 package org.atlanmod.salut.sd;
 
 import java.util.Objects;
+import java.util.Optional;
 import org.atlanmod.salut.data.ApplicationProtocol;
-import org.atlanmod.salut.names.InstanceName;
 import org.atlanmod.salut.data.TransportProtocol;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
-
-import java.util.Optional;
+import org.atlanmod.salut.names.InstanceName;
 
 public class ServiceDescription {
 

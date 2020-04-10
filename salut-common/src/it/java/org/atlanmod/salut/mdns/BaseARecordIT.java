@@ -1,7 +1,6 @@
 package org.atlanmod.salut.mdns;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;

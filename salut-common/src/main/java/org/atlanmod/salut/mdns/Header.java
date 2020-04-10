@@ -1,10 +1,9 @@
 package org.atlanmod.salut.mdns;
 
+import java.util.Objects;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedShort;
-
-import java.util.Objects;
 
 public class Header {
 

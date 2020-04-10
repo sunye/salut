@@ -4,11 +4,11 @@ import java.net.InetAddress;
 import java.text.ParseException;
 import java.util.List;
 import org.atlanmod.salut.domains.Domain;
-import org.atlanmod.salut.names.ServiceInstanceName;
-import org.atlanmod.salut.names.ServiceName;
 import org.atlanmod.salut.mdns.ARecord;
 import org.atlanmod.salut.mdns.PointerRecord;
 import org.atlanmod.salut.mdns.ServerSelectionRecord;
+import org.atlanmod.salut.names.ServiceInstanceName;
+import org.atlanmod.salut.names.ServiceName;
 
 public interface Cache {
 

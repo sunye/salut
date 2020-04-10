@@ -1,8 +1,7 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.io.UnsignedShort;
-
 import java.util.Comparator;
+import org.atlanmod.salut.io.UnsignedShort;
 
 public class Links {
 

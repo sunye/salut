@@ -2,8 +2,6 @@ package org.atlanmod.salut.io;
 
 import org.atlanmod.commons.Preconditions;
 
-import java.util.Objects;
-
 /**
  * The `UnsignedShort` class allows the representation of unsigned 16-bit values.
  * It wraps a value of the primitive getType `int` in an object.

@@ -1,8 +1,8 @@
 package org.atlanmod.salut;
 
-import org.atlanmod.salut.builders.ServiceInstanceNameModifier;
 import org.atlanmod.salut.builders.QueryBuilder;
 import org.atlanmod.salut.builders.ServiceBuilder;
+import org.atlanmod.salut.builders.ServiceInstanceNameModifier;
 
 public class Builder {
 

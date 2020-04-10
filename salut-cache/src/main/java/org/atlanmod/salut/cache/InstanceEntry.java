@@ -1,9 +1,8 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.names.ServiceInstanceName;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.atlanmod.salut.names.ServiceInstanceName;
 
 /**
  * The `InstanceEntry` class represents Service Instancen Names.

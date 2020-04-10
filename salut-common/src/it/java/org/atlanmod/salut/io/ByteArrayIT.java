@@ -1,16 +1,15 @@
 package org.atlanmod.salut.io;
 
+import static com.google.common.truth.Truth.assertThat;
+
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
+import java.text.ParseException;
 import org.atlanmod.salut.mdns.QClass;
 import org.atlanmod.salut.mdns.RecordType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
-import java.text.ParseException;
-
-import static com.google.common.truth.Truth.*;
 
 /**
  * Integration tests for ByteArrayReader and ByteArrayWriter

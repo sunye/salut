@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.domains.Domain;
-import org.atlanmod.salut.names.ServiceInstanceName;
-import org.atlanmod.salut.names.ServiceName;
 import org.atlanmod.salut.mdns.ARecord;
 import org.atlanmod.salut.mdns.PointerRecord;
 import org.atlanmod.salut.mdns.ServerSelectionRecord;
+import org.atlanmod.salut.names.ServiceInstanceName;
+import org.atlanmod.salut.names.ServiceName;
 
 /**
  * Caches locally Multicast DNS records.

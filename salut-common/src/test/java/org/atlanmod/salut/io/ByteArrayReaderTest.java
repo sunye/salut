@@ -1,18 +1,20 @@
 package org.atlanmod.salut.io;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.nio.BufferUnderflowException;
+import java.nio.ByteBuffer;
+import java.text.ParseException;
+import java.util.List;
 import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-
-import java.nio.ByteBuffer;
-import java.nio.BufferUnderflowException;
-import java.text.ParseException;
-import java.util.List;
-
-import static com.google.common.truth.Truth.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 /*
 Classe de test pour la classe ByteArrayReader

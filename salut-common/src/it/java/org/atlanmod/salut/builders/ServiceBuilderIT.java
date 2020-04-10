@@ -1,18 +1,18 @@
 package org.atlanmod.salut.builders;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import java.util.Optional;
 import org.atlanmod.salut.Salut;
 import org.atlanmod.salut.data.ApplicationProtocolBuilder;
-import org.atlanmod.salut.names.InstanceName;
 import org.atlanmod.salut.data.TransportProtocol;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
+import org.atlanmod.salut.names.InstanceName;
 import org.atlanmod.salut.sd.ServiceDescription;
 import org.atlanmod.salut.sd.ServicePublisher;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import static com.google.common.truth.Truth.*;
 
 public class ServiceBuilderIT {
 

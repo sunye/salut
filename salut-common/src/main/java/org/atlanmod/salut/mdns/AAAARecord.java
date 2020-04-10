@@ -1,19 +1,14 @@
 package org.atlanmod.salut.mdns;
 
-import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.text.ParseException;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
-
-import java.net.Inet6Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.text.ParseException;
 import org.atlanmod.salut.io.UnsignedShort;
-import org.atlanmod.salut.labels.Labels;
 
 /**
  * The `AAAARecord` class represents DNS IP6 getAddress records (AAAA).

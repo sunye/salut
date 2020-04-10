@@ -1,9 +1,8 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.domains.Domain;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.atlanmod.salut.domains.Domain;
 
 /**
  * The `ServerEntry` represents Servers (Hosts).

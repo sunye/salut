@@ -1,8 +1,7 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.io.ByteArrayReader;
-
 import java.text.ParseException;
+import org.atlanmod.salut.io.ByteArrayReader;
 
 public class Answer  {
     private final AbstractRecord record;

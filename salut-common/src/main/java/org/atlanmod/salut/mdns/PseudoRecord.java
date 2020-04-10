@@ -1,11 +1,10 @@
 package org.atlanmod.salut.mdns;
 
+import java.text.ParseException;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedByte;
 import org.atlanmod.salut.io.UnsignedShort;
-
-import java.text.ParseException;
 import org.atlanmod.salut.labels.Labels;
 
 /**

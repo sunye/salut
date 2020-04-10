@@ -1,13 +1,11 @@
 package org.atlanmod.salut.mdns;
 
+import java.text.ParseException;
+import java.util.List;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
-
-import java.text.ParseException;
-import java.util.List;
-import org.atlanmod.salut.labels.Labels;
 
 /**
  * From [RFC6763](https://tools.ietf.org/html/rfc6763#page-31)

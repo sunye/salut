@@ -1,14 +1,13 @@
 package org.atlanmod.salut.mdns;
 
-import org.atlanmod.salut.io.ByteArrayReader;
-import org.atlanmod.salut.io.UnsignedShort;
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toMap;
 
 import java.text.ParseException;
 import java.util.Map;
 import java.util.Optional;
-
-import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toMap;
+import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.io.UnsignedShort;
 
 /**
  * The CLASS of resource records being requested e.g. Internet, CHAOS etc.

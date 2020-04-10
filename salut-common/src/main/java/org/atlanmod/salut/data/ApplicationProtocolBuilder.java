@@ -1,7 +1,7 @@
 package org.atlanmod.salut.data;
 
-import javax.annotation.Nonnull;
 import java.util.Objects;
+import javax.annotation.Nonnull;
 import org.atlanmod.salut.labels.Label;
 
 public class ApplicationProtocolBuilder {

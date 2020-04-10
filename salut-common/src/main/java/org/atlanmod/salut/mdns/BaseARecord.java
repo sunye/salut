@@ -1,5 +1,8 @@
 package org.atlanmod.salut.mdns;
 
+import java.net.Inet4Address;
+import java.text.ParseException;
+import java.util.Objects;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
@@ -7,11 +10,6 @@ import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
-
-import java.net.Inet4Address;
-import java.text.ParseException;
-import java.util.Objects;
-import org.atlanmod.salut.labels.Labels;
 
 /**
  * The `ARecord` class represents DNS IP4 getAddress records (ARecord).

@@ -1,9 +1,8 @@
 package org.atlanmod.salut.data;
 
+import java.net.Inet6Address;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.labels.Labels;
-
-import java.net.Inet6Address;
 
 public class ReverseInet6Address implements Domain {
     private Inet6Address address;

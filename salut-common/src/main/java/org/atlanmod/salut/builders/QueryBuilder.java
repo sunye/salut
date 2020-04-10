@@ -1,6 +1,9 @@
 package org.atlanmod.salut.builders;
 
-import org.atlanmod.salut.data.*;
+import org.atlanmod.salut.data.ApplicationProtocol;
+import org.atlanmod.salut.data.ApplicationProtocolBuilder;
+import org.atlanmod.salut.data.IANAApplicationProtocol;
+import org.atlanmod.salut.data.TransportProtocol;
 import org.atlanmod.salut.domains.Domain;
 
 public class QueryBuilder implements SetServiceTransportProtocol,

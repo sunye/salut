@@ -1,14 +1,13 @@
 package org.atlanmod.salut;
 
-import org.atlanmod.commons.log.Log;
-import org.atlanmod.salut.mdns.BaseServerSelectionRecord;
-import org.atlanmod.salut.sd.ServiceDescription;
-import org.atlanmod.salut.sd.ServicePublisher;
-
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
+import org.atlanmod.commons.log.Log;
+import org.atlanmod.salut.mdns.BaseServerSelectionRecord;
+import org.atlanmod.salut.sd.ServiceDescription;
+import org.atlanmod.salut.sd.ServicePublisher;
 
 public class Salut implements ServicePublisher {
 

@@ -1,8 +1,8 @@
 package org.atlanmod.salut.mdns;
 
 import org.atlanmod.salut.domains.Domain;
-import org.atlanmod.salut.names.ServiceInstanceName;
 import org.atlanmod.salut.io.UnsignedShort;
+import org.atlanmod.salut.names.ServiceInstanceName;
 
 public interface ServerSelectionRecord extends NormalRecord {
 

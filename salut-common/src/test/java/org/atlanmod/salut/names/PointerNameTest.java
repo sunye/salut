@@ -1,6 +1,6 @@
 package org.atlanmod.salut.names;
 
-import static com.google.common.truth.Truth.*;
+import static com.google.common.truth.Truth.assertThat;
 
 import java.text.ParseException;
 import org.atlanmod.salut.domains.Domain;

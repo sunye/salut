@@ -2,7 +2,6 @@ package org.atlanmod.salut.mdns;
 
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
-import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.names.PointerName;
 import org.atlanmod.salut.names.ServiceInstanceName;
 

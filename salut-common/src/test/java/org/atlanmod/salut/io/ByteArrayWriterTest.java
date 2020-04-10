@@ -1,15 +1,14 @@
 package org.atlanmod.salut.io;
 
+import static com.google.common.truth.Truth.assertThat;
+
+import java.text.ParseException;
 import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import java.text.ParseException;
-
-import static com.google.common.truth.Truth.*;
 
 class ByteArrayWriterTest {
 

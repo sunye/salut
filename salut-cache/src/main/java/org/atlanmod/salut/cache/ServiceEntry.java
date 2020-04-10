@@ -1,10 +1,9 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.names.PointerName;
-import org.atlanmod.salut.names.ServiceName;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.atlanmod.salut.names.PointerName;
+import org.atlanmod.salut.names.ServiceName;
 
 /**
  * The `ServiceEntry` class represents Service Names.

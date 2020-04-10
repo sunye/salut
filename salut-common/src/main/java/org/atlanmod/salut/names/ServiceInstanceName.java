@@ -1,5 +1,6 @@
 package org.atlanmod.salut.names;
 
+import java.text.ParseException;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.commons.log.Log;
@@ -7,8 +8,6 @@ import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.labels.Labels;
-
-import java.text.ParseException;
 
 /**
  * Service Instance Name = <Instance> . <Service> . <Domain>

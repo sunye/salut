@@ -1,9 +1,7 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.io.UnsignedInt;
-import org.atlanmod.salut.io.UnsignedShort;
-
 import java.util.Objects;
+import org.atlanmod.salut.io.UnsignedInt;
 
 /**
  * The TimeToLive class represents an expiration time.
