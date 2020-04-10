@@ -12,7 +12,7 @@ cache:
 
 install:
   # Resolve all dependencies
-  - mvn -B -V -q -DskipTests install
+  - mvn -B -V -q -DskipTests validate
 
 script:
   # Build and test with code coverage
