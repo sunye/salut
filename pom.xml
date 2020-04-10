@@ -237,11 +237,6 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-      </plugin>
-
       <!-- CODE COVERAGE -->
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -395,19 +390,16 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.13.0</version>
         <configuration>
           <sourceEncoding>utf-8</sourceEncoding>
-          <minimumTokens>100</minimumTokens>
+          <minimumTokens>30</minimumTokens>
           <targetJdk>${maven.compiler.target}</targetJdk>
           <rulesets>
-            <ruleset>/rulesets/java/sunsecure.xml</ruleset>
-            <ruleset>/rulesets/java/naming.xml</ruleset>
-            <ruleset>/rulesets/java/braces.xml</ruleset>
-            <ruleset>/rulesets/java/unusedcode.xml</ruleset>
+            <ruleset>rulesets.xml</ruleset>
           </rulesets>
           <analysisCache>true</analysisCache>
           <analysisCacheLocation>${project.build.directory}/pmd/pmd.cache</analysisCacheLocation>
+          <linkXRef>true</linkXRef>
         </configuration>
       </plugin>
 
