@@ -1,0 +1,23 @@
+os: linux
+sudo: false
+dist: trusty
+
+language: java
+jdk: oraclejdk8
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+
+install:
+  # Resolve all dependencies
+  - mvn -B -V -q -DskipTests install
+
+script:
+  # Build and test with code coverage
+  - mvn -B verify  package sonar:sonar
+
+after_success:
+  # Publish code coverage in CodeCov
+  - bash <(curl -s https://codecov.io/bash)
