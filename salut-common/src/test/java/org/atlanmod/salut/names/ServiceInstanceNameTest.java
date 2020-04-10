@@ -119,4 +119,23 @@ class ServiceInstanceNameTest {
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    @DisplayName("Given two different instances of the same service instance name"
+        + "Expect hash codes to be the same")
+    @Test
+    void same_object_has_same_hashcode() throws ParseException {
+        int expected = ServiceInstanceName
+            .fromLabels(Labels.fromList("PrintsAlot", "airplay", "tcp", "MacBook", "local")).hashCode();
+
+        assertThat(printer.hashCode()).isEqualTo(expected);
+    }
+
+    @DisplayName("Given two different instances of different service instance names"
+        + "Expect hash codes to be different")
+    @Test
+    void different_objects_have_different_hashcodes() throws ParseException {
+
+        assertThat(printer.hashCode()).isNotEqualTo(music.hashCode());
+    }
+
 }

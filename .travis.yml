@@ -16,7 +16,7 @@ install:
 
 script:
   # Build and test with code coverage
-  - mvn -B verify  package 
+  - mvn -B verify  package
 
 after_success:
   # Publish code coverage in CodeCov

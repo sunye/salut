@@ -1,5 +1,10 @@
 = Salut ! 
 
+[link=https://travis-ci.org/sunye/salut]
+image::https://travis-ci.org/sunye/salut.svg?branch=master[Travis]
+[link=https://codecov.io/gh/sunye/salut]
+image::https://codecov.io/gh/sunye/salut/branch/master/graph/badge.svg[CodeCov]
+
 Salut is a simple pure Java implementation of Multicast DNS (https://tools.ietf.org/html/rfc6762[RFC 6762]) and
 DNS-Based Service Discovery (https://tools.ietf.org/html/rfc6763[RFC 6763]).
 
