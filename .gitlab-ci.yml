@@ -20,6 +20,7 @@ build:
   artifacts:
     paths:
       - target/
+      - salut-common/target
 
 test:
   stage: test
@@ -28,6 +29,7 @@ test:
   artifacts:
     paths:
       - target/
+      - salut-common/target
 
 verify:
   stage: test
@@ -36,13 +38,15 @@ verify:
   artifacts:
     paths:
       - target/
+      - salut-common/target
 
 pages:
   stage: deploy
   script:
-  - 'mvn --settings .gitlab.maven.settings.xml site'
-  - mkdir -p public
+  - 'mvn --settings .gitlab.maven.settings.xml $MAVEN_OPTS -e $MAVEN_CLI_OPTS site'
+  - mkdir -p public/salut-common
   - rsync -r target/site/ public
+  - rsync -r salut-common/target/site/ public/salut-common
   artifacts:
     paths:
     - public
