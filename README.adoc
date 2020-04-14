@@ -1,8 +1,20 @@
 = Salut ! 
 
-image::https://travis-ci.org/sunye/salut.svg?branch=master[Travis, link=https://travis-ci.org/sunye/salut]
-image::https://codecov.io/gh/sunye/salut/branch/master/graph/badge.svg["CodeCov", link=https://codecov.io/gh/sunye/salut]
+image:https://travis-ci.org/sunye/salut.svg?branch=master[Travis, link=https://travis-ci.org/sunye/salut]
+image:https://codecov.io/gh/sunye/salut/branch/master/graph/badge.svg["CodeCov", link=https://codecov.io/gh/sunye/salut]
 image:https://api.codacy.com/project/badge/Grade/0c350fc626864dae8b07d04c3dfa0714["Codacy code quality", link="https://www.codacy.com/manual/sunye/salut?utm_source=github.com&utm_medium=referral&utm_content=sunye/salut&utm_campaign=Badge_Grade"]
+
+image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=alert_status[Quality Gate Status,link=https://sonarcloud.io/dashboard?id=org.atlanmod.commons%3Acommons]
+image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=bugs[Bugs,link=https://sonarcloud.io/dashboard?id=org.atlanmod.commons%3Acommons]
+image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=code_smells[Code Smells,link=https://sonarcloud.io/dashboard?id=org.atlanmod.commons%3Acommons]
+//image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=coverage[Coverage,link=https://sonarcloud.io/dashboard?id=org.atlanmod.commons%3Acommons]
+image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=duplicated_lines_density[Duplicated Lines (%),link=https://sonarcloud.io/dashboard?id=org.atlanmod.commons%3Acommons]
+image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=ncloc[Lines of Code,link=https://sonarcloud.io/dashboard?id=org.atlanmod.commons%3Acommons]
+image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=sqale_rating[Maintainability Rating,link=https://sonarcloud.io/dashboard?id=org.atlanmod.commons%3Acommons]
+image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=reliability_rating[Reliability Rating,link=https://sonarcloud.io/dashboard?id=org.atlanmod.commons%3Acommons]
+image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=security_rating[Security Rating,link=https://sonarcloud.io/dashboard?id=org.atlanmod.commons%3Acommons]
+image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=sqale_index[Technical Debt,link=https://sonarcloud.io/dashboard?id=org.atlanmod.commons%3Acommons]
+
 
 Salut is a simple pure Java implementation of Multicast DNS (https://tools.ietf.org/html/rfc6762[RFC 6762]) and
 DNS-Based Service Discovery (https://tools.ietf.org/html/rfc6763[RFC 6763]).
