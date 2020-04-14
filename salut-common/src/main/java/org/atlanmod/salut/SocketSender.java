@@ -31,6 +31,7 @@ public class SocketSender implements Runnable {
                 Log.info("Packet sent");
             } catch (InterruptedException e) {
                 Log.debug(e, "Thread interrupted when sending packet");
+                Thread.currentThread().interrupt();
             } catch (IOException e) {
                 Log.debug(e, "IO error when sending packet");
             }

@@ -14,6 +14,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.annotation.VisibleForTesting;
+import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.mdns.ARecord;
 import org.atlanmod.salut.mdns.PointerRecord;
@@ -201,7 +202,8 @@ public class BaseCache implements Cache {
                 Thread.sleep(500);
             }
         } catch (InterruptedException e) {
-
+            Log.error(e, "Cache maintenance thread interrupted");
+            Thread.currentThread().interrupt();
         }
     }
 
