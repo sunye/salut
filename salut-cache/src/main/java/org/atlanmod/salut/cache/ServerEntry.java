@@ -13,8 +13,8 @@ import org.atlanmod.salut.domains.Domain;
 public class ServerEntry {
 
 
-    public final List<AddressToServerLink> addresses = new ArrayList<>();
-    public final List<InstanceToServerLink> instances = new ArrayList<>();
+    final List<AddressToServerLink> addresses = new ArrayList<>();
+    final List<InstanceToServerLink> instances = new ArrayList<>();
     private Domain name;
 
     public ServerEntry(Domain name) {

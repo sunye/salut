@@ -10,7 +10,7 @@ import java.util.List;
  */
 public abstract class AddressEntry {
 
-    public List<AddressToServerLink> servers = new ArrayList<>();
+    List<AddressToServerLink> servers = new ArrayList<>();
 
     public abstract InetAddress address();
 
