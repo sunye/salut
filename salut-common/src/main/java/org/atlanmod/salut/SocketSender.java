@@ -17,7 +17,8 @@ public class SocketSender implements Runnable {
     }
 
     public void send(DatagramPacket packet) {
-        this.outgoing.offer(packet);
+        boolean isOffered = this.outgoing.offer(packet);
+        assert isOffered : "Offering a packet should always be possible";
     }
 
     @Override

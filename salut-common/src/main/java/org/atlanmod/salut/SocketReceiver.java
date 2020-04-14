@@ -32,13 +32,12 @@ public class SocketReceiver implements Runnable {
             try {
                 socket.receive(packet);
                 Log.info("Received packed from {0}", packet.getAddress());
-                incoming.offer(packet);
+                boolean isOffered = incoming.offer(packet);
+                assert isOffered : "Offering a packet should always be possible";
             } catch (SocketTimeoutException e) {
                 Log.debug(e, "Socket timeout when waiting for packet");
-
             } catch (IOException e) {
                 Log.debug(e, "IO error when receiving packet");
-                e.printStackTrace();
             }
         }
     }
