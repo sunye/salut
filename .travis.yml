@@ -1,23 +1,26 @@
 os: linux
 sudo: false
 dist: trusty
-
 language: java
 jdk: oraclejdk8
-
 cache:
   directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.sonar/cache'
+    - "$HOME/.m2/repository"
+    - "$HOME/.sonar/cache"
+
+addons:
+  sonarcloud:
+    organization: "sunye"
+    token:
+      secure:  hSn48pfKxvGU0ZqOXXBCJBT3xRnd4x+vAkcp++2whrHeHwdGAufqeERMcsIUGiyz9aJ5rnSPJ9Cs/czHRTcKDMUBYYP2J1dPw+wqPOCZHAGqCqEDMRZs0CjwvuWGugOQu6a7cPcXMLQTSWRhRDW8YUZhhK4JOCsNCnCoff+utnJSWDZouRwRuYUy2bfQM2AbZj4QnEfjrHHKAG4Uw0Iod+hUEP4pDoESpYmUxK7LYXfHyeU3UFrNlef3k8uw8+v37J6InzMl74ET1kO9quqeDfvju6ZTueyMC/+W1rsF0UCTW9X3FxMfoN2PEt8G3jMTaOc4LzS/E81/VCisirDZFy2Mx0NNF0Mag00/+vDg56gGwzyoKHJclZhfK38j/3076O83KVMauCh+IOOgeealEh3S7+7NwcyjebkzAb39gBwgdpCjfhhQfISUCtmN1X9S0Ooe8L8zUgAQFBw+HoB9N+uKItHHXOx0XZ0dP+orv090A+Hno5Fslkyhr39i76cxKNo2zhdSE0x0FlUHl1jag5YlBhpjgv9AFyKUYJT7sMzb7LlZg470S9X2jo9iHOZB7qorsrvPGER4YLOTsU0iRgq6camW4LEKpSp9Pbl/9T3SyDZn0JZhgVeFBOoo5Z/IvnXWINynpGG8MlPeNQP9WQ/YJm75AWgQQ2dzE8FNN38= # encrypted value of your token
 
 install:
-  # Resolve all dependencies
   - mvn -B -V -q -DskipTests validate
-
 script:
-  # Build and test with code coverage
-  - mvn -B verify  package
+  - mvn -B verify install sonar:sonar -Dsonar.projectKey=sunye_salut
+  # script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  # - mvn -B clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=sunye_salut
 
 after_success:
-  # Publish code coverage in CodeCov
   - bash <(curl -s https://codecov.io/bash)
