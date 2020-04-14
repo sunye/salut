@@ -395,7 +395,7 @@
           <minimumTokens>30</minimumTokens>
           <targetJdk>${maven.compiler.target}</targetJdk>
           <rulesets>
-            <ruleset>https://naomod.univ-nantes.io/ruleset.xml</ruleset>
+            <ruleset>https://atlanmod.univ-nantes.io/ruleset.xml</ruleset>
           </rulesets>
           <analysisCache>true</analysisCache>
           <analysisCacheLocation>${project.build.directory}/pmd/pmd.cache</analysisCacheLocation>
@@ -509,6 +509,16 @@
       <version>3.1.2</version>
     </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.18.12</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <profiles>
     <!-- A profile to use snapshots -->
