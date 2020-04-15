@@ -1,6 +1,7 @@
 package org.atlanmod.salut.cache;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.awaitility.Awaitility.await;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -9,6 +10,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.domains.LocalDomain;
@@ -22,6 +24,7 @@ import org.atlanmod.salut.mdns.QClass;
 import org.atlanmod.salut.names.PointerName;
 import org.atlanmod.salut.names.ServiceInstanceName;
 import org.atlanmod.salut.names.ServiceName;
+import org.awaitility.Durations;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -180,7 +183,7 @@ class CacheIT {
 
 
     @Test
-    void testGetInstancesForServiceTTLExpire() throws ParseException, InterruptedException {
+    void testGetInstancesForServiceTTLExpire() throws ParseException {
         PointerName type = PointerName.create(
             ServiceName.fromStrings("raop", "tcp"),
             LocalDomain.getInstance()
@@ -195,16 +198,18 @@ class CacheIT {
         when(ptr.ttl()).thenReturn(time);
 
         cache.cache(ptr);
-        Thread.sleep(2500);
-        cache.doMaintenance();
 
-        List<ServiceInstanceName> instancesForService = cache.getInstancesForService(type.service());
-        assertThat(instancesForService).doesNotContain(instance);
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
+            cache.doMaintenance();
+            List<ServiceInstanceName> instancesForService = cache.getInstancesForService(type.service());
+            assertThat(instancesForService).doesNotContain(instance);
+        });
+
     }
 
 
     @Test
-    void tesGetAddressesForServerTTLExpire() throws ParseException, UnknownHostException, InterruptedException {
+    void tesGetAddressesForServerTTLExpire() throws ParseException, UnknownHostException {
         Domain donatelo = DomainBuilder.parseString("Donatelo.local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
         TimeToLive time = TimeToLive.fromSeconds(1);
@@ -222,16 +227,17 @@ class CacheIT {
 
         cache.cache(aRecord);
         cache.cache(otherRecord);
-        Thread.sleep(1100);
 
-        cache.doMaintenance();
-        List<Domain> domains = cache.getServersForAddress(address);
-        assertThat(domains).contains(michelangelo);
-        assertThat(domains).doesNotContain(donatelo);
+        await().atMost(Durations.FIVE_SECONDS).untilAsserted(() -> {
+            cache.doMaintenance();
+            List<Domain> domains = cache.getServersForAddress(address);
+            assertThat(domains).contains(michelangelo);
+            assertThat(domains).doesNotContain(donatelo);
+        });
     }
 
     @Test
-    void testGetServersForAddressTTLExpire() throws ParseException, UnknownHostException, InterruptedException {
+    void testGetServersForAddressTTLExpire() throws ParseException, UnknownHostException {
         // Given:
         Domain domain = DomainBuilder.parseString("Donatelo.local");
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
@@ -240,17 +246,20 @@ class CacheIT {
         when(ip4address.serverName()).thenReturn(domain);
         when(ip4address.address()).thenReturn(address);
         when(ip4address.ttl()).thenReturn(time);
+
         //When:
         cache.cache(ip4address);
-        Thread.sleep(1100);
-        cache.doMaintenance();
+
         // Then:
-        List<Domain> servers = cache.getServersForAddress(address);
-        assertThat(servers).doesNotContain(domain);
+        await().atMost(Durations.FIVE_SECONDS).untilAsserted(() -> {
+            cache.doMaintenance();
+            List<Domain> servers = cache.getServersForAddress(address);
+            assertThat(servers).doesNotContain(domain);
+        });
     }
 
     @Test
-    void testGetServersForInstanceTTLExpire() throws ParseException, InterruptedException {
+    void testGetServersForInstanceTTLExpire() throws ParseException {
         // Given:
         ServiceInstanceName instance = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
         Domain domain = DomainBuilder.parseString("Donatelo.local");
@@ -261,15 +270,17 @@ class CacheIT {
         when(srv.ttl()).thenReturn(time);
         // When:
         cache.cache(srv);
-        Thread.sleep(1100);
-        cache.doMaintenance();
+
         // Then:
-        List<Domain> servers = cache.getServersForInstance(instance);
-        assertThat(servers).doesNotContain(domain);
+        await().atMost(Durations.FIVE_SECONDS).untilAsserted(() -> {
+            cache.doMaintenance();
+            List<Domain> servers = cache.getServersForInstance(instance);
+            assertThat(servers).doesNotContain(domain);
+        });
     }
 
     @Test
-    void testGetInstancesForServiceTimeOut() throws ParseException, InterruptedException {
+    void testGetInstancesForServiceTimeOut() throws ParseException {
         // Given:
         PointerName type = PointerName.create(
             ServiceName.fromStrings("testtest", "tcp"),
@@ -280,13 +291,16 @@ class CacheIT {
         when(pointerRecord.serviceInstanceName()).thenReturn(instance);
         when(pointerRecord.pointerName()).thenReturn(type);
         when(pointerRecord.ttl()).thenReturn(TimeToLive.fromSeconds(1));
+
         // When:
         cache.cache(pointerRecord);
-        Thread.currentThread().sleep(1100);
-        cache.doMaintenance();
+
         // Then:
-        List<ServiceInstanceName> instancesForService = cache.getInstancesForService(type.service());
-        assertThat(instancesForService).isEmpty();
+        await().atMost(Durations.FIVE_SECONDS).untilAsserted(() -> {
+            cache.doMaintenance();
+            List<ServiceInstanceName> instancesForService = cache.getInstancesForService(type.service());
+            assertThat(instancesForService).isEmpty();
+        });
     }
 
     @Test
@@ -299,12 +313,18 @@ class CacheIT {
         when(aRecord.serverName()).thenReturn(domain);
         when(aRecord.address()).thenReturn(address);
         when(aRecord.ttl()).thenReturn(TimeToLive.fromSeconds(1));
+        
         //When:
         cache.cache(aRecord);
-        Thread.currentThread().sleep(2000);
+
         // Then:
-        List<InetAddress> addresses = cache.getAddressesForServer(domain);
-        assertThat(addresses).isEmpty();
+        await().atLeast(Durations.ONE_SECOND)
+            .atMost(Durations.FIVE_SECONDS)
+            .untilAsserted(() -> {
+                List<InetAddress> addresses = cache.getAddressesForServer(domain);
+                assertThat(addresses).isEmpty();
+            });
+
         cache.stop();
     }
 
