@@ -1,4 +1,4 @@
-image: maven:3.6.1-jdk-8
+image: docker-registry.univ-nantes.fr/sunye-g/docker-java-maven
 
 variables:
   MAVEN_OPTS: "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true -Dhttp.proxyHost=proxy-serveur.univ-nantes.prive -Dhttp.proxyPort=3128"
@@ -9,10 +9,6 @@ cache:
     - .m2/repository/
   key: "$CI_BUILD_REF_NAME"
 
-before_script:
-  - 'apt-get update -qq && apt-get install -y -qq graphviz rsync'
-  
-
 build:
   stage: build
   script:
@@ -21,15 +17,7 @@ build:
     paths:
       - target/
       - salut-common/target
-
-test:
-  stage: test
-  script:
-    - 'mvn --settings ./.gitlab.maven.settings.xml $MAVEN_OPTS test'
-  artifacts:
-    paths:
-      - target/
-      - salut-common/target
+      - salut-cache/target
 
 verify:
   stage: test
@@ -39,14 +27,17 @@ verify:
     paths:
       - target/
       - salut-common/target
+      - salut-cache/target
 
 pages:
   stage: deploy
   script:
   - 'mvn --settings .gitlab.maven.settings.xml $MAVEN_OPTS -e $MAVEN_CLI_OPTS site'
   - mkdir -p public/salut-common
+  - mkdir -p public/salut-cache
   - rsync -r target/site/ public
   - rsync -r salut-common/target/site/ public/salut-common
+  - rsync -r salut-cache/target/site/ public/salut-cache
   artifacts:
     paths:
     - public
