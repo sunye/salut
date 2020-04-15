@@ -208,6 +208,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
         <configuration>
           <argLine>${surefire.jacoco.args}</argLine>
           <properties>
@@ -339,6 +340,7 @@
 
   <reporting>
     <plugins>
+      <!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
@@ -353,9 +355,11 @@
           </reportSet>
         </reportSets>
       </plugin>
+      -->
 
 
       <!-- Javadoc -->
+      <!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -375,7 +379,7 @@
             </reports>
           </reportSet>
         </reportSets>
-        <!--configuration>
+        <configuration>
           <doclet>ch.raffael.mddoclet.MarkdownDoclet</doclet>
           <docletArtifact>
             <groupId>ch.raffael.markdown-doclet</groupId>
@@ -383,10 +387,12 @@
             <version>1.4</version>
           </docletArtifact>
           <useStandardDocletOptions>true</useStandardDocletOptions>
-        </configuration-->
+        </configuration>
       </plugin>
+      -->
 
       <!-- PMD -->
+      <!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
@@ -395,19 +401,22 @@
           <minimumTokens>30</minimumTokens>
           <targetJdk>${maven.compiler.target}</targetJdk>
           <rulesets>
-            <ruleset>https://naomod.univ-nantes.io/ruleset.xml</ruleset>
+            <ruleset>https://atlanmod.univ-nantes.io/ruleset.xml</ruleset>
           </rulesets>
           <analysisCache>true</analysisCache>
           <analysisCacheLocation>${project.build.directory}/pmd/pmd.cache</analysisCacheLocation>
           <linkXRef>true</linkXRef>
         </configuration>
       </plugin>
+      -->
 
+      <!--
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
         <version>3.0.5</version>
       </plugin>
+      -->
 
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -509,6 +518,16 @@
       <version>3.1.2</version>
     </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.18.12</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <profiles>
     <!-- A profile to use snapshots -->

@@ -17,7 +17,8 @@ public class SocketSender implements Runnable {
     }
 
     public void send(DatagramPacket packet) {
-        this.outgoing.offer(packet);
+        boolean isOffered = this.outgoing.offer(packet);
+        assert isOffered : "Offering a packet should always be possible";
     }
 
     @Override
@@ -31,6 +32,7 @@ public class SocketSender implements Runnable {
                 Log.info("Packet sent");
             } catch (InterruptedException e) {
                 Log.debug(e, "Thread interrupted when sending packet");
+                Thread.currentThread().interrupt();
             } catch (IOException e) {
                 Log.debug(e, "IO error when sending packet");
             }

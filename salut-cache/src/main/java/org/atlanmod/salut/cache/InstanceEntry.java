@@ -10,8 +10,8 @@ import org.atlanmod.salut.names.ServiceInstanceName;
 class InstanceEntry {
 
     private ServiceInstanceName name;
-    public List<InstanceToServerLink> servers = new ArrayList<>();
-    public List<Links.ServiceToInstanceLink> services = new ArrayList<>();
+    final List<InstanceToServerLink> servers = new ArrayList<>();
+    final List<Links.ServiceToInstanceLink> services = new ArrayList<>();
 
 
     public InstanceEntry(ServiceInstanceName name) {

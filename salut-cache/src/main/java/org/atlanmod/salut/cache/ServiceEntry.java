@@ -11,7 +11,7 @@ import org.atlanmod.salut.names.ServiceName;
  * A service name may be provided by different service instances.
  */
 public class ServiceEntry {
-    public final List<Links.ServiceToInstanceLink> instances = new ArrayList<>();
+    final List<Links.ServiceToInstanceLink> instances = new ArrayList<>();
 
     private final ServiceName name;
 
