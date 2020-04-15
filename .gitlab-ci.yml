@@ -12,6 +12,8 @@ cache:
 build:
   stage: build
   script:
+    - java -version
+    - mvn -version
     - 'mvn --settings ./.gitlab.maven.settings.xml $MAVEN_OPTS -e $MAVEN_CLI_OPTS compile'
   artifacts:
     paths:
