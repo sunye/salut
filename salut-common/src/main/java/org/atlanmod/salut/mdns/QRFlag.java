@@ -30,13 +30,13 @@ import org.atlanmod.salut.io.UnsignedShort;
  */
 public class QRFlag implements Cloneable {
 
-    private final static int OPERATION_CODE_MASK = 0x7800;
-    private final static int TRUNCATED_MASK = 0x0200;
-    private final static int QR_BIT_MASK = 0x8000;
-    private final static int AA_BIT_MASK = 0x0400;
-    private final static int RD_BIT_MASK = 0x0200;
-    private final static int RA_BIT_MASK = 0x0100;
-    private final static int RESPONSE_CODE_MASK = 0x000F;
+    private final static int QR_BIT_MASK            = 0x8000;
+    private final static int OPERATION_CODE_MASK    = 0x7800;
+    private final static int AA_BIT_MASK            = 0x0400;
+    private final static int TRUNCATED_MASK         = 0x0200;
+    private final static int RD_BIT_MASK            = 0x0100;
+    private final static int RA_BIT_MASK            = 0x0080;
+    private final static int RESPONSE_CODE_MASK     = 0x000F;
 
     private int value;
 

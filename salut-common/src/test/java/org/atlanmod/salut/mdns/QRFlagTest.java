@@ -53,7 +53,8 @@ class QRFlagTest {
     @Test
     void testIsAA() {
         QRFlag queryFlag = QRFlag.fromInt(1024);
-        assertThat(queryFlag.isAuthoritativeAnswer());
+
+        assertThat(queryFlag.isAuthoritativeAnswer()).isTrue();
     }
 
     @Test
@@ -62,7 +63,7 @@ class QRFlagTest {
 
         assertThat(queryFlag.isAuthoritativeAnswer()).isFalse();
         queryFlag.setAuthoritativeAnswer(true);
-        assertThat(queryFlag.isAuthoritativeAnswer());
+        assertThat(queryFlag.isAuthoritativeAnswer()).isTrue();
         queryFlag.setAuthoritativeAnswer(false);
         assertThat(queryFlag.isAuthoritativeAnswer()).isFalse();
     }
@@ -70,7 +71,7 @@ class QRFlagTest {
     @Test
     void testIsTruncated() {
         QRFlag queryFlag = QRFlag.fromInt(512);
-        assertThat(queryFlag.isTruncated());
+        assertThat(queryFlag.isTruncated()).isTrue();
     }
 
     @Test
@@ -78,7 +79,7 @@ class QRFlagTest {
         QRFlag queryFlag = QRFlag.fromInt(0);
         assertThat(queryFlag.isTruncated()).isFalse();
         queryFlag.setTruncated(true);
-        assertThat(queryFlag.isTruncated());
+        assertThat(queryFlag.isTruncated()).isTrue();
         queryFlag.setTruncated(false);
         assertThat(queryFlag.isTruncated()).isFalse();
     }
@@ -90,13 +91,14 @@ class QRFlagTest {
         queryFlag.setTruncated(false);
         assertThat(queryFlag.isTruncated()).isFalse();
         queryFlag.setTruncated(true);
-        assertThat(queryFlag.isTruncated());
+        assertThat(queryFlag.isTruncated()).isTrue();
     }
 
     @Test
     void testIsRecursionDesired() {
         QRFlag queryFlag = QRFlag.fromInt(256);
-        assertThat(queryFlag.isRecursionDesired());
+
+        assertThat(queryFlag.isRecursionDesired()).isTrue();
     }
 
     @Test
@@ -106,15 +108,15 @@ class QRFlagTest {
 
         assertAll(
                 () -> assertThat(clean.isRecursionDesired()).isFalse(),
-                () -> assertThat(dirt.isRecursionDesired())
+                () -> assertThat(dirt.isRecursionDesired()).isTrue()
         );
 
         clean.setRecursionDesired(true);
         dirt.setRecursionDesired(true);
 
         assertAll(
-                () -> assertThat(clean.isRecursionDesired()),
-                () -> assertThat(dirt.isRecursionDesired())
+                () -> assertThat(clean.isRecursionDesired()).isTrue(),
+                () -> assertThat(dirt.isRecursionDesired()).isTrue()
         );
 
 
@@ -160,7 +162,7 @@ class QRFlagTest {
     @Test
     void testIsRecursionAvailable() {
         QRFlag queryFlag = QRFlag.fromInt(128);
-        assertThat(queryFlag.isRecursionAvailable());
+        assertThat(queryFlag.isRecursionAvailable()).isTrue();
     }
 
     @Test
@@ -169,7 +171,7 @@ class QRFlagTest {
 
         assertThat(queryFlag.isRecursionAvailable()).isFalse();
         queryFlag.setRecursionAvailable(true);
-        assertThat(queryFlag.isRecursionAvailable());
+        assertThat(queryFlag.isRecursionAvailable()).isTrue();
         queryFlag.setRecursionAvailable(false);
         assertThat(queryFlag.isRecursionAvailable()).isFalse();
     }
@@ -181,7 +183,7 @@ class QRFlagTest {
         QRFlag dirt = QRFlag.fromInt(0xFFFF);
         assertAll(
                 () -> assertThat(clean.responseCode()).isEqualTo(0),
-                () -> assertThat(dirt.responseCode() == 15)
+                () -> assertThat(dirt.responseCode() == 15).isTrue()
         );
 
         clean.setResponseCode(code);
