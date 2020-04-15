@@ -32,7 +32,7 @@
     <integration.test.source.dir>${project.basedir}/src/it/java</integration.test.source.dir>
     <integration.test.resource.dir>${project.basedir}/src/it/resource</integration.test.resource.dir>
     <integration.test.build.dir>${project.build.directory}/it-classes</integration.test.build.dir>
-    <sonar.jacoco.reportPath>${project.build.directory}/jacoco-all.exec</sonar.jacoco.reportPath>
+    <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco-merged-test-coverage-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
   </properties>
 
 
