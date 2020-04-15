@@ -30,9 +30,9 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <additionalparam>-Xdoclint:none</additionalparam>
     <integration.test.source.dir>${project.basedir}/src/it/java</integration.test.source.dir>
-    <integration.test.resource.dir>${project.basedir}/src/it/resource
-    </integration.test.resource.dir>
+    <integration.test.resource.dir>${project.basedir}/src/it/resource</integration.test.resource.dir>
     <integration.test.build.dir>${project.build.directory}/it-classes</integration.test.build.dir>
+    <sonar.jacoco.reportPath>${project.build.directory}/jacoco-all.exec</sonar.jacoco.reportPath>
   </properties>
 
 
