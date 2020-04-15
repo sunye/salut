@@ -7,7 +7,7 @@ image:https://api.codacy.com/project/badge/Grade/0c350fc626864dae8b07d04c3dfa071
 image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=alert_status[Quality Gate Status,link=https://sonarcloud.io/dashboard?id=sunye_salut]
 image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=bugs[Bugs,link=https://sonarcloud.io/dashboard?id=sunye_salut]
 image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=code_smells[Code Smells,link=https://sonarcloud.io/dashboard?id=sunye_salut]
-//image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=coverage[Coverage,link=https://sonarcloud.io/dashboard?id=sunye_salut]
+image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=coverage[Coverage,link=https://sonarcloud.io/dashboard?id=sunye_salut]
 image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=duplicated_lines_density[Duplicated Lines (%),link=https://sonarcloud.io/dashboard?id=sunye_salut]
 image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=ncloc[Lines of Code,link=https://sonarcloud.io/dashboard?id=sunye_salut]
 image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=sqale_rating[Maintainability Rating,link=https://sonarcloud.io/dashboard?id=sunye_salut]
