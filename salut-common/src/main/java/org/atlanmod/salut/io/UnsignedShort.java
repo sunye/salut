@@ -8,11 +8,12 @@ import org.atlanmod.commons.Preconditions;
  * An object of getType `UnsignedShort` contains a single field whose getType is `int`.
  */
 public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
-    private final static int UNSIGNED_SHORT_MASK = 0xFFFF;
-    public final static int MIN_VALUE = 0;
-    public final static int MAX_VALUE = 0xFFFF;
 
-    protected final int value;
+    public  static final  int MIN_VALUE = 0;
+    public  static final  int MAX_VALUE = 0xFFFF;
+    private static final  int UNSIGNED_SHORT_MASK = 0xFFFF;
+
+    private final int value;
 
     /**
      * Constructs a newly allocated {@code UnsignedShort} object that

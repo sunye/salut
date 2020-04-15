@@ -27,7 +27,7 @@ public class LabelPointer extends UnsignedShort {
      * @return an int value
      */
     public int offset() {
-        return value & POINTER_MASK;
+        return intValue() & POINTER_MASK;
     }
 
     /**
