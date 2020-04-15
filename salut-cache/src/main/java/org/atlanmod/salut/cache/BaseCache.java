@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.commons.log.Log;
+import org.atlanmod.salut.cache.Links.ServiceToInstanceLink;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.mdns.ARecord;
 import org.atlanmod.salut.mdns.PointerRecord;
@@ -90,7 +91,7 @@ public class BaseCache implements Cache {
     private Thread thread;
 
     public BaseCache() {
-        this.thread = new Thread(() -> maintenanceThread());
+        this.thread = new Thread(this::maintenanceThread);
 
     }
 
@@ -98,9 +99,8 @@ public class BaseCache implements Cache {
     public synchronized void cache(ServerSelectionRecord srv) {
         ServiceInstanceName name = srv.serviceInstanceName();
         Domain domain = srv.serverName();
-
-        InstanceEntry instanceEntry = instances.computeIfAbsent(name, k -> new InstanceEntry(k));
-        ServerEntry serverEntry = servers.computeIfAbsent(domain, k -> new ServerEntry(k));
+        InstanceEntry instanceEntry = instances.computeIfAbsent(name, InstanceEntry::new);
+        ServerEntry serverEntry = servers.computeIfAbsent(domain, ServerEntry::new);
 
         Link newLink = Links.link(srv.ttl(), instanceEntry, serverEntry, srv.weight(), srv.priority(),
             srv.port());
@@ -112,8 +112,8 @@ public class BaseCache implements Cache {
         ServiceName name = ptr.pointerName().service();
         ServiceInstanceName instanceName = ptr.serviceInstanceName();
 
-        ServiceEntry service = services.computeIfAbsent(name, k -> new ServiceEntry(name));
-        InstanceEntry instance = instances.computeIfAbsent(instanceName, k -> new InstanceEntry(k));
+        ServiceEntry service = services.computeIfAbsent(name, ServiceEntry::new);
+        InstanceEntry instance = instances.computeIfAbsent(instanceName, InstanceEntry::new);
 
         Link newLink = Links.link(ptr.ttl(), service, instance);
         links.add(newLink);
@@ -125,7 +125,7 @@ public class BaseCache implements Cache {
         Domain name = aRecord.serverName();
 
         AddressEntry entry = addresses.computeIfAbsent(address, k -> new Inet4AddressEntry(address));
-        ServerEntry server = servers.computeIfAbsent(name, k -> new ServerEntry(k));
+        ServerEntry server = servers.computeIfAbsent(name, ServerEntry::new);
         Link newLink = Links.link(aRecord.ttl(), entry, server);
 
         links.add(newLink);
@@ -138,8 +138,8 @@ public class BaseCache implements Cache {
             return Collections.emptyList();
         } else {
             return entry.addresses.stream()
-                .map(each -> each.getAddress())
-                .map(each -> each.address())
+                .map(AddressToServerLink::getAddress)
+                .map(AddressEntry::address)
                 .collect(Collectors.toList());
         }
     }
@@ -151,8 +151,8 @@ public class BaseCache implements Cache {
             return Collections.emptyList();
         } else {
             return entry.servers.stream()
-                .map(each -> each.getServer())
-                .map(each -> each.getName())
+                .map(AddressToServerLink::getServer)
+                .map(ServerEntry::getName)
                 .collect(Collectors.toList());
         }
     }
@@ -165,8 +165,8 @@ public class BaseCache implements Cache {
             return Collections.emptyList();
         } else {
             return service.instances.stream()
-                .map(each -> each.getInstanceEntry())
-                .map(each -> each.getName())
+                .map(ServiceToInstanceLink::getInstanceEntry)
+                .map(InstanceEntry::getName)
                 .collect(Collectors.toList());
         }
     }
@@ -181,8 +181,8 @@ public class BaseCache implements Cache {
             return Collections.emptyList();
         } else {
             return entry.servers.stream()
-                .map(each -> each.getServer())
-                .map(each -> each.getName())
+                .map(InstanceToServerLink::getServer)
+                .map(ServerEntry::getName)
                 .collect(Collectors.toList());
         }
     }
