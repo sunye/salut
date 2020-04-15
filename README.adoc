@@ -16,8 +16,10 @@ image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metri
 image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=sqale_index[Technical Debt,link=https://sonarcloud.io/dashboard?id=sunye_salut]
 
 
-Salut is a simple pure Java implementation of Multicast DNS (https://tools.ietf.org/html/rfc6762[RFC 6762]) and
-DNS-Based Service Discovery (https://tools.ietf.org/html/rfc6763[RFC 6763]).
+Salut is a simple pure Java implementation of http://www.zeroconf.org[Zeroconf] protocols:
+
+* Multicast DNS (https://tools.ietf.org/html/rfc6762[RFC 6762]) and
+* DNS-Based Service Discovery (https://tools.ietf.org/html/rfc6763[RFC 6763]).
 
 == Current status
 
@@ -45,6 +47,11 @@ Salut is a work-in-progress. Currently, no feature is available.
 
 == Similar projects
 
+.Reference implementations:
+* http://avahi.org[Avahi]
+* https://developer.apple.com/bonjour/[Bonjour]
+
+.Java implementations:
 * https://github.com/jmdns/jmdns[JmDNS]
 * http://posicks.github.io/mdnsjava/[mdnsjava]
 * https://github.com/fflewddur/hola[Hola]
