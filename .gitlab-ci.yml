@@ -32,7 +32,7 @@ verify:
 pages:
   stage: deploy
   script:
-  - 'mvn --settings .gitlab.maven.settings.xml $MAVEN_OPTS -e $MAVEN_CLI_OPTS site'
+  - 'mvn --settings .gitlab.maven.settings.xml $MAVEN_OPTS -e $MAVEN_CLI_OPTS compile site'
   - mkdir -p public/salut-common
   - mkdir -p public/salut-cache
   - rsync -r target/site/ public
