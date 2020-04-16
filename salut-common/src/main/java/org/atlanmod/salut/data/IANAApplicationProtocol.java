@@ -10,6 +10,7 @@ import java.util.Map;
  *
  * @see <a href="http://www.dns-sd.org/servicetypes.html">DNS SRV (RFC 2782) Service Types</a>
  */
+@SuppressWarnings("PMD.FieldNamingConventions")
 public enum IANAApplicationProtocol {
 
     /**

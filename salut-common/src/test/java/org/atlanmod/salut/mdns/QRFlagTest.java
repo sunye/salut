@@ -132,7 +132,7 @@ class QRFlagTest {
     @ValueSource(ints = {0, 0xFFFF})
     void testNoSideEffect(int value) throws CloneNotSupportedException {
         QRFlag flag = QRFlag.fromInt(value);
-        QRFlag other =  (QRFlag) flag.clone();
+        QRFlag other =  new QRFlag(flag);
 
         boolean previousRecursionDesired = flag.isRecursionDesired();
         boolean previousAuthoritativeAnswer = flag.isAuthoritativeAnswer();
@@ -223,10 +223,6 @@ class QRFlagTest {
                 () -> assertThat(flag.hashCode()).isEqualTo(same.hashCode()),
                 () -> assertThat(flag.hashCode()).isNotEqualTo(other.hashCode())
         );
-    }
-
-    @Test
-    void isValid() {
     }
 
     @ParameterizedTest

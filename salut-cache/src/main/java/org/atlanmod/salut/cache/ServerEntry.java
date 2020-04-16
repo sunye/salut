@@ -15,13 +15,14 @@ public class ServerEntry {
 
     final List<AddressToServerLink> addresses = new ArrayList<>();
     final List<InstanceToServerLink> instances = new ArrayList<>();
+
     private Domain name;
 
     public ServerEntry(Domain name) {
         this.name = name;
     }
 
-    public Domain getName() {
+    public Domain name() {
         return name;
     }
 }

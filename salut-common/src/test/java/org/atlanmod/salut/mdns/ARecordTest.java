@@ -54,15 +54,4 @@ class ARecordTest {
         );
     }
 
-    @Test
-    void testToString() {
-    }
-
-    @Test
-    void parser() {
-    }
-
-    @Test
-    void createRecord() {
-    }
 }

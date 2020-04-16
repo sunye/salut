@@ -6,6 +6,7 @@ import static java.util.stream.Collectors.toMap;
 import java.util.Map;
 import org.atlanmod.salut.labels.Label;
 
+@SuppressWarnings("PMD.FieldNamingConventions")
 public enum TransportProtocol {
     tcp("tcp"),
     udp("udp"),

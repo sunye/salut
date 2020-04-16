@@ -3,7 +3,15 @@ package org.atlanmod.salut.cache;
 import java.util.Comparator;
 import org.atlanmod.salut.io.UnsignedShort;
 
+/**
+ * Utility class to create and maintain links between Services, Addresses, and Servers.
+ */
 public class Links {
+
+    /**
+     * Private constructor to hide the implicit public one.
+     */
+    private Links() {}
 
     public static Link link(TimeToLive ttl, InstanceEntry service, ServerEntry server,
         UnsignedShort weight, UnsignedShort priority, UnsignedShort port) {

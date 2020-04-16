@@ -44,6 +44,16 @@ public class QRFlag implements Cloneable {
         this.value = value;
     }
 
+    /**
+     * Copy constructor for QRFlag.
+     * @see <a href="https://www.artima.com/intv/bloch.html#part13">Copy Constructor versus Cloning</a>
+     *
+     * @param source
+     */
+    public QRFlag(QRFlag source) {
+        this.value = source.value;
+    }
+
     @Override
     public String toString() {
         return "[" + value + "]" +
@@ -272,11 +282,6 @@ public class QRFlag implements Cloneable {
     @Override
     public int hashCode() {
         return Objects.hash(value);
-    }
-
-
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
     }
 
 }

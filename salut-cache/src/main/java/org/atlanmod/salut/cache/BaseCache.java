@@ -152,7 +152,7 @@ public class BaseCache implements Cache {
         } else {
             return entry.servers.stream()
                 .map(AddressToServerLink::getServer)
-                .map(ServerEntry::getName)
+                .map(ServerEntry::name)
                 .collect(Collectors.toList());
         }
     }
@@ -182,7 +182,7 @@ public class BaseCache implements Cache {
         } else {
             return entry.servers.stream()
                 .map(InstanceToServerLink::getServer)
-                .map(ServerEntry::getName)
+                .map(ServerEntry::name)
                 .collect(Collectors.toList());
         }
     }
