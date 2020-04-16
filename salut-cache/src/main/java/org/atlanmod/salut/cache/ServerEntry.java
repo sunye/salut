@@ -2,10 +2,6 @@ package org.atlanmod.salut.cache;
 
 import java.util.ArrayList;
 import java.util.List;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
-import lombok.experimental.Accessors;
 import org.atlanmod.salut.domains.Domain;
 
 /**

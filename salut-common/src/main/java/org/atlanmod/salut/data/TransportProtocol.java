@@ -6,7 +6,7 @@ import static java.util.stream.Collectors.toMap;
 import java.util.Map;
 import org.atlanmod.salut.labels.Label;
 
-@SuppressWarnings("PMD.FieldNamingConventions")
+@SuppressWarnings({"pmd:FieldNamingConventions","squid:S115"})
 public enum TransportProtocol {
     tcp("tcp"),
     udp("udp"),
