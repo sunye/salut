@@ -13,6 +13,7 @@ import java.util.Optional;
  * @see <a href="https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml>Domain Label System (DNS) Parameters</a>
  *
  */
+@SuppressWarnings({"pmd:FieldNamingConventions","squid:S115"})
 public enum OptionCode {
 
     /**

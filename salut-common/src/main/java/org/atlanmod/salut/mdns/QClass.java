@@ -23,6 +23,7 @@ import org.atlanmod.salut.io.UnsignedShort;
  * In the Question Section of a Multicast DNS query, the top bit of the qclass field is used
  * to indicate that unicast responses are preferred for this particular question.  (See Section 5.4.)
  */
+@SuppressWarnings({"pmd:FieldNamingConventions","squid:S115"})
 public enum QClass {
 
 

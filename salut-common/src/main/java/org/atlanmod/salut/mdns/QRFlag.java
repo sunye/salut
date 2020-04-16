@@ -28,7 +28,7 @@ import org.atlanmod.salut.io.UnsignedShort;
  * 4 - (RCode) - Response Code
  *
  */
-public class QRFlag implements Cloneable {
+public class QRFlag {
 
     private final static int QR_BIT_MASK            = 0x8000;
     private final static int OPERATION_CODE_MASK    = 0x7800;

@@ -2,6 +2,7 @@ package org.atlanmod.salut.io;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -226,7 +227,7 @@ public class ByteArrayReader {
         byte[] addressBytes = new byte[4];
         get(addressBytes);
         try {
-            Inet4Address address = (Inet4Address) Inet4Address.getByAddress(addressBytes);
+            Inet4Address address = (Inet4Address) InetAddress.getByAddress(addressBytes);
             return address;
         } catch (UnknownHostException e) {
             throw new ParseException("UnknownHostException - Parsing error when reading a Inet4 addresss.", position());
@@ -242,7 +243,7 @@ public class ByteArrayReader {
         byte[] addressBytes = new byte[16];
         get(addressBytes);
         try {
-            Inet6Address address = (Inet6Address) Inet6Address.getByAddress(addressBytes);
+            Inet6Address address = (Inet6Address) InetAddress.getByAddress(addressBytes);
             return address;
         } catch (UnknownHostException e) {
             throw new ParseException("UnknownHostException - Parsing error when reading a Inet6 addresss.", position());
