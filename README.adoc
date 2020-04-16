@@ -4,6 +4,15 @@ image:https://travis-ci.org/sunye/salut.svg?branch=master[Travis, link=https://t
 image:https://codecov.io/gh/sunye/salut/branch/master/graph/badge.svg["CodeCov", link=https://codecov.io/gh/sunye/salut]
 image:https://api.codacy.com/project/badge/Grade/0c350fc626864dae8b07d04c3dfa0714["Codacy code quality", link="https://www.codacy.com/manual/sunye/salut?utm_source=github.com&utm_medium=referral&utm_content=sunye/salut&utm_campaign=Badge_Grade"]
 
+
+
+Salut is a simple pure Java implementation of http://www.zeroconf.org[Zeroconf] protocols:
+
+* Multicast DNS (https://tools.ietf.org/html/rfc6762[RFC 6762]) and
+* DNS-Based Service Discovery (https://tools.ietf.org/html/rfc6763[RFC 6763]).
+
+== Code Quality Status (sonarcloud)
+
 image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=alert_status[Quality Gate Status,link=https://sonarcloud.io/dashboard?id=sunye_salut]
 image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=bugs[Bugs,link=https://sonarcloud.io/dashboard?id=sunye_salut]
 image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=code_smells[Code Smells,link=https://sonarcloud.io/dashboard?id=sunye_salut]
@@ -15,13 +24,7 @@ image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metri
 image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=security_rating[Security Rating,link=https://sonarcloud.io/dashboard?id=sunye_salut]
 image:https://sonarcloud.io/api/project_badges/measure?project=sunye_salut&metric=sqale_index[Technical Debt,link=https://sonarcloud.io/dashboard?id=sunye_salut]
 
-
-Salut is a simple pure Java implementation of http://www.zeroconf.org[Zeroconf] protocols:
-
-* Multicast DNS (https://tools.ietf.org/html/rfc6762[RFC 6762]) and
-* DNS-Based Service Discovery (https://tools.ietf.org/html/rfc6763[RFC 6763]).
-
-== Current status
+== Current Functionality Status
 
 Salut is a work-in-progress. Currently, no feature is available.
 
