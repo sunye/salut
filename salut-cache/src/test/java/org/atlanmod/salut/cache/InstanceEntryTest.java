@@ -1,42 +1,32 @@
 package org.atlanmod.salut.cache;
 
+import java.text.ParseException;
+import org.atlanmod.salut.domains.Domain;
+import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.salut.names.ServiceInstanceName;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.*;
 
 class InstanceEntryTest {
-    private Labels names = Labels.fromList("MacBook", "local");
-    private ServiceEntry entry;
+    private Labels names = Labels.fromList("adisk", "tcp", "MacBook", "local");
+    private InstanceEntry entry;
+    private ServiceInstanceName instance;
 
-    /*
+
     @BeforeEach
     void setUp() throws ParseException {
-        Domain name = DomainBuilder.fromLabels(names);
-        this.entry = new ServiceEntry(TimeToLive.fromSeconds(0), name);
+        instance = ServiceInstanceName.fromLabels(names);
+        entry = new InstanceEntry(instance);
     }
 
 
     @Test
     void name() throws ParseException {
-        Domain name = DomainBuilder.fromLabels(names);
-
-        assertEquals(name, entry.name());
+        ServiceInstanceName expected = ServiceInstanceName.fromLabels(names);
+        assertThat(entry.name()).isEqualTo(expected);
     }
 
-    @Test
-    void getAddresses() throws UnknownHostException {
-        Inet4Address inet4address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
-        AddressEntry ae = new Inet4AddressEntry(TimeToLive.fromSeconds(0), inet4address);
-        entry.getAddresses().add(ae);
-
-        assertTrue(ae.getLabels().contains(entry));
-        assertTrue(entry.getAddresses().contains(ae));
-        assertTrue(entry.getAddresses()
-                .references()
-                .stream()
-                .anyMatch(each -> each.address().equals(inet4address)));
-    }
-
-    @Test
-    void getService() {
-    }
-    */
 }

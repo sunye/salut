@@ -14,13 +14,9 @@ import org.atlanmod.salut.names.ServiceName;
  *
  * A service name may be provided by different service instances.
  */
-@Accessors(fluent = true)
-@EqualsAndHashCode
-@ToString
 public class ServiceEntry {
     final List<Links.ServiceToInstanceLink> instances = new ArrayList<>();
 
-    @Getter
     private final ServiceName name;
 
     protected ServiceEntry(ServiceName name) {
@@ -29,5 +25,9 @@ public class ServiceEntry {
 
     protected ServiceEntry(PointerName name) {
         this(name.service());
+    }
+
+    public ServiceName name() {
+        return name;
     }
 }

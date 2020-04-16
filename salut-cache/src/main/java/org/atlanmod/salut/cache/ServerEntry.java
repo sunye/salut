@@ -14,19 +14,18 @@ import org.atlanmod.salut.domains.Domain;
  * A Server may have different IP Addresses and may host different service instances.
  *
  */
-@Accessors(fluent = true)
-@EqualsAndHashCode
-@ToString
 public class ServerEntry {
 
     final List<AddressToServerLink> addresses = new ArrayList<>();
     final List<InstanceToServerLink> instances = new ArrayList<>();
 
-    @Getter
     private Domain name;
 
     public ServerEntry(Domain name) {
         this.name = name;
     }
 
+    public Domain name() {
+        return name;
+    }
 }

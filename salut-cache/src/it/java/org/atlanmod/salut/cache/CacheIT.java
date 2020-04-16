@@ -1,6 +1,6 @@
 package org.atlanmod.salut.cache;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -121,7 +121,8 @@ class CacheIT {
         when(aRecord.address()).thenReturn(address);
         when(aRecord.ttl()).thenReturn(time);
 
-        Inet4Address secondaryAddress = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
+        Inet4Address secondaryAddress = (Inet4Address) InetAddress
+            .getByAddress(new byte[]{127, 0, 0, 1});
         ARecord otherRecord = mock(BaseARecord.class);
         when(otherRecord.serverName()).thenReturn(domain);
         when(otherRecord.address()).thenReturn(secondaryAddress);
@@ -130,8 +131,7 @@ class CacheIT {
         cache.cache(aRecord);
         cache.cache(otherRecord);
 
-        assertThat(cache.getAddressesForServer(domain)).contains(address);
-        assertThat(cache.getAddressesForServer(domain)).contains(secondaryAddress);
+        assertThat(cache.getAddressesForServer(domain)).contains(address, secondaryAddress);
     }
 
     @Test
@@ -231,8 +231,8 @@ class CacheIT {
         await().atMost(Durations.FIVE_SECONDS).untilAsserted(() -> {
             cache.doMaintenance();
             List<Domain> domains = cache.getServersForAddress(address);
-            assertThat(domains).contains(michelangelo);
-            assertThat(domains).doesNotContain(donatelo);
+            assertThat(domains).contains(michelangelo)
+                .doesNotContain(donatelo);
         });
     }
 
@@ -304,7 +304,7 @@ class CacheIT {
     }
 
     @Test
-    void tesGetAddressesForServerTimeout() throws ParseException, UnknownHostException, InterruptedException {
+    void tesGetAddressesForServerTimeout() throws ParseException, UnknownHostException {
         // Given:
         cache.start();
         Domain domain = DomainBuilder.parseString("Donatelo.local");
@@ -329,14 +329,14 @@ class CacheIT {
     }
 
     @Test
-    void testGetInstancesForServiceNotFound() throws ParseException {
+    void testGetInstancesForServiceNotFound() {
         ServiceName type = ServiceName.fromStrings("testtest", "tcp");
         List<ServiceInstanceName> instancesForService = cache.getInstancesForService(type);
         assertThat(instancesForService).isEmpty();
     }
 
     @Test
-    void testGetServersForAddressNoDomainName() throws ParseException, UnknownHostException {
+    void testGetServersForAddressNoDomainName() throws UnknownHostException {
         Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{12, 0, 0, 5});
         List<Domain> domains = cache.getServersForAddress(address);
         assertThat(domains).isEmpty();

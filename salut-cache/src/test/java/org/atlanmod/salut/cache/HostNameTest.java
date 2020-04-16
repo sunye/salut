@@ -1,8 +1,6 @@
 package org.atlanmod.salut.cache;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -28,9 +26,9 @@ class HostNameTest {
         Domain localHost = DomainBuilder.fromLabels(names);
         Domain internetHost = DomainBuilder.fromLabels(Labels.fromList("www", "macbook", "org"));
 
-        assertTrue(localHost instanceof LocalHostName);
-        assertTrue(internetHost instanceof InternetDomain);
-        assertNotEquals(localHost, internetHost);
+        assertThat(localHost).isInstanceOf(LocalHostName.class);
+        assertThat(internetHost).isInstanceOf(InternetDomain.class);
+        assertThat(localHost).isNotEqualTo(internetHost);
     }
 
     @Test
@@ -40,7 +38,7 @@ class HostNameTest {
         byte[] ipAddr = new byte[]{8, 8, 4, 4};
         InetAddress expected = InetAddress.getByAddress(ipAddr);
 
-        assertEquals(expected, reverseIp4.address());
+        assertThat(reverseIp4.address()).isEqualTo(expected);
     }
 
     @Test
@@ -49,6 +47,6 @@ class HostNameTest {
         ReverseInet6Address reverseIp6 = (ReverseInet6Address) DomainBuilder.fromLabels(reverseInet6Name);
         InetAddress expected = InetAddress.getByName("2001:db8::567:89ab");
 
-        assertEquals(expected, reverseIp6.address());
+        assertThat(reverseIp6.address()).isEqualTo(expected);
     }
 }

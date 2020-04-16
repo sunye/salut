@@ -7,9 +7,7 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-@Accessors(fluent = true)
-@EqualsAndHashCode
-@ToString
+
 public class Inet4AddressEntry extends AddressEntry {
 
     @Getter
@@ -19,4 +17,8 @@ public class Inet4AddressEntry extends AddressEntry {
         this.address = address;
     }
 
+    @Override
+    public Inet4Address address() {
+        return address;
+    }
 }

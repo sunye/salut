@@ -11,9 +11,6 @@ import org.atlanmod.salut.names.ServiceInstanceName;
 /**
  * The `InstanceEntry` class represents Service Instance Names.
  */
-@Accessors(fluent = true)
-@EqualsAndHashCode
-@ToString
 class InstanceEntry {
 
     @Getter
@@ -25,4 +22,7 @@ class InstanceEntry {
         this.name = name;
     }
 
+    public ServiceInstanceName name() {
+        return name;
+    }
 }
