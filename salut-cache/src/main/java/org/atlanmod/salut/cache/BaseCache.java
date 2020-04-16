@@ -166,7 +166,7 @@ public class BaseCache implements Cache {
         } else {
             return service.instances.stream()
                 .map(ServiceToInstanceLink::getInstanceEntry)
-                .map(InstanceEntry::getName)
+                .map(InstanceEntry::name)
                 .collect(Collectors.toList());
         }
     }
