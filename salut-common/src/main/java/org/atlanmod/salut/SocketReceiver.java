@@ -10,10 +10,10 @@ import org.atlanmod.commons.log.Log;
 
 public class SocketReceiver implements Runnable {
 
-    private final static short MESSAGE_LENGTH =  8972;
+    private static final short MESSAGE_LENGTH = 8972;
 
     private final MulticastSocket socket;
-    private BlockingQueue<DatagramPacket> incoming = new ArrayBlockingQueue<DatagramPacket>(10);
+    private BlockingQueue<DatagramPacket> incoming = new ArrayBlockingQueue<>(10);
 
     public SocketReceiver(MulticastSocket socket) {
         this.socket = socket;
@@ -26,7 +26,7 @@ public class SocketReceiver implements Runnable {
     @Override
     public void run() {
         Log.info("Starting socket receiver thread");
-        Thread thread =  Thread.currentThread();
+        Thread thread = Thread.currentThread();
         while (!thread.isInterrupted()) {
             DatagramPacket packet = this.createDatagramPacket();
             try {
@@ -43,8 +43,7 @@ public class SocketReceiver implements Runnable {
     }
 
     private DatagramPacket createDatagramPacket() {
-        byte buf[] = new byte[MESSAGE_LENGTH];
-        DatagramPacket packet = new DatagramPacket(buf, buf.length);
-        return packet;
+        byte[] buf = new byte[MESSAGE_LENGTH];
+        return new DatagramPacket(buf, buf.length);
     }
 }

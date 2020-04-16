@@ -227,8 +227,7 @@ public class ByteArrayReader {
         byte[] addressBytes = new byte[4];
         get(addressBytes);
         try {
-            Inet4Address address = (Inet4Address) InetAddress.getByAddress(addressBytes);
-            return address;
+            return (Inet4Address) InetAddress.getByAddress(addressBytes);
         } catch (UnknownHostException e) {
             throw new ParseException("UnknownHostException - Parsing error when reading a Inet4 addresss.", position());
         }
@@ -243,8 +242,7 @@ public class ByteArrayReader {
         byte[] addressBytes = new byte[16];
         get(addressBytes);
         try {
-            Inet6Address address = (Inet6Address) InetAddress.getByAddress(addressBytes);
-            return address;
+            return (Inet6Address) InetAddress.getByAddress(addressBytes);
         } catch (UnknownHostException e) {
             throw new ParseException("UnknownHostException - Parsing error when reading a Inet6 addresss.", position());
         }

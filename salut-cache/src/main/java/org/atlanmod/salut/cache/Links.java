@@ -38,8 +38,8 @@ public class Links {
 
 
     public static class ServiceToInstanceLink extends AbstractLink {
-        private ServiceEntry serviceEntry;
-        private InstanceEntry instanceEntry;
+        private final ServiceEntry serviceEntry;
+        private final InstanceEntry instanceEntry;
 
         public ServiceToInstanceLink(TimeToLive ttl, ServiceEntry serviceEntry, InstanceEntry instanceEntry) {
             super(ttl);
@@ -55,6 +55,7 @@ public class Links {
             return instanceEntry;
         }
 
+        @Override
         public void unlink() {
             serviceEntry.instances.remove(this);
             instanceEntry.services.remove(this);
