@@ -32,7 +32,7 @@ public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
 
     /**
      * Returns the value of this {@code UnsignedShort} as an {@code int}.
-     * @return
+     * @return the numeric value represented by this object after conversion to type {@code int}.
      */
     public int intValue() {
         return value;
@@ -40,7 +40,7 @@ public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
 
     /**
      * Returns the value of this {@code UnsignedShort} as an {@code long}.
-     * @return
+     * @return the numeric value represented by this object after conversion to type {@code long}.
      */
     @Override
     public long longValue() {
@@ -49,7 +49,7 @@ public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
 
     /**
      * Returns the value of this {@code UnsignedShort} as an {@code float}.
-     * @return
+     * @return the numeric value represented by this object after conversion to type {@code float}.
      */
     @Override
     public float floatValue() {
@@ -58,11 +58,11 @@ public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
 
     /**
      * Returns the value of this {@code UnsignedShort} as an {@code double}.
-     * @return
+     * @return the numeric value represented by this object after conversion to type {@code double}.
      */
     @Override
     public double doubleValue() {
-        return (double) value;
+        return value;
     }
 
     /**
@@ -129,7 +129,7 @@ public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
     }
 
     /**
-     * Creates an instance of {@code UnsignedShort} from a primitive {@short} value [-32768|32767].
+     * Creates an instance of {@code UnsignedShort} from a primitive {@code short} value [-32768|32767].
      * The sign bit is considered as the highest bit of the short value.
      * For instance, the primitive short value -32,768 is converted to 65,535.
      *
@@ -142,7 +142,7 @@ public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
     }
 
     /**
-     * Creates an instance of {@code UnsignedShort} from a primitive {@int} value.
+     * Creates an instance of {@code UnsignedShort} from a primitive {@code int} value.
      * @param value a {@code int} value between [0|65535]
      *
      * @return an instance of {@code UnsignedShort} representing the value.
@@ -168,7 +168,7 @@ public class UnsignedShort extends Number implements Comparable<UnsignedShort> {
      */
     @Override
     public int compareTo(UnsignedShort other) {
-        return (this.value < other.value ? -1 : (this.value == other.value ? 0 : 1));
+        return Integer.compare(this.value, other.value);
     }
 
     /**

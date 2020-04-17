@@ -9,9 +9,10 @@ import org.atlanmod.commons.Preconditions;
  * An object of getType `UnsignedInt` contains a single field whose getType is `long`.
  */
 public class UnsignedInt extends Number implements Comparable<UnsignedInt> {
-    private final static long UNSIGNED_INT_MASK = 0xFFFFFFFFL;
-    public final static long MIN_VALUE = 0;
-    public final static long MAX_VALUE = 0xffffffffL;;
+
+    public static final long MIN_VALUE = 0;
+    public static final long MAX_VALUE = 0xffffffffL;
+    private static final long UNSIGNED_INT_MASK = 0xFFFFFFFFL;
 
     private final long value;
 
@@ -22,8 +23,8 @@ public class UnsignedInt extends Number implements Comparable<UnsignedInt> {
     /**
      * Wraps an `int` value into a `UnsignedInt`.
      *
-     * @param value
-     * @return
+     * @param value A unsigned 32-bits unsigned int value.
+     * @return un object wrapping the unsigned int value.
      */
     public static UnsignedInt fromInt(int value) {
         return new UnsignedInt(value & UNSIGNED_INT_MASK);
@@ -56,7 +57,7 @@ public class UnsignedInt extends Number implements Comparable<UnsignedInt> {
 
     /**
      * Returns a hash code for this `UnsignedInt`.
-     * @return
+     * @return a hash code.
      */
     @Override
     public int hashCode() {
@@ -90,6 +91,6 @@ public class UnsignedInt extends Number implements Comparable<UnsignedInt> {
 
     @Override
     public int compareTo(UnsignedInt other) {
-        return (this.value < other.value ? -1 : (this.value == other.value ? 0 : 1));
+        return Long.compare(this.value, other.value);
     }
 }

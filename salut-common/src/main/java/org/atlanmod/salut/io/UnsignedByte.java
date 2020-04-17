@@ -14,7 +14,7 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte> {
     public final static short MAX_VALUE = 255;
     public final static int UNSIGNED_BYTE_MASK = 0xFF;
 
-    private static UnsignedByte[] cache = new UnsignedByte[MAX_VALUE + 1];
+    private final static UnsignedByte[] cache = new UnsignedByte[MAX_VALUE + 1];
 
     protected final short value;
 
@@ -69,23 +69,23 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte> {
 
     @Override
     public long longValue() {
-        return (long) value;
+        return value;
     }
 
     @Override
     public float floatValue() {
-        return (float) value;
+        return value;
     }
 
     @Override
     public double doubleValue() {
-        return (double) value;
+        return value;
     }
 
     /**
      * Compares two unsigned bytes numerically.
-     * @param other
-     * @return
+     * @param other The UnsignedByte object to be compared with
+     * @return {@code true} is this value is less than the other, {@cde false} otherwise.
      */
     public boolean isLessThan(UnsignedByte other) {
         return value < other.value;
@@ -139,7 +139,7 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte> {
 
     /**
      * Returns a hash code for this `UnsignedByte`.
-     * @return
+     * @return the hash code for this object
      */
     @Override
     public int hashCode() {
@@ -148,11 +148,14 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte> {
 
     /**
      * Compares two `UnsignedByte` objects numerically.
-     * @param other
-     * @return the value 0 if this `UnsignedByte` is equal to the argument `UnsignedByte`; a value less than 0 if this `UnsignedByte` is numerically less than the argument `UnsignedByte`; and a value greater than 0 if this `UnsignedByte` is numerically greater than the argument `UnsignedByte`.
+     * @param other the other object to be compared with.
+     * @return the value 0 if this `UnsignedByte` is equal to the argument `UnsignedByte`;
+     * a value less than 0 if this `UnsignedByte` is numerically less than the argument
+     * `UnsignedByte`; and a value greater than 0 if this `UnsignedByte` is numerically greater
+     * than the argument `UnsignedByte`.
      */
     @Override
     public int compareTo(UnsignedByte other) {
-        return (this.value < other.value ? -1 : (this.value == other.value ? 0 : 1));
+        return Short.compare(this.value, other.value);
     }
 }
