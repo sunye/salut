@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.log.Log;
+import org.atlanmod.salut.domains.IPv4Address;
 import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.mdns.QClass;
@@ -220,17 +221,13 @@ public class ByteArrayReader {
 
     /**
      * Reads a 4-bytes IPv4 address
-     * @return This ByteArrayReader
-     * @throws ParseException If there is a parsing error
+     * @return a IPv4Address
      */
-    public Inet4Address readInet4Address() throws ParseException {
+    public IPv4Address readIPv4Address()  {
         byte[] addressBytes = new byte[4];
         get(addressBytes);
-        try {
-            return (Inet4Address) InetAddress.getByAddress(addressBytes);
-        } catch (UnknownHostException e) {
-            throw new ParseException("UnknownHostException - Parsing error when reading a Inet4 addresss.", position());
-        }
+
+        return new IPv4Address(addressBytes);
     }
 
     /**

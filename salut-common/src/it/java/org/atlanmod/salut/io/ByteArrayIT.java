@@ -5,6 +5,7 @@ import static com.google.common.truth.Truth.assertThat;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 import java.text.ParseException;
+import org.atlanmod.salut.domains.IPv4Address;
 import org.atlanmod.salut.mdns.QClass;
 import org.atlanmod.salut.mdns.RecordType;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,10 +29,10 @@ public class ByteArrayIT {
         + "Then the same address is read from the ByteArray")
     @Test
     void testInet4AddressReadWrite() throws UnknownHostException, ParseException {
-        Inet4Address address = (Inet4Address) Inet4Address.getByAddress(new byte[]{1,1,1,1});
-        writer.putInet4Address(address);
+        IPv4Address address = new IPv4Address(new byte[]{1,1,1,1});
+        writer.putIPv4Address(address);
         ByteArrayReader reader = writer.getByteArrayReader();
-        Inet4Address readAddress = reader.readInet4Address();
+        IPv4Address readAddress = reader.readIPv4Address();
 
         assertThat(readAddress).isEqualTo(address);
     }

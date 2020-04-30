@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import org.atlanmod.commons.primitive.Bytes;
+import org.atlanmod.salut.domains.IPv4Address;
 import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.mdns.QClass;
@@ -70,8 +71,8 @@ public class ByteArrayWriter {
      * @param address an IPv4 address
      * @return This ByteArrayWriter
      */
-    public  ByteArrayWriter putInet4Address(Inet4Address address) {
-        for (byte each : address.getAddress()) {
+    public  ByteArrayWriter putIPv4Address(IPv4Address address) {
+        for (byte each : address.address()) {
             bytes.add(each);
         }
         return this;

@@ -1,7 +1,5 @@
 package org.atlanmod.salut.cache;
 
-import java.net.Inet4Address;
-import java.net.InetAddress;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,6 +15,8 @@ import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.cache.Links.ServiceToInstanceLink;
 import org.atlanmod.salut.domains.Domain;
+import org.atlanmod.salut.domains.IPAddress;
+import org.atlanmod.salut.domains.IPv4Address;
 import org.atlanmod.salut.mdns.ARecord;
 import org.atlanmod.salut.mdns.PointerRecord;
 import org.atlanmod.salut.mdns.ServerSelectionRecord;
@@ -86,7 +86,7 @@ public class BaseCache implements Cache {
     private Map<ServiceInstanceName, InstanceEntry> instances = new HashMap<>();
     private Map<ServiceName, ServiceEntry> services = new HashMap<>();
     private Map<Domain, ServerEntry> servers = new HashMap<>();
-    private Map<InetAddress, AddressEntry> addresses = new HashMap<>();
+    private Map<IPAddress, AddressEntry> addresses = new HashMap<>();
     private SortedSet<Link> links = new TreeSet<>(Links.comparator());
     private Thread thread;
 
@@ -121,7 +121,7 @@ public class BaseCache implements Cache {
 
     @Override
     public synchronized void cache(ARecord aRecord) throws ParseException {
-        Inet4Address address = aRecord.address();
+        IPv4Address address = aRecord.address();
         Domain name = aRecord.serverName();
 
         AddressEntry entry = addresses.computeIfAbsent(address, k -> new Inet4AddressEntry(address));
@@ -132,7 +132,7 @@ public class BaseCache implements Cache {
     }
 
     @Override
-    public synchronized List<InetAddress> getAddressesForServer(Domain name) {
+    public synchronized List<IPAddress> getAddressesForServer(Domain name) {
         ServerEntry entry = this.servers.get(name);
         if (Objects.isNull(entry)) {
             return Collections.emptyList();
@@ -145,7 +145,7 @@ public class BaseCache implements Cache {
     }
 
     @Override
-    public synchronized List<Domain> getServersForAddress(InetAddress address) {
+    public synchronized List<Domain> getServersForAddress(IPv4Address address) {
         AddressEntry entry = this.addresses.get(address);
         if (Objects.isNull(entry)) {
             return Collections.emptyList();
@@ -236,7 +236,7 @@ public class BaseCache implements Cache {
     }
 
     @VisibleForTesting
-    protected Map<InetAddress, AddressEntry> addresses() {
+    protected Map<IPAddress, AddressEntry> addresses() {
         return Collections.unmodifiableMap(addresses);
     }
 

@@ -5,7 +5,9 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import org.atlanmod.commons.log.Log;
-import org.atlanmod.salut.mdns.BaseServerSelectionRecord;
+import org.atlanmod.salut.domains.Host;
+import org.atlanmod.salut.mdns.RecordFactory;
+import org.atlanmod.salut.mdns.ServerSelectionRecord;
 import org.atlanmod.salut.sd.ServiceDescription;
 import org.atlanmod.salut.sd.ServicePublisher;
 
@@ -18,7 +20,7 @@ public class Salut implements ServicePublisher {
     private static final int SOCKET_TTL = 10;
 
     private MulticastSocket socket;
-    private InetAddress localHost;
+    private Host localHost;
 
 
     /**
@@ -33,15 +35,15 @@ public class Salut implements ServicePublisher {
      * @return the instance of this class
      */
     public static Salut getInstance() {
-        return Holder.INSTANCE;
+        return SalutHolder.INSTANCE;
     }
 
     public void run() throws IOException {
         Log.info("run()");
 
-        this.localHost = InetAddress.getLocalHost();
+        this.localHost = Host.localHost();
 
-        this.openSocket(localHost);
+        this.openSocket(InetAddress.getLocalHost());
         SocketReceiver receiver = new SocketReceiver(this.socket);
         SocketSender sender = new SocketSender(this.socket);
         IncomingPacketWorker parser = new IncomingPacketWorker(receiver);
@@ -80,9 +82,8 @@ public class Salut implements ServicePublisher {
 
     @Override
     public void publish(ServiceDescription service) {
-        //ServerSelectionRecord srv =
-
-        BaseServerSelectionRecord.fromService(localHost, service);
+        RecordFactory factory = new RecordFactory(this.localHost);
+        ServerSelectionRecord srv = factory.createServerSelectionRecord(service);
     }
 
     public static void main(String[] args) throws IOException {
@@ -93,7 +94,7 @@ public class Salut implements ServicePublisher {
     /**
      * The initialization-on-demand holder of the singleton of this class.
      */
-    private static final class Holder {
+    private static final class SalutHolder {
 
         /**
          * The instance of the outer class.

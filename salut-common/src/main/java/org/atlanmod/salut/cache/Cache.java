@@ -1,9 +1,10 @@
 package org.atlanmod.salut.cache;
 
-import java.net.InetAddress;
 import java.text.ParseException;
 import java.util.List;
 import org.atlanmod.salut.domains.Domain;
+import org.atlanmod.salut.domains.IPAddress;
+import org.atlanmod.salut.domains.IPv4Address;
 import org.atlanmod.salut.mdns.ARecord;
 import org.atlanmod.salut.mdns.PointerRecord;
 import org.atlanmod.salut.mdns.ServerSelectionRecord;
@@ -22,6 +23,7 @@ public interface Cache {
 
     /**
      * Updates this cache with the values of a PTR record
+     *
      * @param ptr the pointer record
      */
     void cache(PointerRecord ptr);
@@ -40,14 +42,14 @@ public interface Cache {
      * @param name
      * @return a List containing all associated addresses. An empty list, if none.
      */
-    List<InetAddress> getAddressesForServer(Domain name);
+    List<IPAddress> getAddressesForServer(Domain name);
 
     /**
      * Finds all Host Names associated to a Inet getAddress.
      *
      * @return a List containing all associated data. An empty list, if none.
      */
-    List<Domain> getServersForAddress(InetAddress address);
+    List<Domain> getServersForAddress(IPv4Address address);
 
     /**
      * Finds all Service Instance Names providing a given {@code ServiceName}.
@@ -59,6 +61,7 @@ public interface Cache {
 
     /**
      * Finds all Servers for a given Service Instance Name
+     *
      * @param serviceInstanceName
      * @return
      */

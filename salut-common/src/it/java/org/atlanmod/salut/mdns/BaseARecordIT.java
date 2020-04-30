@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 import java.text.ParseException;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
+import org.atlanmod.salut.domains.IPv4Address;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
@@ -28,7 +29,7 @@ class BaseARecordIT {
     void testARecordReadWrite() throws ParseException, UnknownHostException {
 
         Labels names = Labels.fromList("MacBook", "local");
-        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
+        IPv4Address address = new IPv4Address(new byte[]{72, 16, 8, 4});
         Domain domaine = DomainBuilder.fromLabels(names);
         BaseARecord record = BaseARecord
             .createRecord(QClass.IN, UnsignedInt.fromInt(10), address, domaine);

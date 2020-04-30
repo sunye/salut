@@ -6,13 +6,14 @@ import java.util.Objects;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
+import org.atlanmod.salut.domains.IPv4Address;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
 
 /**
- * The `ARecord` class represents DNS IP4 getAddress records (ARecord).
+ * The `ARecord` class represents DNS IP4 address records (ARecord).
  *
  * The DNS ARecord has the following format:
  *
@@ -23,10 +24,10 @@ import org.atlanmod.salut.io.UnsignedShort;
  */
 public class BaseARecord extends AbstractNormalRecord implements ARecord {
 
-    private final Inet4Address address;
+    private final IPv4Address address;
     private final Domain serverName;
 
-    private BaseARecord(QClass qclass, UnsignedInt ttl, Inet4Address address, Domain serverName) {
+    BaseARecord(QClass qclass, UnsignedInt ttl, IPv4Address address, Domain serverName) {
         super(qclass, ttl);
         this.address = address;
         this.serverName = serverName;
@@ -38,7 +39,7 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
     }
 
     @Override
-    public Inet4Address address() {
+    public IPv4Address address() {
         return this.address;
     }
 
@@ -64,7 +65,7 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
                 .putUnsignedShort(UnsignedShort.fromInt(4));
 
         // Variable part
-        writer.putInet4Address(this.address);
+        writer.putIPv4Address(this.address);
     }
 
     @Override
@@ -88,7 +89,7 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
 
 
     private static class ARecordParser extends NormalRecordParser<ARecord> {
-        private Inet4Address address;
+        private IPv4Address address;
         private Domain serverName;
 
         /**
@@ -100,7 +101,7 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
          */
         @Override
         protected void parseVariablePart(ByteArrayReader reader) throws ParseException {
-            address = reader.readInet4Address();
+            address = reader.readIPv4Address();
             serverName = DomainBuilder.fromLabels(labels);
         }
 
@@ -112,7 +113,7 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
     }
 
     @VisibleForTesting
-    public static BaseARecord createRecord(QClass qclass, UnsignedInt ttl, Inet4Address address, Domain serverName) {
+    public static BaseARecord createRecord(QClass qclass, UnsignedInt ttl, IPv4Address address, Domain serverName) {
         return new BaseARecord(qclass, ttl, address, serverName);
     }
 }

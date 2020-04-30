@@ -5,14 +5,14 @@ import static org.awaitility.Awaitility.await;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.net.Inet4Address;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
+import org.atlanmod.salut.domains.IPAddress;
+import org.atlanmod.salut.domains.IPv4Address;
 import org.atlanmod.salut.domains.LocalDomain;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.labels.Labels;
@@ -29,6 +29,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class CacheIT {
+
     private BaseCache cache;
 
     @BeforeEach
@@ -38,7 +39,8 @@ class CacheIT {
 
     @Test
     void testCacheServerSelectionRecord() throws ParseException {
-        ServiceInstanceName instanceName = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
+        ServiceInstanceName instanceName = ServiceInstanceName
+            .parseString("My Music.raop.tcp.winora.local");
         Domain domain = DomainBuilder.parseString("Donatelo.local");
         TimeToLive ttl = TimeToLive.fromSeconds(2);
         BaseServerSelectionRecord srv = mock(BaseServerSelectionRecord.class);
@@ -61,8 +63,8 @@ class CacheIT {
             LocalDomain.getInstance()
         );
 
-
-        ServiceInstanceName instanceName = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
+        ServiceInstanceName instanceName = ServiceInstanceName
+            .parseString("My Music.raop.tcp.winora.local");
         TimeToLive time = TimeToLive.fromSeconds(2);
 
         AbstractPointerRecord ptr = mock(AbstractPointerRecord.class);
@@ -76,9 +78,9 @@ class CacheIT {
     }
 
     @Test
-    void testCacheARecord() throws ParseException, UnknownHostException {
+    void testCacheARecord() throws ParseException {
         Domain domain = DomainBuilder.parseString("Donatelo.local");
-        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
+        IPv4Address address = new IPv4Address(new byte[]{127, 0, 0, 1});
         TimeToLive time = TimeToLive.fromSeconds(2);
 
         ARecord ip4address = mock(BaseARecord.class);
@@ -98,7 +100,8 @@ class CacheIT {
             LocalDomain.getInstance()
         );
 
-        ServiceInstanceName instanceName = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
+        ServiceInstanceName instanceName = ServiceInstanceName
+            .parseString("My Music.raop.tcp.winora.local");
         TimeToLive time = TimeToLive.fromSeconds(2);
 
         AbstractPointerRecord ptr = mock(AbstractPointerRecord.class);
@@ -111,9 +114,9 @@ class CacheIT {
     }
 
     @Test
-    void tesGetAddressesForServer() throws ParseException, UnknownHostException {
+    void tesGetAddressesForServer() throws ParseException {
         Domain domain = DomainBuilder.parseString("Donatelo.local");
-        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
+        IPv4Address address = new IPv4Address(new byte[]{127, 0, 0, 1});
         TimeToLive time = TimeToLive.fromSeconds(2);
 
         ARecord aRecord = mock(BaseARecord.class);
@@ -121,8 +124,7 @@ class CacheIT {
         when(aRecord.address()).thenReturn(address);
         when(aRecord.ttl()).thenReturn(time);
 
-        Inet4Address secondaryAddress = (Inet4Address) InetAddress
-            .getByAddress(new byte[]{127, 0, 0, 1});
+        IPv4Address secondaryAddress = new IPv4Address(new byte[]{127, 0, 0, 1});
         ARecord otherRecord = mock(BaseARecord.class);
         when(otherRecord.serverName()).thenReturn(domain);
         when(otherRecord.address()).thenReturn(secondaryAddress);
@@ -137,7 +139,7 @@ class CacheIT {
     @Test
     void testGetServersForAddress() throws ParseException, UnknownHostException {
         Domain domain = DomainBuilder.parseString("Donatelo.local");
-        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
+        IPv4Address address = new IPv4Address(new byte[]{127, 0, 0, 1});
         TimeToLive time = TimeToLive.fromSeconds(2);
 
         ARecord ip4address = mock(BaseARecord.class);
@@ -152,7 +154,8 @@ class CacheIT {
 
     @Test
     void testGetServersForInstance() throws ParseException {
-        ServiceInstanceName instance = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
+        ServiceInstanceName instance = ServiceInstanceName
+            .parseString("My Music.raop.tcp.winora.local");
         Domain domain = DomainBuilder.parseString("Donatelo.local");
         TimeToLive time = TimeToLive.fromSeconds(2);
 
@@ -167,13 +170,12 @@ class CacheIT {
 
 
     @Test
-    void testCacheFromInet() throws UnknownHostException, ParseException {
+    void testCacheFromInet() throws ParseException {
         Labels names = Labels.fromList("MacBook", "local");
-        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{72, 16, 8, 4});
+        IPv4Address address = new IPv4Address(new byte[]{72, 16, 8, 4});
         Domain domaine = DomainBuilder.fromLabels(names);
         ARecord record = BaseARecord
             .createRecord(QClass.IN, UnsignedInt.fromInt(10), address, domaine);
-
 
         Cache cache = new BaseCache();
         cache.cache(record);
@@ -189,7 +191,8 @@ class CacheIT {
             LocalDomain.getInstance()
         );
 
-        ServiceInstanceName instance = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
+        ServiceInstanceName instance = ServiceInstanceName
+            .parseString("My Music.raop.tcp.winora.local");
         TimeToLive time = TimeToLive.fromSeconds(1);
 
         AbstractPointerRecord ptr = mock(AbstractPointerRecord.class);
@@ -201,7 +204,8 @@ class CacheIT {
 
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
             cache.doMaintenance();
-            List<ServiceInstanceName> instancesForService = cache.getInstancesForService(type.service());
+            List<ServiceInstanceName> instancesForService = cache
+                .getInstancesForService(type.service());
             assertThat(instancesForService).doesNotContain(instance);
         });
 
@@ -211,7 +215,7 @@ class CacheIT {
     @Test
     void tesGetAddressesForServerTTLExpire() throws ParseException, UnknownHostException {
         Domain donatelo = DomainBuilder.parseString("Donatelo.local");
-        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
+        IPv4Address address = new IPv4Address(new byte[]{127, 0, 0, 1});
         TimeToLive time = TimeToLive.fromSeconds(1);
 
         ARecord aRecord = mock(BaseARecord.class);
@@ -240,7 +244,7 @@ class CacheIT {
     void testGetServersForAddressTTLExpire() throws ParseException, UnknownHostException {
         // Given:
         Domain domain = DomainBuilder.parseString("Donatelo.local");
-        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
+        IPv4Address address = new IPv4Address(new byte[]{127, 0, 0, 1});
         TimeToLive time = TimeToLive.fromSeconds(1);
         ARecord ip4address = mock(BaseARecord.class);
         when(ip4address.serverName()).thenReturn(domain);
@@ -261,7 +265,8 @@ class CacheIT {
     @Test
     void testGetServersForInstanceTTLExpire() throws ParseException {
         // Given:
-        ServiceInstanceName instance = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
+        ServiceInstanceName instance = ServiceInstanceName
+            .parseString("My Music.raop.tcp.winora.local");
         Domain domain = DomainBuilder.parseString("Donatelo.local");
         TimeToLive time = TimeToLive.fromSeconds(1);
         BaseServerSelectionRecord srv = mock(BaseServerSelectionRecord.class);
@@ -286,7 +291,8 @@ class CacheIT {
             ServiceName.fromStrings("testtest", "tcp"),
             LocalDomain.getInstance()
         );
-        ServiceInstanceName instance = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
+        ServiceInstanceName instance = ServiceInstanceName
+            .parseString("My Music.raop.tcp.winora.local");
         AbstractPointerRecord pointerRecord = mock(AbstractPointerRecord.class);
         when(pointerRecord.serviceInstanceName()).thenReturn(instance);
         when(pointerRecord.pointerName()).thenReturn(type);
@@ -298,7 +304,8 @@ class CacheIT {
         // Then:
         await().atMost(Durations.FIVE_SECONDS).untilAsserted(() -> {
             cache.doMaintenance();
-            List<ServiceInstanceName> instancesForService = cache.getInstancesForService(type.service());
+            List<ServiceInstanceName> instancesForService = cache
+                .getInstancesForService(type.service());
             assertThat(instancesForService).isEmpty();
         });
     }
@@ -308,20 +315,21 @@ class CacheIT {
         // Given:
         cache.start();
         Domain domain = DomainBuilder.parseString("Donatelo.local");
-        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{127, 0, 0, 1});
+        IPv4Address address = new IPv4Address(new byte[]{127, 0, 0, 1});
         ARecord aRecord = mock(BaseARecord.class);
         when(aRecord.serverName()).thenReturn(domain);
         when(aRecord.address()).thenReturn(address);
         when(aRecord.ttl()).thenReturn(TimeToLive.fromSeconds(1));
-        
+
         //When:
         cache.cache(aRecord);
 
         // Then:
-        await().atLeast(Durations.ONE_SECOND)
+        await()
+            .atLeast(Durations.ONE_SECOND)
             .atMost(Durations.FIVE_SECONDS)
             .untilAsserted(() -> {
-                List<InetAddress> addresses = cache.getAddressesForServer(domain);
+                List<IPAddress> addresses = cache.getAddressesForServer(domain);
                 assertThat(addresses).isEmpty();
             });
 
@@ -337,14 +345,15 @@ class CacheIT {
 
     @Test
     void testGetServersForAddressNoDomainName() throws UnknownHostException {
-        Inet4Address address = (Inet4Address) InetAddress.getByAddress(new byte[]{12, 0, 0, 5});
+        IPv4Address address = new IPv4Address(new byte[]{12, 0, 0, 5});
         List<Domain> domains = cache.getServersForAddress(address);
         assertThat(domains).isEmpty();
     }
 
     @Test
     void testGetServersForInstanceNoDomainName() throws ParseException {
-        ServiceInstanceName instance = ServiceInstanceName.parseString("My Music.raop.tcp.winora.local");
+        ServiceInstanceName instance = ServiceInstanceName
+            .parseString("My Music.raop.tcp.winora.local");
         List<Domain> servers = cache.getServersForInstance(instance);
         assertThat(servers).isEmpty();
     }

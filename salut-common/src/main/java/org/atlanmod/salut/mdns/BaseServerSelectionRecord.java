@@ -64,7 +64,7 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
     private Domain serverName;
     private ServiceInstanceName serviceInstanceName;
 
-    private BaseServerSelectionRecord(QClass qclass, UnsignedInt ttl, UnsignedShort priority,
+    BaseServerSelectionRecord(QClass qclass, UnsignedInt ttl, UnsignedShort priority,
                                   UnsignedShort weight, UnsignedShort port,
                                   Domain serverName, ServiceInstanceName serviceInstanceName) {
         super(qclass, ttl);
@@ -76,9 +76,8 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
     }
 
     /**
-     * Returns an instance of `RecordParser` that is able to parse a SRVRecord and create an instance of
-     * a `ServerSelectionRecord`.
-     *
+     * Returns an instance of `RecordParser` that is able to parse a SRVRecord and
+     * create an instance of a `ServerSelectionRecord`.
      */
     public static RecordParser<ServerSelectionRecord> parser() {
         return new SRVRecordParser();
@@ -153,18 +152,6 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
                 .putUnsignedShort(weight)
                 .putUnsignedShort(port)
                 .putNameArray(serverName.toLabels());
-    }
-
-    public static ServerSelectionRecord fromService(InetAddress host, ServiceDescription service) {
-        // FIXME
-        return new BaseServerSelectionRecord(
-                QClass.IN,
-                service.ttl(),
-                service.priority(),
-                service.weight(),
-                service.port(),
-                null,
-                null);
     }
 
     /**
