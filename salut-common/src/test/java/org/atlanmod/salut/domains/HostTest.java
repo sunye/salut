@@ -121,10 +121,11 @@ public class HostTest {
     @Test
     public void local_host() throws UnknownHostException, ParseException {
         InetAddress inetAddress = InetAddress.getLocalHost();
+        String hostName = inetAddress.getHostName();
+        Domain expectedDomain = DomainBuilder.parseString(hostName);
         byte[] expectedAddress = inetAddress.getAddress();
+        
         Host actual = Host.localHost();
-        Domain expectedDomain = DomainBuilder.parseString(inetAddress.getHostName());
-
         assertThat(actual.address()).isEqualTo(expectedAddress);
         assertThat(actual.name()).isEqualTo(expectedDomain);
     }

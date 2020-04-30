@@ -52,7 +52,7 @@ public class Host {
     public static Host localHost() throws UnknownHostException {
         InetAddress inetAddress = InetAddress.getLocalHost();
         String[] labels = inetAddress.getHostName().split("\\.");
-        String firstName = labels.length > 1 ? labels[0] : "unknown";
+        String firstName = labels.length > 0 ? labels[0] : "unknown";
 
         return new Host(
             LocalHostName.fromString(firstName),
