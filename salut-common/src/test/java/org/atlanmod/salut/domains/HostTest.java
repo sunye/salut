@@ -124,7 +124,7 @@ public class HostTest {
         String hostName = inetAddress.getHostName();
         Domain expectedDomain = DomainBuilder.parseString(hostName);
         byte[] expectedAddress = inetAddress.getAddress();
-        
+
         Host actual = Host.localHost();
         assertThat(actual.address()).isEqualTo(expectedAddress);
         assertThat(actual.name()).isEqualTo(expectedDomain);

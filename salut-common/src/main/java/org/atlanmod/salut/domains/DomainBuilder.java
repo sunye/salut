@@ -14,9 +14,9 @@ import org.atlanmod.salut.labels.Labels;
 public abstract class DomainBuilder {
 
     /**
-     * Creates a Domain instance after parsing a {@code LabelArray}. <p>
-     * The Domain may either be a local host data, e.g. "appletv.local", a IP4 address, a IP6 address, or
-     * Internet host name, e.g. "data.domain.com".
+     * Creates a Domain instance after parsing a {@code LabelArray}. <p> The Domain may either be a
+     * local host data, e.g. "appletv.local", a IP4 address, a IP6 address, or Internet host name,
+     * e.g. "data.domain.com".
      *
      * @param labels a LabelArray containing the strings that form a domain data.
      * @return a new sub-instance of DomainBuilder.
@@ -24,15 +24,15 @@ public abstract class DomainBuilder {
     public static Domain fromLabels(Labels labels) throws ParseException {
         Preconditions.checkArgument(labels.size() > 0, "Domains have at least one label");
 
-        if (labels.last().equals(Domain.LOCAL_LABEL) && labels.size() <= 2) {
-            if (labels.size() == 1 ) {
-                return LocalDomain.getInstance();
-            } else {
-                return new LocalHostName(labels.first());
-            }
-        } else if (labels.size() == 6 && Domain.ARPA.equals(labels.last().toString()) && Domain.IP4.equals(labels.get(labels.size() - 2).toString())) {
+        if (labels.size() == 1) {
+            return new LocalHostName(labels.first());
+        } else if (labels.size() == 2 && Domain.LOCAL_LABEL.equals(labels.last())) {
+            return new LocalHostName(labels.first());
+        } else if (labels.size() == 6 && Domain.ARPA.equals(labels.last().toString()) && Domain.IP4
+            .equals(labels.get(labels.size() - 2).toString())) {
             return parseInet4Address(labels);
-        } else if (labels.size() == 34 && Domain.ARPA.equals(labels.last().toString()) && Domain.IP6.equals(labels.get(labels.size() - 2).toString())) {
+        } else if (labels.size() == 34 && Domain.ARPA.equals(labels.last().toString()) && Domain.IP6
+            .equals(labels.get(labels.size() - 2).toString())) {
             return parseInet6Address(labels);
         } else {
             return new InternetDomain(labels);
@@ -67,7 +67,7 @@ public abstract class DomainBuilder {
     private static ReverseInet6Address parseInet6Address(Labels names) throws ParseException {
         byte[] array = new byte[16];
         for (int i = 0; i < 16; i++) {
-            String concat = names.get(i*2+1).toString() + names.get(i*2).toString();
+            String concat = names.get(i * 2 + 1).toString() + names.get(i * 2).toString();
             array[15 - i] = (byte) Integer.parseInt(concat, 16);
         }
         try {

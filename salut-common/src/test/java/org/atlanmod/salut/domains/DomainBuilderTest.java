@@ -83,14 +83,14 @@ class DomainBuilderTest {
         assertThat(actual).isEqualTo(expected);
     }
 
-    @DisplayName("Given a string only containing 'local' "
+    @DisplayName("Given a string only containing 'anyone' "
         + "When parseString() is called"
         + "Then an Local Domain is created")
     @Test
     void create_local_domain() throws ParseException {
-        String name = "local";
+        String name = "anyone";
         Domain actual = DomainBuilder.parseString(name);
 
-        assertThat(actual).isEqualTo(LocalDomain.getInstance());
+        assertThat(actual).isEqualTo(LocalHostName.fromString(name));
     }
 }
