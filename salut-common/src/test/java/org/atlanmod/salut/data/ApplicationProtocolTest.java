@@ -1,6 +1,6 @@
 package org.atlanmod.salut.data;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.atlanmod.salut.names.ServiceName;
 import org.junit.jupiter.api.Test;

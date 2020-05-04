@@ -10,8 +10,12 @@ public interface Label extends Serializable {
      *
      * @return The size in octets of the serialized form of this label
      */
-    public int dataLength();
+    int dataLength();
 
 
-    public boolean isValid();
+    /**
+     * Returns true if the label is valid
+     * @return true if valid, false otherwise
+     */
+    boolean isValid();
 }

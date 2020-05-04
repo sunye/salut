@@ -8,7 +8,6 @@ import org.atlanmod.commons.primitive.Bytes;
 import org.atlanmod.salut.domains.IPAddress;
 import org.atlanmod.salut.domains.IPv4Address;
 import org.atlanmod.salut.domains.IPv6Address;
-import org.atlanmod.salut.labels.DNSLabel;
 import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.mdns.QClass;

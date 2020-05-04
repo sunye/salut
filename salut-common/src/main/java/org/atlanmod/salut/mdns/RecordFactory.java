@@ -1,7 +1,6 @@
 package org.atlanmod.salut.mdns;
 
 import org.atlanmod.salut.domains.Host;
-import org.atlanmod.salut.names.ServiceInstanceName;
 import org.atlanmod.salut.sd.ServiceDescription;
 
 public class RecordFactory {
