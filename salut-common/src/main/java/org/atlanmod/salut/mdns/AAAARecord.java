@@ -5,6 +5,7 @@ import java.text.ParseException;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
+import org.atlanmod.salut.domains.IPv6Address;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
@@ -21,10 +22,10 @@ import org.atlanmod.salut.io.UnsignedShort;
  */
 public class AAAARecord extends AbstractNormalRecord {
 
-    private Inet6Address address;
+    private IPv6Address address;
     private Domain serverName;
 
-    private AAAARecord(QClass qclass, UnsignedInt ttl, Inet6Address address,
+    private AAAARecord(QClass qclass, UnsignedInt ttl, IPv6Address address,
                        Domain serverName) {
         super(qclass, ttl);
         this.address = address;
@@ -38,7 +39,7 @@ public class AAAARecord extends AbstractNormalRecord {
     /**
      * @return the getAddress pointed by this entry.
      */
-    public Inet6Address getAddress() {
+    public IPv6Address getAddress() {
         return address;
     }
 
@@ -65,10 +66,10 @@ public class AAAARecord extends AbstractNormalRecord {
             .putUnsignedShort(UnsignedShort.fromInt(4));
 
         // Variable part
-        writer.putInet6Address(this.address);
+        writer.putIPAddress(this.address);
     }
     private static class AAAARecordParser extends NormalRecordParser<AAAARecord> {
-        private Inet6Address address;
+        private IPv6Address address;
         private Domain serverName;
 
         protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
@@ -84,7 +85,7 @@ public class AAAARecord extends AbstractNormalRecord {
     }
 
     @VisibleForTesting
-    public static AAAARecord createRecord(QClass qclass, UnsignedInt ttl, Inet6Address address, Domain serverName) {
+    public static AAAARecord createRecord(QClass qclass, UnsignedInt ttl, IPv6Address address, Domain serverName) {
         return new AAAARecord(qclass, ttl, address, serverName);
     }
 }

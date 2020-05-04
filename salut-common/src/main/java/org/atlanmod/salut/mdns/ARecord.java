@@ -1,19 +1,14 @@
 package org.atlanmod.salut.mdns;
 
 import org.atlanmod.salut.domains.Domain;
+import org.atlanmod.salut.domains.Host;
 import org.atlanmod.salut.domains.IPv4Address;
 
 public interface ARecord extends NormalRecord {
 
     /**
-     * @return the server name.
+     * @return the host for this record.
      */
-    Domain serverName();
+    Host host();
 
-    /**
-     * Accessor for field getAddress
-     *
-     * @return a Inet4Address instance
-     */
-    IPv4Address address();
 }

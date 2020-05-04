@@ -6,7 +6,7 @@ import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
-import org.atlanmod.salut.labels.Label;
+import org.atlanmod.salut.labels.DNSLabel;
 import org.atlanmod.salut.labels.Labels;
 
 /**
@@ -102,7 +102,7 @@ public class ServiceInstanceName implements Name {
         Log.info("Parsing Service Instance Name: {0}", labels);
         Preconditions.checkArgument(labels.size() >= 4, "Expecting at least 4 labels, found " + labels.size());
 
-        if (labels.contains(Label.create("_sub"))) {
+        if (labels.contains(DNSLabel.create("_sub"))) {
             Log.warn("Service subtype !!! : {0}", labels);
         }
 

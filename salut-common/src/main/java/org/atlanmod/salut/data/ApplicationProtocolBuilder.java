@@ -24,7 +24,7 @@ public class ApplicationProtocolBuilder {
     }
 }
 
-class UnknownApplicationProtocol implements ApplicationProtocol {
+class UnknownApplicationProtocol extends ApplicationProtocol {
 
     /**
      * The name of the unknown application protocol.
@@ -63,7 +63,8 @@ class UnknownApplicationProtocol implements ApplicationProtocol {
     }
 }
 
-class KnownApplicationProtocol implements ApplicationProtocol {
+class KnownApplicationProtocol extends ApplicationProtocol {
+
     /**
      * Application protocol.
      * <p>

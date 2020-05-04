@@ -15,6 +15,7 @@ import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.cache.Links.ServiceToInstanceLink;
 import org.atlanmod.salut.domains.Domain;
+import org.atlanmod.salut.domains.Host;
 import org.atlanmod.salut.domains.IPAddress;
 import org.atlanmod.salut.domains.IPv4Address;
 import org.atlanmod.salut.mdns.ARecord;
@@ -121,8 +122,10 @@ public class BaseCache implements Cache {
 
     @Override
     public synchronized void cache(ARecord aRecord) throws ParseException {
-        IPv4Address address = aRecord.address();
-        Domain name = aRecord.serverName();
+        Host host = aRecord.host();
+        // TODO: remove this cast
+        IPv4Address address = (IPv4Address) host.address();
+        Domain name = host.name();
 
         AddressEntry entry = addresses.computeIfAbsent(address, k -> new Inet4AddressEntry(address));
         ServerEntry server = servers.computeIfAbsent(name, ServerEntry::new);

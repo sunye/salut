@@ -6,6 +6,8 @@ import java.util.Objects;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
+import org.atlanmod.salut.domains.Host;
+import org.atlanmod.salut.domains.IPAddress;
 import org.atlanmod.salut.domains.IPv4Address;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
@@ -24,24 +26,18 @@ import org.atlanmod.salut.io.UnsignedShort;
  */
 public class BaseARecord extends AbstractNormalRecord implements ARecord {
 
-    private final IPv4Address address;
-    private final Domain serverName;
+    private final Host host;
 
-    BaseARecord(QClass qclass, UnsignedInt ttl, IPv4Address address, Domain serverName) {
+    BaseARecord(QClass qclass, UnsignedInt ttl, Host host) {
         super(qclass, ttl);
-        this.address = address;
-        this.serverName = serverName;
+        this.host = host;
     }
 
     @Override
-    public Domain serverName() {
-        return this.serverName;
+    public Host host() {
+        return this.host;
     }
 
-    @Override
-    public IPv4Address address() {
-        return this.address;
-    }
 
     /**
      * Returns a `String` object representing this `ARecord`.
@@ -49,8 +45,7 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
      */
     @Override
     public String toString() {
-        return "ARecord{" +
-                "address=" + address +
+        return "ARecord{" + host +
                 ", ttl="+ttl +
                 '}';
     }
@@ -58,14 +53,14 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
     public void writeOn(ByteArrayWriter writer) {
 
         // Fixed part
-        writer.putNameArray(serverName.toLabels())
+        writer.putNameArray(host.name().toLabels())
                 .putRecordType(RecordType.A)
                 .putQClass(QClass.IN)
                 .putUnsignedInt(ttl.unsignedIntValue())
                 .putUnsignedShort(UnsignedShort.fromInt(4));
 
         // Variable part
-        writer.putIPv4Address(this.address);
+        writer.putIPAddress(host.address());
     }
 
     @Override
@@ -73,14 +68,13 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BaseARecord aRecord = (BaseARecord) o;
-        return address.equals(aRecord.address) &&
-                serverName.equals(aRecord.serverName) &&
+        return host.equals(aRecord.host) &&
                 super.equals(aRecord);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(address, serverName);
+        return Objects.hash(host);
     }
 
     public static RecordParser<ARecord> parser() {
@@ -89,8 +83,7 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
 
 
     private static class ARecordParser extends NormalRecordParser<ARecord> {
-        private IPv4Address address;
-        private Domain serverName;
+        private Host host;
 
         /**
          * Parses the variable part of a ARecord.
@@ -101,19 +94,20 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
          */
         @Override
         protected void parseVariablePart(ByteArrayReader reader) throws ParseException {
-            address = reader.readIPv4Address();
-            serverName = DomainBuilder.fromLabels(labels);
+            IPAddress address = reader.readIPv4Address();
+            Domain serverName = DomainBuilder.fromLabels(labels);
+            this.host = new Host(serverName,address);
         }
 
         @Override
         protected ARecord build() {
-            return new BaseARecord(qclass, ttl, address, serverName);
+            return new BaseARecord(qclass, ttl, host);
         }
 
     }
 
     @VisibleForTesting
-    public static BaseARecord createRecord(QClass qclass, UnsignedInt ttl, IPv4Address address, Domain serverName) {
-        return new BaseARecord(qclass, ttl, address, serverName);
+    public static BaseARecord createRecord(QClass qclass, UnsignedInt ttl, Host host) {
+        return new BaseARecord(qclass, ttl, host);
     }
 }

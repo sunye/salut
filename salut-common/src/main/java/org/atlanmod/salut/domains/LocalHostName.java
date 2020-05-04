@@ -2,6 +2,7 @@ package org.atlanmod.salut.domains;
 
 import java.util.Objects;
 import org.atlanmod.commons.annotation.VisibleForTesting;
+import org.atlanmod.salut.labels.DNSLabel;
 import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.labels.Labels;
 
@@ -14,7 +15,7 @@ public class LocalHostName implements Domain {
 
 
     protected LocalHostName(String label) {
-        this(Label.create(label));
+        this(DNSLabel.create(label));
     }
 
     protected LocalHostName(Label label) {

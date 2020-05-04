@@ -1,12 +1,14 @@
 package org.atlanmod.salut.io;
 
-import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import org.atlanmod.commons.primitive.Bytes;
+import org.atlanmod.salut.domains.IPAddress;
 import org.atlanmod.salut.domains.IPv4Address;
+import org.atlanmod.salut.domains.IPv6Address;
+import org.atlanmod.salut.labels.DNSLabel;
 import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.mdns.QClass;
@@ -17,7 +19,7 @@ public class ByteArrayWriter {
     List<Byte> bytes = new ArrayList<>();
 
     public ByteArrayWriter putUnsignedShort(UnsignedShort value) {
-        bytes.add((byte)(value.shortValue() >> 8));
+        bytes.add((byte) (value.shortValue() >> 8));
         bytes.add((byte) value.shortValue());
         return this;
     }
@@ -53,6 +55,7 @@ public class ByteArrayWriter {
 
     /**
      * Writes an array of names  encoded in UFF-8
+     *
      * @param names an array of names
      * @return This ByteArrayWriter
      */
@@ -66,12 +69,30 @@ public class ByteArrayWriter {
     }
 
     /**
+     * Writes a 4 or 16 bytes value representing an IP address, v4 or v6.
+     *
+     * @param address
+     * @return
+     */
+    public ByteArrayWriter putIPAddress(IPAddress address) {
+        int length = address.address().length;
+        assert length == IPv4Address.SIZE
+            || length == IPv6Address.SIZE
+            : "Invalid IP Address";
+
+        for (byte each : address.address()) {
+            bytes.add(each);
+        }
+        return this;
+    }
+
+    /**
      * Writes an 4-bytes value representing an IPv4 address
      *
      * @param address an IPv4 address
      * @return This ByteArrayWriter
      */
-    public  ByteArrayWriter putIPv4Address(IPv4Address address) {
+    public ByteArrayWriter putIPv4Address(IPv4Address address) {
         for (byte each : address.address()) {
             bytes.add(each);
         }
@@ -84,7 +105,7 @@ public class ByteArrayWriter {
      * @param address an IPv6 address
      * @return This ByteArrayWriter
      */
-    public  ByteArrayWriter putInet6Address(Inet6Address address) {
+    public ByteArrayWriter putInet6Address(Inet6Address address) {
         for (byte each : address.getAddress()) {
             bytes.add(each);
         }

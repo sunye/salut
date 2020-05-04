@@ -118,12 +118,12 @@ public class Labels {
     public static Labels fromArray(String[] strings) {
         List<Label> labels = new ArrayList<>(strings.length);
         for (String each: strings) {
-            labels.add(Label.create(each));
+            labels.add(DNSLabel.create(each));
         }
         return new Labels(labels);
     }
 
-    public static Labels fromArray(Label[] strings) {
+    public static Labels fromArray(DNSLabel[] strings) {
         return new Labels(Arrays.asList(strings));
     }
 

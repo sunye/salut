@@ -12,8 +12,8 @@ class LabelTest {
 
     @Test
     void equals()  {
-        Label one = Label.create("abcdefg-hijklmnop");
-        Label other = Label.create("abcdefg-"+ "hijklmnop");
+        DNSLabel one = DNSLabel.create("abcdefg-hijklmnop");
+        DNSLabel other = DNSLabel.create("abcdefg-"+ "hijklmnop");
 
         assertThat(one).isEqualTo(other);
 
@@ -21,8 +21,8 @@ class LabelTest {
 
     @Test
     void notEquals() throws Exception {
-        Label one = Label.create("abcdefg-hijklmnop");
-        Label other = Label.create("123456789");
+        DNSLabel one = DNSLabel.create("abcdefg-hijklmnop");
+        DNSLabel other = DNSLabel.create("123456789");
 
         assertThat(one).isNotEqualTo(other);
 
@@ -32,16 +32,16 @@ class LabelTest {
     @ParameterizedTest
     @ValueSource(strings = {"a b", "=/*-+", "aaa.bbb"})
     void create(String value) throws Exception {
-        Label newLabel = Label.create(value);
-        assertThat(newLabel.isValidDNSLabel()).isFalse();
+        DNSLabel newLabel = DNSLabel.create(value);
+        assertThat(newLabel.isValid()).isFalse();
     }
 
     @Test
     void labelTooLong() throws Exception {
-        char[] bytes = new char[Label.MAX_LENGTH + 1];
+        char[] bytes = new char[DNSLabel.MAX_LENGTH + 1];
         Arrays.fill(bytes, 'a');
         String str = new String(bytes);
-        assertThrows(RuntimeException.class, () -> Label.create(str));
+        assertThrows(RuntimeException.class, () -> DNSLabel.create(str));
 
     }
 }

@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
+import org.atlanmod.salut.domains.Host;
 import org.atlanmod.salut.domains.IPAddress;
+import org.atlanmod.salut.domains.IPAddressBuilder;
 import org.atlanmod.salut.domains.IPv4Address;
 import org.atlanmod.salut.domains.LocalDomain;
 import org.atlanmod.salut.io.UnsignedInt;
@@ -80,12 +82,12 @@ class CacheIT {
     @Test
     void testCacheARecord() throws ParseException {
         Domain domain = DomainBuilder.parseString("Donatelo.local");
-        IPv4Address address = new IPv4Address(new byte[]{127, 0, 0, 1});
+        IPv4Address address = IPAddressBuilder.createIPv4Address(new byte[]{127, 0, 0, 1});
         TimeToLive time = TimeToLive.fromSeconds(2);
+        Host host = new Host(domain,address);
 
         ARecord ip4address = mock(BaseARecord.class);
-        when(ip4address.serverName()).thenReturn(domain);
-        when(ip4address.address()).thenReturn(address);
+        when(ip4address.host()).thenReturn(host);
         when(ip4address.ttl()).thenReturn(time);
 
         cache.cache(ip4address);
@@ -116,18 +118,18 @@ class CacheIT {
     @Test
     void tesGetAddressesForServer() throws ParseException {
         Domain domain = DomainBuilder.parseString("Donatelo.local");
-        IPv4Address address = new IPv4Address(new byte[]{127, 0, 0, 1});
+        IPv4Address address = IPAddressBuilder.createIPv4Address(new byte[]{127, 0, 0, 1});
+        Host host = new Host(domain, address);
         TimeToLive time = TimeToLive.fromSeconds(2);
 
         ARecord aRecord = mock(BaseARecord.class);
-        when(aRecord.serverName()).thenReturn(domain);
-        when(aRecord.address()).thenReturn(address);
+        when(aRecord.host()).thenReturn(host);
         when(aRecord.ttl()).thenReturn(time);
 
-        IPv4Address secondaryAddress = new IPv4Address(new byte[]{127, 0, 0, 1});
+        IPv4Address secondaryAddress = IPAddressBuilder.createIPv4Address(new byte[]{127, 0, 0, 1});
+        Host secondaryHost = new Host(domain,secondaryAddress);
         ARecord otherRecord = mock(BaseARecord.class);
-        when(otherRecord.serverName()).thenReturn(domain);
-        when(otherRecord.address()).thenReturn(secondaryAddress);
+        when(otherRecord.host()).thenReturn(secondaryHost);
         when(otherRecord.ttl()).thenReturn(time);
 
         cache.cache(aRecord);
@@ -139,12 +141,13 @@ class CacheIT {
     @Test
     void testGetServersForAddress() throws ParseException, UnknownHostException {
         Domain domain = DomainBuilder.parseString("Donatelo.local");
-        IPv4Address address = new IPv4Address(new byte[]{127, 0, 0, 1});
+        IPv4Address address = IPAddressBuilder.createIPv4Address(new byte[]{127, 0, 0, 1});
+        Host host = new Host(domain, address);
+
         TimeToLive time = TimeToLive.fromSeconds(2);
 
         ARecord ip4address = mock(BaseARecord.class);
-        when(ip4address.serverName()).thenReturn(domain);
-        when(ip4address.address()).thenReturn(address);
+        when(ip4address.host()).thenReturn(host);
         when(ip4address.ttl()).thenReturn(time);
 
         cache.cache(ip4address);
@@ -172,10 +175,11 @@ class CacheIT {
     @Test
     void testCacheFromInet() throws ParseException {
         Labels names = Labels.fromList("MacBook", "local");
-        IPv4Address address = new IPv4Address(new byte[]{72, 16, 8, 4});
-        Domain domaine = DomainBuilder.fromLabels(names);
+        IPv4Address address = IPAddressBuilder.createIPv4Address(new byte[]{72, 16, 8, 4});
+        Domain domain = DomainBuilder.fromLabels(names);
+        Host host = new Host(domain,address);
         ARecord record = BaseARecord
-            .createRecord(QClass.IN, UnsignedInt.fromInt(10), address, domaine);
+            .createRecord(QClass.IN, UnsignedInt.fromInt(10), host);
 
         Cache cache = new BaseCache();
         cache.cache(record);
@@ -214,19 +218,20 @@ class CacheIT {
 
     @Test
     void tesGetAddressesForServerTTLExpire() throws ParseException, UnknownHostException {
+        IPv4Address address = IPAddressBuilder.createIPv4Address(new byte[]{127, 0, 0, 1});
         Domain donatelo = DomainBuilder.parseString("Donatelo.local");
-        IPv4Address address = new IPv4Address(new byte[]{127, 0, 0, 1});
+        Domain michelangelo = DomainBuilder.parseString("Michelangelo.local");
+
+        Host donateloHost = new Host(donatelo, address);
+        Host michelangeloHost = new Host(michelangelo,address);
         TimeToLive time = TimeToLive.fromSeconds(1);
 
         ARecord aRecord = mock(BaseARecord.class);
-        when(aRecord.serverName()).thenReturn(donatelo);
-        when(aRecord.address()).thenReturn(address);
+        when(aRecord.host()).thenReturn(donateloHost);
         when(aRecord.ttl()).thenReturn(time);
 
         ARecord otherRecord = mock(BaseARecord.class);
-        Domain michelangelo = DomainBuilder.parseString("Michelangelo.local");
-        when(otherRecord.serverName()).thenReturn(michelangelo);
-        when(otherRecord.address()).thenReturn(address);
+        when(otherRecord.host()).thenReturn(michelangeloHost);
         when(otherRecord.ttl()).thenReturn(TimeToLive.fromSeconds(200));
 
         cache.cache(aRecord);
@@ -244,11 +249,12 @@ class CacheIT {
     void testGetServersForAddressTTLExpire() throws ParseException, UnknownHostException {
         // Given:
         Domain domain = DomainBuilder.parseString("Donatelo.local");
-        IPv4Address address = new IPv4Address(new byte[]{127, 0, 0, 1});
+        IPv4Address address = IPAddressBuilder.createIPv4Address(new byte[]{127, 0, 0, 1});
         TimeToLive time = TimeToLive.fromSeconds(1);
+        Host host = new Host(domain, address);
+
         ARecord ip4address = mock(BaseARecord.class);
-        when(ip4address.serverName()).thenReturn(domain);
-        when(ip4address.address()).thenReturn(address);
+        when(ip4address.host()).thenReturn(host);
         when(ip4address.ttl()).thenReturn(time);
 
         //When:
@@ -315,10 +321,11 @@ class CacheIT {
         // Given:
         cache.start();
         Domain domain = DomainBuilder.parseString("Donatelo.local");
-        IPv4Address address = new IPv4Address(new byte[]{127, 0, 0, 1});
+        IPv4Address address = IPAddressBuilder.createIPv4Address(new byte[]{127, 0, 0, 1});
+        Host host = new Host(domain,address);
+
         ARecord aRecord = mock(BaseARecord.class);
-        when(aRecord.serverName()).thenReturn(domain);
-        when(aRecord.address()).thenReturn(address);
+        when(aRecord.host()).thenReturn(host);
         when(aRecord.ttl()).thenReturn(TimeToLive.fromSeconds(1));
 
         //When:
@@ -345,7 +352,7 @@ class CacheIT {
 
     @Test
     void testGetServersForAddressNoDomainName() throws UnknownHostException {
-        IPv4Address address = new IPv4Address(new byte[]{12, 0, 0, 5});
+        IPv4Address address = IPAddressBuilder.createIPv4Address(new byte[]{12, 0, 0, 5});
         List<Domain> domains = cache.getServersForAddress(address);
         assertThat(domains).isEmpty();
     }

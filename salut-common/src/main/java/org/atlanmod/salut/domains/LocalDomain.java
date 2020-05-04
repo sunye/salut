@@ -1,6 +1,6 @@
 package org.atlanmod.salut.domains;
 
-import org.atlanmod.salut.labels.Label;
+import org.atlanmod.salut.labels.DNSLabel;
 import org.atlanmod.salut.labels.Labels;
 
 /**
@@ -8,9 +8,9 @@ import org.atlanmod.salut.labels.Labels;
  */
 public class LocalDomain implements Domain {
 
-    private final Label label;
+    private final DNSLabel label;
 
-    private LocalDomain(Label label) {
+    private LocalDomain(DNSLabel label) {
         this.label = label;
     }
 

@@ -1,9 +1,5 @@
 package org.atlanmod.salut.io;
 
-import java.net.Inet4Address;
-import java.net.Inet6Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
@@ -12,8 +8,10 @@ import java.util.List;
 import java.util.Optional;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.log.Log;
+import org.atlanmod.salut.domains.IPAddressBuilder;
 import org.atlanmod.salut.domains.IPv4Address;
-import org.atlanmod.salut.labels.Label;
+import org.atlanmod.salut.domains.IPv6Address;
+import org.atlanmod.salut.labels.DNSLabel;
 import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.mdns.QClass;
 import org.atlanmod.salut.mdns.RecordType;
@@ -88,7 +86,7 @@ public class ByteArrayReader {
         LabelLength lengthOrPointer = this.getLabelLength();
 
         while (lengthOrPointer.isValidNameLength()) {
-            Label label = this.getLabel(lengthOrPointer);
+            DNSLabel label = this.getLabel(lengthOrPointer);
             labels.add(label);
             lengthOrPointer = this.getLabelLength();
         }
@@ -132,11 +130,11 @@ public class ByteArrayReader {
      * @param length the number of characters to be read.
      * @return A Label representing the read value.
      */
-    protected Label getLabel(LabelLength length) {
+    protected DNSLabel getLabel(LabelLength length) {
         byte[] labelBuffer = new byte[length.intValue()];
         buffer.get(labelBuffer);
 
-        return Label.create(labelBuffer);
+        return DNSLabel.create(labelBuffer);
     }
 
     /**
@@ -227,7 +225,7 @@ public class ByteArrayReader {
         byte[] addressBytes = new byte[4];
         get(addressBytes);
 
-        return new IPv4Address(addressBytes);
+        return IPAddressBuilder.createIPv4Address(addressBytes);
     }
 
     /**
@@ -235,14 +233,11 @@ public class ByteArrayReader {
      * @return This ByteArrayReader
      * @throws ParseException If there is a parsing error
      */
-    public Inet6Address readInet6Address() throws ParseException {
+    public IPv6Address readInet6Address() throws ParseException {
         byte[] addressBytes = new byte[16];
         get(addressBytes);
-        try {
-            return (Inet6Address) InetAddress.getByAddress(addressBytes);
-        } catch (UnknownHostException e) {
-            throw new ParseException("UnknownHostException - Parsing error when reading a Inet6 addresss.", position());
-        }
+
+        return IPAddressBuilder.createIPv6Address(addressBytes);
     }
 }
 

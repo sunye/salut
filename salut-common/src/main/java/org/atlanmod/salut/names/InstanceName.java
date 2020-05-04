@@ -1,6 +1,7 @@
 package org.atlanmod.salut.names;
 
 import java.util.Objects;
+import org.atlanmod.salut.labels.DNSLabel;
 import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.labels.Labels;
 
@@ -66,7 +67,7 @@ public class InstanceName implements Name {
     }
 
     public static InstanceName fromString(String str) {
-        return fromLabel(Label.create(str));
+        return fromLabel(DNSLabel.create(str));
     }
 
     public static InstanceName fromLabel(Label label) {

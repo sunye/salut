@@ -17,13 +17,14 @@ public class HostTest {
     public void beforeEach() {
         maredsous = new Host(
             new LocalHostName("maredsous"),
-            new byte[] {51,53,127,16}
+            IPAddressBuilder.fromBytes(new byte[] {51,53,127,16})
         );
     }
 
     @Test
-    public void constructor_with_invalid_name() {
-        byte[] address = {1, 1, 1, 1};
+    public void constructor_with_null_name() {
+        byte[]  bytes = {1, 1, 1, 1};
+        IPAddress address = IPAddressBuilder.fromBytes(bytes);
 
         assertThatExceptionOfType(NullPointerException.class)
             .isThrownBy(() -> {
@@ -32,17 +33,6 @@ public class HostTest {
             );
     }
 
-    @Test
-    public void constructor_with_invalid_address() {
-        byte[] address = {1, 1, 1};
-        LocalHostName name = new LocalHostName("mac-pro");
-
-        assertThatExceptionOfType(IllegalArgumentException.class)
-            .isThrownBy(() -> {
-                    Host host = new Host(name, address);
-                }
-            );
-    }
 
     @Test
     public void constructor_with_null_address() {
@@ -57,12 +47,13 @@ public class HostTest {
 
     @Test
     public void nominal_constructor() {
-        byte[] address = {1, 1, 1, 1};
+        byte[] bytes = {1, 1, 1, 1};
+        IPAddress address = IPAddressBuilder.fromBytes(bytes);
         LocalHostName name = new LocalHostName("mac-pro");
         Host host = new Host(name, address);
 
         assertThat(host.name()).isEqualTo(name);
-        assertThat(host.address()).isEqualTo(new byte[]{1, 1, 1, 1});
+        assertThat(host.address()).isEqualTo(IPAddressBuilder.fromBytes(new byte[]{1, 1, 1, 1}));
     }
 
     @Test
@@ -79,7 +70,7 @@ public class HostTest {
     public void not_equal_to_different() {
         Host guinness = new Host(
             new LocalHostName("guinness"),
-            new byte[] {51,53,127,16}
+            IPAddressBuilder.fromBytes(new byte[] {51,53,127,16})
             );
 
         assertThat(maredsous).isNotEqualTo(guinness);
@@ -89,7 +80,7 @@ public class HostTest {
     public void same_hashcode() {
         Host similar = new Host(
             new LocalHostName("maredsous"),
-            new byte[] {51,53,127,16}
+            IPAddressBuilder.fromBytes(new byte[] {51,53,127,16})
         );
 
         assertThat(similar.hashCode()).isEqualTo(maredsous.hashCode());
@@ -99,7 +90,7 @@ public class HostTest {
     public void different_hashcode() {
         Host guinness = new Host(
             new LocalHostName("guinness"),
-            new byte[] {51,53,127,16}
+            IPAddressBuilder.fromBytes(new byte[] {51,53,127,16})
         );
 
         assertThat(guinness.hashCode()).isNotEqualTo(maredsous.hashCode());
@@ -107,7 +98,8 @@ public class HostTest {
 
     @Test
     public void local_host_with_string() throws UnknownHostException {
-        byte[] address = InetAddress.getLocalHost().getAddress();
+        byte[] bytes = InetAddress.getLocalHost().getAddress();
+        IPAddress address = IPAddressBuilder.fromBytes(bytes);
         String ubuntu = "ubuntu";
         Host actual = Host.localHost(ubuntu);
         Host expected = new Host(
@@ -123,7 +115,7 @@ public class HostTest {
         InetAddress inetAddress = InetAddress.getLocalHost();
         String hostName = inetAddress.getHostName();
         Domain expectedDomain = DomainBuilder.parseString(hostName);
-        byte[] expectedAddress = inetAddress.getAddress();
+        IPAddress expectedAddress = IPAddressBuilder.fromBytes(inetAddress.getAddress());
 
         Host actual = Host.localHost();
         assertThat(actual.address()).isEqualTo(expectedAddress);

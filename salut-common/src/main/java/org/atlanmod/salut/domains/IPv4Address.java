@@ -7,7 +7,7 @@ public class IPv4Address extends IPAddress {
 
     public static final int SIZE = 4;
 
-    public IPv4Address(byte[] bytes) {
+    IPv4Address(byte[] bytes) {
         Preconditions.checkArgument(bytes.length == SIZE, "IPv4 addresses must have %d bytes", SIZE);
 
         address = bytes;

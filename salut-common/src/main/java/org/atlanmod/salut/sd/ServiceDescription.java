@@ -7,69 +7,18 @@ import org.atlanmod.salut.data.TransportProtocol;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.atlanmod.salut.names.InstanceName;
+import org.atlanmod.salut.names.ServiceName;
 
 public class ServiceDescription {
 
-    /**
-     * ServiceDescription getPort
-     */
-    private UnsignedShort port;
-
-    public UnsignedShort port() {
-        return port;
-    }
-
-    /**
-     * ServiceDescription getWeight
-     */
-    private UnsignedShort weight;
-
-    public UnsignedShort weight() {
-        return weight;
-    }
-
-    /**
-     * ServiceDescription getPriority
-     */
-    private UnsignedShort priority;
-
-    public UnsignedShort priority() {
-        return priority;
-    }
-
-    /**
-     * Time to live
-     */
-    private UnsignedInt ttl;
-
-    public UnsignedInt ttl() {
-        return ttl;
-    }
-
-    /**
-     * Transport transportProtocol (TCP or UDP)
-     */
-    private TransportProtocol transportProtocol;
-
-    public TransportProtocol transportProtocol() {
-        return transportProtocol;
-    }
-
-    /**
-     * Application transportProtocol (music, ipp, etc.)
-     *
-     * @see <a href="http://www.dns-sd.org/servicetypes.html">DNS SRV (RFC 2782) ServiceDescription Types</a>
-     */
-    private ApplicationProtocol applicationProtocol;
-
-    /**
-     * Unqualified service instance data ("mac-book", "printer", etc.)
-     */
-    private InstanceName instanceName;
-
-    public InstanceName name() {
-        return instanceName;
-    }
+    // @formatter:off
+    private final UnsignedShort   port;       // Service port
+    private final UnsignedShort   weight;     // Service weight
+    private final UnsignedShort   priority;   // Service priority
+    private final UnsignedInt     ttl;        // Time to live
+    private final ServiceName     service;    // Service Name (or type): transport + application protocols
+    private final InstanceName    instance;   // Unqualified service instance data ("mac-book", "printer", etc.)
+    // @formatter:on
 
     /**
      * ServiceDescription subtype. For instance, printer (subtype of http or soap).
@@ -87,17 +36,41 @@ public class ServiceDescription {
      * @param weight
      * @param priority
      */
-    public ServiceDescription(InstanceName instanceName, UnsignedShort port, TransportProtocol transportProtocol, ApplicationProtocol applicationProtocol,
-                              Optional<String> subtype, UnsignedShort weight, UnsignedShort priority, UnsignedInt ttl) {
+    public ServiceDescription(InstanceName instanceName, UnsignedShort port,
+        TransportProtocol transportProtocol, ApplicationProtocol applicationProtocol,
+        Optional<String> subtype, UnsignedShort weight, UnsignedShort priority, UnsignedInt ttl) {
 
-        this.instanceName = instanceName;
+        this.service = transportProtocol.with(applicationProtocol);
+        this.instance = instanceName;
         this.port = port;
-        this.transportProtocol = transportProtocol;
-        this.applicationProtocol = applicationProtocol;
         this.subtype = subtype;
         this.weight = weight;
         this.priority = priority;
         this.ttl = ttl;
+    }
+
+    public UnsignedShort port() {
+        return port;
+    }
+
+    public UnsignedShort weight() {
+        return weight;
+    }
+
+    public UnsignedShort priority() {
+        return priority;
+    }
+
+    public UnsignedInt ttl() {
+        return ttl;
+    }
+
+    public InstanceName instanceName() {
+        return instance;
+    }
+
+    public ServiceName serviceName() {
+        return service;
     }
 
     @Override
@@ -107,9 +80,8 @@ public class ServiceDescription {
             ", weight=" + weight +
             ", priority=" + priority +
             ", ttl=" + ttl +
-            ", transportProtocol=" + transportProtocol +
-            ", applicationProtocol=" + applicationProtocol +
-            ", instanceName=" + instanceName +
+            ", service=" + service +
+            ", instance=" + instance +
             ", subtype=" + subtype +
             '}';
     }
@@ -127,16 +99,14 @@ public class ServiceDescription {
             Objects.equals(weight, that.weight) &&
             Objects.equals(priority, that.priority) &&
             Objects.equals(ttl, that.ttl) &&
-            transportProtocol == that.transportProtocol &&
-            Objects.equals(applicationProtocol, that.applicationProtocol) &&
-            Objects.equals(instanceName, that.instanceName) &&
+            Objects.equals(service, that.service) &&
+            Objects.equals(instance, that.instance) &&
             Objects.equals(subtype, that.subtype);
     }
 
     @Override
     public int hashCode() {
         return Objects
-            .hash(port, weight, priority, ttl, transportProtocol, applicationProtocol, instanceName,
-                subtype);
+            .hash(port, weight, priority, ttl, service, instance, subtype);
     }
 }

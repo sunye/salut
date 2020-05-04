@@ -8,12 +8,12 @@ import org.atlanmod.salut.io.ByteArrayReader;
 import org.junit.jupiter.api.Test;
 
 class LabelsTest {
-    Label mydomain = Label.create("mydomain");
-    Label com = Label.create("com");
-    Label printer = Label.create("printer");
-    Label arpanet = Label.create("arpanet");
-    Label org = Label.create("org");
-    Label www = Label.create("www");
+    DNSLabel mydomain = DNSLabel.create("mydomain");
+    DNSLabel com = DNSLabel.create("com");
+    DNSLabel printer = DNSLabel.create("printer");
+    DNSLabel arpanet = DNSLabel.create("arpanet");
+    DNSLabel org = DNSLabel.create("org");
+    DNSLabel www = DNSLabel.create("www");
 
     @Test
     void testFromByteBufferSingle() throws ParseException {

@@ -3,12 +3,12 @@ package org.atlanmod.salut.mdns;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.net.Inet6Address;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
+import org.atlanmod.salut.domains.IPAddressBuilder;
+import org.atlanmod.salut.domains.IPv6Address;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
@@ -30,12 +30,13 @@ class AAAARecordIT {
         + "When it is serialized and written to a byte array"
         + "The expect the read and deserialized AAAARecord to be the same")
     @Test
-    void serialize_and_deserialize_simple_aaaa_record() throws ParseException, UnknownHostException {
+    void serialize_and_deserialize_simple_aaaa_record()
+        throws ParseException, UnknownHostException {
 
-        byte[] bytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+        byte[] bytes = new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
 
         Labels names = Labels.fromList("mac-pro", "local");
-        Inet6Address address = (Inet6Address) InetAddress.getByAddress(bytes);
+        IPv6Address address = IPAddressBuilder.createIPv6Address(bytes);
 
         Domain domain = DomainBuilder.fromLabels(names);
         AAAARecord expected = AAAARecord
@@ -47,7 +48,5 @@ class AAAARecordIT {
 
         assertThat(expected).isEqualTo(actual);
     }
-
-
 
 }

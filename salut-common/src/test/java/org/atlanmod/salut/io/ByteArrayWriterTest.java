@@ -3,7 +3,7 @@ package org.atlanmod.salut.io;
 import static com.google.common.truth.Truth.assertThat;
 
 import java.text.ParseException;
-import org.atlanmod.salut.labels.Label;
+import org.atlanmod.salut.labels.DNSLabel;
 import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,7 +67,7 @@ class ByteArrayWriterTest {
         assertThat(reader.getUnsignedByte()).isEqualTo(UnsignedByte.fromInt(0xF));
         assertThat(reader.getUnsignedShort()).isEqualTo(UnsignedShort.fromInt(0xBB));
         assertThat(reader.getUnsignedInt()).isEqualTo(UnsignedInt.fromInt(0x1111));
-        assertThat(reader.getLabel(reader.getLabelLength())).isEqualTo(Label.create("a label"));
+        assertThat(reader.getLabel(reader.getLabelLength())).isEqualTo(DNSLabel.create("a label"));
         assertThat(reader.readLabels()).isEqualTo(Labels.fromList("pc", "local"));
     }
 
@@ -77,7 +77,7 @@ class ByteArrayWriterTest {
         writer.putLabel(string);
         ByteArrayReader reader = writer.getByteArrayReader();
         LabelLength length = reader.getLabelLength();
-        Label readLabel = reader.getLabel(length);
+        DNSLabel readLabel = reader.getLabel(length);
 
         assertThat(readLabel.toString()).isEqualTo(string);
     }

@@ -2,7 +2,6 @@ package org.atlanmod.salut.domains;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Arrays;
 import javax.annotation.ParametersAreNonnullByDefault;
 import org.atlanmod.commons.Preconditions;
 
@@ -10,18 +9,18 @@ import org.atlanmod.commons.Preconditions;
 public class Host {
 
     private final Domain name;
-    private final byte[] address;
+    private final IPAddress address;
 
 
     /**
      * Creates an instance of a Host.
-     * @param name the name of the Host
+     *
+     * @param name    the name of the Host
      * @param address the IP address of this Host
      */
-    public Host(Domain name, byte[] address) {
+    public Host(Domain name, IPAddress address) {
         Preconditions.checkNotNull(name);
         Preconditions.checkNotNull(address);
-        Preconditions.checkArgument(address.length == 4, "IPv4 Addresses must have 4 bytes");
 
         this.name = name;
         this.address = address;
@@ -35,11 +34,10 @@ public class Host {
      * @throws UnknownHostException if the Local Host can not be found
      */
     public static Host localHost(String name) throws UnknownHostException {
-        InetAddress inetAddress = InetAddress.getLocalHost();
-
+        IPAddress address = IPAddressBuilder.fromBytes(InetAddress.getLocalHost().getAddress());
         return new Host(
             LocalHostName.fromString(name),
-            inetAddress.getAddress()
+            address
         );
     }
 
@@ -50,18 +48,22 @@ public class Host {
      * @throws UnknownHostException if the Local Host can not be found
      */
     public static Host localHost() throws UnknownHostException {
-        InetAddress inetAddress = InetAddress.getLocalHost();
-        String[] labels = inetAddress.getHostName().split("\\.");
+        InetAddress localInetAddress = InetAddress.getLocalHost();
+
+        IPAddress address = IPAddressBuilder.fromBytes(localInetAddress.getAddress());
+
+        String[] labels = localInetAddress.getHostName().split("\\.");
         String firstName = labels.length > 0 ? labels[0] : "unknown";
 
         return new Host(
             LocalHostName.fromString(firstName),
-            inetAddress.getAddress()
+            address
         );
     }
 
     /**
      * Returns the domain name of this host.
+     *
      * @return
      */
     public Domain name() {
@@ -73,7 +75,7 @@ public class Host {
      *
      * @return
      */
-    public byte[] address() {
+    public IPAddress address() {
         return address;
     }
 
@@ -86,13 +88,21 @@ public class Host {
         Host other = (Host) o;
 
         return name.equals(other.name)
-            && Arrays.equals(address, other.address);
+            && address.equals(other.address);
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + Arrays.hashCode(address);
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Host{" +
+            "name=" + name +
+            ", address=" + address +
+            '}';
     }
 }

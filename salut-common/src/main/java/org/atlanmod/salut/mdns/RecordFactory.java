@@ -1,7 +1,7 @@
 package org.atlanmod.salut.mdns;
 
-import java.net.Inet4Address;
 import org.atlanmod.salut.domains.Host;
+import org.atlanmod.salut.names.ServiceInstanceName;
 import org.atlanmod.salut.sd.ServiceDescription;
 
 public class RecordFactory {
@@ -27,7 +27,7 @@ public class RecordFactory {
                 service.priority(),
                 service.weight(),
                 service.port(),
-                null,
+                localHost.name(),
                 null);
         //@formatter:on
     }
@@ -57,8 +57,7 @@ public class RecordFactory {
         return new BaseARecord(
             QClass.IN,
             service.ttl(),
-            null,
-            null
+            localHost
         );
     }
 }

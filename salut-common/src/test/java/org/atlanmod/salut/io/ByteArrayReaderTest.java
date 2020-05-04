@@ -10,27 +10,24 @@ import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.text.ParseException;
 import java.util.List;
+import org.atlanmod.salut.labels.DNSLabel;
 import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-/*
-Classe de test pour la classe ByteArrayReader
-Cette classe a pour but de faire l'ensemble des tests unitaires de ByteArrayReader
- */
+
 class ByteArrayReaderTest {
 
-    private Label mydomain = Label.create("mydomain");
-    private Label com = Label.create("com");
+    private Label mydomain = DNSLabel.create("mydomain");
+    private Label com = DNSLabel.create("com");
 
     @Test
     void wrap() {
         byte[] bytes = {8, 109, 121, 100, 111, 109, 97, 105, 110, 3, 99, 111, 109, 0};
 
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-
         byte[] baf = new ByteArrayReader(ByteBuffer.wrap(bytes, 0, bytes.length)).array();
 
         assertTrue(baf.equals(bytes));
