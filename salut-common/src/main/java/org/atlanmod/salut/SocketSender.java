@@ -1,11 +1,12 @@
 package org.atlanmod.salut;
 
+import org.atlanmod.commons.log.Log;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.MulticastSocket;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import org.atlanmod.commons.log.Log;
 
 public class SocketSender implements Runnable {
 

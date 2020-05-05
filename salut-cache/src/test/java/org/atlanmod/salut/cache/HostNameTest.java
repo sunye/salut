@@ -1,10 +1,5 @@
 package org.atlanmod.salut.cache;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.text.ParseException;
 import org.atlanmod.salut.data.ReverseInet4Address;
 import org.atlanmod.salut.data.ReverseInet6Address;
 import org.atlanmod.salut.domains.Domain;
@@ -13,6 +8,12 @@ import org.atlanmod.salut.domains.InternetDomain;
 import org.atlanmod.salut.domains.LocalHostName;
 import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.Test;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.text.ParseException;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class HostNameTest {
 

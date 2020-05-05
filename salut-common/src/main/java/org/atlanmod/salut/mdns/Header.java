@@ -1,9 +1,11 @@
 package org.atlanmod.salut.mdns;
 
-import java.util.Objects;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedShort;
+
+import java.util.Objects;
 
 public class Header {
 
@@ -148,7 +150,7 @@ public class Header {
      *
      * @param buffer a byte array buffer where the header will be written.
      */
-    public void writeOn(ByteArrayReader buffer) {
+    public void writeOn(ByteArrayWriter buffer) {
         buffer.putUnsignedShort(id);
         buffer.putUnsignedShort(flags.toUnsignedShort());
         buffer.putUnsignedShort(questionRecordCount);

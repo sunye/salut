@@ -1,8 +1,9 @@
 package org.atlanmod.salut.cache;
 
+import org.atlanmod.salut.domains.IPAddress;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.atlanmod.salut.domains.IPAddress;
 
 /**
  * Abstract class for representing IP4 or IP6 addresses.

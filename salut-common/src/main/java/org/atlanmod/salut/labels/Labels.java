@@ -1,13 +1,14 @@
 package org.atlanmod.salut.labels;
 
+import org.atlanmod.commons.Preconditions;
+import org.atlanmod.salut.io.ByteArrayReader;
+
+import javax.annotation.Nonnull;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import org.atlanmod.commons.Preconditions;
-import org.atlanmod.salut.io.ByteArrayReader;
 
 /**
  * List of labels

@@ -1,12 +1,13 @@
 package org.atlanmod.salut.domains;
 
+import org.atlanmod.commons.Preconditions;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Objects;
-import javax.annotation.ParametersAreNonnullByDefault;
-import org.atlanmod.commons.Preconditions;
 
 @ParametersAreNonnullByDefault
 public class Host {
@@ -72,6 +73,7 @@ public class Host {
      * @throws SocketException
      */
     public static InetAddress[] localRoutableAdresses() throws SocketException {
+
         return NetworkInterface.networkInterfaces()
             .flatMap(NetworkInterface::inetAddresses)
             .filter(each -> !each.isLoopbackAddress())

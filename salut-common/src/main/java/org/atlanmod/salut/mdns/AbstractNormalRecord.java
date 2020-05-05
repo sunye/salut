@@ -1,11 +1,12 @@
 package org.atlanmod.salut.mdns;
 
-import java.text.ParseException;
-import java.util.Objects;
 import org.atlanmod.salut.cache.TimeToLive;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.labels.Labels;
+
+import java.text.ParseException;
+import java.util.Objects;
 
 /**
  *

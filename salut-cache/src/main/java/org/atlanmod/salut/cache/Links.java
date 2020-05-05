@@ -1,7 +1,8 @@
 package org.atlanmod.salut.cache;
 
-import java.util.Comparator;
 import org.atlanmod.salut.io.UnsignedShort;
+
+import java.util.Comparator;
 
 /**
  * Utility class to create and maintain links between Services, Addresses, and Servers.

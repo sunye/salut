@@ -1,11 +1,12 @@
 package org.atlanmod.salut.data;
 
-import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toMap;
-
-import java.util.Map;
 import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.names.ServiceName;
+
+import java.util.Map;
+
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toMap;
 
 @SuppressWarnings({"pmd:FieldNamingConventions", "squid:S115"})
 public enum TransportProtocol {

@@ -1,16 +1,16 @@
 package org.atlanmod.salut.labels;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class InstanceLabelTest {
 
 
     @ValueSource(strings = {"macbook", "a more complicate label", "a.label.with.points",
-        "A LABEL WITH UPPER CASES"})
+        "A LABEL WITH UPPER CASES", "John's Library", "été à être où ?"})
     @ParameterizedTest
     public void validLabels(String value) {
         InstanceLabel label = new InstanceLabel(value);

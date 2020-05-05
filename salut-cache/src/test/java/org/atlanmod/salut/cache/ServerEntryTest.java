@@ -1,12 +1,13 @@
 package org.atlanmod.salut.cache;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.text.ParseException;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.Test;
+
+import java.text.ParseException;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ServerEntryTest {
 

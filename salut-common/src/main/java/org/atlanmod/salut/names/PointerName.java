@@ -1,11 +1,12 @@
 package org.atlanmod.salut.names;
 
-import java.text.ParseException;
-import java.util.Objects;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.labels.Labels;
+
+import java.text.ParseException;
+import java.util.Objects;
 
 /**
  * From [RFC 6763](https://tools.ietf.org/html/rfc6763):

@@ -1,5 +1,9 @@
 package org.atlanmod.salut.labels;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * The <Instance> portion of the Service Instance Name is a user- friendly name consisting of
  * arbitrary Net-Unicode text [RFC5198].  It MUST NOT contain ASCII control characters (byte values
@@ -18,18 +22,25 @@ package org.atlanmod.salut.labels;
  *
  * @see <a href="https://tools.ietf.org/html/rfc6763#section-4.1">RFC 6763</a>
  */
+@ParametersAreNonnullByDefault
 public class InstanceLabel implements Label {
 
-    private static final String VALID_LABEL_EXPRESSION = "[^\\p{Cntrl}]*";
+    private static final Pattern INVALID_PATTERN = Pattern.compile(".*\\p{Cntrl}.*");
 
     private final String label;
 
-    public InstanceLabel(String label) {
-        this.label = label;
+    public InstanceLabel(String str) {
+        this.label = str;
     }
 
+    /**
+     * Service Instance Labels should not contain ASCII control characters (byte values 0x00-0x1F and 0x7F) [RFC20]
+     *
+     * @return true if the label does not contain ASCII control characters. False otherwise.
+     */
     public boolean isValid() {
-        return this.label.matches(VALID_LABEL_EXPRESSION);
+        Matcher m = INVALID_PATTERN.matcher(label);
+        return !m.matches();
     }
 
     /**
@@ -41,4 +52,5 @@ public class InstanceLabel implements Label {
     public int dataLength() {
         return label.length() + 1;
     }
+
 }

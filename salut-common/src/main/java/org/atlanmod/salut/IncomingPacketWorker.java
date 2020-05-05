@@ -1,7 +1,8 @@
 package org.atlanmod.salut;
 
-import java.net.DatagramPacket;
 import org.atlanmod.commons.log.Log;
+
+import java.net.DatagramPacket;
 
 public class IncomingPacketWorker implements Runnable {
     private final SocketReceiver receiver;

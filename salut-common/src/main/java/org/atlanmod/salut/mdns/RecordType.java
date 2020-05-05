@@ -1,11 +1,12 @@
 package org.atlanmod.salut.mdns;
 
-import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toMap;
+import org.atlanmod.salut.io.UnsignedShort;
 
 import java.util.Map;
 import java.util.Optional;
-import org.atlanmod.salut.io.UnsignedShort;
+
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toMap;
 
 /**
  *

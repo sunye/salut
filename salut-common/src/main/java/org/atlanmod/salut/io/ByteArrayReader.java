@@ -1,11 +1,5 @@
 package org.atlanmod.salut.io;
 
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.domains.IPAddressBuilder;
@@ -15,6 +9,13 @@ import org.atlanmod.salut.labels.DNSLabel;
 import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.mdns.QClass;
 import org.atlanmod.salut.mdns.RecordType;
+
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * The class `ByteArrayReader` is a wrapper class for the {@code ByteBuffer} class.
@@ -41,17 +42,7 @@ public class ByteArrayReader {
     }
 
     public static ByteArrayReader fromString(String str) {
-        return wrap(toByteArray(str));
-    }
-
-    private static byte[] toByteArray(String s) {
-        int len = s.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-                    + Character.digit(s.charAt(i + 1), 16));
-        }
-        return data;
+        return wrap(Bytes.stringToBytes(str));
     }
 
     public RecordType readRecordType() throws ParseException {
@@ -161,10 +152,6 @@ public class ByteArrayReader {
      */
     public UnsignedShort getUnsignedShort() {
         return UnsignedShort.fromShort(buffer.getShort());
-    }
-
-    public void putUnsignedShort(UnsignedShort us) {
-        buffer.putShort(us.shortValue());
     }
 
     public UnsignedByte getUnsignedByte() {

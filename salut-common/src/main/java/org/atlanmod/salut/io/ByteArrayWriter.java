@@ -1,9 +1,5 @@
 package org.atlanmod.salut.io;
 
-import java.net.Inet6Address;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import org.atlanmod.commons.primitive.Bytes;
 import org.atlanmod.salut.domains.IPAddress;
 import org.atlanmod.salut.domains.IPv4Address;
@@ -12,6 +8,11 @@ import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.mdns.QClass;
 import org.atlanmod.salut.mdns.RecordType;
+
+import java.net.Inet6Address;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ByteArrayWriter {
 

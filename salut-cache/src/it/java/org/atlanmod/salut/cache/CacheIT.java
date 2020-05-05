@@ -1,34 +1,25 @@
 package org.atlanmod.salut.cache;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.awaitility.Awaitility.await;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.net.UnknownHostException;
-import java.text.ParseException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import org.atlanmod.salut.domains.Domain;
-import org.atlanmod.salut.domains.DomainBuilder;
-import org.atlanmod.salut.domains.Host;
-import org.atlanmod.salut.domains.IPAddress;
-import org.atlanmod.salut.domains.IPAddressBuilder;
-import org.atlanmod.salut.domains.IPv4Address;
-import org.atlanmod.salut.domains.LocalDomain;
+import org.atlanmod.salut.domains.*;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.labels.Labels;
-import org.atlanmod.salut.mdns.ARecord;
-import org.atlanmod.salut.mdns.AbstractPointerRecord;
-import org.atlanmod.salut.mdns.BaseARecord;
-import org.atlanmod.salut.mdns.BaseServerSelectionRecord;
-import org.atlanmod.salut.mdns.QClass;
+import org.atlanmod.salut.mdns.*;
 import org.atlanmod.salut.names.PointerName;
 import org.atlanmod.salut.names.ServiceInstanceName;
 import org.atlanmod.salut.names.ServiceName;
 import org.awaitility.Durations;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.net.UnknownHostException;
+import java.text.ParseException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class CacheIT {
 

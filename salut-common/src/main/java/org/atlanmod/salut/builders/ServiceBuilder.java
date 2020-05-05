@@ -1,7 +1,6 @@
 package org.atlanmod.salut.builders;
 
 
-import java.util.Optional;
 import org.atlanmod.salut.data.ApplicationProtocol;
 import org.atlanmod.salut.data.ApplicationProtocolBuilder;
 import org.atlanmod.salut.data.IANAApplicationProtocol;
@@ -10,6 +9,8 @@ import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.atlanmod.salut.names.InstanceName;
 import org.atlanmod.salut.sd.ServiceDescription;
+
+import java.util.Optional;
 
 
 public class ServiceBuilder implements ServiceApplicationProtocolChooser, ServicePublisher,

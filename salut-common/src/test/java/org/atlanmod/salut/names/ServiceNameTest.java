@@ -1,8 +1,5 @@
 package org.atlanmod.salut.names;
 
-import static com.google.common.truth.Truth.assertThat;
-
-import java.text.ParseException;
 import org.atlanmod.salut.data.ApplicationProtocol;
 import org.atlanmod.salut.data.ApplicationProtocolBuilder;
 import org.atlanmod.salut.data.TransportProtocol;
@@ -10,6 +7,10 @@ import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.text.ParseException;
+
+import static com.google.common.truth.Truth.assertThat;
 
 class ServiceNameTest {
 

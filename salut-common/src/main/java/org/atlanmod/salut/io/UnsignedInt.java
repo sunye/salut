@@ -1,7 +1,8 @@
 package org.atlanmod.salut.io;
 
-import java.util.Objects;
 import org.atlanmod.commons.Preconditions;
+
+import java.util.Objects;
 
 /**
  * The `UnsignedInt` class allows the representation of unsigned 32-bit values.

@@ -1,8 +1,5 @@
 package org.atlanmod.salut.names;
 
-import java.text.ParseException;
-import java.util.Objects;
-import javax.annotation.ParametersAreNonnullByDefault;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.commons.log.Log;
@@ -10,6 +7,10 @@ import org.atlanmod.salut.data.ApplicationProtocol;
 import org.atlanmod.salut.data.ApplicationProtocolBuilder;
 import org.atlanmod.salut.data.TransportProtocol;
 import org.atlanmod.salut.labels.Labels;
+
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.text.ParseException;
+import java.util.Objects;
 
 /**
  * From [RFC 6763](https://tools.ietf.org/html/rfc6763):

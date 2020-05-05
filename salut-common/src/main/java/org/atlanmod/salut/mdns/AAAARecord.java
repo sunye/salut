@@ -1,7 +1,5 @@
 package org.atlanmod.salut.mdns;
 
-import java.net.Inet6Address;
-import java.text.ParseException;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
@@ -10,6 +8,8 @@ import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
+
+import java.text.ParseException;
 
 /**
  * The `AAAARecord` class represents DNS IP6 getAddress records (AAAA).
@@ -72,6 +72,7 @@ public class AAAARecord extends AbstractNormalRecord {
         private IPv6Address address;
         private Domain serverName;
 
+        @Override
         protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
             address = buffer.readInet6Address();
             serverName = DomainBuilder.fromLabels(labels);

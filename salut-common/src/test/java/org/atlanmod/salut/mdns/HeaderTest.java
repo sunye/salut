@@ -1,14 +1,14 @@
 package org.atlanmod.salut.mdns;
 
-import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Arrays;
 import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class HeaderTest {
 
@@ -24,7 +24,7 @@ public class HeaderTest {
         ByteArrayReader from = ByteArrayReader.fromString(packetStr);
         Header header = Header.fromByteBuffer(from);
 
-        ByteArrayReader to = ByteArrayReader.allocate(12);
+        ByteArrayWriter to = new ByteArrayWriter();
         header.writeOn(to);
 
         assertTrue(Arrays.equals(from.array(), to.array()));

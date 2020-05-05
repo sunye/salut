@@ -1,15 +1,16 @@
 package org.atlanmod.salut.domains;
 
-import java.net.Inet4Address;
-import java.net.Inet6Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.text.ParseException;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.data.ReverseInet4Address;
 import org.atlanmod.salut.data.ReverseInet6Address;
 import org.atlanmod.salut.labels.Labels;
+
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.text.ParseException;
 
 public abstract class DomainBuilder {
 

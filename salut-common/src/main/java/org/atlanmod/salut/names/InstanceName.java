@@ -1,9 +1,10 @@
 package org.atlanmod.salut.names;
 
-import java.util.Objects;
 import org.atlanmod.salut.labels.DNSLabel;
 import org.atlanmod.salut.labels.Label;
 import org.atlanmod.salut.labels.Labels;
+
+import java.util.Objects;
 
 /**
  *

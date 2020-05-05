@@ -1,7 +1,8 @@
 package org.atlanmod.salut.io;
 
-import java.util.Objects;
 import org.atlanmod.commons.Preconditions;
+
+import java.util.Objects;
 
 /**
  * A label length is an unsigned 8-bit value, representing the size of a label (in bytes), between 1 and 64 (the

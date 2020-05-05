@@ -1,6 +1,5 @@
 package org.atlanmod.salut.mdns;
 
-import java.util.Objects;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
@@ -8,6 +7,8 @@ import org.atlanmod.salut.io.UnsignedShort;
 import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.names.PointerName;
 import org.atlanmod.salut.names.ServiceInstanceName;
+
+import java.util.Objects;
 
 /**
  * The `PointerRecord` class represents DNS Domain name pointer record (PTR).

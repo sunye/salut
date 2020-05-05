@@ -1,21 +1,18 @@
 package org.atlanmod.salut.io;
 
-import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.atlanmod.salut.labels.DNSLabel;
+import org.atlanmod.salut.labels.Label;
+import org.atlanmod.salut.labels.Labels;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.text.ParseException;
 import java.util.List;
-import org.atlanmod.salut.labels.DNSLabel;
-import org.atlanmod.salut.labels.Label;
-import org.atlanmod.salut.labels.Labels;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class ByteArrayReaderTest {
@@ -33,10 +30,6 @@ class ByteArrayReaderTest {
         assertTrue(baf.equals(bytes));
     }
 
-    /*
-        Test de la méthode ReadLabels
-     */
-
     @Test
     void testReadLabels() throws ParseException {
         byte[] bytes = {8, 109, 121, 100, 111, 109, 97, 105, 110, 3, 99, 111, 109, 0};
@@ -49,9 +42,6 @@ class ByteArrayReaderTest {
         assertTrue(labels.contains(com));
     }
 
-    /*
-    Test de la méthode ReadLabels en provoquant une exception
-     */
     @Test
     void testReadLabelsException() throws Exception {
 
@@ -97,19 +87,21 @@ class ByteArrayReaderTest {
         );
     }
 
-    @Disabled
     @Test
     void getUnsignedShort() {
-        byte[] bytes = {8, 109, 121, 100, 111, 109, 97, 105, 110, 3, 99, 111, 109, 0};
-
-        ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        for (int i = 0; i < bb.array().length; i++) {
-            UnsignedShort us1 = bb.getUnsignedShort();
-            UnsignedShort us2 = UnsignedShort.fromShort(bytes[i]);
-            assertTrue(us1==us2);
+        short[] shorts = {1, 0, 121, 100, 111, 109, 6439, 110, 3, 99, 111, 109, Short.MIN_VALUE, Short.MAX_VALUE};
+        byte[] bytes = Bytes.shortsToBytes(shorts);
+        UnsignedShort[] actual = new UnsignedShort[shorts.length];
+        UnsignedShort[] expected = new UnsignedShort[shorts.length];
+        for (int i = 0; i < shorts.length; i++) {
+            expected[i] = UnsignedShort.fromShort(shorts[i]);
         }
 
-
+        ByteArrayReader bb = ByteArrayReader.wrap(bytes);
+        for (int i = 0; i < shorts.length; i++) {
+            actual[i] = bb.getUnsignedShort();
+        }
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
@@ -136,7 +128,9 @@ class ByteArrayReaderTest {
                 8, 109, 121, 100, 111, 109, 97, 105, 110, 3,
                 8, 109, 121, 100, 111, 109, 97, 105, 110, 3};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        assertThrows(ParseException.class, ()->{bb.readLabels();});
+        assertThrows(ParseException.class, () -> {
+            bb.readLabels();
+        });
     }
 
     @Test
@@ -177,9 +171,6 @@ class ByteArrayReaderTest {
         assertThat(bb.getUnsignedInt()).isEqualTo(UnsignedInt.fromInt(141392228));
     }
 
-    /*
-    Test de la méthode array, on vérifie si le tableau retourné est bien égal au tableau retourné par la méthode .array()
-     */
     @Test
     void array() {
         byte[] name = {8, 109, 121, 100, 111, 109, 97, 105, 110, 3, 99, 111, 109, 0};
@@ -187,9 +178,6 @@ class ByteArrayReaderTest {
         assertEquals(name, bb.array());
     }
 
-    /*
-    Test de la méthode position, on vérifie si le buffer est bien initialement à la position 0
-     */
     @Test
     void position() {
         byte[] name = {8, 109, 121, 100, 111, 109, 97, 105, 110, 3, 99, 111, 109, 0};
@@ -205,44 +193,40 @@ class ByteArrayReaderTest {
         assertEquals(bb.position(), 10);
     }
 
-
-    /*
-    Test de la méthode Get, on vérifie si l'élément retourné est bien celui inséré.
-     */
     @Test
     void get() {
         byte[] bytes = {5};
         assertEquals(5, ByteArrayReader.wrap(bytes).get());
     }
 
-    /*
-    Test de la méthode get, on vérifie que chaque élément est bien à la bonne position
-     */
     @Test
     void getParamExecpetion() {
         byte[] bytes = {5};
         byte[] bytes2 = {2, 3};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        assertThrows(BufferUnderflowException.class, ()->{bb.get(bytes2);});
+        assertThrows(BufferUnderflowException.class, () -> {
+            bb.get(bytes2);
+        });
     }
 
     @Test
-    void testCheckOffset(){
-        byte[] buffer = { 8, 3, 100, 101, 102, -64, 64, 0 };
+    void testCheckOffset() {
+        byte[] buffer = {8, 3, 100, 101, 102, -64, 64, 0};
         ByteArrayReader bb = ByteArrayReader.wrap(buffer);
-        assertThrows(ParseException.class, ()->{
-            Labels.fromByteBuffer(bb, 1);});
+        assertThrows(ParseException.class, () -> {
+            Labels.fromByteBuffer(bb, 1);
+        });
     }
 
     @Test
-    void testToSring(){
+    void testToSring() {
         byte[] bytes = {8, 109, 121, 100};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
         assertEquals("java.nio.HeapByteBuffer[pos=0 lim=4 cap=4]", bb.toString());
     }
 
     @Test
-    void testToSringVide(){
+    void testToSringVide() {
         byte[] bytes = {};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
         assertEquals("java.nio.HeapByteBuffer[pos=0 lim=0 cap=0]", bb.toString());
@@ -257,19 +241,13 @@ class ByteArrayReaderTest {
         }
     }
 
-    /*
-    Test de la méthode toString(), on vérifie que la chaine de caractère retournée est celle attendue
-     */
     @Test
-    void testToString(){
+    void testToString() {
         byte[] bytes = {5, 6, 7, 8, 9};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
         assertEquals("java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]", bb.toString());
     }
 
-    /*
-    Test de readLabels, on vérifie que le cas d'erreur se produise bien
-     */
     @Test
     void testCheckOut() {
         assertAll(
@@ -319,15 +297,12 @@ class ByteArrayReaderTest {
         });
     }
 
-    @Disabled
     @Test
     void fromString() {
-        byte[] bytes = {5, 6, 7, 8, 9};
-        ByteArrayReader bb = ByteArrayReader.fromString(bytes.toString());
-        ByteArrayReader bb1 = bb.duplicate();
-        for (int i = 0; i < bytes.length; i++) {
-            assertEquals(bb1.get(), bb.get());
-        }
+        ByteArrayReader reader = ByteArrayReader.fromString("00" + "10" + "02");
+        assertThat(reader.get() == 0).isTrue();
+        assertThat(reader.get() == 0x10).isTrue();
+        assertThat(reader.get()).isEqualTo((byte) (2));
     }
 
     @Test
@@ -341,25 +316,6 @@ class ByteArrayReaderTest {
     }
 
 
-    @Disabled
-    @Test
-    void readTextStrings() throws ParseException {
-        byte[] bytes = {5, 6, 7, 8, 9};
-        ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        Labels labels = bb.readLabels();
-        List<String> lbb = bb.readTextDataStrings(2);
-        assertTrue(lbb.get(0).equals("5"));
-    }
-
-    @Test
-    @Disabled
-    void putUnsignedShort() throws ParseException {
-        byte[] bytes = {2};
-        ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        bb.putUnsignedShort(new UnsignedShort(2));
-        assertEquals(2, bb.get());
-    }
-
     @Test
     void getLabelLength() {
         byte[] bytes = {5};
@@ -369,14 +325,10 @@ class ByteArrayReaderTest {
         assertThat(read).isEqualTo(LabelLength.fromInt(5));
     }
 
-    @Disabled
     @Test
-    /**
-     * FIXME: an unsigned int requires 4 bytes!
-     */
     void getUnsignedInt() {
 
-        byte[] bytes = {5};
+        byte[] bytes = {0, 0, 0, 5};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
         assertThat(bb.getUnsignedInt()).isEqualTo(UnsignedInt.fromInt(5));
     }
@@ -385,39 +337,30 @@ class ByteArrayReaderTest {
     void toStringTest() {
         byte[] bytes = {5};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        bb.toString().equals(ByteBuffer.wrap(bytes, 0, bytes.length).toString());
+
+        assertThat(bb.toString()).isEqualTo(ByteBuffer.wrap(bytes, 0, bytes.length).toString());
     }
 
     @Test
-    void testAllocateVide(){
+    void testAllocateVide() {
         byte[] bytes = {};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
         assertEquals(bb.toString(), ByteArrayReader.allocate(0).toString());
     }
 
     @Test
-    void testAllocate(){
-        byte[] bytes = {8,8,8,8,8};
+    void testAllocate() {
+        byte[] bytes = {8, 8, 8, 8, 8};
         ByteArrayReader bb = ByteArrayReader.wrap(bytes);
         assertEquals(bb.toString(), ByteArrayReader.allocate(5).toString());
     }
 
     @Test
-    void testPutUnsignedShort(){
-        byte[] bytes = {5, 6, 7, 8, 9};
-        ByteArrayReader bb = ByteArrayReader.wrap(bytes);
-        UnsignedShort unsignedShort = new UnsignedShort(2);
-        bb.putUnsignedShort(unsignedShort);
-        assertEquals(7,bb.get());
-
-    }
-
-    @Test
-    void testFromString() throws ParseException {
+    void testFromString() {
         byte[] bytes = {-17, -49, -6, -17};
         ByteArrayReader bbString = ByteArrayReader.fromString("mydomain");
         byte[] bytes2 = bbString.array();
-        for (int i = 0; i<4; i++) {
+        for (int i = 0; i < 4; i++) {
             assertEquals(bytes[i], bytes2[i]);
         }
     }

@@ -1,6 +1,5 @@
 package org.atlanmod.salut.cache;
 
-import java.net.Inet4Address;
 import org.atlanmod.salut.domains.IPv4Address;
 
 

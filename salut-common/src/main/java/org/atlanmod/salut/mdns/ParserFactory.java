@@ -1,10 +1,11 @@
 package org.atlanmod.salut.mdns;
 
-import java.util.HashMap;
-import java.util.Map;
-import javax.annotation.Nonnull;
 import org.atlanmod.commons.annotation.Singleton;
 import org.atlanmod.commons.annotation.Static;
+
+import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The `ParserFactory` class creates instances of {@link RecordParser} and stores them in a map.

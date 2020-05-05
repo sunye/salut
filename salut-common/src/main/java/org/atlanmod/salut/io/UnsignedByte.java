@@ -1,7 +1,8 @@
 package org.atlanmod.salut.io;
 
-import java.util.Objects;
 import org.atlanmod.commons.Preconditions;
+
+import java.util.Objects;
 
 /**
  * The `UnsignedByte` class allows the representation of unsigned 8-bit values.

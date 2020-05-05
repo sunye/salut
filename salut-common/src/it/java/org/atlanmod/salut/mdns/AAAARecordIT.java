@@ -1,10 +1,6 @@
 package org.atlanmod.salut.mdns;
 
 
-import static com.google.common.truth.Truth.assertThat;
-
-import java.net.UnknownHostException;
-import java.text.ParseException;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.domains.IPAddressBuilder;
@@ -16,6 +12,11 @@ import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.net.UnknownHostException;
+import java.text.ParseException;
+
+import static com.google.common.truth.Truth.assertThat;
 
 class AAAARecordIT {
 

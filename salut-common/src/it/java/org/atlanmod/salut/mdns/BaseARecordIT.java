@@ -1,22 +1,17 @@
 package org.atlanmod.salut.mdns;
 
-import static com.google.common.truth.Truth.assertThat;
-
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.text.ParseException;
-import org.atlanmod.salut.domains.Domain;
-import org.atlanmod.salut.domains.DomainBuilder;
-import org.atlanmod.salut.domains.Host;
-import org.atlanmod.salut.domains.IPAddressBuilder;
-import org.atlanmod.salut.domains.IPv4Address;
+import org.atlanmod.salut.domains.*;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.labels.Labels;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.net.UnknownHostException;
+import java.text.ParseException;
+
+import static com.google.common.truth.Truth.assertThat;
 
 class BaseARecordIT {
 

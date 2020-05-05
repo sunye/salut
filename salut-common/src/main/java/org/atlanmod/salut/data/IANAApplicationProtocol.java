@@ -1,9 +1,9 @@
 package org.atlanmod.salut.data;
 
+import java.util.Map;
+
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toMap;
-
-import java.util.Map;
 
 /**
  * IANA-registered application protocol (music, ipp, etc.)

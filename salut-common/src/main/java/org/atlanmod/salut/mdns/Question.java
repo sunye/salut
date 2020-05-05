@@ -1,10 +1,11 @@
 package org.atlanmod.salut.mdns;
 
-import java.text.ParseException;
-import java.util.Optional;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.labels.Labels;
+
+import java.text.ParseException;
+import java.util.Optional;
 
 /**
  * The question section is used to carry the "question" in most queries,
