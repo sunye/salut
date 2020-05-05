@@ -2,6 +2,7 @@ package org.atlanmod.salut.labels;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -23,4 +24,11 @@ class InstanceLabelTest {
         assertThat(label.isValid()).isFalse();
     }
 
+
+    @Test
+    public void dataLength() {
+        InstanceLabel label = new InstanceLabel("DB Server");
+
+        assertThat(label.dataLength()).isEqualTo(9+1);
+    }
 }

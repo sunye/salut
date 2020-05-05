@@ -13,4 +13,19 @@ public class IPv4Address extends IPAddress {
         address = bytes;
     }
 
+
+    /**
+     * Converts this IP address to a {@code String}. The
+     * string returned is a literal IP address.
+     *
+     *
+     * @return  a string representation of this IP address.
+     */
+    @Override
+    public String toString() {
+        assert address.length == SIZE : "IPv4 addresses must have 4 bytes";
+
+        return (address[0] & 0xff) + "." + (address[1] & 0xff) + "." + (address[2] & 0xff) + "." + (
+            address[3] & 0xff);
+    }
 }

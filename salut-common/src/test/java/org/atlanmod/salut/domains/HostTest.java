@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import org.junit.jupiter.api.Test;
@@ -120,5 +121,22 @@ public class HostTest {
         Host actual = Host.localHost();
         assertThat(actual.address()).isEqualTo(expectedAddress);
         assertThat(actual.name()).isEqualTo(expectedDomain);
+    }
+
+    @Test
+    public void testLocalRoutableAdresses() throws SocketException {
+        InetAddress[] addresses = Host.localRoutableAdresses();
+
+        assertThat(addresses).filteredOn(each -> each.isMulticastAddress()).isEmpty();
+        assertThat(addresses).filteredOn(each -> each.isLinkLocalAddress()).isEmpty();
+        assertThat(addresses).filteredOn(each -> each.isLoopbackAddress()).isEmpty();
+    }
+
+    @Test
+    public void testToString() {
+        Host other = new Host(maredsous.name(), maredsous.address());
+
+        assertThat(other.toString()).isEqualTo(maredsous.toString());
+        assertThat(other.toString()).doesNotContain("@");
     }
 }

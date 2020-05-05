@@ -1,7 +1,10 @@
 package org.atlanmod.salut.domains;
 
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Objects;
 import javax.annotation.ParametersAreNonnullByDefault;
 import org.atlanmod.commons.Preconditions;
 
@@ -15,15 +18,15 @@ public class Host {
     /**
      * Creates an instance of a Host.
      *
-     * @param name    the name of the Host
-     * @param address the IP address of this Host
+     * @param domain    the name of the Host
+     * @param ipAddress the IP address of this Host
      */
-    public Host(Domain name, IPAddress address) {
-        Preconditions.checkNotNull(name);
-        Preconditions.checkNotNull(address);
+    public Host(Domain domain, IPAddress ipAddress) {
+        Preconditions.checkNotNull(domain);
+        Preconditions.checkNotNull(ipAddress);
 
-        this.name = name;
-        this.address = address;
+        this.name = domain;
+        this.address = ipAddress;
     }
 
     /**
@@ -62,6 +65,22 @@ public class Host {
     }
 
     /**
+     * Creates an array containing all routable addresses from the local interfaces. By 'routable',
+     * we mean address that are not link local, loopback, nor multi-cast.
+     *
+     * @return An array of {@code InetAdress} objects.
+     * @throws SocketException
+     */
+    public static InetAddress[] localRoutableAdresses() throws SocketException {
+        return NetworkInterface.networkInterfaces()
+            .flatMap(NetworkInterface::inetAddresses)
+            .filter(each -> !each.isLoopbackAddress())
+            .filter(each -> !each.isLinkLocalAddress())
+            .filter(each -> !each.isMulticastAddress())
+            .toArray(InetAddress[]::new);
+    }
+
+    /**
      * Returns the domain name of this host.
      *
      * @return
@@ -79,6 +98,11 @@ public class Host {
         return address;
     }
 
+    /**
+     * Compares two Host objects. Returns true if they are the same
+     * @param o the other Host object
+     * @return true if the two Host objects are equal. False otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         //@formatter:off
@@ -91,18 +115,22 @@ public class Host {
             && address.equals(other.address);
     }
 
+    /**
+     * Calculates the hash code for this object
+     * @return an int representing a hash code
+     */
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        return result;
+        return Objects.hash(name, address);
     }
 
+    /**
+     * Converts this Host to a String.
+     *
+     * @return a string representation of this Host.
+     */
     @Override
     public String toString() {
-        return "Host{" +
-            "name=" + name +
-            ", address=" + address +
-            '}';
+        return name + "/" + address;
     }
 }
