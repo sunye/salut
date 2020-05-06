@@ -88,14 +88,13 @@ public class ServiceDescription {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ServiceDescription that = (ServiceDescription) o;
+    public boolean equals(Object other) {
+        //@formatter:off
+        if (this == other) {return true; }
+        if (!(other instanceof ServiceDescription)) { return false; }
+        //@formatter:on
+
+        ServiceDescription that = (ServiceDescription) other;
         return Objects.equals(port, that.port) &&
             Objects.equals(weight, that.weight) &&
             Objects.equals(priority, that.priority) &&

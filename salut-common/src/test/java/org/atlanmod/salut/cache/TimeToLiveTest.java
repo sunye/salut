@@ -52,7 +52,8 @@ class TimeToLiveTest {
         TimeToLive other = TimeToLive.fromSeconds(10);
         TimeToLive twentySeconds = TimeToLive.fromSeconds(20);
 
-        assertThat(other.hashCode()).isEqualTo(tenSeconds.hashCode())
+        assertThat(other.hashCode())
+            .isEqualTo(other.hashCode())
             .isNotEqualTo(twentySeconds.hashCode());
     }
 

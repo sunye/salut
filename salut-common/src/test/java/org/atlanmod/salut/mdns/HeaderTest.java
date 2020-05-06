@@ -1,23 +1,25 @@
 package org.atlanmod.salut.mdns;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Arrays;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedShort;
+import org.atlanmod.verifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-
-import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class HeaderTest {
 
     private String packetStr = "0000" + // Transaction ID
-            "1111" + // Flags
-            "0003" + // #Questions
-            "0005" + // #Answers
-            "0009" + // #Authority resource records
-            "0001";  // #Additionals
+        "1111" + // Flags
+        "0003" + // #Questions
+        "0005" + // #Answers
+        "0009" + // #Authority resource records
+        "0001";  // #Additionals
 
     @Test
     void writeOn() {
@@ -33,7 +35,7 @@ public class HeaderTest {
     @Test
     void testFromByteBuffer() {
         byte[] headerArray = {0x00, 0x00, 0x00, 0x00, 0x00, 0x03,
-                0x00, 0x00, 0x01, 0x00, 0x00, 0x01};
+            0x00, 0x00, 0x01, 0x00, 0x00, 0x01};
 
         ByteArrayReader buffer = ByteArrayReader.wrap(headerArray);
         Header header = Header.fromByteBuffer(buffer);
@@ -47,18 +49,39 @@ public class HeaderTest {
     }
 
     @Test
-    void testEquals() {
+    void testEqualsFromByteArray() {
         byte[] headerArray = {0x00, 0x00, 0x00, 0x00, 0x00, 0x03,
-                0x00, 0x00, 0x01, 0x00, 0x00, 0x01};
+            0x00, 0x00, 0x01, 0x00, 0x00, 0x01};
         ByteArrayReader buffer = ByteArrayReader.wrap(headerArray);
         Header header = Header.fromByteBuffer(buffer);
         buffer.position(0);
         Header same = Header.fromByteBuffer(buffer);
 
         assertAll(
-                () -> assertThat(header).isEqualTo(header),
-                () -> assertThat(header).isEqualTo(same),
-                () -> assertThat(header).isNotEqualTo(null)
+            () -> assertThat(header).isEqualTo(header),
+            () -> assertThat(header).isEqualTo(same),
+            () -> assertThat(header).isNotEqualTo(null)
         );
     }
+
+    @Test
+    void testEquals() {
+        Object[] args1 = {UnsignedShort.fromInt(13),
+            QRFlag.fromInt(1),
+            UnsignedShort.fromInt(9),
+            UnsignedShort.fromInt(10),
+            UnsignedShort.fromInt(11),
+            UnsignedShort.fromInt(12)};
+
+        Object[] args2 = {UnsignedShort.fromInt(10),
+            QRFlag.fromInt(2),
+            UnsignedShort.fromInt(15),
+            UnsignedShort.fromInt(21),
+            UnsignedShort.fromInt(27),
+            UnsignedShort.fromInt(42)};
+
+        EqualsVerifier.verify(Header.class, args1, args2);
+    }
+
+
 }
