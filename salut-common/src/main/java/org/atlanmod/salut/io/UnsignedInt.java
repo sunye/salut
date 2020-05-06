@@ -50,8 +50,11 @@ public class UnsignedInt extends Number implements Comparable<UnsignedInt> {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        //@formatter:off
+        if (this == obj) {return true;}
+        if (obj == null || getClass() != obj.getClass()) {return false;}
+        //@formatter:on
+
         UnsignedInt that = (UnsignedInt) obj;
         return value == that.value;
     }

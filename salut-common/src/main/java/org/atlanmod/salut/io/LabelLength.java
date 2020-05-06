@@ -1,17 +1,15 @@
 package org.atlanmod.salut.io;
 
+import java.util.Objects;
 import org.atlanmod.commons.Preconditions;
 
-import java.util.Objects;
-
 /**
- * A label length is an unsigned 8-bit value, representing the size of a label (in bytes), between 1 and 64 (the
- * maximum length). The two first bits are actually flags, "11" indicates a pointer {@see LabelPointer}, "01" an extended
- * label, and "10" an unknown label.
- *
- * If the value represents a pointer, then it should be combined with another byte to form a 14-bit value corresponding
- * to the pointer offset.
- *
+ * A label length is an unsigned 8-bit value, representing the size of a label (in bytes), between 1
+ * and 64 (the maximum length). The two first bits are actually flags, "11" indicates a pointer
+ * {@link LabelPointer}, "01" an extended label, and "10" an unknown label.
+ * <p>
+ * If the value represents a pointer, then it should be combined with another byte to form a 14-bit
+ * value corresponding to the pointer offset.
  */
 public class LabelLength extends Number {
 
@@ -23,9 +21,9 @@ public class LabelLength extends Number {
         this.value = value;
     }
 
-
     public static LabelLength fromInt(int value) {
-        Preconditions.checkArgument(value >= UnsignedByte.MIN_VALUE && value <= UnsignedByte.MAX_VALUE);
+        Preconditions
+            .checkArgument(value >= UnsignedByte.MIN_VALUE && value <= UnsignedByte.MAX_VALUE);
         short unsigned = (short) (value & UnsignedByte.UNSIGNED_BYTE_MASK);
         return new LabelLength(unsigned);
     }
@@ -35,8 +33,8 @@ public class LabelLength extends Number {
     }
 
     /**
-     * A data length is valid if it is greater than 0 and lower than 64,
-     * the maximum accepted length for a data.
+     * A data length is valid if it is greater than 0 and lower than 64, the maximum accepted length
+     * for a data.
      *
      * @return true if it is a valid length.
      */
@@ -45,8 +43,8 @@ public class LabelLength extends Number {
     }
 
     /**
-     * A pointer is an unsigned 16-bit value with the top two bits of 11 indicate the pointer format.
-     * Here, we check that the higher byte starts with "11", for instance 11001010.
+     * A pointer is an unsigned 16-bit value with the top two bits of 11 indicate the pointer
+     * format. Here, we check that the higher byte starts with "11", for instance 11001010.
      *
      * @return true if it is a pointer.
      */
@@ -99,8 +97,12 @@ public class LabelLength extends Number {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         LabelLength that = (LabelLength) o;
         return value == that.value;
     }

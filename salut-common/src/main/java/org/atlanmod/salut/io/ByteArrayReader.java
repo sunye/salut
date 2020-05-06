@@ -139,8 +139,7 @@ public class ByteArrayReader {
 
         byte[] labelBuffer = new byte[length.intValue()];
         buffer.get(labelBuffer);
-        String readString = new String(labelBuffer, StandardCharsets.UTF_8);
-        return readString;
+        return new String(labelBuffer, StandardCharsets.UTF_8);
     }
 
     /**

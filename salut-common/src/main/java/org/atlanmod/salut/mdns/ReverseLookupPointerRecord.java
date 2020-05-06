@@ -1,5 +1,6 @@
 package org.atlanmod.salut.mdns;
 
+import org.atlanmod.commons.Throwables;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.names.PointerName;
@@ -28,6 +29,6 @@ class ReverseLookupPointerRecord extends AbstractPointerRecord {
     @Override
     public void writeOn(ByteArrayWriter writer) {
         // TODO
-        throw new UnsupportedOperationException();
+        Throwables.notImplementedYet("writeOn()");
     }
 }

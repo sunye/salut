@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 @ParametersAreNonnullByDefault
 public class InstanceLabel implements Label {
 
+    @SuppressWarnings({"squid:S4784"})
     private static final Pattern INVALID_PATTERN = Pattern.compile(".*\\p{Cntrl}.*");
 
     private final String label;

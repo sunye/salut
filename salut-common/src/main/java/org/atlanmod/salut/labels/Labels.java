@@ -15,36 +15,39 @@ import java.util.Objects;
  */
 public class Labels {
 
-    private final List<Label> labels;
+    private final List<Label> values;
 
     private Labels(List<Label> labels) {
-        this.labels = labels;
+        this.values = labels;
     }
 
     public int size() {
-        return labels.size();
+        return values.size();
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Labels)) return false;
+        //@formatter:off
+        if (this == o) {return true;}
+        if (!(o instanceof Labels)) {return false;}
+        //@formatter:on
+
         Labels labels = (Labels) o;
-        return Objects.equals(this.labels, labels.labels);
+        return Objects.equals(this.values, labels.values);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(labels);
+        return Objects.hash(values);
     }
 
     public boolean contains(Label aLabel) {
-        return labels.contains(aLabel);
+        return values.contains(aLabel);
     }
 
     @Override
     public String toString() {
-        return "la"+labels.toString();
+        return "la"+ values.toString();
     }
 
     /**
@@ -55,7 +58,7 @@ public class Labels {
     public Labels add(@Nonnull Label name) {
         Preconditions.checkNotNull(name);
 
-        this.labels.add(name);
+        this.values.add(name);
         return this;
     }
 
@@ -66,34 +69,34 @@ public class Labels {
      */
     public Labels addAll(Labels labels) {
         Preconditions.checkNotNull(labels);
-        this.labels.addAll(labels.getLabels());
+        this.values.addAll(labels.getLabels());
         return this;
     }
 
     public Label get(int index ) {
-        Preconditions.checkElementIndex(index, labels.size());
+        Preconditions.checkElementIndex(index, values.size());
 
-        return labels.get(index);
+        return values.get(index);
     }
 
     public Label last() {
-        Preconditions.checkArgument(!labels.isEmpty());
+        Preconditions.checkArgument(!values.isEmpty());
 
-        return labels.get(labels.size() - 1);
+        return values.get(values.size() - 1);
     }
 
     public Label first() {
-        Preconditions.checkArgument(!labels.isEmpty());
+        Preconditions.checkArgument(!values.isEmpty());
 
-        return labels.get(0);
+        return values.get(0);
     }
 
     public List<Label> getLabels() {
-        return labels;
+        return values;
     }
 
     public Labels subArray(int fromIndex, int toIndex) {
-        return new Labels(labels.subList(fromIndex, toIndex));
+        return new Labels(values.subList(fromIndex, toIndex));
     }
 
     /**
@@ -165,7 +168,7 @@ public class Labels {
         // FIXME: The data length cannot be calculated here, if compression is used
 
         int length = 0;
-        for (Label each : labels) {
+        for (Label each : values) {
             length += each.dataLength();
         }
 

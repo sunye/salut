@@ -71,8 +71,11 @@ public class TimeToLive implements Comparable<TimeToLive>{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TimeToLive)) return false;
+        //@formatter:off
+        if (this == o) {return true;}
+        if (!(o instanceof TimeToLive)) {return false;}
+        //@formatter:off
+
         TimeToLive that = (TimeToLive) o;
         return valueInSeconds == that.valueInSeconds;
     }

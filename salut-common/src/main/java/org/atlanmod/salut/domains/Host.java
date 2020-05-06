@@ -108,8 +108,8 @@ public class Host {
     @Override
     public boolean equals(Object o) {
         //@formatter:off
-        if (this == o) return true;
-        if (!(o instanceof Host)) return false;
+        if (this == o) {return true;}
+        if (!(o instanceof Host)) {return false;}
         //@formatter:on
         Host other = (Host) o;
 

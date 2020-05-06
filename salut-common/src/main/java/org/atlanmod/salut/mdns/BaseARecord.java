@@ -64,8 +64,11 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        //@formatter:off
+        if (this == o) {return true;}
+        if (o == null || getClass() != o.getClass()) {return false;}
+        //@formatter:on
+
         BaseARecord aRecord = (BaseARecord) o;
         return host.equals(aRecord.host) &&
                 super.equals(aRecord);

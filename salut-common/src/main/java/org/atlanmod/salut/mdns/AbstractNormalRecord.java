@@ -1,15 +1,14 @@
 package org.atlanmod.salut.mdns;
 
+import java.text.ParseException;
+import java.util.Objects;
 import org.atlanmod.salut.cache.TimeToLive;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.labels.Labels;
 
-import java.text.ParseException;
-import java.util.Objects;
-
 /**
- *
+ * @formatter:off
  * All RRs have the same top level format shown below:
  *
  *                                     1  1  1  1  1  1
@@ -32,7 +31,7 @@ import java.util.Objects;
  *     /                     RDATA                     /
  *     /                                               /
  *     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
- *
+ * @formatter:off
  */
 public abstract class AbstractNormalRecord extends AbstractRecord implements NormalRecord {
 
@@ -61,25 +60,28 @@ public abstract class AbstractNormalRecord extends AbstractRecord implements Nor
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AbstractNormalRecord)) return false;
+        //@formatter:off
+        if (this == o) {return true;}
+        if (!(o instanceof AbstractNormalRecord)) {return false;}
+        //@formatter:off
+
         AbstractNormalRecord that = (AbstractNormalRecord) o;
         return qclass == that.qclass;
-
     }
 
     @Override
     public int hashCode() {
-
         return Objects.hash(qclass, ttl);
     }
 
-    protected static abstract class NormalRecordParser<T extends NormalRecord> implements RecordParser<T> {
+    protected abstract static class NormalRecordParser<T extends NormalRecord> implements RecordParser<T> {
 
-        protected Labels labels;
-        protected QClass qclass;
-        protected UnsignedInt ttl;
-        protected int dataLength;
+        //@formatter:off
+        protected Labels        labels;
+        protected QClass        qclass;
+        protected UnsignedInt   ttl;
+        protected int           dataLength;
+        //@formatter:on
 
         @Override
         public T parse(Labels name, ByteArrayReader buffer) throws ParseException {
@@ -90,10 +92,8 @@ public abstract class AbstractNormalRecord extends AbstractRecord implements Nor
         }
 
         /**
-         * Parses the fixed part of a record. The fixed part is composed of:
-         *     - The QClass
-         *     - The time to live
-         *     - The length of the RData part (the variable part).
+         * Parses the fixed part of a record. The fixed part is composed of: - The QClass - The time
+         * to live - The length of the RData part (the variable part).
          *
          * @param reader a ByteArrayReader containing the record to be parsed.
          * @throws ParseException if there is a parsing error.
@@ -105,8 +105,8 @@ public abstract class AbstractNormalRecord extends AbstractRecord implements Nor
         }
 
         /**
-         * Common behavior for the variable part parsing (does nothing).
-         * The specific behavior will be handled by the subclasses.
+         * Common behavior for the variable part parsing (does nothing). The specific behavior will
+         * be handled by the subclasses.
          *
          * @param reader a ByteArrayReader containing the record to be parsed.
          * @throws ParseException if there is a parsing error.
@@ -115,6 +115,6 @@ public abstract class AbstractNormalRecord extends AbstractRecord implements Nor
 
         }
 
-        abstract protected T build();
+        protected abstract T build();
     }
 }

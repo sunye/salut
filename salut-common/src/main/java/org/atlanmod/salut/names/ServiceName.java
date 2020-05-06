@@ -15,7 +15,7 @@ import java.util.Objects;
 /**
  * From [RFC 6763](https://tools.ietf.org/html/rfc6763):
  * <p>
- * > "The <Service> portion of the Service Instance Label consists of a pair of DNS labels,
+ * "The <Service> portion of the Service Instance Label consists of a pair of DNS labels,
  * following the convention already established for SRV records [RFC2782]. The first label of the
  * pair is an underscore character followed by the Service Name [RFC6335].  The Service Name
  * identifies what the service does and what application protocol it uses to do it. The second label

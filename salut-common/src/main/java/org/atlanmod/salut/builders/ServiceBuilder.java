@@ -1,6 +1,7 @@
 package org.atlanmod.salut.builders;
 
 
+import org.atlanmod.commons.Throwables;
 import org.atlanmod.salut.data.ApplicationProtocol;
 import org.atlanmod.salut.data.ApplicationProtocolBuilder;
 import org.atlanmod.salut.data.IANAApplicationProtocol;
@@ -115,7 +116,7 @@ public class ServiceBuilder implements ServiceApplicationProtocolChooser, Servic
     }
 
     public ServicePublisher nonpersistent() {
-        this.persistent = true;
+        this.persistent = false;
         return this;
     }
 
@@ -152,7 +153,8 @@ public class ServiceBuilder implements ServiceApplicationProtocolChooser, Servic
 
     @Override
     public void run() {
-
+        // TODO
+        Throwables.notImplementedYet("run()");
     }
 }
 

@@ -26,7 +26,7 @@ public class ByteArrayWriter {
      * @return this ByteArrayWriter
      */
     public ByteArrayWriter writeUnsignedShort(UnsignedShort value) {
-        checkNotNull(value, "value");
+        checkNotNull(value, "UnsignedShort value");
 
         bytes.add((byte) (value.shortValue() >> 8));
         bytes.add((byte) value.shortValue());
@@ -40,7 +40,7 @@ public class ByteArrayWriter {
      * @return this ByteArrayWriter
      */
     public ByteArrayWriter writeUnsignedByte(UnsignedByte value) {
-        checkNotNull(value, "value");
+        checkNotNull(value, "UnsignedByte value");
 
         bytes.add(value.byteValue());
         return this;
@@ -53,7 +53,7 @@ public class ByteArrayWriter {
      * @return this ByteArrayWriter
      */
     public ByteArrayWriter writeUnsignedInt(UnsignedInt value) {
-        checkNotNull(value, "value");
+        checkNotNull(value, "UnsignedInt value");
 
         bytes.add((byte) (value.intValue() >>> 24));
         bytes.add((byte) (value.intValue() >>> 16));
@@ -74,9 +74,8 @@ public class ByteArrayWriter {
         UnsignedByte length = UnsignedByte.fromInt(label.length());
         this.writeUnsignedByte(length);
         byte[] arrayLabel = label.getBytes(StandardCharsets.UTF_8);
-        for (byte each : arrayLabel) {
-            bytes.add(each);
-        }
+        bytes.addAll(Bytes.asList(arrayLabel));
+
         return this;
     }
 

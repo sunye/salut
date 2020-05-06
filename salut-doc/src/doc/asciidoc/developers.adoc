@@ -28,7 +28,7 @@ https://google.github.io/styleguide/javaguide.html
 
 Except for special cases, getters and setters must not return a mutable collection.
 
-### Preconditions
+=== Preconditions
 
 Use preconditions instead of assertions or comments for checking conditions that must always be true and invariants in method bodies.
 
@@ -39,26 +39,26 @@ public void foo(int i) {
 }
 ```
 
-### Annotations (JSR-305)
+=== Annotations (JSR-305)
 
 Use JSR-305 annotations, such as `@Nonnull`, `@Nullable`, `@ParametersAreNonnullByDefault`, etc.
 These annotations are not processed at runtime, but are very useful for static code analysis.
 
-### Documentation
+=== Documentation
 
 Every packages, classes, methods and fields should be properly documented.
 
 The package documentation is located in `main/javadoc`, next to the `main/java` directory, and must only contains `package-info.java` files.
 
 
-## Software quality
+== Software quality
 
 Ideally, all methods should be tested in unit tests. For classes and methods related to data management, tests must also be created in the integration tests.
 
 
-## Design Tips
+== Design Tips
 
-### Supertypes should not depend on subtypes.
+=== Supertypes should not depend on subtypes.
 
 More precisely, an interface should not reference its implementation classes. For instance, the following code excerpt should be avoided:
 
@@ -71,3 +71,39 @@ public interface IFactory {
 <!-- Avoid casts -->
 <!-- Avoid conditional behavior -->
 <!-- Design first for testability, then for performance -->
+
+== More Tips
+
+=== Formatting
+
+Use formatting directives to prevent automatic code formatters
+to remove readable presentations:
+
+[source,java]
+----
+    // @formatter:off
+    private final UnsignedShort   port;       // Service port
+    private final UnsignedShort   weight;     // Service weight
+    private final UnsignedShort   priority;   // Service priority
+    private final UnsignedInt     ttl;        // Time to live
+    private final ServiceName     service;    // Service Name (or type): transport + application protocols
+    private final InstanceName    instance;   // Unqualified service instance data ("mac-book", "printer", etc.)
+    // @formatter:on
+----
+
+=== Removing PMD warnings
+
+Some warnings are annoying and try to prevent enumeration to reflect the standard correctly.
+Use annotations to remove these warnings.
+
+[source,java]
+----
+@SuppressWarnings({"pmd:FieldNamingConventions","squid:S115"})
+public enum IANAApplicationProtocol {
+
+    /**
+     * Automatic Disk Discovery
+     */
+    adisk("adisk")
+}
+----

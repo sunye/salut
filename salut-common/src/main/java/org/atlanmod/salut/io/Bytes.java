@@ -22,6 +22,7 @@ public class Bytes {
      * @param str the {@code String} to be converted
      * @return an array of {@code byte}, containing the converted bytes, in the same order.
      */
+    @SuppressWarnings({"checkstyle:MagicNumberCheck"})
     public static byte[] stringToBytes(String str) {
         checkNotNull(str, "str");
 
@@ -47,7 +48,7 @@ public class Bytes {
 
         byte[] bytes = new byte[shorts.length * 2];
         for (int i = 0; i < shorts.length; i++) {
-            bytes[i * 2] = (byte) ((shorts[i] >> 8 & 0xff));
+            bytes[i * 2] = (byte) (shorts[i] >> 8 & 0xff);
             bytes[i * 2 + 1] = (byte) (shorts[i] & 0xff);
         }
         return bytes;
@@ -60,6 +61,7 @@ public class Bytes {
      * @return an array of {@link Byte} containing the same elements as {@code primitiveArray}, in
      * the same order, converted to boxed types.
      */
+    @SuppressWarnings({"squid:S3012"})
     public static List<Byte> bytesToBoxedList(final byte... primitiveArray) {
         checkNotNull(primitiveArray, "primitiveArray");
 

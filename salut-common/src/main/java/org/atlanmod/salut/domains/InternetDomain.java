@@ -30,8 +30,10 @@ public class InternetDomain implements Domain {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        //@formatter:off
+        if (this == o) {return true;}
+        if (o == null || getClass() != o.getClass()) {return false;}
+        //@formatter:on
 
         InternetDomain that = (InternetDomain) o;
         return names.equals(that.names);

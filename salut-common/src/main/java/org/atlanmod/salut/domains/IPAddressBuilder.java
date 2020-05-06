@@ -2,6 +2,8 @@ package org.atlanmod.salut.domains;
 
 public class IPAddressBuilder {
 
+    private IPAddressBuilder(){}
+
     public static IPAddress fromBytes(byte[] bytes) {
         if (bytes.length == IPv4Address.SIZE) {
             return createIPv4Address(bytes);

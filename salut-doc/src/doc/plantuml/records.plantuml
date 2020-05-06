@@ -3,7 +3,14 @@ class Record {
    name : Label[*]
 }
 
-class ARecord
+class ARecord {
+  domain  : Name {redefines name}
+  address : IPv4Address
+}
+
+class AAAARecord
 
 Record <|-- ARecord
+Record <|-- AAAARecord
+Record <|-- SRVRecord
 @enduml

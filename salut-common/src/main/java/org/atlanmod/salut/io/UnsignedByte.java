@@ -11,11 +11,11 @@ import java.util.Objects;
  */
 public class UnsignedByte extends Number implements Comparable<UnsignedByte> {
 
-    public final static short MIN_VALUE = 0;
-    public final static short MAX_VALUE = 255;
-    public final static int UNSIGNED_BYTE_MASK = 0xFF;
+    public static final short MIN_VALUE = 0;
+    public static final short MAX_VALUE = 255;
+    public static final int UNSIGNED_BYTE_MASK = 0xFF;
 
-    private final static UnsignedByte[] cache = new UnsignedByte[MAX_VALUE + 1];
+    private static final UnsignedByte[] cache = new UnsignedByte[MAX_VALUE + 1];
 
     protected final short value;
 
@@ -132,8 +132,11 @@ public class UnsignedByte extends Number implements Comparable<UnsignedByte> {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        //@formatter:off
+        if (this == obj) {return true;}
+        if (obj == null || getClass() != obj.getClass()) {return false;}
+        //@formatter:off
+
         UnsignedByte that = (UnsignedByte) obj;
         return value == that.value;
     }

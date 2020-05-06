@@ -15,7 +15,7 @@ import java.util.List;
 public interface Cache {
 
     /**
-     * Updates this `Cache` with a {@see ServerSelectionRecord}.
+     * Updates this `Cache` with a {@link ServerSelectionRecord}.
      *
      * @param srv
      * @throws ParseException
@@ -30,7 +30,7 @@ public interface Cache {
     void cache(PointerRecord ptr);
 
     /**
-     * Updates this cache with a {@see ARecord}.
+     * Updates this cache with a {@link ARecord}.
      *
      * @param aRecord
      * @throws ParseException

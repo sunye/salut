@@ -7,6 +7,8 @@ import java.util.Objects;
 
 public class ApplicationProtocolBuilder {
 
+    private ApplicationProtocolBuilder() {}
+
     public static ApplicationProtocol fromApplicationProtocol(IANAApplicationProtocol protocol) {
         return new KnownApplicationProtocol(protocol);
     }

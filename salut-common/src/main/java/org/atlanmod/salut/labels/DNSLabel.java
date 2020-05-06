@@ -10,9 +10,8 @@ public class DNSLabel implements Label {
      * The maximum length of labels
      **/
     public static final int MAX_LENGTH = 63;
-    /**
-     * DNS Labels should contain only letters, digits, and hyphens
-     **/
+
+    @SuppressWarnings({"squid:S4784"})
     private static final String VALID_DNSLABEL_EXPRESSION = "[0-9A-Za-z\\-]+";
     private final String label;
 
@@ -37,6 +36,9 @@ public class DNSLabel implements Label {
         return create(label);
     }
 
+    /**
+     * DNS Labels should contain only letters, digits, and hyphens
+     **/
     public boolean isValid() {
         return this.label.matches(VALID_DNSLABEL_EXPRESSION);
     }

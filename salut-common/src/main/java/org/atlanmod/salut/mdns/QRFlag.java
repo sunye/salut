@@ -31,13 +31,15 @@ import java.util.Objects;
  */
 public class QRFlag {
 
-    private final static int QR_BIT_MASK            = 0x8000;
-    private final static int OPERATION_CODE_MASK    = 0x7800;
-    private final static int AA_BIT_MASK            = 0x0400;
-    private final static int TRUNCATED_MASK         = 0x0200;
-    private final static int RD_BIT_MASK            = 0x0100;
-    private final static int RA_BIT_MASK            = 0x0080;
-    private final static int RESPONSE_CODE_MASK     = 0x000F;
+    // @formatter:off
+    private static final int QR_BIT_MASK            = 0x8000;
+    private static final int OPERATION_CODE_MASK    = 0x7800;
+    private static final int AA_BIT_MASK            = 0x0400;
+    private static final int TRUNCATED_MASK         = 0x0200;
+    private static final int RD_BIT_MASK            = 0x0100;
+    private static final int RA_BIT_MASK            = 0x0080;
+    private static final int RESPONSE_CODE_MASK     = 0x000F;
+    // @formatter:on
 
     private int value;
 
@@ -107,14 +109,12 @@ public class QRFlag {
      * @return an int value representing the operation code.
      */
     public byte opCode() {
-        byte code = (byte) ((value & OPERATION_CODE_MASK) >>> 11) ;
-
-        return code;
+        return (byte) ((value & OPERATION_CODE_MASK) >>> 11);
     }
 
     /**
      * Sets the Operation Code (bits 1-4).
-     * @param code A 4-bit value (>= 0 and <= 15)
+     * @param code A 4-bit value (≥ 0 and ≤ 15)
      */
     public void setOpCode(byte code) {
         Preconditions.checkLessThanOrEqualTo(code, (byte) 15);
@@ -248,7 +248,7 @@ public class QRFlag {
 
     /**
      * Sets the Response Code (bits 12-16).
-     * @param code A 4-bit value (>= 0 and <= 15)
+     * @param code A 4-bit value (≥ 0 and ≤ 15)
      */
     public void setResponseCode(byte code) {
         Preconditions.checkLessThanOrEqualTo(code, (byte) 15);
@@ -274,8 +274,11 @@ public class QRFlag {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        //@formatter:off
+        if (this == o) {return true;}
+        if (o == null || getClass() != o.getClass()) {return false;}
+        //@formatter:on
+
         QRFlag qrFlag = (QRFlag) o;
         return value == qrFlag.value;
     }

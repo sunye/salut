@@ -22,10 +22,9 @@ import java.util.stream.Collectors;
  * Caches locally Multicast DNS records.
  * The following kinds of records are accepted:
  * <p>
- * - {@see ServerSelectionRecord} (SRV)
- * - {@see PointerRecord} (PTR)
- * - {@see AAAARecord} (AAAARecord)
- * - {@see ARecord} (ARecord)
+ * - {@link ServerSelectionRecord} (SRV)
+ * - {@link PointerRecord} (PTR)
+ * - {@link ARecord} (ARecord)
  * <p>
  * <p>
  * Each record has its own Time To Live (TTL) value, which determines the validity of a entry.

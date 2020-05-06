@@ -47,19 +47,19 @@ public class ServiceInstanceName implements Name {
     /**
      * 4.3.  Internal Handling of Names
      * <p>
-     * > "If client software takes the <Instance>, <Service>, and <Domain>
+     *  "If client software takes the «Instance», «Service», and «Domain»
      * portions of a Service Instance Label and internally concatenates them
-     * together into a single string, then because the <Instance> portion is
+     * together into a single string, then because the «Instance» portion is
      * allowed to contain any characters, including dots, appropriate
      * precautions MUST be taken to ensure that DNS label boundaries are
      * properly preserved.  Client software can do this in a variety of
      * ways, such as character escaping.
      * <p>
      * This document RECOMMENDS that if concatenating the three portions of
-     * a Service Instance Label, any dots in the <Instance> portion be
+     * a Service Instance Label, any dots in the «Instance» portion be
      * escaped following the customary DNS convention for text files: by
      * preceding literal dots with a backslash (so "." becomes "\.").
-     * Likewise, any backslashes in the <Instance> portion should also be
+     * Likewise, any backslashes in the «Instance» portion should also be
      * escaped by preceding them with a backslash (so "\" becomes "\\")."
      * <p>
      * Having done this, the three components of the name may be safely
@@ -81,8 +81,10 @@ public class ServiceInstanceName implements Name {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        //@formatter:off
+        if (this == o) {return true;}
+        if (o == null || getClass() != o.getClass()) {return false;}
+        //@formatter:off
 
         ServiceInstanceName that = (ServiceInstanceName) o;
         return instanceName.equals(that.instanceName) &&

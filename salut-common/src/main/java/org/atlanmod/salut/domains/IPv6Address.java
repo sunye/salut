@@ -1,5 +1,6 @@
 package org.atlanmod.salut.domains;
 
+import java.util.Arrays;
 import org.atlanmod.commons.Preconditions;
 
 public class IPv6Address extends IPAddress {
@@ -8,8 +9,10 @@ public class IPv6Address extends IPAddress {
 
 
     IPv6Address(byte[] bytes) {
-        Preconditions.checkArgument(bytes.length == SIZE, "IPv6 addresses must have %d bytes", SIZE);
-        address = bytes;
+        Preconditions
+            .checkArgument(bytes.length == SIZE, "IPv6 addresses must have %d bytes", SIZE);
+
+        address = Arrays.copyOf(bytes, SIZE);
     }
 
 }

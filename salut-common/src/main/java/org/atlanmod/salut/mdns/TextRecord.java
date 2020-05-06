@@ -1,5 +1,6 @@
 package org.atlanmod.salut.mdns;
 
+import org.atlanmod.commons.Throwables;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
@@ -43,13 +44,15 @@ public class TextRecord extends AbstractNormalRecord {
     @Override
     public void writeOn(ByteArrayWriter writer) {
         // TODO
-        throw new UnsupportedOperationException();
+        Throwables.notImplementedYet("writeOn()");
     }
 
     private static class TextRecordParser extends NormalRecordParser<TextRecord> {
 
         private List<String> properties;
 
+
+        @Override
         protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
             Log.info("Data length = {0}", dataLength);
             properties = buffer.readTextDataStrings(dataLength);

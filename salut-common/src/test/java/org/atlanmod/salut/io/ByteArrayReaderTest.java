@@ -182,7 +182,8 @@ class ByteArrayReaderTest {
     void position() {
         byte[] name = {8, 109, 121, 100, 111, 109, 97, 105, 110, 3, 99, 111, 109, 0};
         ByteArrayReader bb = ByteArrayReader.wrap(name);
-        assertEquals(bb.position(), 0);
+
+        assertThat(bb.position()).isZero();
     }
 
     @Test
@@ -190,13 +191,15 @@ class ByteArrayReaderTest {
         byte[] name = {8, 109, 121, 100, 111, 109, 97, 105, 110, 3, 99, 111, 109, 0};
         ByteArrayReader bb = ByteArrayReader.wrap(name);
         bb.position(10);
-        assertEquals(bb.position(), 10);
+        assertThat(bb.position()).isEqualTo(10);
     }
 
     @Test
     void get() {
         byte[] bytes = {5};
-        assertEquals(5, ByteArrayReader.wrap(bytes).get());
+        ByteArrayReader reader = ByteArrayReader.wrap(bytes);
+
+        assertThat(reader.get()).isEqualTo(5);
     }
 
     @Test
@@ -288,7 +291,8 @@ class ByteArrayReaderTest {
     @Test
     void allocate() {
         ByteArrayReader bb = ByteArrayReader.allocate(4);
-        assertEquals(bb.array().length, 4);
+
+        assertThat(bb.array()).hasSize(4);
         assertThrows(IllegalArgumentException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
