@@ -1,13 +1,12 @@
 package org.atlanmod.salut.cache;
 
-import org.atlanmod.salut.io.UnsignedInt;
-
 import java.util.Objects;
+import org.atlanmod.salut.io.UnsignedInt;
 
 /**
  * The TimeToLive class represents an expiration time.
  */
-public class TimeToLive implements Comparable<TimeToLive>{
+public class TimeToLive implements Comparable<TimeToLive> {
 
     private long valueInSeconds;
     private long expireTimeMillis;
@@ -18,7 +17,8 @@ public class TimeToLive implements Comparable<TimeToLive>{
     }
 
     /**
-     * Creates an instance of TimeToLive from a long integer representing the time delay, in seconds.
+     * Creates an instance of TimeToLive from a long integer representing the time delay, in
+     * seconds.
      *
      * @param seconds the time to live in seconds
      * @return a TimeToLive instance.
@@ -31,7 +31,8 @@ public class TimeToLive implements Comparable<TimeToLive>{
     }
 
     /**
-     * Creates an instance of `TimeToLive` from an UnsignedInt representing the expiration time in seconds.
+     * Creates an instance of `TimeToLive` from an UnsignedInt representing the expiration time in
+     * seconds.
      *
      * @param seconds the delay until expiration, in seconds
      * @return an instance of `TimeToLIve`
@@ -40,9 +41,13 @@ public class TimeToLive implements Comparable<TimeToLive>{
         return fromSeconds(seconds.longValue());
     }
 
+    private static long now() {
+        return System.currentTimeMillis();
+    }
+
     @Override
     public String toString() {
-        return "TTL{" +  valueInSeconds +
+        return "TTL{" + valueInSeconds +
             "s}";
     }
 
@@ -55,7 +60,6 @@ public class TimeToLive implements Comparable<TimeToLive>{
         return now() > this.expireTimeMillis;
     }
 
-
     /**
      * Calculates the remaining time to this TTL expiration.
      *
@@ -63,10 +67,6 @@ public class TimeToLive implements Comparable<TimeToLive>{
      */
     public long delayTimeMillis() {
         return this.expireTimeMillis - now();
-    }
-
-    private static long now() {
-        return System.currentTimeMillis();
     }
 
     @Override
