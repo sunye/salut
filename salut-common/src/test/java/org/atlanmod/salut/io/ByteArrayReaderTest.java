@@ -195,11 +195,11 @@ class ByteArrayReaderTest {
     }
 
     @Test
-    void get() {
+    void tesGet() {
         byte[] bytes = {5};
         ByteArrayReader reader = ByteArrayReader.wrap(bytes);
 
-        assertThat(reader.get()).isEqualTo(5);
+        assertThat(reader.get()).isEqualTo(bytes[0]);
     }
 
     @Test

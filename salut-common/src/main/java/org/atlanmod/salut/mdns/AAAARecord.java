@@ -1,5 +1,6 @@
 package org.atlanmod.salut.mdns;
 
+import java.util.Objects;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
@@ -60,13 +61,13 @@ public class AAAARecord extends AbstractNormalRecord {
 
         // Fixed part
         writer.writeLabels(serverName.toLabels())
-            .writeRecordType(RecordType.A)
+            .writeRecordType(RecordType.AAAA)
             .writeQClass(QClass.IN)
             .writeUnsignedInt(ttl.unsignedIntValue())
             .writeUnsignedShort(UnsignedShort.fromInt(4));
 
         // Variable part
-        writer.writeIPAddress(this.address);
+        writer.writeIPv6Address(this.address);
     }
     private static class AAAARecordParser extends NormalRecordParser<AAAARecord> {
         private IPv6Address address;
@@ -88,6 +89,24 @@ public class AAAARecord extends AbstractNormalRecord {
     @VisibleForTesting
     public static AAAARecord createRecord(QClass qclass, UnsignedInt ttl, IPv6Address address, Domain serverName) {
         return new AAAARecord(qclass, ttl, address, serverName);
+    }
+
+    @Override
+    public final boolean equals(Object other) {
+        //@formatter:off
+        if (this == other) {return true;}
+        if (! (other instanceof AAAARecord)) {return false;}
+        //@formatter:on
+
+        AAAARecord that = (AAAARecord) other;
+        return super.equals(that) &&
+            Objects.equals(address, that.address) &&
+            Objects.equals(serverName, that.serverName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), address, serverName);
     }
 }
 
