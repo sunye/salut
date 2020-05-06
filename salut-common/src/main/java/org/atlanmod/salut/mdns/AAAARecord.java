@@ -59,14 +59,14 @@ public class AAAARecord extends AbstractNormalRecord {
     public void writeOn(ByteArrayWriter writer) {
 
         // Fixed part
-        writer.putNameArray(serverName.toLabels())
-            .putRecordType(RecordType.A)
-            .putQClass(QClass.IN)
-            .putUnsignedInt(ttl.unsignedIntValue())
-            .putUnsignedShort(UnsignedShort.fromInt(4));
+        writer.writeLabels(serverName.toLabels())
+            .writeRecordType(RecordType.A)
+            .writeQClass(QClass.IN)
+            .writeUnsignedInt(ttl.unsignedIntValue())
+            .writeUnsignedShort(UnsignedShort.fromInt(4));
 
         // Variable part
-        writer.putIPAddress(this.address);
+        writer.writeIPAddress(this.address);
     }
     private static class AAAARecordParser extends NormalRecordParser<AAAARecord> {
         private IPv6Address address;
@@ -74,7 +74,7 @@ public class AAAARecord extends AbstractNormalRecord {
 
         @Override
         protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
-            address = buffer.readInet6Address();
+            address = buffer.readIPv6Address();
             serverName = DomainBuilder.fromLabels(labels);
         }
 

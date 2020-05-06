@@ -2,14 +2,14 @@ package org.atlanmod.salut.data;
 
 import org.atlanmod.salut.names.ServiceName;
 
-public abstract class ApplicationProtocol {
+public interface ApplicationProtocol {
 
     /**
      * The name of this Application Protocol
      *
      * @return a String representing the name of this Application Protocol
      */
-    public abstract String name();
+    String name();
 
     /**
      * Convenience method that creates an instance of a Service Name with this Application Protocol
@@ -19,7 +19,7 @@ public abstract class ApplicationProtocol {
      *                          Protocol to form a Service Name.
      * @return An instance of Service Name
      */
-    public ServiceName with(TransportProtocol transportProtocol) {
+    public default ServiceName with(TransportProtocol transportProtocol) {
         return new ServiceName(this, transportProtocol);
     }
 }

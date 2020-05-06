@@ -95,12 +95,12 @@ class BasePointerRecord extends AbstractPointerRecord {
 
         UnsignedShort dataLength = UnsignedShort.fromInt(instance.toLabels().dataLength());
 
-        writer.putNameArray(server.toLabels())
-            .putRecordType(RecordType.PTR)
-            .putQClass(QClass.IN)
-            .putUnsignedInt(ttl.unsignedIntValue())
-            .putUnsignedShort(dataLength)
-            .putNameArray(instance.toLabels());
+        writer.writeLabels(server.toLabels())
+            .writeRecordType(RecordType.PTR)
+            .writeQClass(QClass.IN)
+            .writeUnsignedInt(ttl.unsignedIntValue())
+            .writeUnsignedShort(dataLength)
+            .writeLabels(instance.toLabels());
     }
 
     @VisibleForTesting

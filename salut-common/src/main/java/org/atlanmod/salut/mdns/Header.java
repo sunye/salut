@@ -151,12 +151,12 @@ public class Header {
      * @param buffer a byte array buffer where the header will be written.
      */
     public void writeOn(ByteArrayWriter buffer) {
-        buffer.putUnsignedShort(id);
-        buffer.putUnsignedShort(flags.toUnsignedShort());
-        buffer.putUnsignedShort(questionRecordCount);
-        buffer.putUnsignedShort(answerRecordCount);
-        buffer.putUnsignedShort(authorityRecordCount);
-        buffer.putUnsignedShort(additionalRecordCount);
+        buffer.writeUnsignedShort(id);
+        buffer.writeUnsignedShort(flags.toUnsignedShort());
+        buffer.writeUnsignedShort(questionRecordCount);
+        buffer.writeUnsignedShort(answerRecordCount);
+        buffer.writeUnsignedShort(authorityRecordCount);
+        buffer.writeUnsignedShort(additionalRecordCount);
     }
 
     /**

@@ -24,7 +24,7 @@ class ByteArrayWriterTest {
     @ValueSource(shorts = {0,1,255, 0xC0, 0xFF, 0x10})
     void testPutUnsignedByte(short value) {
         UnsignedByte writtenValue = UnsignedByte.fromShort(value);
-        writer.putUnsignedByte(writtenValue);
+        writer.writeUnsignedByte(writtenValue);
         byte[] elements = writer.array();
         ByteArrayReader reader = ByteArrayReader.wrap(elements);
         UnsignedByte readValue = reader.getUnsignedByte();
@@ -36,7 +36,7 @@ class ByteArrayWriterTest {
     @ValueSource(ints = {0,1,255, 0xFFFF})
     void testPutUnsignedShort(int value) {
         UnsignedShort writtenValue = UnsignedShort.fromInt(value);
-        writer.putUnsignedShort(writtenValue);
+        writer.writeUnsignedShort(writtenValue);
         byte[] elements = writer.array();
         ByteArrayReader reader = ByteArrayReader.wrap(elements);
         UnsignedShort readValue = reader.getUnsignedShort();
@@ -47,7 +47,7 @@ class ByteArrayWriterTest {
     @ValueSource(longs = {0, 0xFFFFFFFFL, 0x0F0C0000L, 0xF0F0F0F0L, 0xF0000000L, 0x0F000000L, 0x00F00000L, 0x000F0000L, 0x10000000L})
     void testPutUnsignedInt(long value) {
         UnsignedInt writtenValue = UnsignedInt.fromLong(value);
-        writer.putUnsignedInt(writtenValue);
+        writer.writeUnsignedInt(writtenValue);
 
         ByteArrayReader reader = writer.getByteArrayReader();
         UnsignedInt readValue = reader.getUnsignedInt();
@@ -56,12 +56,12 @@ class ByteArrayWriterTest {
 
     @Test
     void testSucceedingPuts() throws ParseException {
-        writer.putUnsignedByte(UnsignedByte.fromInt(0xF))
-                .putUnsignedShort(UnsignedShort.fromInt(0xBB))
-                .putUnsignedInt(UnsignedInt.fromInt(0x1111))
-                .putLabel("a label")
-                .putNameArray(Labels.fromList("pc", "local"))
-                .putUnsignedByte(UnsignedByte.fromInt(0x0));
+        writer.writeUnsignedByte(UnsignedByte.fromInt(0xF))
+                .writeUnsignedShort(UnsignedShort.fromInt(0xBB))
+                .writeUnsignedInt(UnsignedInt.fromInt(0x1111))
+                .writeLabel("a label")
+                .writeLabels(Labels.fromList("pc", "local"))
+                .writeUnsignedByte(UnsignedByte.fromInt(0x0));
 
         ByteArrayReader reader = writer.getByteArrayReader();
 
@@ -75,7 +75,7 @@ class ByteArrayWriterTest {
     @ParameterizedTest
     @ValueSource(strings = {"mac book pro", "aa aa", })
     void testPutLabel(String string) {
-        writer.putLabel(string);
+        writer.writeLabel(string);
         ByteArrayReader reader = writer.getByteArrayReader();
         LabelLength length = reader.getLabelLength();
         DNSLabel readLabel = reader.getLabel(length);
@@ -86,7 +86,7 @@ class ByteArrayWriterTest {
     @Test
     void testPutNameArray() throws ParseException {
         Labels names = Labels.fromList("Itunes", "MacBook", "local");
-        writer.putNameArray(names);
+        writer.writeLabels(names);
         ByteArrayReader reader = writer.getByteArrayReader();
 
         assertThat(reader.readLabels()).isEqualTo(names);

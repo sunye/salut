@@ -218,9 +218,8 @@ public class ByteArrayReader {
     /**
      * Reads a 16-bytes IPv6 address
      * @return This ByteArrayReader
-     * @throws ParseException If there is a parsing error
      */
-    public IPv6Address readInet6Address() throws ParseException {
+    public IPv6Address readIPv6Address() {
         byte[] addressBytes = new byte[16];
         get(addressBytes);
 

@@ -52,14 +52,14 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
     public void writeOn(ByteArrayWriter writer) {
 
         // Fixed part
-        writer.putNameArray(host.name().toLabels())
-                .putRecordType(RecordType.A)
-                .putQClass(QClass.IN)
-                .putUnsignedInt(ttl.unsignedIntValue())
-                .putUnsignedShort(UnsignedShort.fromInt(4));
+        writer.writeLabels(host.name().toLabels())
+                .writeRecordType(RecordType.A)
+                .writeQClass(QClass.IN)
+                .writeUnsignedInt(ttl.unsignedIntValue())
+                .writeUnsignedShort(UnsignedShort.fromInt(4));
 
         // Variable part
-        writer.putIPAddress(host.address());
+        writer.writeIPAddress(host.address());
     }
 
     @Override

@@ -1,5 +1,8 @@
 package org.atlanmod.salut.io;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -17,10 +20,22 @@ class BytesTest {
     }
 
     @Test
-    void shortsToBytes() {
+    void testShortsToBytes() {
         short[] shorts = {0,  Short.MAX_VALUE};
         byte[] bytes = {0, 0, 127, -1};
 
         assertThat(bytes).isEqualTo(Bytes.shortsToBytes(shorts));
+    }
+
+    @Test
+    void testBytesToBoxedList() {
+        byte[] bytes = {0, 1, Byte.MIN_VALUE, Byte.MAX_VALUE};
+        List<Byte> expected = new ArrayList<>();
+        for(byte each: bytes) {
+            expected.add(each);
+        }
+
+        assertThat(Bytes.bytesToBoxedList(bytes)).isEqualTo(expected);
+
     }
 }

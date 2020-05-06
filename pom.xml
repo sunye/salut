@@ -24,10 +24,10 @@
 
     <properties>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-        <jvm.version>1.8</jvm.version>
+        <jvm.version>1.9</jvm.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.9</maven.compiler.source>
+        <maven.compiler.target>1.9</maven.compiler.target>
         <additionalparam>-Xdoclint:none</additionalparam>
         <integration.test.source.dir>${project.basedir}/src/it/java</integration.test.source.dir>
         <integration.test.resource.dir>${project.basedir}/src/it/resource

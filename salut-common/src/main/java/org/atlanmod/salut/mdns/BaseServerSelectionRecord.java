@@ -140,17 +140,17 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
 
     public void writeOn(ByteArrayWriter writer) {
         // Fixed part
-        writer.putNameArray(serviceInstanceName.toLabels())
-                .putRecordType(RecordType.SRV)
-                .putQClass(QClass.IN)
-                .putUnsignedInt(ttl.unsignedIntValue())
-                .putUnsignedShort(UnsignedShort.fromInt(4));
+        writer.writeLabels(serviceInstanceName.toLabels())
+                .writeRecordType(RecordType.SRV)
+                .writeQClass(QClass.IN)
+                .writeUnsignedInt(ttl.unsignedIntValue())
+                .writeUnsignedShort(UnsignedShort.fromInt(4));
 
         // Variable part
-        writer.putUnsignedShort(priority)
-                .putUnsignedShort(weight)
-                .putUnsignedShort(port)
-                .putNameArray(serverName.toLabels());
+        writer.writeUnsignedShort(priority)
+                .writeUnsignedShort(weight)
+                .writeUnsignedShort(port)
+                .writeLabels(serverName.toLabels());
     }
 
     /**

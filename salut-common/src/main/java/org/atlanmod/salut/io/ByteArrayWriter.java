@@ -1,5 +1,11 @@
 package org.atlanmod.salut.io;
 
+import static org.atlanmod.commons.Preconditions.checkArgument;
+import static org.atlanmod.commons.Preconditions.checkNotNull;
+
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import org.atlanmod.commons.primitive.Bytes;
 import org.atlanmod.salut.domains.IPAddress;
 import org.atlanmod.salut.domains.IPv4Address;
@@ -9,27 +15,46 @@ import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.mdns.QClass;
 import org.atlanmod.salut.mdns.RecordType;
 
-import java.net.Inet6Address;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-
 public class ByteArrayWriter {
 
     List<Byte> bytes = new ArrayList<>();
 
-    public ByteArrayWriter putUnsignedShort(UnsignedShort value) {
+    /**
+     * Writes a {@code UnsignedShort} instance to this ByteArray, following the big endian order.
+     *
+     * @param value a UnsignedShort
+     * @return this ByteArrayWriter
+     */
+    public ByteArrayWriter writeUnsignedShort(UnsignedShort value) {
+        checkNotNull(value, "value");
+
         bytes.add((byte) (value.shortValue() >> 8));
         bytes.add((byte) value.shortValue());
         return this;
     }
 
-    public ByteArrayWriter putUnsignedByte(UnsignedByte value) {
+    /**
+     * Writes a {@code UnsignedByte} instance to this ByteArray.
+     *
+     * @param value a UnsignedByte
+     * @return this ByteArrayWriter
+     */
+    public ByteArrayWriter writeUnsignedByte(UnsignedByte value) {
+        checkNotNull(value, "value");
+
         bytes.add(value.byteValue());
         return this;
     }
 
-    public ByteArrayWriter putUnsignedInt(UnsignedInt value) {
+    /**
+     * Writes a {@code UnsignedInt} instance to this ByteArray, following the big endian order.
+     *
+     * @param value a UnsignedInt
+     * @return this ByteArrayWriter
+     */
+    public ByteArrayWriter writeUnsignedInt(UnsignedInt value) {
+        checkNotNull(value, "value");
+
         bytes.add((byte) (value.intValue() >>> 24));
         bytes.add((byte) (value.intValue() >>> 16));
         bytes.add((byte) (value.intValue() >>> 8));
@@ -43,9 +68,11 @@ public class ByteArrayWriter {
      * @param label the label to write
      * @return This ByteArrayWriter
      */
-    public ByteArrayWriter putLabel(String label) {
+    public ByteArrayWriter writeLabel(String label) {
+        checkNotNull(label, "label");
+
         UnsignedByte length = UnsignedByte.fromInt(label.length());
-        this.putUnsignedByte(length);
+        this.writeUnsignedByte(length);
         byte[] arrayLabel = label.getBytes(StandardCharsets.UTF_8);
         for (byte each : arrayLabel) {
             bytes.add(each);
@@ -54,17 +81,17 @@ public class ByteArrayWriter {
     }
 
     /**
-     * Writes an array of names  encoded in UFF-8
+     * Writes an array of names  encoded in UTF-8
      *
      * @param names an array of names
      * @return This ByteArrayWriter
      */
-    public ByteArrayWriter putNameArray(Labels names) {
+    public ByteArrayWriter writeLabels(Labels names) {
         for (Label each : names.getLabels()) {
-            this.putLabel(each.toString());
+            this.writeLabel(each.toString());
         }
 
-        this.putUnsignedByte(UnsignedByte.fromInt(0));
+        this.writeUnsignedByte(UnsignedByte.fromInt(0));
         return this;
     }
 
@@ -74,15 +101,13 @@ public class ByteArrayWriter {
      * @param address
      * @return
      */
-    public ByteArrayWriter putIPAddress(IPAddress address) {
+    public ByteArrayWriter writeIPAddress(IPAddress address) {
+        checkNotNull(address);
         int length = address.address().length;
-        assert length == IPv4Address.SIZE
-            || length == IPv6Address.SIZE
-            : "Invalid IP Address";
+        checkArgument(length == IPv4Address.SIZE || length == IPv6Address.SIZE,
+            "Invalid IP Address");
 
-        for (byte each : address.address()) {
-            bytes.add(each);
-        }
+        bytes.addAll(Bytes.asList(address.address()));
         return this;
     }
 
@@ -92,10 +117,11 @@ public class ByteArrayWriter {
      * @param address an IPv4 address
      * @return This ByteArrayWriter
      */
-    public ByteArrayWriter putIPv4Address(IPv4Address address) {
-        for (byte each : address.address()) {
-            bytes.add(each);
-        }
+    public ByteArrayWriter writeIPv4Address(IPv4Address address) {
+        checkNotNull(address, "address");
+        checkArgument(address.address().length == IPv4Address.SIZE);
+
+        bytes.addAll(Bytes.asList(address.address()));
         return this;
     }
 
@@ -105,10 +131,11 @@ public class ByteArrayWriter {
      * @param address an IPv6 address
      * @return This ByteArrayWriter
      */
-    public ByteArrayWriter putInet6Address(Inet6Address address) {
-        for (byte each : address.getAddress()) {
-            bytes.add(each);
-        }
+    public ByteArrayWriter writeIPv6Address(IPv6Address address) {
+        checkNotNull(address, "address");
+        checkArgument(address.address().length == IPv6Address.SIZE);
+
+        bytes.addAll(Bytes.asList(address.address()));
         return this;
     }
 
@@ -118,14 +145,20 @@ public class ByteArrayWriter {
      * @param type the Resource Record Type.
      * @return This ByteArrayWriter
      */
-    public ByteArrayWriter putRecordType(RecordType type) {
-        this.putUnsignedShort(type.unsignedShortValue());
+    public ByteArrayWriter writeRecordType(RecordType type) {
+        this.writeUnsignedShort(type.unsignedShortValue());
 
         return this;
     }
 
-    public ByteArrayWriter putQClass(QClass qClass) {
-        this.putUnsignedShort(qClass.unsignedShortValue());
+    /**
+     * Writes a 2-byte value representing a DNS Question Class (QClass) Type.
+     *
+     * @param qClass the DNS Question Class.
+     * @return This ByteArrayWriter
+     */
+    public ByteArrayWriter writeQClass(QClass qClass) {
+        this.writeUnsignedShort(qClass.unsignedShortValue());
 
         return this;
     }
