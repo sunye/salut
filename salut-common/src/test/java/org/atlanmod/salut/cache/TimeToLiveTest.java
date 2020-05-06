@@ -58,7 +58,6 @@ class TimeToLiveTest {
 
     @Test
     void testCompareTo() {
-        TimeToLive other = TimeToLive.fromSeconds(10);
         TimeToLive fiveSeconds = TimeToLive.fromSeconds(5);
         TimeToLive twentySeconds = TimeToLive.fromSeconds(20);
 
