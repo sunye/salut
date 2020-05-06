@@ -19,7 +19,7 @@ public interface ApplicationProtocol {
      *                          Protocol to form a Service Name.
      * @return An instance of Service Name
      */
-    public default ServiceName with(TransportProtocol transportProtocol) {
+    default ServiceName with(TransportProtocol transportProtocol) {
         return new ServiceName(this, transportProtocol);
     }
 }

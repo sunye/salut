@@ -4,7 +4,6 @@ import static org.atlanmod.commons.Preconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
@@ -13,7 +12,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class Bytes {
 
-    private Bytes() {}
+    private Bytes() {
+    }
 
     /**
      * Convenience method that coverts a {@code String} representing a collection of bytes into an
