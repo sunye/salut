@@ -1,5 +1,6 @@
 package org.atlanmod.salut.mdns;
 
+import java.text.ParseException;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
@@ -9,8 +10,6 @@ import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.names.ServiceInstanceName;
-
-import java.text.ParseException;
 
 /**
  * The class `ServerSelectionRecord` represents the DNS SRV abstract record.

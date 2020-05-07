@@ -1,5 +1,7 @@
 package org.atlanmod.salut.mdns;
 
+import java.text.ParseException;
+import java.util.Objects;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
@@ -10,10 +12,8 @@ import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
 
-import java.text.ParseException;
-import java.util.Objects;
-
 /**
+ * @formatter:off
  * The `ARecord` class represents DNS IP4 address records (ARecord).
  *
  * The DNS ARecord has the following format:
@@ -22,6 +22,7 @@ import java.util.Objects;
  * Server Label| Time to live| QCLASS | IP 4 Address
  * --|--
  * &lowbar;printer._tcp.local.  | 28800 | A | 127.16.8.1
+ * @formatter:on
  */
 public class BaseARecord extends AbstractNormalRecord implements ARecord {
 
@@ -32,31 +33,40 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
         this.host = host;
     }
 
+    public static RecordParser<ARecord> parser() {
+        return new ARecordParser();
+    }
+
+    @VisibleForTesting
+    public static BaseARecord createRecord(QClass qclass, UnsignedInt ttl, Host host) {
+        return new BaseARecord(qclass, ttl, host);
+    }
+
     @Override
     public Host host() {
         return this.host;
     }
 
-
     /**
      * Returns a `String` object representing this `ARecord`.
-     * @return  a string representation of this object.
+     *
+     * @return a string representation of this object.
      */
     @Override
     public String toString() {
         return "ARecord{" + host +
-                ", ttl="+ttl +
-                '}';
+            ", ttl=" + ttl +
+            '}';
     }
 
     public void writeOn(ByteArrayWriter writer) {
 
         // Fixed part
         writer.writeLabels(host.name().toLabels())
-                .writeRecordType(RecordType.A)
-                .writeQClass(QClass.IN)
-                .writeUnsignedInt(ttl.unsignedIntValue())
-                .writeUnsignedShort(UnsignedShort.fromInt(4));
+            .writeRecordType(RecordType.A)
+            .writeQClass(QClass.IN)
+            .writeUnsignedInt(ttl.unsignedIntValue())
+            .writeUnsignedShort(UnsignedShort.fromInt(4));
 
         // Variable part
         writer.writeIPAddress(host.address());
@@ -71,34 +81,29 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
 
         BaseARecord aRecord = (BaseARecord) o;
         return host.equals(aRecord.host) &&
-                super.equals(aRecord);
+            super.equals(aRecord);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(host);
+        return Objects.hash(super.hashCode(), host);
     }
-
-    public static RecordParser<ARecord> parser() {
-        return new ARecordParser();
-    }
-
 
     private static class ARecordParser extends NormalRecordParser<ARecord> {
+
         private Host host;
 
         /**
          * Parses the variable part of a ARecord.
          *
          * @param reader a byte array reader containing the record.
-         *
          * @throws ParseException if the record is not well-formed.
          */
         @Override
         protected void parseVariablePart(ByteArrayReader reader) throws ParseException {
             IPAddress address = reader.readIPv4Address();
             Domain serverName = DomainBuilder.fromLabels(labels);
-            this.host = new Host(serverName,address);
+            this.host = new Host(serverName, address);
         }
 
         @Override
@@ -106,10 +111,5 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
             return new BaseARecord(qclass, ttl, host);
         }
 
-    }
-
-    @VisibleForTesting
-    public static BaseARecord createRecord(QClass qclass, UnsignedInt ttl, Host host) {
-        return new BaseARecord(qclass, ttl, host);
     }
 }

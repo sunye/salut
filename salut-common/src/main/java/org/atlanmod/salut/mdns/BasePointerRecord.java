@@ -1,14 +1,12 @@
 package org.atlanmod.salut.mdns;
 
+import java.util.Objects;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
-import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.names.PointerName;
 import org.atlanmod.salut.names.ServiceInstanceName;
-
-import java.util.Objects;
 
 /**
  * The `PointerRecord` class represents DNS Domain name pointer record (PTR).
@@ -32,7 +30,7 @@ import java.util.Objects;
  * _printer._tcp.local.  | 28800 | IN | PTR | PrintsAlot._printer._tcp.local.
  *
  */
-class BasePointerRecord extends AbstractPointerRecord {
+public class BasePointerRecord extends AbstractPointerRecord {
     /**
      * A <domain-name> which points to some location in the domain name space.
      *
@@ -49,19 +47,17 @@ class BasePointerRecord extends AbstractPointerRecord {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
-        BasePointerRecord that = (BasePointerRecord) o;
-        return Objects.equals(instance, that.instance) &&
-            Objects.equals(server, that.server);
+    public boolean equals(Object other) {
+        //@formatter:off
+        if (this == other) {return true;}
+        if (!(other instanceof BasePointerRecord)) {return false;}
+        //@formatter:on
+
+        BasePointerRecord that = (BasePointerRecord) other;
+        return
+            super.equals(other) &&
+            instance.equals(that.instance) &&
+            server.equals(that.server);
     }
 
     @Override
@@ -83,7 +79,7 @@ class BasePointerRecord extends AbstractPointerRecord {
      */
     @Override
     public String toString() {
-        return "NormalPointerRecord{" + server
+        return "BasePointerRecord{" + server
             + ", " + qclass
             + ", " + ttl
             +", "+ instance + "}";
@@ -104,7 +100,7 @@ class BasePointerRecord extends AbstractPointerRecord {
     }
 
     @VisibleForTesting
-    public static BasePointerRecord create(Labels name, QClass qclass, UnsignedInt ttl,
+    public static BasePointerRecord create(QClass qclass, UnsignedInt ttl,
         ServiceInstanceName instance, PointerName server) {
 
         return new BasePointerRecord(qclass, ttl, instance, server);

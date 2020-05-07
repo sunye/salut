@@ -1,8 +1,8 @@
 package org.atlanmod.salut.labels;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * The <Instance> portion of the Service Instance Name is a user- friendly name consisting of

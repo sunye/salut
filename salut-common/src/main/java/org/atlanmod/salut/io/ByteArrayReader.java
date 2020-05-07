@@ -1,5 +1,11 @@
 package org.atlanmod.salut.io;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.domains.IPAddressBuilder;
@@ -9,13 +15,6 @@ import org.atlanmod.salut.labels.DNSLabel;
 import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.mdns.QClass;
 import org.atlanmod.salut.mdns.RecordType;
-
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * The class `ByteArrayReader` is a wrapper class for the {@code ByteBuffer} class.

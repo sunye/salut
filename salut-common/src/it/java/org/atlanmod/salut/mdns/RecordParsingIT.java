@@ -1,5 +1,8 @@
 package org.atlanmod.salut.mdns;
 
+import static com.google.common.truth.Truth.assertThat;
+
+import java.text.ParseException;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
@@ -9,10 +12,6 @@ import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.names.ServiceInstanceName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.text.ParseException;
-
-import static com.google.common.truth.Truth.assertThat;
 
 /**
  * Integration tests for record parsing and writing.

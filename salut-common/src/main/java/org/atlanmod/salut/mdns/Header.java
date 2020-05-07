@@ -1,6 +1,7 @@
 package org.atlanmod.salut.mdns;
 
 import java.util.Objects;
+import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
@@ -55,7 +56,7 @@ public class Header {
      * @param authorityRecordCount
      * @param additionalRecordCount
      */
-    public Header(UnsignedShort id, QRFlag flags, UnsignedShort questionRecordCount,
+    private Header(UnsignedShort id, QRFlag flags, UnsignedShort questionRecordCount,
         UnsignedShort answerRecordCount, UnsignedShort authorityRecordCount,
         UnsignedShort additionalRecordCount) {
         this.id = id;
@@ -181,5 +182,13 @@ public class Header {
         buffer.writeUnsignedShort(answerRecordCount);
         buffer.writeUnsignedShort(authorityRecordCount);
         buffer.writeUnsignedShort(additionalRecordCount);
+    }
+
+    @VisibleForTesting
+    public static Header createHeader(UnsignedShort id, QRFlag flags, UnsignedShort questionRecordCount,
+        UnsignedShort answerRecordCount, UnsignedShort authorityRecordCount,
+        UnsignedShort additionalRecordCount) {
+        return new Header(id, flags, questionRecordCount, answerRecordCount, authorityRecordCount,
+            additionalRecordCount);
     }
 }

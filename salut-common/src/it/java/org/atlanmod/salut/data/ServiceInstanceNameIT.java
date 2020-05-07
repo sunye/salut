@@ -1,13 +1,12 @@
 package org.atlanmod.salut.data;
 
+import static com.google.common.truth.Truth.assertThat;
+
+import java.text.ParseException;
 import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.names.ServiceInstanceName;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.text.ParseException;
-
-import static com.google.common.truth.Truth.assertThat;
 
 public class ServiceInstanceNameIT {
 

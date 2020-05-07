@@ -1,5 +1,8 @@
 package org.atlanmod.salut.names;
 
+import static com.google.common.truth.Truth.assertThat;
+
+import java.text.ParseException;
 import org.atlanmod.salut.data.ApplicationProtocol;
 import org.atlanmod.salut.data.ApplicationProtocolBuilder;
 import org.atlanmod.salut.data.IANAApplicationProtocol;
@@ -8,13 +11,10 @@ import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.domains.LocalHostName;
 import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.verifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.text.ParseException;
-
-import static com.google.common.truth.Truth.assertThat;
 
 
 class ServiceInstanceNameTest {
@@ -88,21 +88,20 @@ class ServiceInstanceNameTest {
         assertThat(music.domain()).isEqualTo(LocalHostName.fromString("MacBook"));
     }
 
-    @DisplayName("Given two equivalent service instance names"
-        + "When equals() is called"
-        + "Then it returns true")
     @Test
     void test_equals() throws ParseException {
-        ServiceInstanceName one =
-        ServiceInstanceName.createServiceInstanceName(InstanceName.fromString("canon-mg5300"),
+        Object[] args1 = {
+            InstanceName.fromString("canon-mg5300"),
             ServiceName.fromStrings("ipp", "tcp"),
-            LocalHostName.fromString("mac-pro"));
-        ServiceInstanceName other =
-            ServiceInstanceName.createServiceInstanceName(InstanceName.fromString("canon-mg5300"),
-                ServiceName.fromStrings("ipp", "tcp"),
-                LocalHostName.fromString("mac-pro"));
+            LocalHostName.fromString("mac-pro")
+        };
+        Object[] args2 = {
+            InstanceName.fromString("canon-mg5400"),
+            ServiceName.fromStrings("ipp", "udp"),
+            LocalHostName.fromString("sun-station")
+        };
 
-        assertThat(one).isEqualTo(other);
+        EqualsVerifier.verify(ServiceInstanceName.class, args1, args2);
     }
 
     @DisplayName("Given a service instance name 'canon-mg500.ipp.tcp.mac-pro.local' "

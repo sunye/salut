@@ -1,18 +1,20 @@
 package org.atlanmod.salut.io;
 
-import org.atlanmod.salut.labels.DNSLabel;
-import org.atlanmod.salut.labels.Label;
-import org.atlanmod.salut.labels.Labels;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.text.ParseException;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import org.atlanmod.salut.labels.DNSLabel;
+import org.atlanmod.salut.labels.Label;
+import org.atlanmod.salut.labels.Labels;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 
 class ByteArrayReaderTest {

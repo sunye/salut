@@ -1,12 +1,11 @@
 package org.atlanmod.salut.labels;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.text.ParseException;
 import org.atlanmod.commons.collect.MoreArrays;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.junit.jupiter.api.Test;
-
-import java.text.ParseException;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LabelsTest {
     DNSLabel mydomain = DNSLabel.create("mydomain");

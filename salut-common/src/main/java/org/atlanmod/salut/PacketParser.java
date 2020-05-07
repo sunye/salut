@@ -1,9 +1,5 @@
 package org.atlanmod.salut;
 
-import org.atlanmod.commons.log.Log;
-import org.atlanmod.salut.io.ByteArrayReader;
-import org.atlanmod.salut.mdns.*;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,6 +8,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.atlanmod.commons.log.Log;
+import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.mdns.Additional;
+import org.atlanmod.salut.mdns.Answer;
+import org.atlanmod.salut.mdns.Authority;
+import org.atlanmod.salut.mdns.Header;
+import org.atlanmod.salut.mdns.Question;
 
 public class PacketParser {
 

@@ -59,14 +59,16 @@ public abstract class AbstractNormalRecord extends AbstractRecord implements Nor
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object other) {
         //@formatter:off
-        if (this == o) {return true;}
-        if (!(o instanceof AbstractNormalRecord)) {return false;}
+        if (this == other) {return true;}
+        if (!(other instanceof AbstractNormalRecord)) {return false;}
         //@formatter:off
 
-        AbstractNormalRecord that = (AbstractNormalRecord) o;
-        return qclass == that.qclass;
+        AbstractNormalRecord that = (AbstractNormalRecord) other;
+        return
+            qclass == that.qclass &&
+            ttl.equals(that.ttl);
     }
 
     @Override

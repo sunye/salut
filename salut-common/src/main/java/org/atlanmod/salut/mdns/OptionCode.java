@@ -1,10 +1,10 @@
 package org.atlanmod.salut.mdns;
 
-import java.util.Map;
-import java.util.Optional;
-
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toMap;
+
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Option Code for OPT record.

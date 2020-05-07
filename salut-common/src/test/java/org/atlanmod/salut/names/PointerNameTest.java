@@ -1,13 +1,13 @@
 package org.atlanmod.salut.names;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.text.ParseException;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.verifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
-
-import java.text.ParseException;
-
-import static com.google.common.truth.Truth.assertThat;
 
 class PointerNameTest {
 
@@ -21,6 +21,21 @@ class PointerNameTest {
         PointerName actual = PointerName.fromLabels(labels);
 
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void testEquals() throws ParseException {
+        Object[] args1 = {
+            ServiceName.fromStrings("html", "tcp"),
+            DomainBuilder.fromLabels(Labels.fromList("local"))
+        };
+        Object[] args2 = {
+            ServiceName.fromStrings("daap", "tcp"),
+            DomainBuilder.fromLabels(Labels.fromList("free","fr"))
+        };
+
+        EqualsVerifier.verify(PointerName.class, args1, args2);
+
     }
 
 }
