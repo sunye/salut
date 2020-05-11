@@ -1,8 +1,5 @@
 package org.atlanmod.salut.sd;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Optional;
 import org.atlanmod.salut.data.ApplicationProtocol;
 import org.atlanmod.salut.data.ApplicationProtocolBuilder;
 import org.atlanmod.salut.data.TransportProtocol;
@@ -10,9 +7,13 @@ import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.atlanmod.salut.names.InstanceName;
 import org.atlanmod.salut.names.ServiceName;
-import org.atlanmod.verifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.atlanmod.testing.Verifier.verifyEqualsOf;
 
 class ServiceDescriptionTest {
 
@@ -109,8 +110,11 @@ class ServiceDescriptionTest {
             UnsignedShort.fromInt(200),
             UnsignedInt.fromInt(7200)
         };
-
-        EqualsVerifier.verify(ServiceDescription.class, args1, args2);
+        
+        verifyEqualsOf(ServiceDescription.class)
+                .withArguments(args1)
+                .andVariants(args2)
+                .check();
     }
 
     @Test

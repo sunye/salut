@@ -36,6 +36,7 @@
         <sonar.coverage.jacoco.xmlReportPaths>
             ${project.build.directory}/site/jacoco-merged-test-coverage-report/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
+        <commons.version>1.0.5</commons.version>
     </properties>
 
 
@@ -457,7 +458,14 @@
         <dependency>
             <groupId>org.atlanmod.commons</groupId>
             <artifactId>commons-core</artifactId>
-            <version>1.0.4</version>
+            <version>${commons.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.atlanmod.commons</groupId>
+            <artifactId>commons-testing</artifactId>
+            <version>${commons.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
