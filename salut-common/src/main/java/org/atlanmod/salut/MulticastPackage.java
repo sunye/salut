@@ -27,4 +27,12 @@ public class Package {
         this.additionals = additionals;
     }
 
+    /**
+     * Reads the Header and returns true if it is a Query and false otherwise.
+     *
+     * @return true, if this package is a query.
+     */
+    public boolean isQuery() {
+        return header.isQuery();
+    }
 }
