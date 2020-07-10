@@ -13,8 +13,8 @@ import org.atlanmod.salut.domains.IPv4Address;
 import org.atlanmod.salut.domains.IPv6Address;
 import org.atlanmod.salut.labels.DNSLabel;
 import org.atlanmod.salut.labels.Labels;
-import org.atlanmod.salut.mdns.QClass;
-import org.atlanmod.salut.mdns.RecordType;
+import org.atlanmod.salut.record.QClass;
+import org.atlanmod.salut.record.RecordType;
 
 /**
  * The class `ByteArrayReader` is a wrapper class for the {@code ByteBuffer} class.

@@ -3,7 +3,7 @@ package org.atlanmod.salut.cache;
 import org.atlanmod.salut.domains.*;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.labels.Labels;
-import org.atlanmod.salut.mdns.*;
+import org.atlanmod.salut.record.*;
 import org.atlanmod.salut.names.PointerName;
 import org.atlanmod.salut.names.ServiceInstanceName;
 import org.atlanmod.salut.names.ServiceName;

@@ -22,7 +22,7 @@
                     <outputFormats>HTML,XML,CSV</outputFormats>
                     <timestampedReports>false</timestampedReports>
                     <targetClasses>
-                        <param>org.atlanmod.salut.mdns.*</param>
+                        <param>org.atlanmod.salut.record.*</param>
                     </targetClasses>
                     <additionalClasspathElements>${integration.test.build.dir}</additionalClasspathElements>
                 </configuration>

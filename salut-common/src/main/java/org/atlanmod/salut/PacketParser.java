@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.io.ByteArrayReader;
-import org.atlanmod.salut.mdns.Additional;
-import org.atlanmod.salut.mdns.Answer;
-import org.atlanmod.salut.mdns.Authority;
-import org.atlanmod.salut.mdns.Header;
-import org.atlanmod.salut.mdns.Question;
+import org.atlanmod.salut.record.Additional;
+import org.atlanmod.salut.record.Answer;
+import org.atlanmod.salut.record.Authority;
+import org.atlanmod.salut.record.Header;
+import org.atlanmod.salut.record.Question;
 
 public class PacketParser {
 
