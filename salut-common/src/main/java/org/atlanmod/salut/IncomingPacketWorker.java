@@ -2,12 +2,15 @@ package org.atlanmod.salut;
 
 import java.net.DatagramPacket;
 import org.atlanmod.commons.log.Log;
+import org.atlanmod.salut.mdns.Responder;
 
 public class IncomingPacketWorker implements Runnable {
     private final SocketReceiver receiver;
+    private final Responder responder;
 
-    public IncomingPacketWorker(SocketReceiver receiver) {
+    public IncomingPacketWorker(SocketReceiver receiver, Responder responder) {
         this.receiver = receiver;
+        this.responder = responder;
     }
 
     @Override
@@ -22,7 +25,13 @@ public class IncomingPacketWorker implements Runnable {
 
                 data = packet.getData();
                 PacketParser parser = new PacketParser(data);
-                Package pack = parser.parse();
+                MulticastPackage pack = parser.parse();
+                if (pack.isQuery()) {
+                    responder.accept(pack);
+                } else {
+
+                }
+
 
             } catch (InterruptedException e) {
                 Log.error(e, "Worker interrupted when waiting for a packet");

@@ -171,6 +171,15 @@ public class Header {
     }
 
     /**
+     * Reads the QR Flag and returns true if it is set to 1 and false otherwise.
+     *
+     * @return true, if this is a header of a Query
+     */
+    public boolean isQuery() {
+        return flags.isQuery();
+    }
+
+    /**
      * Writes the contents of this header to a byte array buffer.
      *
      * @param buffer a byte array buffer where the header will be written.

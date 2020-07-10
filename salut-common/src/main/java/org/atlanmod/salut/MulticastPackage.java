@@ -7,7 +7,7 @@ import org.atlanmod.salut.record.Authority;
 import org.atlanmod.salut.record.Header;
 import org.atlanmod.salut.record.Question;
 
-public class Package {
+public class MulticastPackage {
     //@formatter:off
     private Header              header;
     private List<Question>      questions;
@@ -17,7 +17,7 @@ public class Package {
     //@formatter:on
 
 
-    public Package(Header header, List<Question> questions,
+    public MulticastPackage(Header header, List<Question> questions,
         List<Answer> answers, List<Authority> authorities,
         List<Additional> additionals) {
         this.header = header;
@@ -34,5 +34,14 @@ public class Package {
      */
     public boolean isQuery() {
         return header.isQuery();
+    }
+
+    /**
+     * Returns the list of Questions contained in this Multicast Package.
+     *
+     * @return a list of Questions
+     */
+    public List<Question> questions() {
+        return questions;
     }
 }

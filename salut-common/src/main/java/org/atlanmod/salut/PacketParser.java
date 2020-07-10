@@ -30,7 +30,7 @@ public class PacketParser {
         this.buffer = ByteArrayReader.wrap(data);
     }
 
-    public Package parse() {
+    public MulticastPackage parse() {
         Log.info(" ------ Start Parsing ------");
 
         try {
@@ -52,7 +52,7 @@ public class PacketParser {
                 questions.size(), answers.size(), authorities.size(), additionals.size());
         }
 
-        return new Package(header, questions, answers, authorities, additionals);
+        return new MulticastPackage(header, questions, answers, authorities, additionals);
     }
 
     public void doParse() throws ParseException {

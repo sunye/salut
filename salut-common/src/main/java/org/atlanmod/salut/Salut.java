@@ -6,6 +6,7 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.domains.Host;
+import org.atlanmod.salut.mdns.Responder;
 import org.atlanmod.salut.record.RecordFactory;
 import org.atlanmod.salut.record.ServerSelectionRecord;
 import org.atlanmod.salut.sd.ServiceDescription;
@@ -48,7 +49,8 @@ public class Salut implements ServicePublisher {
         this.openSocket(InetAddress.getLocalHost());
         SocketReceiver receiver = new SocketReceiver(this.socket);
         SocketSender sender = new SocketSender(this.socket);
-        IncomingPacketWorker parser = new IncomingPacketWorker(receiver);
+        Responder responder = new Responder();
+        IncomingPacketWorker parser = new IncomingPacketWorker(receiver, responder);
 
         Thread thr1 = new Thread(receiver);
         Thread thr2 = new Thread(sender);
