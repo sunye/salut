@@ -1,12 +1,13 @@
 package org.atlanmod.salut.mdns;
 
+import static org.atlanmod.testing.Verifier.verifyEqualsOf;
+
 import java.text.ParseException;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.domains.Host;
 import org.atlanmod.salut.domains.IPAddressBuilder;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.labels.Labels;
-import org.atlanmod.verifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
 class BaseARecordTest {
@@ -26,6 +27,9 @@ class BaseARecordTest {
                 IPAddressBuilder.createIPv4Address(72, 16, 8, 4))
         };
 
-        EqualsVerifier.verify(BaseARecord.class, args1, args2);
+        verifyEqualsOf(BaseARecord.class)
+            .withArguments(args1)
+            .andVariants(args2)
+            .check();
     }
 }

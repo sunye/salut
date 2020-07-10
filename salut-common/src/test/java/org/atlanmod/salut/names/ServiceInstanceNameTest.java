@@ -1,6 +1,7 @@
 package org.atlanmod.salut.names;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.atlanmod.testing.Verifier.verifyEqualsOf;
 
 import java.text.ParseException;
 import org.atlanmod.salut.data.ApplicationProtocol;
@@ -11,7 +12,6 @@ import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.domains.LocalHostName;
 import org.atlanmod.salut.labels.Labels;
-import org.atlanmod.verifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -101,7 +101,10 @@ class ServiceInstanceNameTest {
             LocalHostName.fromString("sun-station")
         };
 
-        EqualsVerifier.verify(ServiceInstanceName.class, args1, args2);
+        verifyEqualsOf(ServiceInstanceName.class)
+            .withArguments(args1)
+            .andVariants(args2)
+            .check();
     }
 
     @DisplayName("Given a service instance name 'canon-mg500.ipp.tcp.mac-pro.local' "

@@ -1,6 +1,14 @@
 package org.atlanmod.salut.mdns;
 
-public enum QueryClassEnum {
+import java.util.Map;
+import java.util.Optional;
+import org.atlanmod.salut.io.UnsignedShort;
+
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toMap;
+
+@SuppressWarnings({"pmd:FieldNamingConventions","squid:S115"})
+public enum QueryClassType {
 
     /**
      * Internet
@@ -40,11 +48,32 @@ public enum QueryClassEnum {
     Any(255, "any");
 
 
+    private final static Map<Integer, QueryClassType> MAP = stream(QueryClassType.values())
+        .collect(toMap(each -> each.code, each -> each));
+
     private int code;
     private String label;
 
-    QueryClassEnum(int value, String str) {
+    QueryClassType(int value, String str) {
         this.code = value;
         this.label = str;
+    }
+
+    @Override
+    public String toString() {
+        return label;
+    }
+
+    /**
+     * Returns an in value representing this QClass.
+     *
+     * @return an int
+     */
+    public int code() {
+        return this.code;
+    }
+
+    public static Optional<QueryClassType> fromCode(int code) {
+        return Optional.ofNullable(MAP.get(code));
     }
 }

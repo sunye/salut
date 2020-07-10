@@ -46,19 +46,13 @@ public class Question {
      * Label of the node to which the query pertains
      */
     private final Labels name;
-
-    /**
-     * unicast-response bit
-     */
-    private boolean requiresUnicastResponse;
     private final RecordType type;
     private QClass qclass;
 
-    private Question(Labels name, RecordType type, QClass qclass, boolean isQU) {
+    private Question(Labels name, RecordType type, QClass qclass) {
         this.name = name;
         this.type = type;
         this.qclass = qclass;
-        this.requiresUnicastResponse = isQU;
     }
 
     @Override
@@ -80,17 +74,9 @@ public class Question {
 
         Labels qname  = Labels.fromByteBuffer(buffer);
         RecordType qtype  = buffer.readRecordType();
-        int code          = buffer.getUnsignedShort().intValue();
-        boolean requiresUnicast = code >= 0x8000;
+        QClass qClass = QClass.fromByteBuffer(buffer);
 
-        code = code & QClass.CLASS_MASK;
-        Optional<QClass> qclass = QClass.fromCode(code);
-
-        if (!qclass.isPresent()) {
-            throw new ParseException("Parsing error when reading Question Class. Unknown code: " + code, buffer.position());
-        }
-
-        Question newQuestion = new Question(qname, qtype, qclass.get(), requiresUnicast);
+        Question newQuestion = new Question(qname, qtype, qClass);
         Log.info("Question parsed: {0}", newQuestion);
 
         return newQuestion;
@@ -99,4 +85,5 @@ public class Question {
     public static Question fromByteBuffer(ByteArrayReader buffer) throws ParseException {
         return Question.fromByteBuffer(buffer, buffer.position());
     }
+
 }

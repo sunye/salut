@@ -67,7 +67,7 @@ public abstract class AbstractNormalRecord extends AbstractRecord implements Nor
 
         AbstractNormalRecord that = (AbstractNormalRecord) other;
         return
-            qclass == that.qclass &&
+            qclass.equals(that.qclass) &&
             ttl.equals(that.ttl);
     }
 

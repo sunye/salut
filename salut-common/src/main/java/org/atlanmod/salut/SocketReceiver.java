@@ -31,7 +31,7 @@ public class SocketReceiver implements Runnable {
             DatagramPacket packet = this.createDatagramPacket();
             try {
                 socket.receive(packet);
-                Log.info("Received packed from {0}", packet.getAddress());
+                Log.info("Received packed from {0}", packet.getSocketAddress());
                 boolean isOffered = incoming.offer(packet);
                 assert isOffered : "Offering a packet should always be possible";
             } catch (SocketTimeoutException e) {

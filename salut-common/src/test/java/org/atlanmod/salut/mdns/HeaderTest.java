@@ -1,6 +1,7 @@
 package org.atlanmod.salut.mdns;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.atlanmod.testing.Verifier.verifyEqualsOf;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,7 +10,6 @@ import java.util.Arrays;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedShort;
-import org.atlanmod.verifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
 public class HeaderTest {
@@ -80,7 +80,10 @@ public class HeaderTest {
             UnsignedShort.fromInt(27),
             UnsignedShort.fromInt(42)};
 
-        EqualsVerifier.verify(Header.class, args1, args2);
+        verifyEqualsOf(Header.class)
+            .withArguments(args1)
+            .andVariants(args2)
+            .check();
     }
 
 

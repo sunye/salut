@@ -22,7 +22,7 @@ public class IncomingPacketWorker implements Runnable {
 
                 data = packet.getData();
                 PacketParser parser = new PacketParser(data);
-                parser.parse();
+                Package pack = parser.parse();
 
             } catch (InterruptedException e) {
                 Log.error(e, "Worker interrupted when waiting for a packet");

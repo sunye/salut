@@ -33,7 +33,7 @@ class ServiceNameTest {
         + "When parseString() is called"
         + "Then the transport protocol is TCP")
     @Test
-    void create_service_name_from_string_check_transport_protocol() throws ParseException {
+    void create_service_name_from_string_check_transport_protocol() {
         TransportProtocol expected = TransportProtocol.tcp;
         assertThat(ipp.getTransport()).isEqualTo(expected);
     }
@@ -55,7 +55,7 @@ class ServiceNameTest {
         + "When fromLaleblArray() is called"
         + "Then the service name is 'ipp.tcp' ")
     @Test
-    void create_from_labels() throws ParseException {
+    void create_from_labels() {
         ServiceName name = ServiceName.fromLabels(Labels.fromList("ipp", "tcp"));
         ServiceName expected =  ServiceName.create(ApplicationProtocolBuilder.fromString("ipp"), TransportProtocol.tcp);
 

@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toMap;
 
 import java.text.ParseException;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.UnsignedShort;
@@ -23,59 +24,50 @@ import org.atlanmod.salut.io.UnsignedShort;
  * In the Question Section of a Multicast DNS query, the top bit of the qclass field is used
  * to indicate that unicast responses are preferred for this particular question.  (See Section 5.4.)
  */
-@SuppressWarnings({"pmd:FieldNamingConventions","squid:S115"})
-public enum QClass {
 
-
-    /**
-     * Internet
-     * @see <a href="https://tools.ietf.org/html/rfc1035">DOMAIN NAMES - IMPLEMENTATION AND SPECIFICATION</a>
-     */
-    IN(1, "in"),
-
-    /**
-     * CSNET (Obsolete)
-     */
-    CS(2, "cs"),
-
-    /**
-     * CHAOS
-     * [D. Moon, "Chaosnet", A.I. Memo 628,
-     * Massachusetts Institute of Technology Artificial Intelligence Laboratory, June 1981.]
-     */
-    CH(3, "ch"),
-
-    /**
-     * Hesiod
-     * [Dyer, S., and F. Hsu, "Hesiod", Project Athena Technical Plan - Label Service, April 1987.]
-     */
-    HS(4, "hs"),
-
-    /**
-     * None
-     * @see <a href="https://tools.ietf.org/html/rfc2136">Dynamic Updates in the Domain Label System (DNS UPDATE)</a>
-     */
-    None(254, "None"),
-
-    /**
-     * Any Class
-     *
-     * @see <a href="https://tools.ietf.org/html/rfc1035">DOMAIN NAMES - IMPLEMENTATION AND SPECIFICATION</a>
-     */
-    Any(255, "any");
+public class QClass {
 
     public static final int CLASS_MASK   = 0x7FFF;
-    private int code;
-    private String label;
+    public static final QClass Any = new QClass(QueryClassType.Any, false);
+    public static final QClass IN  = new QClass(QueryClassType.IN, false);
 
-    QClass(int value, String str) {
-        this.code = value;
-        this.label = str;
+    private final QueryClassType type;
+    private final boolean unicastResponseRequired;
+
+    public QClass(QueryClassType type, boolean unicastResponseRequired) {
+        this.type = type;
+        this.unicastResponseRequired = unicastResponseRequired;
+     }
+
+    public static QClass fromByteBuffer(ByteArrayReader buffer) throws ParseException {
+        int code = buffer.getUnsignedShort().intValue();
+        boolean isUnicast = (code >= 0x8000);
+        code = code & CLASS_MASK;
+
+        Optional<QueryClassType> type = QueryClassType.fromCode(code);
+        if (! type.isPresent()) {
+            throw new ParseException("Parsing error when reading Question Class. Unknown code: " + code, buffer.position());
+        } else {
+            return new QClass(type.get(), isUnicast);
+        }
     }
 
     @Override
-    public String toString() {
-        return label;
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof QClass)) {
+            return false;
+        }
+        QClass qClass = (QClass) other;
+        return unicastResponseRequired == qClass.unicastResponseRequired &&
+            type == qClass.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, unicastResponseRequired);
     }
 
     /**
@@ -84,26 +76,12 @@ public enum QClass {
      * @return an UnsignedShort
      */
     public UnsignedShort unsignedShortValue() {
-        return UnsignedShort.fromInt(this.code);
-    }
-
-    private final static Map<Integer, QClass> MAP = stream(QClass.values())
-            .collect(toMap(each -> each.code, each -> each));
-
-    public static Optional<QClass> fromCode(int code) {
-        return Optional.ofNullable(MAP.get(code));
-    }
-
-    public static QClass fromByteBuffer(ByteArrayReader buffer) throws ParseException {
-        int code = buffer.getUnsignedShort().intValue();
-        code = code & CLASS_MASK;
-
-        Optional<QClass> type = fromCode(code);
-        if (! type.isPresent()) {
-            throw new ParseException("Parsing error when reading Question Class. Unknown code: " + code, buffer.position());
-        } else {
-            return type.get();
+        int code = type.code();
+        if (unicastResponseRequired) {
+            code += 0x8000;
         }
+
+        return UnsignedShort.fromInt(code);
     }
 
 }

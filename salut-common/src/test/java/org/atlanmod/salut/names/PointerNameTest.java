@@ -1,12 +1,12 @@
 package org.atlanmod.salut.names;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.atlanmod.testing.Verifier.verifyEqualsOf;
 
 import java.text.ParseException;
 import org.atlanmod.salut.domains.Domain;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.labels.Labels;
-import org.atlanmod.verifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
 class PointerNameTest {
@@ -34,7 +34,10 @@ class PointerNameTest {
             DomainBuilder.fromLabels(Labels.fromList("free","fr"))
         };
 
-        EqualsVerifier.verify(PointerName.class, args1, args2);
+        verifyEqualsOf(PointerName.class)
+            .withArguments(args1)
+            .andVariants(args2)
+            .check();
 
     }
 

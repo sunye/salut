@@ -141,7 +141,7 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
         // Fixed part
         writer.writeLabels(serviceInstanceName.toLabels())
                 .writeRecordType(RecordType.SRV)
-                .writeQClass(QClass.IN)
+                .writeQClass(qclass)
                 .writeUnsignedInt(ttl.unsignedIntValue())
                 .writeUnsignedShort(UnsignedShort.fromInt(4));
 

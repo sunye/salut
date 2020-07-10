@@ -1,11 +1,12 @@
 package org.atlanmod.salut.mdns;
 
+import static org.atlanmod.testing.Verifier.verifyEqualsOf;
+
 import java.text.ParseException;
 import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.domains.IPAddressBuilder;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.labels.Labels;
-import org.atlanmod.verifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
 class AAAARecordTest {
@@ -26,7 +27,10 @@ class AAAARecordTest {
             DomainBuilder.fromLabels(Labels.fromList("pc-pro", "local"))
         };
 
-        EqualsVerifier.verify(AAAARecord.class, args1, args2);
+        verifyEqualsOf(AAAARecord.class)
+            .withArguments(args1)
+            .andVariants(args2)
+            .check();
     }
 
 }

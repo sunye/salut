@@ -41,6 +41,8 @@ public class Salut implements ServicePublisher {
     public void run() throws IOException {
         Log.info("run()");
 
+        System.out.println("run");
+
         this.localHost = Host.localHost();
 
         this.openSocket(InetAddress.getLocalHost());
@@ -87,8 +89,8 @@ public class Salut implements ServicePublisher {
     }
 
     public static void main(String[] args) throws IOException {
-        Salut zero = new Salut();
-        zero.run();
+        Salut salut = new Salut();
+        salut.run();
     }
 
     /**

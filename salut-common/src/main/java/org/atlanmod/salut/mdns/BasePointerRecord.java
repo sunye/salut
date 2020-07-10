@@ -93,7 +93,7 @@ public class BasePointerRecord extends AbstractPointerRecord {
 
         writer.writeLabels(server.toLabels())
             .writeRecordType(RecordType.PTR)
-            .writeQClass(QClass.IN)
+            .writeQClass(qclass)
             .writeUnsignedInt(ttl.unsignedIntValue())
             .writeUnsignedShort(dataLength)
             .writeLabels(instance.toLabels());
