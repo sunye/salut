@@ -6,8 +6,8 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.domains.Host;
-import org.atlanmod.salut.mdns.RecordFactory;
-import org.atlanmod.salut.mdns.ServerSelectionRecord;
+import org.atlanmod.salut.record.RecordFactory;
+import org.atlanmod.salut.record.ServerSelectionRecord;
 import org.atlanmod.salut.sd.ServiceDescription;
 import org.atlanmod.salut.sd.ServicePublisher;
 
