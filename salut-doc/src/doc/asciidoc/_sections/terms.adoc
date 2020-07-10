@@ -1,5 +1,7 @@
 = Referenced
 
+== Terms
+
 [.small]
 [width="100%",cols="25%,25%,25%,25%",]
 |===
@@ -25,7 +27,7 @@
 
 | Package
 |
-| Minimum size = 9,000 bytes
+| mDNS packet size MUST NOT exceed 9,000 bytes
 |
 
 | ((One-Shot Multicast DNS Queries))
@@ -66,7 +68,7 @@ subdomain within which those names are registered.  It may be
 a conventional Unicast DNS domain name, such as "ietf.org.",
 "cs.stanford.edu.", or "eng.us.ibm.com."  Because Service Instance
 Names are not host names, they are not constrained by the usual rules
-for host names [RFC1033] [RFC1034] [RFC1035], and rich-text service
+for host names <<RFC1033>> <<RFC1034>> <<RFC1035>>, and rich-text service
 subdomains are allowed and encouraged
 | aa
 |
@@ -75,5 +77,52 @@ subdomains are allowed and encouraged
 |
 | bla
 \
+|===
+
+== Acronyms
+
+[.small]
+[width="100%",cols="25%,50%,25%",]
+|===
+|*Acronym*
+|*Description*
+|*References*
+
+| DNSSEC
+| Domain Name System Security Extensions
+| <<RFC4033>>, <<RFC4034>>, et <<RFC4035>>.
 
 |===
+
+== Requests For Comments (RFCs)
+
+[.small]
+[width="100%",cols="25%,75%",]
+|===
+|*Code*
+|*Title*
+
+| [[RFC1033]]https://tools.ietf.org/html/rfc1033[RFC1033]
+| Domain administrators operations guide
+
+| [[RFC1034]]https://tools.ietf.org/html/rfc1034[RFC1034]
+| Domain Names - Concepts and Facilities
+
+| [[RFC1035]]https://tools.ietf.org/html/rfc1035[RFC1035]
+| Domain Names - Implementation and Specification
+
+| [[RFC4033]]https://tools.ietf.org/html/rfc4033[RFC4033]
+| DNS Security Introduction and Requirements
+
+| [[RFC4034]]https://tools.ietf.org/html/rfc4034[RFC4034]
+| Resource Records for the DNS Security Extensions
+
+| [[RFC4035]]https://tools.ietf.org/html/rfc4035[RFC4035]
+| Protocol Modifications for the DNS Security Extensions
+
+| [[RFC6762]]https://tools.ietf.org/html/rfc6762[RFC6762]
+| Multicast DNS
+
+|===
+
+

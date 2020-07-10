@@ -1,3 +1,50 @@
 = Domain Analysis
 
 include::./use-cases/use-cases.adoc[]
+
+
+== Activities
+
+=== Cache Maintenance
+
+An mDNS querier typically takes the first response it receives. mDNS answers contain a Time-to-Live (TTL) value that indicate for how many seconds this answer is valid. An DNS TTL=0 indicates that the corresponding record has been deleted.
+To perform cache maintenance, an mDNS querier should plan to retransmit its query after at least 50% of the record lifetime is elapsed. Specifically, it is recommended that the querier should plan to issue a query at 80% of the record lifetime, and then if no answer is received, at 85%, 90%, and 95%. If still a response is not received, the corresponding record is deleted when the TTL expires.
+
+
+=== Probing
+Whenever an mDNS responder starts up, or its connectivity has changed for any reason, it MUST perform two steps: Probing and Announcing.
+In Probing, the hosts sends an mDNS query asking to see if the resource records (e.g. a host's address record) going to announce are already in use. All probe queries SHOULD be done using query type “ANY” (255) to elicit answers. Moreover, a host can use a single message to probe for all of its resource records instead of needing a separate message for each. For example, a host can can simultaneously probe for uniqueness of its “A” record and all its SRV records in the same query message. When responding to queries using qtype “ANY” and/or qclass ANY, a multicast DNS responder MUST respond with ALL of its records that match the query. Any answer containing a record in question MUST be considered a conflicting one and the conflict MUST be resolved using a pre-defined in the RFC procedure (see paragraph ).
+A probe query can be distinguished from a normal query by the fact that a probe query contains a proposed record in the Authority section that answers the question in the Question section.
+
+
+=== Announcing
+
+In the second step, Announcing, an mDNS responder sends unsolicited mDNS responses containing, in the Answer section, all of its newly registered resource records. Specifically, an mDNS responder MUST send at least two unsolicited responses, one second apart. To provide increased robustness, a responder MAY send up to eight unsolicited responses.
+
+RFC 6762 also provides a conflict resolution mechanism.
+During the Probing and Announcing process, when a probing mDNS is sent, other devices have just 750 msec to respond to defend their record. The probes SHOULD be sent as “QU” questions with the unicast response bit set, to allow a defending host to respond immediately via unicast. If a conflicting mDNS response is received, the probing host SHOULD choose new names for its conflicting records, as appropriate. If fifteen conflicts occur within any 10-second period, the host MUST wait ate least five seconds before each successive additional attempt. After one minute of probing, if the mDNS responder has been unable to find any unused name, it should log an error message to inform the user or the operator.
+
+In the event of a name conflict, the new host should configure a new host name; the existing one will not take any action.
+Generally speaking, if an mDNS responder (e.g. Host A) observes some other mDNS responder (e.g. Host B) sending an mDNS response message containing a resource record which is intended to be a member of a unique resource record set owned solely by that responder and contains the same name, rrtype, and rrclass as one of Host A's resource records, but different rdata, then this is a conflict and the recipient of the conflicting mDNS response MUST start the Probing process again; this process will determine the winner or the loser. The loser MUST cease using this record immediately and reconfigure.
+On the other hand, in the aforementioned case if the received mDNS response contains a resource record with the same name, rrtype, and rrclass and identical rdata, then if the TTL of Host B's resource record given in the message is less than half the true TTL from Hosts A's, then host A MUST mark its record to be announced via multicast, since queriers receiving the record from Host B may delete the record soon. Doing so, host A ensures that the record will be retained for the desired time.
+
+
+== Sending and Receiving Requests
+
+The mDNS requests and responses are sent via UDP from source port 5353 to destination port 5353.
+If this is not the case regarding the source port, mDNS packets MUST silently be ignored.
+
+== Sending and Receiving Responses
+
+* All mDNS responses SHOULD be sent with IP TTL set to 255.
+
+* When responding to queries using qtype "ANY" (255) and/or qclass "ANY" (255),
+an mDNS responder MUST respond with ALL of its records that match the query.
+
+* As far as address queries are concerned, when an mDNS responder sends a multicast
+DNS response message containing its own address records,
+it MUST include all addresses that are valid on the interface,
+both IPv4 and IPv6 ones, link-locals and global unicast.
+
+* mDNS responses MUST NOT contain any questions in the Question Section.
+
