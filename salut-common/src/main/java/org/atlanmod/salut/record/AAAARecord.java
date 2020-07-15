@@ -52,7 +52,7 @@ public class AAAARecord extends AbstractNormalRecord {
 
     @Override
     public String toString() {
-        return "AAAARecord{" + address + '}';
+        return "AAAARecord{" + address.toString() + '}';
     }
 
     @Override

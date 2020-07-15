@@ -1,9 +1,11 @@
-package org.atlanmod.salut.record;
+package org.atlanmod.salut.question;
 
 import java.text.ParseException;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.salut.record.QClass;
+import org.atlanmod.salut.record.RecordType;
 
 /**
  * The question section is used to carry the "question" in most queries,
@@ -39,7 +41,7 @@ import org.atlanmod.salut.labels.Labels;
  * QCLASS          a two octet code that specifies the class of the query.
  *                 For example, the QCLASS field is IN for the Internet.
  */
-public class Question {
+public class QuestionBuilder {
 
     /**
      * Label of the node to which the query pertains
@@ -48,7 +50,7 @@ public class Question {
     private final RecordType type;
     private QClass qclass;
 
-    private Question(Labels name, RecordType type, QClass qclass) {
+    private QuestionBuilder(Labels name, RecordType type, QClass qclass) {
         this.name = name;
         this.type = type;
         this.qclass = qclass;
@@ -72,17 +74,38 @@ public class Question {
          */
 
         Labels qname  = Labels.fromByteBuffer(buffer);
-        RecordType qtype  = buffer.readRecordType();
+        RecordType type  = buffer.readRecordType();
         QClass qClass = QClass.fromByteBuffer(buffer);
+        Question newQuestion;
+        switch (type) {
+            case A:
+                newQuestion = new IPv4AddressQuestion();
+                break;
+            case AAAA:
+                newQuestion = new IPv6AddressQuestion();
+                break;
+            case PTR:
+                newQuestion = PointerQuestionBuilder.createPointerQuestion(qname);
+                break;
+            case SRV:
+                newQuestion = new ServiceQuestion();
+                break;
+            case TXT:
+                newQuestion = new TextQuestion(qname);
+                break;
+            case ALL:
+                newQuestion = new AllQuestion(qname);
+                break;
+            default:
+                throw new ParseException("Could not create Question. Unknown Record Type: " + type, position);
+        }
 
-        Question newQuestion = new Question(qname, qtype, qClass);
         Log.info("Question parsed: {0}", newQuestion);
-
         return newQuestion;
     }
 
     public static Question fromByteBuffer(ByteArrayReader buffer) throws ParseException {
-        return Question.fromByteBuffer(buffer, buffer.position());
+        return QuestionBuilder.fromByteBuffer(buffer, buffer.position());
     }
 
 }

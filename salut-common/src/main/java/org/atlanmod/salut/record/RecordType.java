@@ -335,10 +335,7 @@ public enum RecordType {
 
     @Override
     public String toString() {
-        return "RecordType{" +
-                "code=" + code +
-                ", label='" + label + '\'' +
-                '}';
+        return label;
     }
 
     public UnsignedShort unsignedShortValue() {

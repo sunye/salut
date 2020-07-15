@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.salut.question.QuestionBuilder;
 import org.atlanmod.salut.record.Additional;
 import org.atlanmod.salut.record.Answer;
 import org.atlanmod.salut.record.Authority;
 import org.atlanmod.salut.record.Header;
-import org.atlanmod.salut.record.Question;
+import org.atlanmod.salut.question.Question;
 
 public class PacketParser {
 
@@ -68,7 +69,7 @@ public class PacketParser {
     public void parseQuestions(int numberOfQuestions) throws ParseException {
         this.questions = new ArrayList<>(numberOfQuestions);
         for (int i = 0; i < numberOfQuestions; i++) {
-            questions.add(Question.fromByteBuffer(buffer));
+            questions.add(QuestionBuilder.fromByteBuffer(buffer));
         }
     }
 

@@ -65,6 +65,12 @@ public class QClass {
     }
 
     @Override
+    public String toString() {
+        String castStr = unicastResponseRequired ? "Unicast" : "Multicast";
+        return castStr + ": " + type.toString();
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(type, unicastResponseRequired);
     }

@@ -5,7 +5,7 @@ import org.atlanmod.salut.record.Additional;
 import org.atlanmod.salut.record.Answer;
 import org.atlanmod.salut.record.Authority;
 import org.atlanmod.salut.record.Header;
-import org.atlanmod.salut.record.Question;
+import org.atlanmod.salut.question.Question;
 
 public class MulticastPackage {
     //@formatter:off

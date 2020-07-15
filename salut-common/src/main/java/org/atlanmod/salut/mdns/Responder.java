@@ -3,7 +3,7 @@ package org.atlanmod.salut.mdns;
 import org.atlanmod.commons.Preconditions;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.MulticastPackage;
-import org.atlanmod.salut.record.Question;
+import org.atlanmod.salut.question.Question;
 
 public class Responder {
 
