@@ -21,7 +21,7 @@ public class Builder {
         return new ServiceBuilder(salut);
     }
 
-    public QueryBuilder query() {
+    public QueryBuilder newQuery() {
         return new QueryBuilder();
     }
 }

@@ -51,4 +51,14 @@ class IPAddressTest {
     public void testGetters() {
         assertThat(localIPv4.address()).isEqualTo(new byte[] {127,0,0,1});
     }
+
+    @Test
+    public void testToStringIPv4() {
+        assertThat(localIPv4.toString()).isEqualTo("127.0.0.1");
+    }
+
+    @Test
+    public void testToStringIpv6() {
+        assertThat(localIPv6.toString()).isEqualTo("0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1");
+    }
 }

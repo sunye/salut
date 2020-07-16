@@ -8,6 +8,8 @@ import org.atlanmod.salut.record.QClass;
 import org.atlanmod.salut.record.RecordType;
 
 /**
+ * From [RFC1035]:
+ *
  * The question section is used to carry the "question" in most queries,
  * i.e., the parameters that define what is being asked.  The section
  * contains QDCOUNT (usually 1) entries, each of the following format:

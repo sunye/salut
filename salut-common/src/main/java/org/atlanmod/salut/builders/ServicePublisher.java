@@ -6,8 +6,6 @@ public interface ServicePublisher {
 
     ServicePublisher subtype(String str);
 
-
-
     ServicePublisher weight(int weight);
 
     ServicePublisher priority(int priority);

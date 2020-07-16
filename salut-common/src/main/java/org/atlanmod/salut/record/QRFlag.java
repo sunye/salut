@@ -10,8 +10,6 @@ import org.atlanmod.salut.io.UnsignedShort;
  *                                 1  1  1  1  1  1
  *   0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
  *  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
- *  |                      ID                       |
- *  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
  *  |QR|   Opcode  |AA|TC|RD|RA| Z|AD|CD|   RCODE   |
  *  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
  *
@@ -58,14 +56,15 @@ public class QRFlag {
 
     @Override
     public String toString() {
-        return "[" + value + "]" +
+        return "{[" + value + "]:" +
                 ", Opcode=" + opCode() +
                 ", Rcode=" + responseCode() +
                 ", " + (isQuery() ? "Query" : "Response") +
                 (isTruncated() ? ", Truncated" : "" ) +
                 (isAuthoritativeAnswer() ? ", AA" : "") +
                 (isRecursionAvailable() ? ", RA" : "") +
-                (isRecursionDesired() ? ", RD" : "");
+                (isRecursionDesired() ? ", RD" : "") +
+            "}";
     }
 
     /**

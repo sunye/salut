@@ -12,6 +12,7 @@ import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.salut.parser.RecordParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +38,7 @@ class BaseARecordIT {
 
         record.writeOn(writer);
         ByteArrayReader reader = writer.getByteArrayReader();
-        AbstractRecord readRecord = AbstractRecord.fromByteBuffer(reader);
+        Record readRecord = RecordParser.fromByteBuffer(reader);
 
         assertThat(record).isEqualTo(readRecord);
     }

@@ -8,10 +8,11 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import org.atlanmod.commons.log.Log;
+import org.atlanmod.salut.answer.AnswerBuilder;
 import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.question.QuestionBuilder;
 import org.atlanmod.salut.record.Additional;
-import org.atlanmod.salut.record.Answer;
+import org.atlanmod.salut.answer.Answer;
 import org.atlanmod.salut.record.Authority;
 import org.atlanmod.salut.record.Header;
 import org.atlanmod.salut.question.Question;
@@ -76,7 +77,7 @@ public class PacketParser {
     public void parseAnswers(int numberOfAnswers) throws ParseException {
         this.answers = new ArrayList<>(numberOfAnswers);
         for (int i = 0; i < numberOfAnswers; i++) {
-            answers.add(Answer.fromByteBuffer(buffer));
+            answers.add(AnswerBuilder.fromByteBuffer(buffer));
         }
     }
 

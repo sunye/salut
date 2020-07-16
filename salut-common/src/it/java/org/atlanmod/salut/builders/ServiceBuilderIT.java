@@ -10,7 +10,7 @@ import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.atlanmod.salut.names.InstanceName;
 import org.atlanmod.salut.sd.ServiceDescription;
-import org.atlanmod.salut.sd.ServicePublisher;
+import org.atlanmod.salut.sd.ServicePublicationHandler;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -56,7 +56,7 @@ public class ServiceBuilderIT {
             .publish();
     }
 
-    static class MockPublisher implements ServicePublisher {
+    static class MockPublisher implements ServicePublicationHandler {
         ServiceDescription description;
         @Override
         public void publish(ServiceDescription description) {

@@ -6,13 +6,17 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.domains.Host;
+import org.atlanmod.salut.mdns.Querier;
 import org.atlanmod.salut.mdns.Responder;
 import org.atlanmod.salut.record.RecordFactory;
 import org.atlanmod.salut.record.ServerSelectionRecord;
+import org.atlanmod.salut.sd.QueryDescription;
+import org.atlanmod.salut.sd.QueryExecutionHandler;
 import org.atlanmod.salut.sd.ServiceDescription;
-import org.atlanmod.salut.sd.ServicePublisher;
+import org.atlanmod.salut.sd.ServicePublicationHandler;
 
-public class Salut implements ServicePublisher {
+public class Salut
+    implements ServicePublicationHandler, QueryExecutionHandler {
 
     private static final String MDNS_GROUP_ADDRESS_IPV4 = "224.0.0.251";
     private static final String MDNS_GROUP_ADDRESS_IPV6 = "FF02::FB";
@@ -22,13 +26,15 @@ public class Salut implements ServicePublisher {
 
     private MulticastSocket socket;
     private Host localHost;
+    private Responder responder = new Responder();
+    private Querier querier = new Querier();
 
 
     /**
-     * Main class.
-     * Singleton
+     * Main class. Singleton
      */
-    private Salut() {}
+    private Salut() {
+    }
 
     /**
      * Returns the instance of this class.
@@ -37,6 +43,11 @@ public class Salut implements ServicePublisher {
      */
     public static Salut getInstance() {
         return SalutHolder.INSTANCE;
+    }
+
+    public static void main(String[] args) throws IOException {
+        Salut salut = new Salut();
+        salut.run();
     }
 
     public void run() throws IOException {
@@ -49,8 +60,8 @@ public class Salut implements ServicePublisher {
         this.openSocket(InetAddress.getLocalHost());
         SocketReceiver receiver = new SocketReceiver(this.socket);
         SocketSender sender = new SocketSender(this.socket);
-        Responder responder = new Responder();
-        IncomingPacketWorker parser = new IncomingPacketWorker(receiver, responder);
+
+        IncomingPacketWorker parser = new IncomingPacketWorker(receiver, responder, querier);
 
         Thread thr1 = new Thread(receiver);
         Thread thr2 = new Thread(sender);
@@ -65,7 +76,8 @@ public class Salut implements ServicePublisher {
     private void openSocket(InetAddress localhost) throws IOException {
         Log.info("Opening Socket {0}", localhost.getHostAddress());
         InetAddress groupAddress = (localhost instanceof Inet4Address) ?
-                InetAddress.getByName(MDNS_GROUP_ADDRESS_IPV4) : InetAddress.getByName(MDNS_GROUP_ADDRESS_IPV6);
+            InetAddress.getByName(MDNS_GROUP_ADDRESS_IPV4)
+            : InetAddress.getByName(MDNS_GROUP_ADDRESS_IPV6);
 
         socket = new MulticastSocket(MDNS_PORT);
         socket.setInterface(localhost);
@@ -79,10 +91,9 @@ public class Salut implements ServicePublisher {
      *
      * @return A Builder
      */
-    public  Builder builder() {
+    public Builder builder() {
         return new Builder(this);
     }
-
 
     @Override
     public void publish(ServiceDescription service) {
@@ -90,9 +101,9 @@ public class Salut implements ServicePublisher {
         ServerSelectionRecord srv = factory.createServerSelectionRecord(service);
     }
 
-    public static void main(String[] args) throws IOException {
-        Salut salut = new Salut();
-        salut.run();
+    @Override
+    public void query(QueryDescription query) {
+
     }
 
     /**

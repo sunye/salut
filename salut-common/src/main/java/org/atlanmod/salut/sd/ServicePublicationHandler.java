@@ -1,6 +1,6 @@
 package org.atlanmod.salut.sd;
 
-public interface ServicePublisher {
+public interface ServicePublicationHandler {
 
     void publish(ServiceDescription service);
 }

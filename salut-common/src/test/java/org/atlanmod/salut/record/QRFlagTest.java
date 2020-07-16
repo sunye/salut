@@ -1,6 +1,6 @@
 package org.atlanmod.salut.record;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.Test;
@@ -15,8 +15,8 @@ class QRFlagTest {
         QRFlag queryFlag = QRFlag.fromInt(value);
 
         assertAll(
-                () -> assertThat(queryFlag.isQuery()).isTrue(),
-                () -> assertThat(queryFlag.isResponse()).isFalse()
+            () -> assertThat(queryFlag.isQuery()).isTrue(),
+            () -> assertThat(queryFlag.isResponse()).isFalse()
         );
 
     }
@@ -27,8 +27,8 @@ class QRFlagTest {
         QRFlag queryFlag = QRFlag.fromInt(value);
 
         assertAll(
-                () -> assertThat(queryFlag.isQuery()).isFalse(),
-                () -> assertThat(queryFlag.isResponse()).isTrue()
+            () -> assertThat(queryFlag.isQuery()).isFalse(),
+            () -> assertThat(queryFlag.isResponse()).isTrue()
         );
 
     }
@@ -37,9 +37,14 @@ class QRFlagTest {
     @ValueSource(bytes = {0, 1, 8, 14, 15})
     void testSetOpCode(byte code) {
         QRFlag queryFlag = QRFlag.fromInt(0);
-        assertThat(queryFlag.opCode()).isEqualTo(0);
         queryFlag.setOpCode(code);
         assertThat(queryFlag.opCode()).isEqualTo(code);
+    }
+
+    @Test
+    void testSetEmptyOpCode() {
+        QRFlag queryFlag = QRFlag.fromInt(0);
+        assertThat(queryFlag.opCode()).isEqualTo(Byte.valueOf((byte) 0));
     }
 
     @ParameterizedTest
@@ -107,24 +112,23 @@ class QRFlagTest {
         QRFlag dirt = QRFlag.fromInt(0xFFFF);
 
         assertAll(
-                () -> assertThat(clean.isRecursionDesired()).isFalse(),
-                () -> assertThat(dirt.isRecursionDesired()).isTrue()
+            () -> assertThat(clean.isRecursionDesired()).isFalse(),
+            () -> assertThat(dirt.isRecursionDesired()).isTrue()
         );
 
         clean.setRecursionDesired(true);
         dirt.setRecursionDesired(true);
 
         assertAll(
-                () -> assertThat(clean.isRecursionDesired()).isTrue(),
-                () -> assertThat(dirt.isRecursionDesired()).isTrue()
+            () -> assertThat(clean.isRecursionDesired()).isTrue(),
+            () -> assertThat(dirt.isRecursionDesired()).isTrue()
         );
-
 
         clean.setRecursionDesired(false);
         dirt.setRecursionDesired(false);
         assertAll(
-                () -> assertThat(clean.isRecursionDesired()).isFalse(),
-                () -> assertThat(dirt.isRecursionDesired()).isFalse()
+            () -> assertThat(clean.isRecursionDesired()).isFalse(),
+            () -> assertThat(dirt.isRecursionDesired()).isFalse()
         );
     }
 
@@ -132,7 +136,7 @@ class QRFlagTest {
     @ValueSource(ints = {0, 0xFFFF})
     void testNoSideEffect(int value) throws CloneNotSupportedException {
         QRFlag flag = QRFlag.fromInt(value);
-        QRFlag other =  new QRFlag(flag);
+        QRFlag other = new QRFlag(flag);
 
         boolean previousRecursionDesired = flag.isRecursionDesired();
         boolean previousAuthoritativeAnswer = flag.isAuthoritativeAnswer();
@@ -154,7 +158,6 @@ class QRFlagTest {
         flag.setTruncated(true);
         flag.setTruncated(false);
         flag.setTruncated(previousTruncated);
-
 
         assertThat(flag).isEqualTo(other);
     }
@@ -182,15 +185,15 @@ class QRFlagTest {
         QRFlag clean = QRFlag.fromInt(0);
         QRFlag dirt = QRFlag.fromInt(0xFFFF);
         assertAll(
-                () -> assertThat(clean.responseCode()).isEqualTo(0),
-                () -> assertThat(dirt.responseCode() == 15).isTrue()
+            () -> assertThat(clean.responseCode()).isEqualTo(Byte.valueOf((byte) 0)),
+            () -> assertThat(dirt.responseCode() == 15).isTrue()
         );
 
         clean.setResponseCode(code);
         dirt.setResponseCode(code);
         assertAll(
-                () -> assertThat(clean.responseCode()).isEqualTo(code),
-                () -> assertThat(dirt.responseCode()).isEqualTo(code)
+            () -> assertThat(clean.responseCode()).isEqualTo(code),
+            () -> assertThat(dirt.responseCode()).isEqualTo(code)
         );
 
     }
@@ -204,10 +207,10 @@ class QRFlagTest {
         QRFlag other = QRFlag.fromInt(0xCCCC);
 
         assertAll(
-                () -> assertThat(flag).isEqualTo(flag),
-                () -> assertThat(flag).isEqualTo(same),
-                () -> assertThat(flag).isNotEqualTo(other),
-                () -> assertThat(flag).isNotEqualTo(null)
+            () -> assertThat(flag).isEqualTo(flag),
+            () -> assertThat(flag).isEqualTo(same),
+            () -> assertThat(flag).isNotEqualTo(other),
+            () -> assertThat(flag).isNotEqualTo(null)
         );
     }
 
@@ -219,9 +222,9 @@ class QRFlagTest {
         QRFlag other = QRFlag.fromInt(0xCCCC);
 
         assertAll(
-                () -> assertThat(flag.hashCode()).isEqualTo(flag.hashCode()),
-                () -> assertThat(flag.hashCode()).isEqualTo(same.hashCode()),
-                () -> assertThat(flag.hashCode()).isNotEqualTo(other.hashCode())
+            () -> assertThat(flag.hashCode()).isEqualTo(flag.hashCode()),
+            () -> assertThat(flag.hashCode()).isEqualTo(same.hashCode()),
+            () -> assertThat(flag.hashCode()).isNotEqualTo(other.hashCode())
         );
     }
 
@@ -244,8 +247,22 @@ class QRFlagTest {
         QRFlag clean = QRFlag.fromInt(0x0000);
         QRFlag dirt = QRFlag.fromInt(0xFFFF);
 
-        assertThat(clean.toString()).isEqualTo("[0], Opcode=0, Rcode=0, Query");
-        assertThat(dirt.toString()).isEqualTo("[65535], Opcode=15, Rcode=15, Response, Truncated, AA, RA, RD");
+        assertThat(clean.toString())
+            .contains("Opcode=0")
+            .contains("Rcode=0")
+            .contains("Query")
+            .doesNotContain("AA")
+            .doesNotContain("RA")
+            .doesNotContain("RD");
+
+        assertThat(dirt.toString())
+            .contains("Opcode=15")
+            .contains("Rcode=15")
+            .contains("Response")
+            .contains("Truncated")
+            .contains("AA")
+            .contains("RA")
+            .contains("RD");
     }
 
 }

@@ -4,10 +4,13 @@
 |*Item* |*Description*
 | # | 1
 | Use Case	| Publication
-| AKA 
-| Registration
+
+| AKA
+| Registration, Announcement
+
 | Goal in Context | Register a service
 | Scope	| what system is being considered black-box under design
+
 | Level	| Summary
 | Success End Condition	|
 | Failed End Condition	|
@@ -23,12 +26,15 @@
 | Pre-conditions 
 | The responder already has a local address
 
-| Post-conditions |
-|Main success scenario	
+| Post-conditions
+|
+
+|Main success scenario
 a|
 . The `Client Application` starts up a service
 . The `Client Application` specifies a <<service-instance-name>>, a <<port>>, and a <<service-type>>
 . The `Responder` creates three records: a Service (SRV), a Pointer (PTR), and a Text (TXT).
+. The `Responder` sends a mDNS response record containing all records of this client with cache flush bit set
 . The `Responder` creates a message containing these records and sends it to the network.
 
 | Extensions	
@@ -47,7 +53,8 @@ a|
 
 |Schedule	|
 |Constraints	|
-|Annexes	|
+|Annexes
+| "When a resource record appears in the answer section of the DNS Response with the "cache flush" bit set, it means, "This is an assertion that this information is the truth and the whole truth, and anything you may have heard before regarding records of this name/type/class is no longer valid"
 |===
 
 

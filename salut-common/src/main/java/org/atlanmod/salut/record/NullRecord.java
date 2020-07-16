@@ -1,45 +1,59 @@
 package org.atlanmod.salut.record;
 
-import java.text.ParseException;
-import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.commons.Throwables;
+import org.atlanmod.salut.cache.TimeToLive;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.salut.parser.NullRecordParser;
+import org.atlanmod.salut.parser.Parser;
 
 /**
  *
  *
  */
-public class NullRecord extends AbstractRecord {
+public class NullRecord extends AbstractNormalRecord {
 
+    public NullRecord(QClass qclass, UnsignedInt ttl) {
+        super(qclass, ttl);
+    }
 
     @Override
     public String toString() {
         return "NullRecord";
     }
 
-    public static RecordParser<NullRecord> parser() {
+    public static Parser<NullRecord> parser() {
         return new NullRecordParser();
     }
 
     @Override
     public void writeOn(ByteArrayWriter writer) {
         // TODO
-        throw new UnsupportedOperationException();
+        Throwables.notImplementedYet("writeOn()");
     }
 
-    private static class NullRecordParser implements RecordParser<NullRecord> {
+    /**
+     * @return this record's time to live
+     */
+    @Override
+    public TimeToLive ttl() {
+        Throwables.notImplementedYet("ttl()");
+        return null;
+    }
 
-        @Override
-        public NullRecord parse(Labels name, ByteArrayReader buffer) throws ParseException {
-            QClass qclass = QClass.fromByteBuffer(buffer);
-            UnsignedInt ttl = buffer.getUnsignedInt();
-            int dataLength = buffer.getUnsignedShort().intValue();
-            for (int i = 0; i < dataLength; i++) {
-                buffer.getUnsignedByte(); // RDATA
-            }
+    /**
+     * @return The `QClass` of resource records being requested e.g. Internet, CHAOS etc.
+     */
+    @Override
+    public QClass qclass() {
+        Throwables.notImplementedYet("qclass()");
+        return null;
+    }
 
-            return new NullRecord();
-        }
+    @Override
+    public Labels name() {
+        Throwables.notImplementedYet("name()");
+        return null;
     }
 }

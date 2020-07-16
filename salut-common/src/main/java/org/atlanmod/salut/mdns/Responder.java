@@ -15,7 +15,7 @@ public class Responder {
     }
 
     private void handleQuestion(Question question) {
-        Log.info("Handling Question {0}", question);
+        Log.warn("Handling Question {0}", question);
     }
 
 }

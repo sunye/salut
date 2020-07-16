@@ -1,15 +1,14 @@
 package org.atlanmod.salut.record;
 
-import java.text.ParseException;
 import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.domains.Domain;
-import org.atlanmod.salut.domains.DomainBuilder;
-import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.names.ServiceInstanceName;
+import org.atlanmod.salut.parser.Parser;
+import org.atlanmod.salut.parser.ServiceRecordParser;
 
 /**
  * The class `ServerSelectionRecord` represents the DNS SRV abstract record.
@@ -62,7 +61,7 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
     private Domain serverName;
     private ServiceInstanceName serviceInstanceName;
 
-    BaseServerSelectionRecord(QClass qclass, UnsignedInt ttl, UnsignedShort priority,
+    public BaseServerSelectionRecord(QClass qclass, UnsignedInt ttl, UnsignedShort priority,
                                   UnsignedShort weight, UnsignedShort port,
                                   Domain serverName, ServiceInstanceName serviceInstanceName) {
         super(qclass, ttl);
@@ -77,8 +76,8 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
      * Returns an instance of `RecordParser` that is able to parse a SRVRecord and
      * create an instance of a `ServerSelectionRecord`.
      */
-    public static RecordParser<ServerSelectionRecord> parser() {
-        return new SRVRecordParser();
+    public static Parser<ServerSelectionRecord> parser() {
+        return new ServiceRecordParser();
     }
 
     /**
@@ -129,10 +128,10 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
     public String toString() {
         return "SRVRecord{" +
                 "class=" + qclass +
-                ", getTtl=" + ttl +
-                ", getPriority=" + priority +
-                ", getWeight=" + weight +
-                ", getPort=" + port +
+                ", ttl=" + ttl +
+                ", priority=" + priority +
+                ", weight=" + weight +
+                ", port=" + port +
                 ", server=" + serverName +
                 '}';
     }
@@ -152,40 +151,8 @@ public class BaseServerSelectionRecord extends AbstractNormalRecord implements
                 .writeLabels(serverName.toLabels());
     }
 
-    /**
-     * The class `SRVRecordParser` is used to parse the variable part of a DNS SRV record.
-     */
-    private static class SRVRecordParser extends NormalRecordParser<ServerSelectionRecord> {
-
-        private UnsignedShort priority;
-        private UnsignedShort weight;
-        private UnsignedShort port;
-        private Labels target;
-        private Domain serverName;
-        private ServiceInstanceName serviceInstanceName;
-
-        /**
-         * Parses the variable part of a SRV Record.
-         * @param buffer a `ByteArrayReader` containing the record to parse.
-         * @throws ParseException
-         */
-        @Override
-        protected void parseVariablePart(ByteArrayReader buffer) throws ParseException {
-            priority = buffer.getUnsignedShort();
-            weight = buffer.getUnsignedShort();
-            port = buffer.getUnsignedShort();
-            target = Labels.fromByteBuffer(buffer);
-            serverName = DomainBuilder.fromLabels(this.target);
-            serviceInstanceName = ServiceInstanceName.fromLabels(this.labels);
-        }
-
-        /**
-         * Creates a new instance of `ServerSelectionRecord`.
-         */
-        @Override
-        protected ServerSelectionRecord build() {
-            return new BaseServerSelectionRecord(qclass, ttl, priority, weight, port,
-                    serverName, serviceInstanceName);
-        }
+    @Override
+    public Labels name() {
+        return serviceInstanceName.toLabels();
     }
 }

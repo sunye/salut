@@ -11,9 +11,12 @@ import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.atlanmod.salut.names.InstanceName;
 import org.atlanmod.salut.sd.ServiceDescription;
+import org.atlanmod.salut.sd.ServicePublicationHandler;
 
 
-public class ServiceBuilder implements ServiceApplicationProtocolChooser, ServicePublisher,
+public class ServiceBuilder implements
+    ServiceApplicationProtocolChooser,
+    ServicePublisher,
     ServiceInstanceNameModifier,
     ServicePortModifier,
     ServiceTransportProtocolChooser,
@@ -70,10 +73,10 @@ public class ServiceBuilder implements ServiceApplicationProtocolChooser, Servic
      */
     private boolean persistent = false;
 
-    private org.atlanmod.salut.sd.ServicePublisher publisher;
+    private ServicePublicationHandler publisher;
 
 
-    public ServiceBuilder(org.atlanmod.salut.sd.ServicePublisher publisher) {
+    public ServiceBuilder(ServicePublicationHandler publisher) {
         this.publisher = publisher;
     }
 

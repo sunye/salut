@@ -1,15 +1,14 @@
-package org.atlanmod.salut.record;
+package org.atlanmod.salut.parser;
 
 import java.text.ParseException;
 import org.atlanmod.commons.log.Log;
 import org.atlanmod.salut.io.ByteArrayReader;
-import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.salut.record.WritableRecord;
+import org.atlanmod.salut.record.Record;
+import org.atlanmod.salut.record.RecordType;
 
-public abstract class AbstractRecord implements Record {
-
-    public abstract void writeOn(ByteArrayWriter writer);
-
+public class RecordParser {
 
     /**
      * Creates a sub-instance of AbstractRecord from a ByteArrayReader.
@@ -21,15 +20,15 @@ public abstract class AbstractRecord implements Record {
      * @return A sub-instance of AbstractRecord.
      * @throws ParseException if a parsing error occurs.
      */
-    public static AbstractRecord fromByteBuffer(ByteArrayReader reader) throws ParseException {
+    public static Record fromByteBuffer(ByteArrayReader reader) throws ParseException {
         ParserFactory factory =  ParserFactory.getInstance();
-        Labels qname = Labels.fromByteBuffer(reader);
-        RecordType qtype = reader.readRecordType();
-        RecordParser<AbstractRecord> parser = factory.getParser(qtype);
+        Labels name = Labels.fromByteBuffer(reader);
+        RecordType type = reader.readRecordType();
+        Parser<WritableRecord> parser = factory.getParser(type);
 
-        Log.info("Start parsing {0} record", qtype);
-        AbstractRecord newRecord = parser.parse(qname, reader);
-        Log.info("Record parsed: {0}", newRecord);
+        Log.trace("Start parsing {0} record", type);
+        Record newRecord = parser.parse(name, reader);
+        Log.trace("Record parsed: {0}", newRecord);
         return newRecord;
     }
 }

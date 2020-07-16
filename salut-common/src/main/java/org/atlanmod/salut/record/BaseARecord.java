@@ -1,16 +1,14 @@
 package org.atlanmod.salut.record;
 
-import java.text.ParseException;
 import java.util.Objects;
 import org.atlanmod.commons.annotation.VisibleForTesting;
-import org.atlanmod.salut.domains.Domain;
-import org.atlanmod.salut.domains.DomainBuilder;
 import org.atlanmod.salut.domains.Host;
-import org.atlanmod.salut.domains.IPAddress;
-import org.atlanmod.salut.io.ByteArrayReader;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
+import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.salut.parser.ARecordParser;
+import org.atlanmod.salut.parser.Parser;
 
 /**
  * @formatter:off
@@ -28,17 +26,18 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
 
     private final Host host;
 
-    BaseARecord(QClass qclass, UnsignedInt ttl, Host host) {
+    public BaseARecord(QClass qclass, UnsignedInt ttl, Host host) {
         super(qclass, ttl);
         this.host = host;
     }
 
-    public static RecordParser<ARecord> parser() {
+    public static Parser<ARecord> parser() {
         return new ARecordParser();
     }
 
     @VisibleForTesting
     public static BaseARecord createRecord(QClass qclass, UnsignedInt ttl, Host host) {
+
         return new BaseARecord(qclass, ttl, host);
     }
 
@@ -89,27 +88,8 @@ public class BaseARecord extends AbstractNormalRecord implements ARecord {
         return Objects.hash(super.hashCode(), host);
     }
 
-    private static class ARecordParser extends NormalRecordParser<ARecord> {
-
-        private Host host;
-
-        /**
-         * Parses the variable part of a ARecord.
-         *
-         * @param reader a byte array reader containing the record.
-         * @throws ParseException if the record is not well-formed.
-         */
-        @Override
-        protected void parseVariablePart(ByteArrayReader reader) throws ParseException {
-            IPAddress address = reader.readIPv4Address();
-            Domain serverName = DomainBuilder.fromLabels(labels);
-            this.host = new Host(serverName, address);
-        }
-
-        @Override
-        protected ARecord build() {
-            return new BaseARecord(qclass, ttl, host);
-        }
-
+    @Override
+    public Labels name() {
+        return host.name().toLabels();
     }
 }

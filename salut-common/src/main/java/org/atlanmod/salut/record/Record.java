@@ -1,5 +1,7 @@
 package org.atlanmod.salut.record;
 
-public interface Record {
+import org.atlanmod.salut.labels.Labels;
 
+public interface Record {
+    Labels name();
 }

@@ -5,6 +5,7 @@ import org.atlanmod.commons.annotation.VisibleForTesting;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedInt;
 import org.atlanmod.salut.io.UnsignedShort;
+import org.atlanmod.salut.labels.Labels;
 import org.atlanmod.salut.names.PointerName;
 import org.atlanmod.salut.names.ServiceInstanceName;
 
@@ -40,7 +41,7 @@ public class BasePointerRecord extends AbstractPointerRecord {
 
     private PointerName server;
 
-    BasePointerRecord(QClass qclass, UnsignedInt ttl, ServiceInstanceName instance, PointerName server) {
+    public BasePointerRecord(QClass qclass, UnsignedInt ttl, ServiceInstanceName instance, PointerName server) {
         super(qclass, ttl);
         this.instance = instance;
         this.server = server;
@@ -104,5 +105,10 @@ public class BasePointerRecord extends AbstractPointerRecord {
         ServiceInstanceName instance, PointerName server) {
 
         return new BasePointerRecord(qclass, ttl, instance, server);
+    }
+
+    @Override
+    public Labels name() {
+        return server.toLabels();
     }
 }

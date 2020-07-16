@@ -7,17 +7,17 @@ import org.atlanmod.salut.names.ServiceInstanceName;
 public interface ServerSelectionRecord extends NormalRecord {
 
     /**
-     * Returns the getPort number where the service is running.
+     * Returns the port number where the service is running.
      */
     UnsignedShort port();
 
     /**
-     * Returns the service getPriority.
+     * Returns the service priority.
      */
     UnsignedShort priority();
 
     /**
-     * Returns the service getWeight.
+     * Returns the service weight.
      */
     UnsignedShort weight();
 

@@ -12,7 +12,7 @@ public class QueryBuilderIT {
     void queryTest() {
         Salut.getInstance()
             .builder()
-                .query()
+                .newQuery()
                 .tcp()
                 .airplay()
                 .run();

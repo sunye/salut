@@ -1,11 +1,12 @@
 package org.atlanmod.salut.record;
 
-import java.text.ParseException;
-import org.atlanmod.salut.io.ByteArrayReader;
+import org.atlanmod.commons.Throwables;
 import org.atlanmod.salut.io.ByteArrayWriter;
 import org.atlanmod.salut.io.UnsignedByte;
 import org.atlanmod.salut.io.UnsignedShort;
 import org.atlanmod.salut.labels.Labels;
+import org.atlanmod.salut.parser.Parser;
+import org.atlanmod.salut.parser.PseudoRecordParser;
 
 /**
  * From rfc 6891
@@ -58,7 +59,7 @@ import org.atlanmod.salut.labels.Labels;
  Varies per OPTION-CODE.  MUST be treated as a bit field.
 
  */
-public class PseudoRecord extends AbstractRecord {
+public class PseudoRecord implements Record {
 
     private UnsignedShort   payload;
     private UnsignedByte    extendedRCode;
@@ -83,32 +84,19 @@ public class PseudoRecord extends AbstractRecord {
                 '}';
     }
 
-    public static RecordParser<PseudoRecord> parser() {
-        return new PseudoRecordBuilder();
+    public static Parser<PseudoRecord> parser() {
+        return new PseudoRecordParser();
     }
 
-    @Override
     public void writeOn(ByteArrayWriter writer) {
         // TODO
         throw new UnsupportedOperationException();
     }
 
-    private static class PseudoRecordBuilder implements RecordParser<PseudoRecord> {
-
-        @Override
-        public PseudoRecord parse(Labels name, ByteArrayReader buffer) throws ParseException {
-            UnsignedShort optionCode = buffer.getUnsignedShort();
-            UnsignedShort payload = buffer.getUnsignedShort();
-            UnsignedByte extendedRCode = buffer.getUnsignedByte();
-            UnsignedByte version = buffer.getUnsignedByte();
-            UnsignedShort doz = buffer.getUnsignedShort();
-            UnsignedShort rdlen = buffer.getUnsignedShort();
-
-            for (int i = 0; i < rdlen.intValue(); i++) {
-                buffer.getUnsignedByte();
-            }
-
-            return new PseudoRecord(payload, extendedRCode, version, rdlen);
-        }
+    @Override
+    public Labels name() {
+        Throwables.notImplementedYet("name()");
+        return null;
     }
+
 }
