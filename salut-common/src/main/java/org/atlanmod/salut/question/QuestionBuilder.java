@@ -59,9 +59,9 @@ public class QuestionBuilder {
     @Override
     public String toString() {
         return "Question{" +
-                "data=" + name +
-                ", getType=" + type +
-                ", qclass=" + qclass +
+                "name=" + name +
+                ", type=" + type +
+                ", class=" + qclass +
                 '}';
     }
 
